@@ -5,7 +5,29 @@
       "cancel": "Hủy",
       "delete": "Xóa",
       "save": "Lưu",
-      "signIn": "Đăng nhập"
+      "signIn": "Đăng Nhập",
+      "register": "Đăng Ký",
+      "home": "Trang Chủ"
+    },
+
+    "input": {
+      "enterEmail": "Nhập Email",
+      "enterPassword": "Nhập Mật Khẩu",
+      "enterName": "Nhập Tên",
+      "enterPhone": "Nhập Số Điện Thoại"
     }
+  },
+
+  "register": {
+    "signUpToPayment": "Đăng Ký Để Thanh Toán",
+    "account": "Nếu bạn đã có tài khoản, bạn có thể",
+    "signInHere": "Đăng Nhập Tại Đây!"
+  },
+
+  "login": {
+    "signInToPayment": "Đăng Nhập Để Thanh Toán",
+    "noAccount": "Nếu bạn chưa có tài khoản, bạn có thể",
+    "registerHere": "Đăng Ký Tại Đây!",
+    "recoverPassword": "Khôi Phục Mật Khẩu"
   }
 }

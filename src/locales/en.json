@@ -5,7 +5,29 @@
       "cancel": "Cancel",
       "delete": "Delete",
       "save": "Save",
-      "signIn": "Sign In"
+      "signIn": "Sign In",
+      "register": "Register",
+      "home": "Home"
+    },
+
+    "input": {
+      "enterEmail": "Enter Email",
+      "enterPassword": "Enter Password",
+      "enterName": "Enter Name",
+      "enterPhone": "Enter Phone"
     }
+  },
+
+  "register": {
+    "signUpToPayment": "Sign Up To Payment",
+    "account": "If you have an account, you can",
+    "signInHere": "Sign In here!"
+  },
+
+  "login": {
+    "signInToPayment": "Sign In To Payment",
+    "noAccount": "If you don't have an account, you can",
+    "registerHere": "Register here!",
+    "recoverPassword": "Recover Passwword"
   }
 }
