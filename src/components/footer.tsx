@@ -1,35 +1,4 @@
-import { FaTwitter, FaFacebook, FaTiktok, FaInstagram } from 'react-icons/fa';
-
-// Data for social media icons
-const socialData = [
-  { href: '#', label: 'Twitter', icon: FaTwitter },
-  { href: '#', label: 'Facebook', icon: FaFacebook },
-  { href: '#', label: 'TikTok', icon: FaTiktok },
-  { href: '#', label: 'Instagram', icon: FaInstagram },
-];
-
-const contentData = [
-  'We are a technology shopping platform located in Vietnam,',
-  'which provides you with top-notch technology.',
-];
-
-const servicesData = [
-  'Bonus program',
-  'Gift cards',
-  'Credit and payment',
-  'Service contracts',
-  'Non-cash account',
-  'Payment',
-];
-
-const assistanceData = [
-  'Find an order',
-  'Terms of delivery',
-  'Exchange and return of goods',
-  'Guarantee',
-  'Frequently asked questions',
-  'Terms of use of the site',
-];
+import { socialData, contentData, servicesData, assistanceData } from '../constants/data';
 
 const Footer = () => {
   return (
@@ -106,9 +75,8 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Footer Copyright */}
       <div className="mt-8 border-t border-gray-700 pt-4 text-center">
-        <p>▼iperS © Copyright {new Date().getFullYear()} | All rights reserved</p>
+        <p>▼iperS © Copyright 2024 | All rights reserved</p>
       </div>
     </footer>
   );
