@@ -1,122 +1,114 @@
 import { FaTwitter, FaFacebook, FaTiktok, FaInstagram } from 'react-icons/fa';
 
+// Data for social media icons
+const socialData = [
+  { href: '#', label: 'Twitter', icon: FaTwitter },
+  { href: '#', label: 'Facebook', icon: FaFacebook },
+  { href: '#', label: 'TikTok', icon: FaTiktok },
+  { href: '#', label: 'Instagram', icon: FaInstagram },
+];
+
+const contentData = [
+  'We are a technology shopping platform located in Vietnam,',
+  'which provides you with top-notch technology.',
+];
+
+const servicesData = [
+  'Bonus program',
+  'Gift cards',
+  'Credit and payment',
+  'Service contracts',
+  'Non-cash account',
+  'Payment',
+];
+
+const assistanceData = [
+  'Find an order',
+  'Terms of delivery',
+  'Exchange and return of goods',
+  'Guarantee',
+  'Frequently asked questions',
+  'Terms of use of the site',
+];
+
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-12">
       <div className="max-w-7xl mx-auto px-4 grid gap-8 md:grid-cols-[2fr_1fr_1fr] text-center md:text-left">
         <div>
           <a href="/">
-            <span className="text-2xl font-bold mb-2 cursor-pointer">▼iperS</span>
+            <p className="text-2xl font-bold mb-2 cursor-pointer">▼iperS</p>
           </a>
           <p className="text-base mb-7 mt-4">
-            We are a technology shopping platform located in Vietnam, <br />
-            which provides you with top-notch technology
+            {contentData.map((line, index) => (
+              <span key={index}>
+                {line}
+                <br />
+              </span>
+            ))}
           </p>
+
+          {/* Social Media Icons */}
           <div className="hidden md:flex space-x-4 mb-2 mt-8">
-            <a href="#" className="text-white text-3xl hover:text-[#CFCFCF]">
-              <FaTwitter />
-            </a>
-            <a href="#" className="text-white text-3xl hover:text-[#CFCFCF]">
-              <FaFacebook />
-            </a>
-            <a href="#" className="text-white text-3xl hover:text-[#CFCFCF]">
-              <FaTiktok />
-            </a>
-            <a href="#" className="text-white text-3xl hover:text-[#CFCFCF]">
-              <FaInstagram />
-            </a>
+            {socialData.map(({ href, label, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="text-white text-3xl hover:text-[#CFCFCF]"
+              >
+                <Icon />
+              </a>
+            ))}
           </div>
         </div>
 
+        {/* Services Section */}
         <div>
           <h3 className="text-lg font-bold mb-2">Services</h3>
           <ul className="text-sm space-y-1">
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Bonus program
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Gift cards
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Credit and payment
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Service contracts
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Non-cash account
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Payment
-              </a>
-            </li>
+            {servicesData.map((service) => (
+              <li key={service}>
+                <a href="#" className="hover:text-[#CFCFCF]">
+                  {service}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
+        {/* Assistance Section */}
         <div>
           <h3 className="text-lg font-bold mb-2">Assistance to the Buyer</h3>
           <ul className="text-sm space-y-1">
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Find an order
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Terms of delivery
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Exchange and return of goods
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Guarantee
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Frequently asked questions
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-[#CFCFCF]">
-                Terms of use of the site
-              </a>
-            </li>
+            {assistanceData.map((assistance) => (
+              <li key={assistance}>
+                <a href="#" className="hover:text-[#CFCFCF]">
+                  {assistance}
+                </a>
+              </li>
+            ))}
           </ul>
+
+          {/* Social Media Icons for Mobile */}
           <div className="flex justify-center space-x-4 mb-2 mt-8 md:hidden">
-            <a href="#" className="text-white text-3xl hover:text-[#CFCFCF]">
-              <FaTwitter />
-            </a>
-            <a href="#" className="text-white text-3xl hover:text-[#CFCFCF]">
-              <FaFacebook />
-            </a>
-            <a href="#" className="text-white text-3xl hover:text-[#CFCFCF]">
-              <FaTiktok />
-            </a>
-            <a href="#" className="text-white text-3xl hover:text-[#CFCFCF]">
-              <FaInstagram />
-            </a>
+            {socialData.map(({ href, label, icon: Icon }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="text-white text-3xl hover:text-[#CFCFCF]"
+              >
+                <Icon />
+              </a>
+            ))}
           </div>
         </div>
       </div>
 
+      {/* Footer Copyright */}
       <div className="mt-8 border-t border-gray-700 pt-4 text-center">
-        <p>▼iperS © Copyright 2024 | All rights reserved</p>
+        <p>▼iperS © Copyright {new Date().getFullYear()} | All rights reserved</p>
       </div>
     </footer>
   );
