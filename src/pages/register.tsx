@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const SignIn = () => {
+const Register = () => {
   const { t, i18n } = useTranslation();
   const [currentLanguage, setCurrentLanguage] = useState('en');
 
@@ -31,20 +31,20 @@ const SignIn = () => {
   ];
 
   return (
-    <div className="flex flex-rol md:flex-row h-screen w-screen justify-evenly p-4 md:p-12 bg-[#F6F6F6]">
+    <div className="flex flex-row h-screen w-screen justify-evenly p-4 md:p-12 bg-[#F6F6F6]">
       <div className="relative md:flex md:items-center md:justify-center hidden">
         <Image
-          className="relative hidden md:block lg:max-w-[700px] md:max-w-[90%]"
+          className="relative lg:max-w-[700px] md:max-w-[90%]"
           src={MockupIC}
           preview={false}
         />
         <div className="hidden md:block absolute top-6 left-8 text-3xl font-medium">
-          {t('login.signInToPayment')}
+          {t('register.signUpToPayment')}
         </div>
         <div className="hidden md:block absolute top-[90px] left-8 text-sm font-light text-[#4F555A] max-w-[300px]">
-          {t('login.noAccount')}{' '}
-          <Link to="/register" className="text-[#56B280] font-semibold underline">
-            {t('login.registerHere')}
+          {t('register.account')}
+          <Link to="/sign-in" className="text-[#56B280] font-semibold underline">
+            {t('register.signInHere')}
           </Link>
         </div>
       </div>
@@ -69,30 +69,27 @@ const SignIn = () => {
           </Button>
         </div>
 
-        <div className="flex flex-col gap-3 flex-grow justify-center">
+        <div className="flex flex-col gap-3 flex-grow justify-center ">
           <div className="md:hidden text-center mb-4 text-3xl font-medium">
-            {t('common.input.signInToPayment')}
+            {t('common.input.signUpToPayment')}{' '}
           </div>
           <div className="md:hidden text-center mb-4 text-sm font-light text-[#4F555A]">
-            {t('common.input.noAccount')}
-            <Link to="/register" className=" text-[#56B280] font-semibold underline">
-              {t('common.input.registerHere')}
+            {t('common.input.account')}{' '}
+            <Link to="/sign-in" className=" text-[#56B280] font-semibold underline">
+              {t('common.input.signInHere')}
             </Link>
           </div>
+
+          <Input placeholder={t('common.input.enterName')} allowClear />
+          <Input placeholder={t('common.input.enterPhone')} allowClear />
           <Input placeholder={t('common.input.enterEmail')} allowClear />
           <Input.Password
             placeholder={t('common.input.enterPassword')}
             iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
           />
 
-          <Link
-            to="/forgotpassword"
-            className="text-xs font-extralight text-[#C7C7C7] text-right hover:text-[#a8a8a8] cursor-pointer"
-          >
-            {t('login.recoverPassword')}
-          </Link>
           <Button className="py-4 bg-[#56B280] font-semibold" type="primary">
-            {t('common.button.signIn')}
+            {t('common.button.register')}
           </Button>
           <div>
             <div className="relative">
@@ -115,4 +112,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Register;
