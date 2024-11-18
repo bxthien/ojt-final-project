@@ -41,7 +41,7 @@
   },
 
   "success": {
-    "success": "Successfull",
+    "success": "Password Sent Successfully",
     "check": "Your password has been successfully sent to your Email!"
   }
 }

@@ -1,34 +1,13 @@
-import { Button, Divider, Dropdown, Image, Input, MenuProps, Space } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Button, Divider, Image, Input } from 'antd';
 import { authenticationType, thirdMethod } from '../constants/login';
 import MockupIC from '../assets/images/mockupIp.png';
 import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import LanguageSelector from '../components/common/language';
 
 const SignIn = () => {
-  const { t, i18n } = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState('en');
-
-  const items: MenuProps['items'] = [
-    {
-      label: 'English',
-      key: 'en',
-      onClick: () => {
-        setCurrentLanguage('en');
-        i18n.changeLanguage('en');
-      },
-    },
-    {
-      label: 'Vietnamese',
-      key: 'vi',
-      onClick: () => {
-        setCurrentLanguage('vi');
-        i18n.changeLanguage('vi');
-      },
-    },
-  ];
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-rol md:flex-row h-screen w-screen justify-evenly p-4 md:p-12 bg-[#F6F6F6]">
@@ -50,14 +29,9 @@ const SignIn = () => {
       </div>
       <div className="flex flex-col">
         <div className="flex items-center justify-end w-full gap-6 p-4">
-          <Dropdown menu={{ items }} trigger={['click']}>
-            <Space>
-              {currentLanguage === 'en' ? 'English' : 'Vietnamese'}
-              <DownOutlined />
-            </Space>
-          </Dropdown>
+          <LanguageSelector />
           {authenticationType.map((item) => (
-            <div className="flex items-center justify-center text-sm text-[#56B280] font-semibold px-3 py-1 bg-white shadow-lg rounded-2xl">
+            <div className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap">
               {t(item.text)}
             </div>
           ))}

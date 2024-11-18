@@ -43,7 +43,7 @@
   },
 
   "success": {
-    "success": "Thành công",
+    "success": "Gửi Mật Khẩu Thành Công",
     "check": "Mật khẩu của bạn đã được gửi thành công đến Email!"
   }
 }

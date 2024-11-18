@@ -1,34 +1,14 @@
-import { Button, Dropdown, Image, MenuProps, Space } from 'antd';
-import { DownOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { Button, Image } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { authenticationType } from '../constants/login';
 import Background from '../assets/images/background.png';
 import Successfull from '../assets/images/success.png';
 import { useTranslation } from 'react-i18next';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import LanguageSelector from '../components/common/language';
 
 const Forgot = () => {
-  const { t, i18n } = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState('en');
-
-  const items: MenuProps['items'] = [
-    {
-      label: 'English',
-      key: 'en',
-      onClick: () => {
-        setCurrentLanguage('en');
-        i18n.changeLanguage('en');
-      },
-    },
-    {
-      label: 'Vietnamese',
-      key: 'vi',
-      onClick: () => {
-        setCurrentLanguage('vi');
-        i18n.changeLanguage('vi');
-      },
-    },
-  ];
+  const { t } = useTranslation();
 
   return (
     <div className="flex flex-col h-screen w-screen justify-between p-4 md:p-12 bg-[#F6F6F6]">
@@ -43,16 +23,11 @@ const Forgot = () => {
             <ArrowLeftOutlined />
           </Link>
         </div>
-        <Dropdown menu={{ items }} trigger={['click']}>
-          <Space>
-            {currentLanguage === 'en' ? 'English' : 'Vietnamese'}
-            <DownOutlined />
-          </Space>
-        </Dropdown>
+        <LanguageSelector />
         {authenticationType.map((item) => (
           <div
             key={item.value}
-            className="text-sm text-[#56B280] font-semibold px-3 py-1 bg-white shadow-lg rounded-2xl"
+            className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap"
           >
             {t(item.text)}
           </div>
