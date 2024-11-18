@@ -7,14 +7,20 @@
       "save": "Lưu",
       "signIn": "Đăng Nhập",
       "register": "Đăng Ký",
-      "home": "Trang Chủ"
+      "home": "Trang Chủ",
+      "next": "Tiếp Tục",
+      "check": "Xác minh mã",
+      "update": "Cập Nhật Mật Khẩu",
+      "continue": "Tiếp Tục"
     },
 
     "input": {
       "enterEmail": "Nhập Email",
       "enterPassword": "Nhập Mật Khẩu",
       "enterName": "Nhập Tên",
-      "enterPhone": "Nhập Số Điện Thoại"
+      "enterPhone": "Nhập Số Điện Thoại",
+      "newPassword": "Mật Khẩu Mới",
+      "conformPassword": "Xác nhận mật khẩu"
     }
   },
 
@@ -29,5 +35,15 @@
     "noAccount": "Nếu bạn chưa có tài khoản, bạn có thể",
     "registerHere": "Đăng Ký Tại Đây!",
     "recoverPassword": "Khôi Phục Mật Khẩu"
+  },
+
+  "forgot": {
+    "forgotPassword": "Quên Mật Khẩu",
+    "reset": "Vui lòng nhập email của bạn để đặt lại mật khẩu"
+  },
+
+  "success": {
+    "success": "Gửi Mật Khẩu Thành Công",
+    "check": "Mật khẩu của bạn đã được gửi thành công đến Email!"
   }
 }

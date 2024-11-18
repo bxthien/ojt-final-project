@@ -3,6 +3,8 @@ import SignIn from './pages/sign-in';
 import NotFound from './pages/not-found';
 import HomePage from './pages/home-page';
 import Register from './pages/register';
+import Forgot from './pages/forgot';
+import Success from './pages/success';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
   {
     path: '/register',
     element: <Register />,
+  },
+  {
+    path: '/forgot',
+    element: <Forgot />,
+  },
+  {
+    path: '/success',
+    element: <Success />,
   },
 ]);
 
