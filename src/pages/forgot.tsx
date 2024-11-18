@@ -1,4 +1,4 @@
-import { Button, Image, Input } from 'antd';
+import { Button, Image, Input, Form } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { authenticationType } from '../constants/login';
 import Background from '../assets/images/background.png';
@@ -8,6 +8,10 @@ import LanguageSelector from '../components/common/language';
 
 const Forgot = () => {
   const { t } = useTranslation();
+
+  const onFinish = (values: unknown) => {
+    console.log('Form values: ', values);
+  };
 
   return (
     <div className="flex flex-col h-screen w-screen justify-between p-4 md:p-12 bg-[#F6F6F6]">
@@ -24,13 +28,15 @@ const Forgot = () => {
         </div>
         <LanguageSelector />
         {authenticationType.map((item) => (
-          <div
-            key={item.value}
+          <Link
+            key={item.label}
+            to={item.href}
             className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap"
           >
-            {t(item.text)}
-          </div>
+            {t(item.label)}
+          </Link>
         ))}
+
         <Button className="bg-[#56B280] px-4 py-2" type="primary">
           <Link to="/home">{t('common.button.home')}</Link>
         </Button>
@@ -41,12 +47,38 @@ const Forgot = () => {
           {t('forgot.reset')}
         </div>
         <div className="w-full max-w-md">
-          <Input placeholder={t('common.input.enterEmail')} allowClear className="mb-4" />
-          <Link to="/success">
-            <Button className="w-full py-2 bg-[#56B280] font-semibold" type="primary">
-              {t('common.button.next')}
-            </Button>
-          </Link>
+          <Form
+            name="forgot_form"
+            onFinish={onFinish}
+            initialValues={{ email: '' }}
+            layout="vertical"
+          >
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: t('common.input.emailRequired'),
+                },
+                {
+                  type: 'email',
+                  message: t('common.input.invalidEmail'),
+                },
+              ]}
+            >
+              <Input placeholder={t('common.input.enterEmail')} allowClear />
+            </Form.Item>
+
+            <Link to="/success">
+              <Button
+                className="w-full py-2 bg-[#56B280] font-semibold"
+                type="primary"
+                htmlType="submit"
+              >
+                {t('common.button.next')}
+              </Button>
+            </Link>
+          </Form>
         </div>
       </div>
     </div>

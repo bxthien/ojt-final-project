@@ -20,14 +20,20 @@
       "enterName": "Nhập Tên",
       "enterPhone": "Nhập Số Điện Thoại",
       "newPassword": "Mật Khẩu Mới",
-      "conformPassword": "Xác nhận mật khẩu"
+      "conformPassword": "Xác nhận mật khẩu",
+      "invalidEmail": "Email Không Hợp Lệ",
+      "emailRequired": "Yêu Cầu Email",
+      "passwordMinLength": "Độ Dài Tổi Thiểu Của Mật Khẩu",
+      "password Required": "Yêu Cầu Mật Khẩu"
     }
   },
 
   "register": {
     "signUpToPayment": "Đăng Ký Để Thanh Toán",
     "account": "Nếu bạn đã có tài khoản, bạn có thể",
-    "signInHere": "Đăng Nhập Tại Đây!"
+    "signInHere": "Đăng Nhập Tại Đây!",
+    "nameRequired": "Tên Yêu Cầu",
+    "phoneRequired": "Số Điện Thoại Yêu Cầu"
   },
 
   "login": {

@@ -18,14 +18,20 @@
       "enterName": "Enter Name",
       "enterPhone": "Enter Phone",
       "newPassword": "New Password",
-      "conformPassword": "Conform Password"
+      "conformPassword": "Conform Password",
+      "invalidEmail": "Invalid Email",
+      "emailRequired": "Required Email",
+      "passwordMinLength": "Password Min Length",
+      "passwordRequired": "Password Required"
     }
   },
 
   "register": {
     "signUpToPayment": "Sign Up To Payment",
     "account": "If you have an account, you can",
-    "signInHere": "Sign In here!"
+    "signInHere": "Sign In here!",
+    "nameRequired": "Name Required",
+    "phoneRequired": "Phone Required"
   },
 
   "login": {

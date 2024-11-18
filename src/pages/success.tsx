@@ -25,12 +25,13 @@ const Forgot = () => {
         </div>
         <LanguageSelector />
         {authenticationType.map((item) => (
-          <div
-            key={item.value}
+          <Link
+            key={item.label}
+            to={item.href}
             className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap"
           >
-            {t(item.text)}
-          </div>
+            {t(item.label)}
+          </Link>
         ))}
         <Button className="bg-[#56B280] px-4 py-2" type="primary">
           <Link to="/home">{t('common.button.home')}</Link>

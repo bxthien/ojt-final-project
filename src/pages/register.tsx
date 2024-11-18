@@ -1,4 +1,4 @@
-import { Button, Divider, Image, Input } from 'antd';
+import { Button, Divider, Image, Input, Form } from 'antd';
 import { authenticationType, thirdMethod } from '../constants/login';
 import MockupIC from '../assets/images/mockupIp.png';
 import Background from '../assets/images/background.png';
@@ -8,6 +8,9 @@ import LanguageSelector from '../components/common/language';
 
 const Register = () => {
   const { t } = useTranslation();
+  const onFinish = (values: unknown) => {
+    console.log('Form values: ', values);
+  };
 
   return (
     <div className="flex flex-row h-screen w-screen justify-evenly p-4 md:p-12 bg-[#F6F6F6]">
@@ -21,7 +24,7 @@ const Register = () => {
           {t('register.signUpToPayment')}
         </div>
         <div className="hidden md:block absolute top-[90px] left-8 text-sm font-light text-[#4F555A] max-w-[300px]">
-          {t('register.account')}
+          {t('register.account')} <span className="ml-1"></span>
           <Link to="/sign-in" className="text-[#56B280] font-semibold underline">
             {t('register.signInHere')}
           </Link>
@@ -31,22 +34,26 @@ const Register = () => {
         <div className="flex items-center justify-end w-full gap-6 p-4">
           <LanguageSelector />
           {authenticationType.map((item) => (
-            <div className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap">
-              {t(item.text)}
-            </div>
+            <Link
+              key={item.label}
+              to={item.href}
+              className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap"
+            >
+              {t(item.label)}
+            </Link>
           ))}
           <Button className="bg-[#56B280] px-4 py-2" type="primary">
             <Link to="/home">{t('common.button.home')}</Link>
           </Button>
         </div>
 
-        <div className="flex flex-col gap-3 flex-grow justify-center ">
+        <div className="flex flex-col gap-3 flex-grow justify-center">
           <div className="md:hidden text-center mb-4 text-3xl font-medium">
             {t('register.signUpToPayment')}
           </div>
           <div className="md:hidden text-center mb-4 text-sm font-light text-[#4F555A]">
-            {t('register.account')}
-            <Link to="/sign-in" className=" text-[#56B280] font-semibold underline">
+            {t('register.account')} <span className="ml-1"></span>
+            <Link to="/sign-in" className="text-[#56B280] font-semibold underline">
               {t('register.signInHere')}
             </Link>
             <Image
@@ -56,14 +63,73 @@ const Register = () => {
             />
           </div>
 
-          <Input placeholder={t('common.input.enterName')} allowClear />
-          <Input placeholder={t('common.input.enterPhone')} allowClear />
-          <Input placeholder={t('common.input.enterEmail')} allowClear />
-          <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
+          <Form
+            name="register_form"
+            onFinish={onFinish}
+            initialValues={{ name: '', phone: '', email: '', password: '' }}
+            layout="vertical"
+          >
+            <Form.Item
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: t('register.nameRequired'),
+                },
+              ]}
+            >
+              <Input placeholder={t('common.input.enterName')} allowClear />
+            </Form.Item>
 
-          <Button className="py-4 bg-[#56B280] font-semibold" type="primary">
+            <Form.Item
+              name="phone"
+              rules={[
+                {
+                  required: true,
+                  message: t('register.phoneRequired'),
+                },
+              ]}
+            >
+              <Input placeholder={t('common.input.enterPhone')} allowClear />
+            </Form.Item>
+
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  required: true,
+                  message: t('common.input.emailRequired'),
+                },
+                {
+                  type: 'email',
+                  message: t('common.input.invalidEmail'),
+                },
+              ]}
+            >
+              <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: t('common.input.passwordRequired'),
+                },
+                {
+                  min: 8,
+                  message: t('common.input.passwordMinLength'),
+                },
+              ]}
+            >
+              <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
+            </Form.Item>
+          </Form>
+
+          <Button className="py-4 bg-[#56B280] font-semibold" type="primary" htmlType="submit">
             {t('common.button.register')}
           </Button>
+
           <div>
             <div className="relative">
               <Divider />
