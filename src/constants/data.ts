@@ -51,3 +51,33 @@ export const assistanceData = [
   'Frequently asked questions',
   'Terms of use of the site',
 ];
+
+export const heroData = {
+  heading: 'iPhone 16',
+  subHeading: 'Pro',
+  description: 'Created to change everything for the better. For everyone',
+  buttonText: 'Shop Now',
+  tagline: 'Pro.Beyond.',
+};
+
+export const productData = {
+  product1: {
+    name: 'Playstation 5',
+    description: 'Incredibly powerful CPUs, GPUs, and an SSD with',
+    description2: 'integrated I/O will redefine your PlayStation experience.',
+  },
+  product2: {
+    name: 'Apple AirPods Max',
+    description: "Computational audio. Listen, it's powerful",
+  },
+  product3: {
+    name: 'Apple Vision Pro',
+    description: 'An immersive way to experience entertainment',
+  },
+  product4: {
+    name: 'Macbook Air',
+    description:
+      'The new M2 chip makes every task fly—from everyday multitasking to your most demanding workflows',
+  },
+  buttonText: 'Shop Now',
+};

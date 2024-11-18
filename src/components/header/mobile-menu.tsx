@@ -7,7 +7,7 @@ const MobileMenu = ({ isOpen }: { isOpen: boolean }) => {
 
   return (
     isOpen && (
-      <div className="md:hidden bg-white shadow-lg">
+      <div className="lg:hidden bg-white shadow-lg absolute w-full z-50">
         <nav className="p-4">
           {menuItems.map((item) => (
             <Link

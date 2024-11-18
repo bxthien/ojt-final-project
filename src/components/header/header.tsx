@@ -6,7 +6,6 @@ import SearchBar from './search';
 import DesktopMenu from './desktop-menu';
 import MobileMenu from './mobile-menu';
 import CategoryNav from './category-nav';
-
 import CartIcon from './cart-icon';
 import ProfileIcon from './profile-icon';
 import { useState } from 'react';
@@ -25,13 +24,13 @@ const Header = () => {
             <HeaderLogo />
           </div>
 
-          {/* Desktop Search Bar */}
-          <div className="hidden md:flex items-center flex-1 max-w-lg mx-8">
+          {/* Search Bar  */}
+          <div className="hidden lg:flex items-center flex-1 max-w-lg mx-8">
             <SearchBar isMobile={false} />
           </div>
 
           {/* Desktop Menu */}
-          <nav className="hidden md:flex items-center space-x-11">
+          <nav className="hidden lg:flex items-center space-x-11">
             <DesktopMenu />
             <div className="flex items-center space-x-6">
               <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
@@ -39,13 +38,14 @@ const Header = () => {
             </div>
           </nav>
 
-          {/* Mobile Icons */}
-          <div className="flex md:hidden items-center space-x-4">
+          {/* Tablet/Mobile Icons */}
+          <div className="flex lg:hidden items-center space-x-4">
             <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
             <ProfileIcon isActive={isActivePath('/profile')} />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="block md:hidden"
+              className="block lg:hidden"
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
               {isMobileMenuOpen ? (
                 <IoClose className="w-6 h-6" />
@@ -58,11 +58,15 @@ const Header = () => {
       </div>
 
       {/* Mobile Search Bar */}
-      <div className="md:hidden">
+      <div className="lg:hidden">
         <SearchBar isMobile={true} />
       </div>
+
+      {/* Mobile Menu */}
       <MobileMenu isOpen={isMobileMenuOpen} />
-      <CategoryNav />
+      <div className="hidden lg:block">
+        <CategoryNav />
+      </div>
     </header>
   );
 };
