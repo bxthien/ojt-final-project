@@ -7,14 +7,18 @@
       "save": "Save",
       "signIn": "Sign In",
       "register": "Register",
-      "home": "Home"
+      "home": "Home",
+      "next": "Next",
+      "continue": "Continue"
     },
 
     "input": {
       "enterEmail": "Enter Email",
       "enterPassword": "Enter Password",
       "enterName": "Enter Name",
-      "enterPhone": "Enter Phone"
+      "enterPhone": "Enter Phone",
+      "newPassword": "New Password",
+      "conformPassword": "Conform Password"
     }
   },
 
@@ -29,5 +33,15 @@
     "noAccount": "If you don't have an account, you can",
     "registerHere": "Register here!",
     "recoverPassword": "Recover Passwword"
+  },
+
+  "forgot": {
+    "forgotPassword": "Forgot Password",
+    "reset": "Please enter your email to reset the password"
+  },
+
+  "success": {
+    "success": "Successfull",
+    "check": "Your password has been successfully sent to your Email!"
   }
 }

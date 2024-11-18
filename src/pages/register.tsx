@@ -1,8 +1,8 @@
 import { Button, Divider, Dropdown, Image, Input, MenuProps, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { authenticationType, thirdMethod } from '../constants/login';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import MockupIC from '../assets/images/mockupIp.png';
+import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -57,12 +57,9 @@ const Register = () => {
             </Space>
           </Dropdown>
           {authenticationType.map((item) => (
-            <Button
-              key={item.value}
-              className="flex items-center justify-center text-sm text-[#56B280] font-semibold px-3 py-1 bg-white shadow-lg rounded-2xl"
-            >
-              {item.text}
-            </Button>
+            <div className="flex items-center justify-center text-sm text-[#56B280] font-semibold px-3 py-1 bg-white shadow-lg rounded-2xl">
+              {t(item.text)}
+            </div>
           ))}
           <Button className="bg-[#56B280]  px-4 py-2" type="primary">
             <Link to="/home">{t('common.button.home')}</Link>
@@ -71,22 +68,24 @@ const Register = () => {
 
         <div className="flex flex-col gap-3 flex-grow justify-center ">
           <div className="md:hidden text-center mb-4 text-3xl font-medium">
-            {t('common.input.signUpToPayment')}{' '}
+            {t('register.signUpToPayment')}{' '}
           </div>
           <div className="md:hidden text-center mb-4 text-sm font-light text-[#4F555A]">
-            {t('common.input.account')}{' '}
+            {t('register.account')}{' '}
             <Link to="/sign-in" className=" text-[#56B280] font-semibold underline">
-              {t('common.input.signInHere')}
+              {t('register.signInHere')}
             </Link>
+            <Image
+              className="md:hidden fixed inset-0 w-full h-full object-cover z-0 pointer-events-none"
+              src={Background}
+              preview={false}
+            />
           </div>
 
           <Input placeholder={t('common.input.enterName')} allowClear />
           <Input placeholder={t('common.input.enterPhone')} allowClear />
           <Input placeholder={t('common.input.enterEmail')} allowClear />
-          <Input.Password
-            placeholder={t('common.input.enterPassword')}
-            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-          />
+          <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
 
           <Button className="py-4 bg-[#56B280] font-semibold" type="primary">
             {t('common.button.register')}
