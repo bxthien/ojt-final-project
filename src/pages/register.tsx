@@ -88,9 +88,17 @@ const Register = () => {
                   required: true,
                   message: t('register.phoneRequired'),
                 },
+                {
+                  min: 10,
+                  message: t('common.input.phoneMinLength'),
+                },
+                {
+                  pattern: /^[0-9]*$/,
+                  message: t('common.input.phoneInvalid'),
+                },
               ]}
             >
-              <Input placeholder={t('common.input.enterPhone')} allowClear />
+              <Input placeholder={t('common.input.enterPhone')} allowClear maxLength={11} />
             </Form.Item>
 
             <Form.Item

@@ -22,7 +22,9 @@
       "invalidEmail": "Invalid Email",
       "emailRequired": "Required Email",
       "passwordMinLength": "Password Min Length",
-      "passwordRequired": "Password Required"
+      "passwordRequired": "Password Required",
+      "phoneMinLength": "Phone Min Length",
+      "phoneInvalid": "Phone Invalid"
     }
   },
 

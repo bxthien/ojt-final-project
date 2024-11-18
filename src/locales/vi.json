@@ -24,7 +24,9 @@
       "invalidEmail": "Email Không Hợp Lệ",
       "emailRequired": "Yêu Cầu Email",
       "passwordMinLength": "Độ Dài Tổi Thiểu Của Mật Khẩu",
-      "password Required": "Yêu Cầu Mật Khẩu"
+      "password Required": "Yêu Cầu Mật Khẩu",
+      "phoneMinLength": "Độ Dài Tối Thiểu Của Số Điện Thoại",
+      "phoneInvalid": "Số Điện thoại không hợp lệ"
     }
   },
 
