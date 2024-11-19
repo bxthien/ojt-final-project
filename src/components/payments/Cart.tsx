@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import './Cart.css';
 import { Link } from 'react-router-dom';
+
 function Cart() {
   const [items, setItems] = useState([
     { id: 1, name: 'LCD Monitor', price: 650, quantity: 1, image: 'src/assets/images/manhinh.png' },
@@ -17,87 +17,259 @@ function Cart() {
 
   const handleUpdateCart = () => {
     // Logic cập nhật giỏ hàng
+    alert('Cart updated successfully!');
   };
 
   const handleApplyCoupon = () => {
     // Logic áp dụng mã giảm giá
+    alert('Coupon applied successfully!');
   };
 
   const subtotal = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
   return (
-    <div className="cart-container">
-      <h2>Cart</h2>
-      <div className="breadcrumb">Home / Cart</div>
+    <div
+      style={{
+        padding: '20px',
+        maxWidth: '1200px',
+        margin: 'auto',
+      }}
+    >
+      <h2 style={{ fontSize: '24px', marginBottom: '10px', fontWeight: 'bold' }}>Cart</h2>
+      <div
+        style={{
+          fontSize: '14px',
+          color: '#888',
+          marginBottom: '20px',
+        }}
+      >
+        Home / Cart
+      </div>
 
-      <table className="cart-table">
+      {/* Table Section */}
+      <table
+        style={{
+          width: '100%',
+          borderCollapse: 'collapse',
+          marginBottom: '30px',
+        }}
+      >
         <thead>
           <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
+            <th style={{ padding: '15px', textAlign: 'left', borderBottom: '2px solid #e0e0e0' }}>
+              Product
+            </th>
+            <th style={{ padding: '15px', textAlign: 'left', borderBottom: '2px solid #e0e0e0' }}>
+              Price
+            </th>
+            <th style={{ padding: '15px', textAlign: 'left', borderBottom: '2px solid #e0e0e0' }}>
+              Quantity
+            </th>
+            <th style={{ padding: '15px', textAlign: 'left', borderBottom: '2px solid #e0e0e0' }}>
+              Subtotal
+            </th>
           </tr>
         </thead>
         <tbody>
           {items.map((item) => (
             <tr key={item.id}>
-              <td className="product-cell">
-                <button className="remove-button" onClick={() => handleRemoveItem(item.id)}>
+              <td
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '15px',
+                  borderBottom: '1px solid #e0e0e0',
+                }}
+              >
+                <button
+                  onClick={() => handleRemoveItem(item.id)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'red',
+                    fontSize: '16px',
+                    marginRight: '15px',
+                    cursor: 'pointer',
+                  }}
+                >
                   ✕
                 </button>
-                <img src={item.image} alt={item.name} className="product-image" />
-                <span>{item.name}</span>
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    marginRight: '15px',
+                    borderRadius: '5px',
+                  }}
+                />
+                <span style={{ fontSize: '16px' }}>{item.name}</span>
               </td>
-              <td>${item.price}</td>
-              <td>
+              <td style={{ padding: '15px', fontSize: '16px' }}>${item.price}</td>
+              <td style={{ padding: '15px' }}>
                 <select
                   value={item.quantity}
                   onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
+                  style={{
+                    padding: '8px',
+                    border: '1px solid #ddd',
+                    borderRadius: '5px',
+                  }}
                 >
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((q) => (
-                    <option key={q} value={q}>
-                      {q}
+                  {[...Array(10).keys()].map((q) => (
+                    <option key={q + 1} value={q + 1}>
+                      {q + 1}
                     </option>
                   ))}
                 </select>
               </td>
-              <td>${item.price * item.quantity}</td>
+              <td style={{ padding: '15px', fontSize: '16px' }}>${item.price * item.quantity}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <div className="cart-actions">
-        <button className="return-button">Return To Shop</button>
-        <button className="update-button" onClick={handleUpdateCart}>
+      {/* Action Buttons */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '30px',
+        }}
+      >
+        <button
+          style={{
+            padding: '10px 20px',
+            border: '1px solid #ddd',
+            borderRadius: '5px',
+            backgroundColor: 'white',
+            cursor: 'pointer',
+            fontSize: '14px',
+          }}
+        >
+          Return To Shop
+        </button>
+        <button
+          onClick={handleUpdateCart}
+          style={{
+            padding: '10px 20px',
+            border: '1px solid #ddd',
+            borderRadius: '5px',
+            backgroundColor: 'white',
+            cursor: 'pointer',
+            fontSize: '14px',
+          }}
+        >
           Update Cart
         </button>
       </div>
 
-      <div className="coupon-total">
-        <div className="coupon-section">
-          <input type="text" placeholder="Coupon Code" className="coupon-input" />
-          <button className="apply-coupon-button" onClick={handleApplyCoupon}>
+      {/* Coupon and Cart Total Section */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end', // Align right
+          alignItems: 'flex-start',
+          gap: '20px', // Gap between coupon and cart total
+        }}
+      >
+        {/* Coupon Section */}
+        <div
+          style={{
+            display: 'flex',
+            gap: '10px',
+            alignItems: 'center',
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Coupon Code"
+            style={{
+              width: '200px', // Shortened input
+              padding: '10px',
+              border: '1px solid #ddd',
+              borderRadius: '5px',
+              fontSize: '14px',
+            }}
+          />
+          <button
+            onClick={handleApplyCoupon}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#28a745',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              fontSize: '14px',
+            }}
+          >
             Apply Coupon
           </button>
         </div>
 
-        <div className="cart-summary">
-          <h3>Cart Total</h3>
-          <div className="cart-summary-row">
+        {/* Cart Total Section */}
+        <div
+          style={{
+            border: '1px solid #ddd',
+            borderRadius: '5px',
+            padding: '20px',
+            width: '400px', // Adjusted size for cart total
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}
+        >
+          <h3
+            style={{
+              margin: '0',
+              fontSize: '18px',
+              fontWeight: 'bold',
+            }}
+          >
+            Cart Total
+          </h3>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
             <span>Subtotal:</span>
             <span>${subtotal}</span>
           </div>
-          <div className="cart-summary-row">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
             <span>Shipping:</span>
             <span>Free</span>
           </div>
-          <div className="cart-summary-total">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              fontWeight: 'bold',
+            }}
+          >
             <span>Total:</span>
             <span>${subtotal}</span>
           </div>
-          <button className="checkout-button">
+          <button
+            style={{
+              padding: '10px',
+              backgroundColor: '#28a745',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+              fontSize: '14px',
+            }}
+          >
             <Link to="/checkout" style={{ color: 'white', textDecoration: 'none' }}>
               Proceed to checkout
             </Link>
