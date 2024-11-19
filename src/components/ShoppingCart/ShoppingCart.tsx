@@ -32,16 +32,19 @@ const ShoppingCart = () => {
   const total = subtotal + estimatedTax + shipping;
 
   return (
-    <div style={{ display: 'flex', padding: '20px', gap: '20px' }}>
-      <div style={{ flex: 2 }}>
-        <h2 style={{ fontWeight: 'bold', fontSize: '1.5rem,', marginBottom: '20px' }}>
-          Shopping Cart
-        </h2>
-        {cartItems.map((item) => (
-          <CartItem key={item.id} item={item} onQuantityChange={undefined} />
-        ))}
+    <div className="flex flex-col lg:flex-row justify-center items-center gap-8 px-6 py-8">
+      {/* Cart Items Section */}
+      <div className="flex-1 max-w-3xl">
+        <h2 className="font-bold text-2xl mb-6 text-center lg:text-left">Shopping Cart</h2>
+        <div className="space-y-6">
+          {cartItems.map((item) => (
+            <CartItem key={item.id} item={item} onQuantityChange={undefined} />
+          ))}
+        </div>
       </div>
-      <div style={{ flex: 1 }}>
+
+      {/* Order Summary Section */}
+      <div className="flex-1 max-w-sm">
         <OrderSummary subtotal={subtotal} tax={estimatedTax} shipping={shipping} total={total} />
       </div>
     </div>

@@ -4,318 +4,137 @@ const PaymentPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', backgroundColor: '#f9f9f9', padding: '40px 0' }}>
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-        }}
-      >
+    <div className="font-sans bg-gray-100 py-10">
+      <div className="max-w-7xl mx-auto flex flex-col gap-5">
         {/* Steps */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginBottom: '40px',
-            gap: '100px',
-            fontSize: '14px',
-          }}
-        >
+        <div className="flex justify-center items-center mb-10 gap-24 text-sm">
           {/* Step 1: Address */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#ccc' }}>
-            <span
-              style={{
-                display: 'inline-block',
-                width: '24px',
-                height: '24px',
-                borderRadius: '50%',
-                backgroundColor: '#4CAF50',
-                textAlign: 'center',
-                lineHeight: '24px',
-                color: 'white',
-                fontWeight: 'bold',
-              }}
-            >
+          <div className="flex items-center gap-2 text-gray-400">
+            <span className="w-6 h-6 rounded-full bg-green-500 text-center leading-6 text-white font-bold">
               1
             </span>
-            <span style={{ color: '#666', fontSize: '16px' }}>Address</span>
+            <span className="text-gray-600 text-base">Address</span>
           </div>
 
           {/* Step 2: Shipping */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#ccc' }}>
-            <span
-              style={{
-                display: 'inline-block',
-                width: '24px',
-                height: '24px',
-                borderRadius: '50%',
-                backgroundColor: '#4CAF50',
-                textAlign: 'center',
-                lineHeight: '24px',
-                color: 'white',
-                fontWeight: 'bold',
-              }}
-            >
+          <div className="flex items-center gap-2 text-gray-400">
+            <span className="w-6 h-6 rounded-full bg-green-500 text-center leading-6 text-white font-bold">
               2
             </span>
-            <span style={{ color: '#666', fontSize: '16px' }}>Shipping</span>
+            <span className="text-gray-600 text-base">Shipping</span>
           </div>
 
           {/* Step 3: Payment */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#000' }}>
-            <span
-              style={{
-                display: 'inline-block',
-                width: '24px',
-                height: '24px',
-                borderRadius: '50%',
-                backgroundColor: '#4CAF50',
-                textAlign: 'center',
-                lineHeight: '24px',
-                color: 'white',
-                fontWeight: 'bold',
-              }}
-            >
+          <div className="flex items-center gap-2 text-black">
+            <span className="w-6 h-6 rounded-full bg-green-500 text-center leading-6 text-white font-bold">
               3
             </span>
-            <span style={{ fontWeight: 'bold', fontSize: '16px' }}>Payment</span>
+            <span className="font-bold text-base">Payment</span>
           </div>
         </div>
 
         {/* Layout for Summary and Payment */}
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            gap: '40px',
-          }}
-        >
+        <div className="flex justify-between items-start gap-10">
           {/* Summary Section */}
-          <div
-            style={{
-              flex: 1,
-              backgroundColor: '#fff',
-              border: '1px solid #ddd',
-              borderRadius: '10px',
-              padding: '30px',
-              boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <h3 style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '20px' }}>Summary</h3>
+          <div className="flex-1 bg-white border border-gray-300 rounded-lg p-6 shadow-md">
+            <h3 className="font-bold text-lg mb-5">Summary</h3>
             {/* Items */}
-            <div style={{ marginBottom: '30px' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '20px',
-                  fontSize: '16px',
-                }}
-              >
-                <span>Apple iPhone 14 Pro Max 128Gb</span>
-                <strong>$1399</strong>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '20px',
-                  fontSize: '16px',
-                }}
-              >
-                <span>AirPods Max Silver</span>
-                <strong>$549</strong>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '20px',
-                  fontSize: '16px',
-                }}
-              >
-                <span>Apple Watch Series 9 GPS 41mm</span>
-                <strong>$399</strong>
-              </div>
+            <div className="mb-6">
+              {[
+                { name: 'Apple iPhone 14 Pro Max 128Gb', price: 1399 },
+                { name: 'AirPods Max Silver', price: 549 },
+                { name: 'Apple Watch Series 9 GPS 41mm', price: 399 },
+              ].map((item, idx) => (
+                <div key={idx} className="flex justify-between items-center mb-5 text-base">
+                  <span>{item.name}</span>
+                  <strong>${item.price}</strong>
+                </div>
+              ))}
             </div>
+
             {/* Address and Shipment Method */}
-            <div style={{ marginBottom: '30px', fontSize: '16px', color: '#333' }}>
-              <h4 style={{ fontSize: '18px', marginBottom: '10px', fontWeight: 'bold' }}>
-                Address
-              </h4>
-              <p style={{ marginBottom: '15px' }}>1131 Dusty Townline, Jacksonville, TX 40322</p>
-              <h4 style={{ fontSize: '18px', marginBottom: '10px', fontWeight: 'bold' }}>
-                Shipment method
-              </h4>
+            <div className="mb-6 text-gray-800 text-base">
+              <h4 className="text-lg font-bold mb-3">Address</h4>
+              <p className="mb-5">1131 Dusty Townline, Jacksonville, TX 40322</p>
+              <h4 className="text-lg font-bold mb-3">Shipment method</h4>
               <p>Free</p>
             </div>
+
             {/* Subtotals */}
-            <div style={{ borderTop: '1px solid #ddd', paddingTop: '20px' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginBottom: '15px',
-                  fontSize: '16px',
-                }}
-              >
+            <div className="border-t border-gray-300 pt-5">
+              <div className="flex justify-between mb-4 text-base">
                 <span>Subtotal</span> <strong>$2347</strong>
               </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginBottom: '15px',
-                  fontSize: '16px',
-                }}
-              >
+              <div className="flex justify-between mb-4 text-base">
                 <span>Estimated Tax</span> <strong>$50</strong>
               </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginBottom: '15px',
-                  fontSize: '16px',
-                }}
-              >
+              <div className="flex justify-between mb-4 text-base">
                 <span>Estimated shipping & Handling</span> <strong>$29</strong>
               </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginTop: '20px',
-                  fontWeight: 'bold',
-                  fontSize: '18px',
-                }}
-              >
+              <div className="flex justify-between mt-5 font-bold text-lg">
                 <span>Total</span> <strong>$2426</strong>
               </div>
             </div>
           </div>
 
           {/* Payment Section */}
-          <div
-            style={{
-              flex: 1.5,
-              backgroundColor: '#fff',
-              border: '1px solid #ddd',
-              borderRadius: '10px',
-              padding: '30px',
-              boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <h3 style={{ fontWeight: 'bold', fontSize: '20px', marginBottom: '20px' }}>Payment</h3>
+          <div className="flex-1.5 bg-white border border-gray-300 rounded-lg p-6 shadow-md">
+            <h3 className="font-bold text-lg mb-5">Payment</h3>
             {/* Payment Tabs */}
-            <div
-              style={{
-                display: 'flex',
-                gap: '20px',
-                marginBottom: '30px',
-                borderBottom: '1px solid #ddd',
-                paddingBottom: '15px',
-                fontSize: '16px',
-              }}
-            >
-              <div style={{ fontWeight: 'bold', cursor: 'pointer' }}>Credit Card</div>
-              <div style={{ color: '#666', cursor: 'pointer' }}>PayPal</div>
-              <div style={{ color: '#666', cursor: 'pointer' }}>PayPal Credit</div>
+            <div className="flex gap-5 mb-6 border-b border-gray-300 pb-4 text-base">
+              <div className="font-bold cursor-pointer">Credit Card</div>
+              <div className="text-gray-600 cursor-pointer">PayPal</div>
+              <div className="text-gray-600 cursor-pointer">PayPal Credit</div>
             </div>
             {/* Credit Card Form */}
-            <div style={{ textAlign: 'center', marginBottom: '30px' }}>
+            <div className="text-center mb-6">
               <img
                 src="src/assets/images/image65.png"
                 alt="Credit Card"
-                style={{ marginBottom: '20px', borderRadius: '10px', maxWidth: '100%' }}
+                className="mb-5 rounded-lg max-w-full"
               />
             </div>
             <form>
               <input
                 type="text"
                 placeholder="Cardholder Name"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  marginBottom: '15px',
-                  border: '1px solid #ddd',
-                  borderRadius: '5px',
-                }}
+                className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
               />
               <input
                 type="text"
                 placeholder="Card Number"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  marginBottom: '15px',
-                  border: '1px solid #ddd',
-                  borderRadius: '5px',
-                }}
+                className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
               />
-              <div style={{ display: 'flex', gap: '15px', marginBottom: '15px' }}>
+              <div className="flex gap-3 mb-4">
                 <input
                   type="text"
                   placeholder="Exp.Date"
-                  style={{
-                    flex: 1,
-                    padding: '12px',
-                    border: '1px solid #ddd',
-                    borderRadius: '5px',
-                  }}
+                  className="flex-1 p-3 border border-gray-300 rounded-lg"
                 />
                 <input
                   type="text"
                   placeholder="CVV"
-                  style={{
-                    flex: 1,
-                    padding: '12px',
-                    border: '1px solid #ddd',
-                    borderRadius: '5px',
-                  }}
+                  className="flex-1 p-3 border border-gray-300 rounded-lg"
                 />
               </div>
-              <div style={{ marginBottom: '20px' }}>
-                <input type="checkbox" id="billingAddress" style={{ marginRight: '10px' }} />
-                <label htmlFor="billingAddress" style={{ fontSize: '16px' }}>
+              <div className="mb-5">
+                <input type="checkbox" id="billingAddress" className="mr-2" />
+                <label htmlFor="billingAddress" className="text-base">
                   Same as billing address
                 </label>
               </div>
             </form>
 
             {/* Navigation Buttons */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '20px' }}>
+            <div className="flex justify-end gap-5">
               <button
-                style={{
-                  border: '1px solid #ddd',
-                  padding: '12px 24px',
-                  borderRadius: '5px',
-                  backgroundColor: 'white',
-                  cursor: 'pointer',
-                  fontSize: '16px',
-                }}
+                className="border border-gray-300 py-3 px-6 rounded-lg bg-white text-base cursor-pointer"
                 onClick={() => navigate(-1)} // Back to Shipment Method
               >
                 Back
               </button>
               <button
-                style={{
-                  backgroundColor: '#4CAF50',
-                  color: 'white',
-                  padding: '12px 24px',
-                  border: 'none',
-                  borderRadius: '5px',
-                  fontSize: '16px',
-                  cursor: 'pointer',
-                }}
+                className="bg-green-500 text-white py-3 px-6 rounded-lg text-base cursor-pointer"
                 onClick={() => alert('Payment Successful!')}
               >
                 Pay

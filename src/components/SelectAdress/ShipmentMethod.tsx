@@ -7,101 +7,63 @@ const ShipmentMethod = () => {
 
   const handleNext = () => {
     if (selectedMethod) {
-      navigate('/payment'); // Replace this with the path to the next step
+      navigate('/payment');
     } else {
       alert('Please select a shipment method.');
     }
   };
 
   return (
-    <div
-      style={{
-        padding: '40px',
-        fontFamily: 'Arial, sans-serif',
-        maxWidth: '800px',
-        margin: '0 auto',
-      }}
-    >
+    <div className="px-10 py-10 max-w-3xl mx-auto font-sans">
       {/* Steps */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: '30px',
-          alignItems: 'center',
-        }}
-      >
-        <div style={{ color: '#ccc' }}>Step 1: Address</div>
-        <div>
-          <span style={{ fontWeight: 'bold', color: '#000' }}>●</span> Step 2: Shipping
+      <div className="flex justify-between items-center mb-8">
+        <div className="text-gray-400">Step 1: Address</div>
+        <div className="flex items-center text-gray-800">
+          <span className="font-bold text-lg">●</span> Step 2: Shipping
         </div>
-        <div style={{ color: '#ccc' }}>Step 3: Payment</div>
+        <div className="text-gray-400">Step 3: Payment</div>
       </div>
 
       {/* Title */}
-      <h2 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '20px' }}>
-        Shipment Method
-      </h2>
+      <h2 className="text-xl font-bold mb-6">Shipment Method</h2>
 
       {/* Shipment Options */}
-      <div style={{ marginBottom: '40px' }}>
+      <div className="mb-10">
         <div
-          style={{
-            border: selectedMethod === 'free' ? '2px solid #4CAF50' : '1px solid #ddd',
-            padding: '15px',
-            borderRadius: '5px',
-            marginBottom: '15px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            cursor: 'pointer',
-          }}
+          className={`border ${
+            selectedMethod === 'free' ? 'border-green-500' : 'border-gray-300'
+          } rounded-lg p-4 mb-4 flex justify-between items-center cursor-pointer`}
           onClick={() => setSelectedMethod('free')}
         >
           <div>
-            <strong>Free</strong>{' '}
-            <span style={{ color: '#666', marginLeft: '10px' }}>Regular shipment</span>
+            <strong>Free</strong>
+            <span className="text-gray-500 ml-3">Regular shipment</span>
           </div>
           <span>17 Oct, 2023</span>
         </div>
 
         <div
-          style={{
-            border: selectedMethod === 'fast' ? '2px solid #4CAF50' : '1px solid #ddd',
-            padding: '15px',
-            borderRadius: '5px',
-            marginBottom: '15px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            cursor: 'pointer',
-          }}
+          className={`border ${
+            selectedMethod === 'fast' ? 'border-green-500' : 'border-gray-300'
+          } rounded-lg p-4 mb-4 flex justify-between items-center cursor-pointer`}
           onClick={() => setSelectedMethod('fast')}
         >
           <div>
-            <strong>$8.50</strong>{' '}
-            <span style={{ color: '#666', marginLeft: '10px' }}>
-              Get your delivery as soon as possible
-            </span>
+            <strong>$8.50</strong>
+            <span className="text-gray-500 ml-3">Get your delivery as soon as possible</span>
           </div>
           <span>1 Oct, 2023</span>
         </div>
 
         <div
-          style={{
-            border: selectedMethod === 'schedule' ? '2px solid #4CAF50' : '1px solid #ddd',
-            padding: '15px',
-            borderRadius: '5px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            cursor: 'pointer',
-          }}
+          className={`border ${
+            selectedMethod === 'schedule' ? 'border-green-500' : 'border-gray-300'
+          } rounded-lg p-4 flex justify-between items-center cursor-pointer`}
           onClick={() => setSelectedMethod('schedule')}
         >
           <div>
-            <strong>Schedule</strong>{' '}
-            <span style={{ color: '#666', marginLeft: '10px' }}>
+            <strong>Schedule</strong>
+            <span className="text-gray-500 ml-3">
               Pick a date when you want to get your delivery
             </span>
           </div>
@@ -110,30 +72,15 @@ const ShipmentMethod = () => {
       </div>
 
       {/* Navigation Buttons */}
-      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+      <div className="flex justify-end gap-4">
         <button
-          style={{
-            border: '1px solid #ddd',
-            padding: '12px 24px',
-            borderRadius: '5px',
-            backgroundColor: 'white',
-            cursor: 'pointer',
-            fontSize: '16px',
-          }}
-          onClick={() => navigate(-1)} // Back to previous page
+          className="border border-gray-300 py-2 px-6 rounded-lg bg-white text-base cursor-pointer"
+          onClick={() => navigate(-1)}
         >
           Back
         </button>
         <button
-          style={{
-            backgroundColor: '#4CAF50',
-            color: 'white',
-            padding: '12px 24px',
-            border: 'none',
-            borderRadius: '5px',
-            fontSize: '16px',
-            cursor: 'pointer',
-          }}
+          className="bg-green-500 text-white py-2 px-6 rounded-lg text-base cursor-pointer"
           onClick={handleNext}
         >
           Next

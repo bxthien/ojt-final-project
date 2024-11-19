@@ -44,34 +44,19 @@ const SelectAddress = () => {
   };
 
   return (
-    <div
-      style={{
-        padding: '40px',
-        fontFamily: 'Arial, sans-serif',
-        maxWidth: '800px',
-        margin: '0 auto',
-      }}
-    >
+    <div className="p-10 font-sans max-w-3xl mx-auto">
       {/* Steps */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          marginBottom: '30px',
-          alignItems: 'center',
-          fontSize: '16px',
-        }}
-      >
+      <div className="flex justify-between items-center text-base mb-8">
         <div>
-          <span style={{ fontWeight: 'bold', color: '#000' }}>●</span> Step 1: Address
+          <span className="font-bold text-black">●</span> Step 1: Address
         </div>
-        <div style={{ color: '#ccc' }}>Step 2: Shipping</div>
-        <div style={{ color: '#ccc' }}>Step 3: Payment</div>
+        <div className="text-gray-400">Step 2: Shipping</div>
+        <div className="text-gray-400">Step 3: Payment</div>
       </div>
 
       {/* Select Address */}
-      <h2 style={{ fontSize: '24px', marginBottom: '20px' }}>Select Address</h2>
-      <div style={{ marginTop: '20px' }}>
+      <h2 className="text-2xl mb-5">Select Address</h2>
+      <div className="mt-5">
         {addresses.map((address) => (
           <AddressCard
             key={address.id}
@@ -85,13 +70,7 @@ const SelectAddress = () => {
 
         {/* Add New Address Button */}
         <div
-          style={{
-            textAlign: 'center',
-            margin: '20px 0',
-            cursor: 'pointer',
-            color: 'black',
-            fontSize: '16px',
-          }}
+          className="text-center text-lg cursor-pointer text-black mt-5"
           onClick={handleAddNewAddress}
         >
           + Add New Address
@@ -99,37 +78,15 @@ const SelectAddress = () => {
       </div>
 
       {/* Navigation Buttons */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          gap: '10px',
-          marginTop: '40px',
-        }}
-      >
+      <div className="flex justify-end gap-3 mt-10">
         <button
-          style={{
-            border: '1px solid #ddd',
-            padding: '12px 24px',
-            borderRadius: '5px',
-            backgroundColor: 'white',
-            cursor: 'pointer',
-            fontSize: '16px',
-          }}
+          className="border border-gray-300 py-3 px-6 rounded-md bg-white text-base cursor-pointer"
           onClick={() => navigate(-1)} // Back to previous page
         >
           Back
         </button>
         <button
-          style={{
-            backgroundColor: '#4CAF50',
-            color: 'white',
-            padding: '12px 24px',
-            border: 'none',
-            borderRadius: '5px',
-            fontSize: '16px',
-            cursor: 'pointer',
-          }}
+          className="bg-green-500 text-white py-3 px-6 rounded-md text-base cursor-pointer"
           onClick={handleNext}
         >
           Next

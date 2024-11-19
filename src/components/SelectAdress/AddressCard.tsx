@@ -7,35 +7,18 @@ const AddressCard = ({
 }) => {
   return (
     <div
-      style={{
-        border: isSelected ? '2px solid #4CAF50' : '1px solid #ddd',
-        padding: '20px',
-        borderRadius: '8px',
-        marginBottom: '15px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-      }}
+      className={`p-5 rounded-lg mb-4 flex justify-between items-center shadow-md ${
+        isSelected ? 'border-2 border-green-500' : 'border border-gray-300'
+      }`}
     >
       {/* Address Details */}
-      <div style={{ flex: 1, marginRight: '20px' }}>
-        <h4 style={{ margin: '0 0 5px', fontSize: '18px', fontWeight: 'bold' }}>
+      <div className="flex-1 mr-5">
+        <h4 className="text-lg font-bold mb-1">
           {address.title}{' '}
-          <span
-            style={{
-              padding: '4px 8px',
-              backgroundColor: 'black',
-              borderRadius: '4px',
-              fontSize: '12px',
-              color: 'white',
-            }}
-          >
-            {address.type}
-          </span>
+          <span className="px-2 py-1 bg-black text-white rounded text-xs">{address.type}</span>
         </h4>
-        <p style={{ margin: '5px 0', color: '#666', fontSize: '14px' }}>{address.address}</p>
-        <p style={{ margin: '5px 0', color: '#666', fontSize: '14px' }}>{address.phone}</p>
+        <p className="text-sm text-gray-600 mb-1">{address.address}</p>
+        <p className="text-sm text-gray-600">{address.phone}</p>
       </div>
 
       {/* Radio Button */}
@@ -43,32 +26,22 @@ const AddressCard = ({
         type="radio"
         checked={isSelected}
         onChange={onSelect}
-        style={{ marginRight: '20px', cursor: 'pointer', width: '18px', height: '18px' }}
+        className="mr-5 cursor-pointer w-4 h-4"
       />
 
       {/* Edit/Delete Icons */}
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+      <div className="flex items-center">
         <button
           onClick={onEdit}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            marginRight: '10px',
-            fontSize: '16px',
-          }}
+          className="mr-2 text-lg cursor-pointer hover:text-blue-500"
+          aria-label="Edit"
         >
           ✏️
         </button>
         <button
           onClick={onDelete}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            color: 'red',
-            fontSize: '16px',
-          }}
+          className="text-lg cursor-pointer text-red-500 hover:text-red-600"
+          aria-label="Delete"
         >
           ❌
         </button>
