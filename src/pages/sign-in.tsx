@@ -1,13 +1,19 @@
-import { Button, Divider, Image, Input } from 'antd';
+import { Button, Divider, Image, Input, Form } from 'antd';
 import { authenticationType, thirdMethod } from '../constants/login';
 import MockupIC from '../assets/images/mockupIp.png';
 import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
+import FormItem from '../components/common/form';
+import { passwordValidator } from '../constants/regex';
 
 const SignIn = () => {
   const { t } = useTranslation();
+
+  const onFinish = (values: unknown) => {
+    console.log('Form values: ', values);
+  };
 
   return (
     <div className="flex flex-rol md:flex-row h-screen w-screen justify-evenly p-4 md:p-12 bg-[#F6F6F6]">
@@ -21,7 +27,7 @@ const SignIn = () => {
           {t('login.signInToPayment')}
         </div>
         <div className="hidden md:block absolute top-[90px] left-8 text-sm font-light text-[#4F555A] max-w-[300px]">
-          {t('login.noAccount')}
+          {t('login.noAccount')} <span className="ml-1"></span>
           <Link to="/register" className="text-[#56B280] font-semibold underline">
             {t('login.registerHere')}
           </Link>
@@ -31,11 +37,15 @@ const SignIn = () => {
         <div className="flex items-center justify-end w-full gap-6 p-4">
           <LanguageSelector />
           {authenticationType.map((item) => (
-            <div className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap">
-              {t(item.text)}
-            </div>
+            <Link
+              key={item.label}
+              to={item.href}
+              className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap"
+            >
+              {t(item.label)}
+            </Link>
           ))}
-          <Button className="bg-[#56B280]  px-4 py-2" type="primary">
+          <Button className="bg-[#56B280] px-4 py-2" type="primary">
             <Link to="/home">{t('common.button.home')}</Link>
           </Button>
         </div>
@@ -45,8 +55,8 @@ const SignIn = () => {
             {t('login.signInToPayment')}
           </div>
           <div className="md:hidden text-center mb-4 text-sm font-light text-[#4F555A]">
-            {t('login.noAccount')}
-            <Link to="/register" className=" text-[#56B280] font-semibold underline">
+            {t('login.noAccount')} <span className="ml-1"></span>
+            <Link to="/register" className="text-[#56B280] font-semibold underline">
               {t('login.registerHere')}
             </Link>
             <Image
@@ -55,8 +65,46 @@ const SignIn = () => {
               preview={false}
             />
           </div>
-          <Input placeholder={t('common.input.enterEmail')} allowClear />
-          <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
+          <Form
+            name="sign_in_form"
+            onFinish={onFinish}
+            initialValues={{ email: '', password: '' }}
+            layout="vertical"
+          >
+            <FormItem
+              name="email"
+              type="email"
+              rules={[
+                {
+                  required: true,
+                  message: t('validation.email.required'),
+                },
+                {
+                  type: 'email',
+                  message: t('validation.email.invalid'),
+                },
+              ]}
+            >
+              <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
+            </FormItem>
+
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: t('validation.password.required'),
+                },
+                {
+                  validator: passwordValidator,
+                  min: 8,
+                  message: t('validation.password.invalid'),
+                },
+              ]}
+            >
+              <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
+            </Form.Item>
+          </Form>
 
           <Link
             to="/forgot"
@@ -64,9 +112,11 @@ const SignIn = () => {
           >
             {t('login.recoverPassword')}
           </Link>
-          <Button className="py-4 bg-[#56B280] font-semibold" type="primary">
+
+          <Button className="py-4 bg-[#56B280] font-semibold" type="primary" htmlType="submit">
             {t('common.button.signIn')}
           </Button>
+
           <div>
             <div className="relative">
               <Divider />
