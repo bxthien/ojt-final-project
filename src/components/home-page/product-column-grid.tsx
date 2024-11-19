@@ -1,5 +1,9 @@
 import React from 'react';
 import ProductColumn from './product-column';
+import Macbook from '../../assets/images/macmobile.png';
+import AppleWatch from '../../assets/images/applewatch.png';
+import Ipad from '../../assets/images/ipad.png';
+import SamSung from '../../assets/images/samsung.png';
 
 interface Product {
   image: string;
@@ -10,28 +14,28 @@ interface Product {
 
 const products: Product[] = [
   {
-    image: '',
+    image: AppleWatch,
     title: 'Popular Products',
     description:
       'Experience the integration of AI with fitness tracking, display incredible performance, multitasking and ease of use.',
     backgroundColor: 'bg-white',
   },
   {
-    image: '',
+    image: Ipad,
     title: 'iPad Pro',
     description:
       'Experience the integration of M2 with Retina display, incredible performance, multitasking and ease of use.',
     backgroundColor: 'bg-[#F9F9F9]',
   },
   {
-    image: '',
+    image: SamSung,
     title: 'Samsung Galaxy',
     description:
       'Experience high-end specifications with Retina display, incredible performance, multitasking and ease of use.',
     backgroundColor: 'bg-[#EAEAEA]',
   },
   {
-    image: '',
+    image: Macbook,
     title: 'MacBook Pro',
     description:
       'Experience the integration of M2 with Retina display, incredible performance, multitasking and ease of use.',
@@ -41,7 +45,7 @@ const products: Product[] = [
 
 const ProductColumnGrid: React.FC = () => {
   return (
-    <div className="flex h-full">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
       {products.map((product, index) => (
         <ProductColumn
           key={index}

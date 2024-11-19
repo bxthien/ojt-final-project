@@ -14,19 +14,29 @@ const ProductColumn: React.FC<ProductColumnProps> = ({
   backgroundColor,
 }) => {
   return (
-    <div className="w-1/4">
-      <div className={`flex flex-col h-full  last:pr-0 ${backgroundColor} p-6`}>
-        <div className="h-[280px] mb-6 overflow-hidden">
-          <img src={image} alt={title} className="w-full h-full object-contain" />
+    <div className={`${backgroundColor} p-4 sm:p-6 transition-transform hover:scale-105`}>
+      <div className="flex flex-col h-full space-y-4">
+        <div className="relative pt-[75%] sm:pt-[100%] w-full overflow-hidden">
+          <img
+            src={image}
+            alt={title}
+            className="absolute top-0 left-0 w-full h-full object-contain p-2"
+          />
         </div>
 
-        <div className="flex flex-col flex-grow">
-          <h2 className="text-xl font-semibold h-[28px] mb-3">{title}</h2>
+        <div className="flex flex-col flex-grow space-y-3">
+          <h2 className="text-lg sm:text-xl font-semibold text-center line-clamp-1">{title}</h2>
 
-          <p className="text-sm text-gray-600 mb-4 h-[80px] leading-relaxed">{description}</p>
+          <p className="text-sm text-gray-600 text-center line-clamp-3 sm:line-clamp-4 flex-grow">
+            {description}
+          </p>
 
-          <div className="mt-auto">
-            <button className="w-[120px] px-5 py-2 border border-gray-300 rounded-lg hover:bg-[#56B280] transition-colors">
+          <div className="pt-2 flex justify-center">
+            <button
+              className="w-full sm:w-[120px] px-4 py-2 border border-gray-300 rounded-lg 
+              hover:bg-[#56B280] hover:text-white hover:border-transparent 
+              transition-all duration-300 text-sm sm:text-base"
+            >
               Shop Now
             </button>
           </div>
