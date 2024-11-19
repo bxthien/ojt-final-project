@@ -5,6 +5,8 @@ import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
+import FormItem from '../components/common/form';
+import { passwordValidator } from '../constants/regex';
 
 const SignIn = () => {
   const { t } = useTranslation();
@@ -69,32 +71,34 @@ const SignIn = () => {
             initialValues={{ email: '', password: '' }}
             layout="vertical"
           >
-            <Form.Item
+            <FormItem
               name="email"
+              type="email"
               rules={[
                 {
                   required: true,
-                  message: t('common.input.emailRequired'),
+                  message: t('validation.email.required'),
                 },
                 {
                   type: 'email',
-                  message: t('common.input.invalidEmail'),
+                  message: t('validation.email.invalid'),
                 },
               ]}
             >
               <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
-            </Form.Item>
+            </FormItem>
 
             <Form.Item
               name="password"
               rules={[
                 {
                   required: true,
-                  message: t('common.input.passwordRequired'),
+                  message: t('validation.password.required'),
                 },
                 {
+                  validator: passwordValidator,
                   min: 8,
-                  message: t('common.input.passwordMinLength'),
+                  message: t('validation.password.invalid'),
                 },
               ]}
             >

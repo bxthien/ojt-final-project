@@ -1,24 +1,23 @@
 export const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;
-export const passwordRegex = /^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$/;
+export const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+import { Rule } from 'antd/es/form';
 
 export const emailValidator = (_rule: unknown, value: string) => {
   if (!value) {
-    return Promise.reject('Please input your email!');
+    return Promise.reject();
   }
   if (!emailRegex.test(value)) {
-    return Promise.reject('Please input a valid email!');
+    return Promise.reject();
   }
   return Promise.resolve();
 };
 
-export const passwordValidator = (_rule: unknown, value: string) => {
+export const passwordValidator = (_rule: Rule, value: string) => {
   if (!value) {
-    return Promise.reject('Please input your password!');
+    return Promise.reject();
   }
   if (!passwordRegex.test(value)) {
-    return Promise.reject(
-      'Password must be at least 8 characters long and contain both letters and numbers!'
-    );
+    return Promise.reject();
   }
   return Promise.resolve();
 };
@@ -28,5 +27,5 @@ export const phoneValidator = (_: unknown, value: string) => {
   if (!value || phoneRegEx.test(value)) {
     return Promise.resolve();
   }
-  return Promise.reject('Phone numbers can only be entered as numbers!');
+  return Promise.reject();
 };

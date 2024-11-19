@@ -5,6 +5,8 @@ import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
+import FormItem from '../components/common/form';
+import { passwordValidator } from '../constants/regex';
 
 const Register = () => {
   const { t } = useTranslation();
@@ -74,7 +76,7 @@ const Register = () => {
               rules={[
                 {
                   required: true,
-                  message: t('register.nameRequired'),
+                  message: t('validation.name.nameRequired'),
                 },
               ]}
             >
@@ -86,47 +88,49 @@ const Register = () => {
               rules={[
                 {
                   required: true,
-                  message: t('register.phoneRequired'),
+                  message: t('validation.phone.required'),
                 },
                 {
                   min: 10,
-                  message: t('common.input.phoneMinLength'),
+                  message: t('validation.phone.min'),
                 },
                 {
                   pattern: /^[0-9]*$/,
-                  message: t('common.input.phoneInvalid'),
+                  message: t('validation.phone.invalid'),
                 },
               ]}
             >
               <Input placeholder={t('common.input.enterPhone')} allowClear maxLength={11} />
             </Form.Item>
 
-            <Form.Item
+            <FormItem
               name="email"
+              type="email"
               rules={[
                 {
                   required: true,
-                  message: t('common.input.emailRequired'),
+                  message: t('validation.email.required'),
                 },
                 {
                   type: 'email',
-                  message: t('common.input.invalidEmail'),
+                  message: t('validation.email.invalid'),
                 },
               ]}
             >
               <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
-            </Form.Item>
+            </FormItem>
 
             <Form.Item
               name="password"
               rules={[
                 {
                   required: true,
-                  message: t('common.input.passwordRequired'),
+                  message: t('validation.password.required'),
                 },
                 {
+                  validator: passwordValidator,
                   min: 8,
-                  message: t('common.input.passwordMinLength'),
+                  message: t('validation.password.invalid'),
                 },
               ]}
             >

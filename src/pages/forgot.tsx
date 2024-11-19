@@ -1,15 +1,16 @@
-import { Button, Image, Input, Form } from 'antd';
+import { Button, Image, Form, Input } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { authenticationType } from '../constants/login';
 import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
+import FormItem from '../components/common/form';
 
 const Forgot = () => {
   const { t } = useTranslation();
 
-  const onFinish = (values: unknown) => {
+  const onFinish = (values: { email: string }) => {
     console.log('Form values: ', values);
   };
 
@@ -21,7 +22,7 @@ const Forgot = () => {
         preview={false}
       />
       <div className="flex items-center justify-end gap-6 p-4">
-        <div className="flex w-3/5 justify-start ">
+        <div className="flex w-3/5 justify-start">
           <Link to="/" className=" text-black">
             <ArrowLeftOutlined />
           </Link>
@@ -53,31 +54,30 @@ const Forgot = () => {
             initialValues={{ email: '' }}
             layout="vertical"
           >
-            <Form.Item
+            <FormItem
               name="email"
+              type="email"
               rules={[
                 {
                   required: true,
-                  message: t('common.input.emailRequired'),
+                  message: t('validation.email.required'),
                 },
                 {
                   type: 'email',
-                  message: t('common.input.invalidEmail'),
+                  message: t('validation.email.invalid'),
                 },
               ]}
             >
-              <Input placeholder={t('common.input.enterEmail')} allowClear />
-            </Form.Item>
+              <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
+            </FormItem>
 
-            <Link to="/success">
-              <Button
-                className="w-full py-2 bg-[#56B280] font-semibold"
-                type="primary"
-                htmlType="submit"
-              >
-                {t('common.button.next')}
-              </Button>
-            </Link>
+            <Button
+              className="w-full py-2 bg-[#56B280] font-semibold"
+              type="primary"
+              htmlType="submit"
+            >
+              {t('common.button.next')}
+            </Button>
           </Form>
         </div>
       </div>

@@ -51,5 +51,27 @@
   "success": {
     "success": "Password Sent Successfully",
     "check": "Your password has been successfully sent to your Email!"
+  },
+
+  "validation": {
+    "email": {
+      "required": "Please input your email!",
+      "invalid": "Please input a valid email!"
+    },
+
+    "password": {
+      "required": "Please input your password!",
+      "invalid": "Password must be 8+ characters with letters and numbers."
+    },
+
+    "phone": {
+      "invalid": "Phone numbers can only be entered as numbers!",
+      "min": "Phonenumber Min Length",
+      "required": "Please input your phonenumber!"
+    },
+
+    "name": {
+      "nameRequired": "Please input your name!"
+    }
   }
 }
