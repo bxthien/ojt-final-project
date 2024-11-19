@@ -3,6 +3,8 @@ import Footer from '../components/footer';
 import Header from '../components/header/header';
 import Hero from '../components/home-page/hero';
 import ProductGrid from '../components/home-page/product-grid';
+import ProductList from '../components/home-page/product-list';
+import Banner from '../components/home-page/banner-product';
 
 const HomePage = () => {
   return (
@@ -12,6 +14,8 @@ const HomePage = () => {
         <Outlet />
         <Hero />
         <ProductGrid />
+        <ProductList />
+        <Banner />
       </div>
       <Footer />
     </div>
