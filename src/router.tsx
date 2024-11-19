@@ -9,24 +9,29 @@ import Success from './pages/success';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <HomePage />,
     errorElement: <NotFound />,
-  },
-  {
-    path: '/sign-in',
-    element: <SignIn />,
-  },
-  {
-    path: '/register',
-    element: <Register />,
-  },
-  {
-    path: '/forgot',
-    element: <Forgot />,
-  },
-  {
-    path: '/success',
-    element: <Success />,
+    children: [
+      {
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: '/sign-in',
+        element: <SignIn />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
+      },
+      {
+        path: '/forgot',
+        element: <Forgot />,
+      },
+      {
+        path: '/success',
+        element: <Success />,
+      },
+    ],
   },
 ]);
 
