@@ -4,9 +4,12 @@ import './index.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
 import './locales';
+import { CheckoutProvider } from './component/CheckoutContext';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CheckoutProvider>
+      <RouterProvider router={router} />
+    </CheckoutProvider>
   </StrictMode>
 );
