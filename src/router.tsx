@@ -37,43 +37,31 @@ const router = createBrowserRouter([
         path: '/success',
         element: <Success />,
       },
+      {
+        path: '/cart',
+        element: <Cart />,
+      },
+      {
+        path: '/checkout',
+        element: <Checkout />,
+      },
+      {
+        path: '/shoppingcart',
+        element: <ShoppingCart />,
+      },
+      {
+        path: '/selectaddress',
+        element: <SelectAddress />,
+      },
+      {
+        path: '/shipment-method',
+        element: <ShipmentMethod />,
+      },
+      {
+        path: '/payment',
+        element: <PaymentPage />,
+      },
     ],
-  },
-  {
-    path: '/cart',
-    element: <Cart />,
-    errorElement: <NotFound />,
-    // children: [...publicRoutes, ...privateRoutes],
-  },
-  {
-    path: '/checkout',
-    element: <Checkout />,
-    errorElement: <NotFound />,
-    // children: [...publicRoutes, ...privateRoutes],
-  },
-  {
-    path: '/shoppingcart',
-    element: <ShoppingCart />,
-    errorElement: <NotFound />,
-    // children: [...publicRoutes, ...privateRoutes],
-  },
-  {
-    path: '/selectaddress',
-    element: <SelectAddress />,
-    errorElement: <NotFound />,
-    // children: [...publicRoutes, ...privateRoutes],
-  },
-  {
-    path: '/shipment-method',
-    element: <ShipmentMethod />,
-    errorElement: <NotFound />,
-    // children: [...publicRoutes, ...privateRoutes],
-  },
-  {
-    path: '/payment',
-    element: <PaymentPage />,
-    errorElement: <NotFound />,
-    // children: [...publicRoutes, ...privateRoutes],
   },
 ]);
 
