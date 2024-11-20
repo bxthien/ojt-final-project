@@ -11,7 +11,7 @@ export const menuItems = [
   { href: '/', label: 'Home' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact Us' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/product-page', label: 'Product' },
 ];
 
 export const categoryItems = [
@@ -85,7 +85,7 @@ export const productData = {
 };
 
 export interface Product {
-  id: string; // Adjust the type according to your actual data
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -139,5 +139,41 @@ export const products: Product[] = [
     name: "Apple iPad 9 10.2' 64GB Wi-Fi Silver (MK2L3)",
     price: 398,
     image: Iphone16,
+  },
+];
+
+export const filterSections = [
+  {
+    id: 'price',
+    title: 'Price Range',
+    isOpen: true,
+  },
+  {
+    id: 'brand',
+    title: 'Brand',
+    isOpen: true,
+    items: [
+      { id: 'apple', name: 'Apple' },
+      { id: 'samsung', name: 'Samsung' },
+      { id: 'xiaomi', name: 'Xiaomi' },
+      { id: 'oppo', name: 'OPPO' },
+      { id: 'honor', name: 'Honor' },
+      { id: 'motorola', name: 'Motorola' },
+      { id: 'nokia', name: 'Nokia' },
+      { id: 'realme', name: 'Realme' },
+    ],
+  },
+  {
+    id: 'memory',
+    title: 'Built-in memory',
+    isOpen: true,
+    items: [
+      { id: '16gb', name: '16GB' },
+      { id: '32gb', name: '32GB' },
+      { id: '64gb', name: '64GB' },
+      { id: '128gb', name: '128GB' },
+      { id: '256gb', name: '256GB' },
+      { id: '512gb', name: '512GB' },
+    ],
   },
 ];
