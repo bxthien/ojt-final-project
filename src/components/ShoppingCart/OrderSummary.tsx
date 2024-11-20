@@ -1,51 +1,62 @@
+import { Card, Row, Col, Typography, Button, Input } from 'antd';
+
+const { Text, Title } = Typography;
+
 const OrderSummary = ({ subtotal = 0, tax = 0, shipping = 0, total = 0 }) => {
   return (
-    <div className="border border-gray-300 p-8 rounded-lg max-w-sm font-sans shadow-lg bg-white">
+    <Card
+      bordered={false}
+      className="border border-gray-200 rounded-lg p-6 max-w-md mx-auto shadow-md"
+    >
       {/* Title */}
-      <h2 className="font-bold text-xl mb-5">Order Summary</h2>
+      <Title level={4} className="mb-4 text-center">
+        Order Summary
+      </Title>
 
-      {/* Discount and Bonus Code Section */}
-      <div className="mb-5">
-        <input
-          type="text"
-          placeholder="Discount code / Promo code"
-          className="w-full p-2 mb-3 border border-gray-300 rounded-md text-sm"
-        />
-        <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Enter Card Number"
-            className="flex-1 p-2 border border-gray-300 rounded-md text-sm"
-          />
-          <button className="px-5 py-2 bg-green-500 text-white font-bold rounded-md text-sm hover:bg-green-600">
+      {/* Discount Input */}
+      <Input placeholder="Discount code / Promo code" className="mb-4 rounded-lg" />
+
+      {/* Bonus Card Input */}
+      <Row gutter={8} className="mb-4">
+        <Col flex="auto">
+          <Input placeholder="Your bonus card number" className="rounded-lg" />
+        </Col>
+        <Col>
+          <Button type="primary" className="bg-green-500 hover:bg-green-600 border-none rounded-lg">
             Apply
-          </button>
-        </div>
-      </div>
+          </Button>
+        </Col>
+      </Row>
 
-      {/* Subtotals */}
-      <div className="mb-5 text-sm leading-6">
-        <p className="flex justify-between">
-          <span>Subtotal:</span> <strong>${subtotal.toFixed(2)}</strong>
-        </p>
-        <p className="flex justify-between">
-          <span>Estimated Tax:</span> <strong>${tax.toFixed(2)}</strong>
-        </p>
-        <p className="flex justify-between">
-          <span>Estimated shipping & Handling:</span> <strong>${shipping.toFixed(2)}</strong>
-        </p>
-      </div>
+      {/* Summary */}
+      <Row justify="space-between" className="mb-2">
+        <Text>Subtotal:</Text>
+        <Text>${subtotal.toFixed(2)}</Text>
+      </Row>
+      <Row justify="space-between" className="mb-2">
+        <Text>Estimated Tax:</Text>
+        <Text>${tax.toFixed(2)}</Text>
+      </Row>
+      <Row justify="space-between" className="mb-6">
+        <Text>Estimated shipping & Handling:</Text>
+        <Text>${shipping.toFixed(2)}</Text>
+      </Row>
 
       {/* Total */}
-      <h3 className="flex justify-between text-base font-bold mb-5">
-        <span>Total:</span> <strong>${total.toFixed(2)}</strong>
-      </h3>
+      <Row justify="space-between" className="font-bold mb-6">
+        <Text>Total:</Text>
+        <Text>${total.toFixed(2)}</Text>
+      </Row>
 
       {/* Checkout Button */}
-      <button className="w-full py-3 bg-green-500 text-white font-bold rounded-md text-base hover:bg-green-600">
+      <Button
+        type="primary"
+        block
+        className="bg-green-500 hover:bg-green-600 border-none rounded-lg h-12"
+      >
         Checkout
-      </button>
-    </div>
+      </Button>
+    </Card>
   );
 };
 

@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AddressCard from './AddressCard';
+import { Steps, Card, Typography, Button, Space, Modal } from 'antd';
+
+const { Step } = Steps;
+const { Title, Text } = Typography;
 
 const SelectAddress = () => {
   const [addresses, setAddresses] = useState([
@@ -19,15 +22,17 @@ const SelectAddress = () => {
       phone: '(704) 555-0127',
     },
   ]);
-
-  const navigate = useNavigate();
   const [selectedAddress, setSelectedAddress] = useState(addresses[0]?.id || null);
+  const navigate = useNavigate();
 
   const handleNext = () => {
     if (selectedAddress) {
       navigate('/shipment-method');
     } else {
-      alert('Please select an address before proceeding.');
+      Modal.warning({
+        title: 'No Address Selected',
+        content: 'Please select an address before proceeding.',
+      });
     }
   };
 
@@ -44,53 +49,67 @@ const SelectAddress = () => {
   };
 
   return (
-    <div className="p-10 font-sans max-w-3xl mx-auto">
+    <div className="p-10 max-w-3xl mx-auto">
       {/* Steps */}
-      <div className="flex justify-between items-center text-base mb-8">
-        <div>
-          <span className="font-bold text-black">●</span> Step 1: Address
-        </div>
-        <div className="text-gray-400">Step 2: Shipping</div>
-        <div className="text-gray-400">Step 3: Payment</div>
-      </div>
+      <Steps current={0} className="mb-10">
+        <Step title="Address" />
+        <Step title="Shipping" />
+        <Step title="Payment" />
+      </Steps>
 
       {/* Select Address */}
-      <h2 className="text-2xl mb-5">Select Address</h2>
-      <div className="mt-5">
+      <Title level={3} className="mb-5">
+        Select Address
+      </Title>
+      <Space direction="vertical" size="large" className="w-full">
         {addresses.map((address) => (
-          <AddressCard
+          <Card
             key={address.id}
-            address={address}
-            isSelected={selectedAddress === address.id}
-            onSelect={() => setSelectedAddress(address.id)}
-            onEdit={() => alert(`Edit address ${address.id}`)}
-            onDelete={() => setAddresses(addresses.filter((a) => a.id !== address.id))}
-          />
+            className={`cursor-pointer ${
+              selectedAddress === address.id
+                ? 'border-2 border-[#52c41a]'
+                : 'border border-gray-300'
+            }`}
+            onClick={() => setSelectedAddress(address.id)}
+          >
+            <Space direction="vertical" className="w-full">
+              <Title level={5} className="mb-0">
+                {address.title}{' '}
+                <span className="bg-black text-white px-2 py-1 rounded text-xs">
+                  {address.type}
+                </span>
+              </Title>
+              <Text className="text-gray-600">{address.address}</Text>
+              <Text className="text-gray-600">{address.phone}</Text>
+            </Space>
+          </Card>
         ))}
 
         {/* Add New Address Button */}
-        <div
-          className="text-center text-lg cursor-pointer text-black mt-5"
+        <Button
+          type="link"
           onClick={handleAddNewAddress}
+          className="text-lg text-black hover:text-[#52c41a]"
         >
           + Add New Address
-        </div>
-      </div>
+        </Button>
+      </Space>
 
       {/* Navigation Buttons */}
       <div className="flex justify-end gap-3 mt-10">
-        <button
-          className="border border-gray-300 py-3 px-6 rounded-md bg-white text-base cursor-pointer"
-          onClick={() => navigate(-1)} // Back to previous page
+        <Button
+          onClick={() => navigate(-1)}
+          className="border border-[#499125] text-[#52c41a] hover:bg-[#52c41a] hover:text-white"
         >
           Back
-        </button>
-        <button
-          className="bg-green-500 text-white py-3 px-6 rounded-md text-base cursor-pointer"
+        </Button>
+        <Button
+          type="primary"
           onClick={handleNext}
+          className="bg-[#56B280] border-[#56B280] hover:bg-[#3D8F64] text-white"
         >
           Next
-        </button>
+        </Button>
       </div>
     </div>
   );

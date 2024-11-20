@@ -1,5 +1,9 @@
-import { useState } from 'react';
+import { JSXElementConstructor, ReactElement, ReactNode, useState } from 'react';
+import { Table, Input, Button, Select, Card, Row, Col, Space, Typography } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+
+const { Title, Text } = Typography;
 
 function Cart() {
   const [items, setItems] = useState([
@@ -7,16 +11,13 @@ function Cart() {
     { id: 2, name: 'H1 Gamepad', price: 550, quantity: 2, image: 'src/assets/images/taycam.png' },
   ]);
 
-  const handleQuantityChange = (id: number, newQuantity: number) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleQuantityChange = (id: number, newQuantity: any) => {
     setItems(items.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item)));
   };
 
   const handleRemoveItem = (id: number) => {
     setItems(items.filter((item) => item.id !== id));
-  };
-
-  const handleUpdateCart = () => {
-    alert('Cart updated successfully!');
   };
 
   const handleApplyCoupon = () => {
@@ -25,109 +26,126 @@ function Cart() {
 
   const subtotal = items.reduce((total, item) => total + item.price * item.quantity, 0);
 
-  return (
-    <div className="p-5 max-w-5xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">Cart</h2>
-      <div className="text-sm text-gray-500 mb-5">Home / Cart</div>
-
-      {/* Table Section */}
-      <table className="w-full border-collapse mb-8">
-        <thead>
-          <tr>
-            <th className="p-4 text-left border-b-2 border-gray-200">Product</th>
-            <th className="p-4 text-left border-b-2 border-gray-200">Price</th>
-            <th className="p-4 text-left border-b-2 border-gray-200">Quantity</th>
-            <th className="p-4 text-left border-b-2 border-gray-200">Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr key={item.id} className="border-b border-gray-200">
-              <td className="p-4 flex items-center">
-                <button
-                  onClick={() => handleRemoveItem(item.id)}
-                  className="text-red-500 text-lg mr-4 cursor-pointer"
-                >
-                  ✕
-                </button>
-                <img src={item.image} alt={item.name} className="w-16 h-16 rounded mr-4" />
-                <span className="text-lg">{item.name}</span>
-              </td>
-              <td className="p-4 text-lg">${item.price}</td>
-              <td className="p-4">
-                <select
-                  value={item.quantity}
-                  onChange={(e) => handleQuantityChange(item.id, parseInt(e.target.value))}
-                  className="p-2 border border-gray-300 rounded"
-                >
-                  {[...Array(10).keys()].map((q) => (
-                    <option key={q + 1} value={q + 1}>
-                      {q + 1}
-                    </option>
-                  ))}
-                </select>
-              </td>
-              <td className="p-4 text-lg">${item.price * item.quantity}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {/* Action Buttons */}
-      <div className="flex justify-between items-center mb-8">
-        <button className="px-5 py-2 border border-gray-300 rounded bg-white text-sm cursor-pointer">
-          Return To Shop
-        </button>
-        <button
-          onClick={handleUpdateCart}
-          className="px-5 py-2 border border-gray-300 rounded bg-white text-sm cursor-pointer"
+  const columns = [
+    {
+      title: 'Product',
+      dataIndex: 'name',
+      key: 'name',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      render: (
+        _: any,
+        record: {
+          id: any;
+          image: string | undefined;
+          name:
+            | string
+            | number
+            | boolean
+            | ReactElement<any, string | JSXElementConstructor<any>>
+            | Iterable<ReactNode>
+            | null
+            | undefined;
+        }
+      ) => (
+        <Space size="middle">
+          <Button
+            type="text"
+            icon={<CloseOutlined style={{ color: 'red' }} />}
+            onClick={() => handleRemoveItem(record.id)}
+          />
+          <img src={record.image} style={{ width: '60px', height: '60px', borderRadius: '4px' }} />
+          <Text>{record.name}</Text>
+        </Space>
+      ),
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+      render: (price: unknown) => `$${price}`,
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      render: (quantity: any, record: { id: any }) => (
+        <Select
+          value={quantity}
+          onChange={(value) => handleQuantityChange(record.id, value)}
+          style={{ width: 80 }}
         >
-          Update Cart
-        </button>
-      </div>
+          {[...Array(10).keys()].map((q) => (
+            <Select.Option key={q + 1} value={q + 1}>
+              {q + 1}
+            </Select.Option>
+          ))}
+        </Select>
+      ),
+    },
+    {
+      title: 'Subtotal',
+      dataIndex: 'subtotal',
+      key: 'subtotal',
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      render: (_: any, record: { price: number; quantity: number }) =>
+        `$${record.price * record.quantity}`,
+    },
+  ];
 
-      {/* Coupon and Cart Total Section */}
-      <div className="flex justify-between items-start gap-8">
+  return (
+    <div className="cart-container" style={{ padding: '20px', maxWidth: '1200px', margin: 'auto' }}>
+      <Title level={2}>Cart</Title>
+      <Text type="secondary">Home / Cart</Text>
+      <Table
+        dataSource={items}
+        columns={columns}
+        rowKey="id"
+        pagination={false}
+        style={{ marginTop: '20px', marginBottom: '40px' }}
+      />
+
+      <Row gutter={24}>
         {/* Coupon Section */}
-        <div className="flex flex-col items-start gap-4">
-          <h3 className="text-lg font-bold">Apply Coupon</h3>
-          <div className="flex gap-4 items-center">
-            <input
-              type="text"
-              placeholder="Coupon Code"
-              className="w-52 p-2 border border-gray-300 rounded text-sm"
-            />
-            <button
-              onClick={handleApplyCoupon}
-              className="px-5 py-2 bg-green-500 text-white rounded text-sm cursor-pointer"
-            >
-              Apply Coupon
-            </button>
-          </div>
-        </div>
+        <Col xs={24} md={12}>
+          <Card>
+            <Title level={4}>Apply Coupon</Title>
+            <Space direction="vertical" size="middle">
+              <Input placeholder="Coupon Code" />
+              <Button
+                className="bg-[#56B280] border-[#56B280] hover:bg-[#3D8F64] text-white"
+                onClick={handleApplyCoupon}
+              >
+                Apply Coupon
+              </Button>
+            </Space>
+          </Card>
+        </Col>
 
         {/* Cart Total Section */}
-        <div className="border border-gray-300 rounded p-6 w-96 flex flex-col gap-4">
-          <h3 className="text-lg font-bold">Cart Total</h3>
-          <div className="flex justify-between">
-            <span>Subtotal:</span>
-            <span>${subtotal}</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Shipping:</span>
-            <span>Free</span>
-          </div>
-          <div className="flex justify-between font-bold">
-            <span>Total:</span>
-            <span>${subtotal}</span>
-          </div>
-          <button className="px-5 py-2 bg-green-500 text-white rounded text-sm mt-4">
-            <Link to="/checkout" className="text-white no-underline">
-              Proceed to checkout
-            </Link>
-          </button>
-        </div>
-      </div>
+        <Col xs={24} md={12}>
+          <Card>
+            <Title level={4}>Cart Total</Title>
+            <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+              <Row justify="space-between">
+                <Text>Subtotal:</Text>
+                <Text>${subtotal}</Text>
+              </Row>
+              <Row justify="space-between">
+                <Text>Shipping:</Text>
+                <Text>Free</Text>
+              </Row>
+              <Row justify="space-between" style={{ fontWeight: 'bold' }}>
+                <Text>Total:</Text>
+                <Text>${subtotal}</Text>
+              </Row>
+              <Button block className="bg-[#56B280] border-[#56B280] hover:bg-[#3D8F64] text-white">
+                <Link to="/checkout">Proceed to checkout</Link>
+              </Button>
+            </Space>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 }
