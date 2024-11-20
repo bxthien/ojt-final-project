@@ -1,4 +1,3 @@
-import React from 'react';
 import { filterSections } from '../../constants/data';
 
 interface MemoryFilterProps {
