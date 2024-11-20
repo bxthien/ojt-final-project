@@ -3,8 +3,8 @@ import AppleIC from '../assets/svgs/Apple.svg';
 import FbIC from '../assets/svgs/Fb.svg';
 
 export const authenticationType = [
-  { text: 'Sign in', value: 'sign-in' },
-  { text: 'Register', value: 'register' },
+  { label: 'common.button.signIn', value: 'sign-in', href: '/sign-in' },
+  { label: 'common.button.register', value: 'register', href: '/register' },
 ];
 
 export const thirdMethod = [

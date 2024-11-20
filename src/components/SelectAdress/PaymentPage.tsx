@@ -1,4 +1,3 @@
-import React from 'react';
 import { Steps, Card, Typography, Input, Checkbox, Button, Divider, Row, Col } from 'antd';
 import { useNavigate } from 'react-router-dom';
 

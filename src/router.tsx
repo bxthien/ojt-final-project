@@ -7,12 +7,37 @@ import SelectAddress from './components/SelectAdress/SelectAddress';
 import ShipmentMethod from './components/SelectAdress/ShipmentMethod';
 import Cart from './components/payments/Cart';
 import PaymentPage from './components/SelectAdress/PaymentPage';
+import HomePage from './pages/home-page';
+import Register from './pages/register';
+import Forgot from './pages/forgot';
+import Success from './pages/success';
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <SignIn />,
     errorElement: <NotFound />,
-    // children: [...publicRoutes, ...privateRoutes],
+    children: [
+      {
+        path: '/',
+        element: <HomePage />,
+      },
+      {
+        path: '/sign-in',
+        element: <SignIn />,
+      },
+      {
+        path: '/register',
+        element: <Register />,
+      },
+      {
+        path: '/forgot',
+        element: <Forgot />,
+      },
+      {
+        path: '/success',
+        element: <Success />,
+      },
+    ],
   },
   {
     path: '/cart',

@@ -8,28 +8,27 @@ import LanguageSelector from '../components/common/language';
 import FormItem from '../components/common/form';
 import { passwordValidator } from '../constants/regex';
 
-const SignIn = () => {
+const Register = () => {
   const { t } = useTranslation();
-
   const onFinish = (values: unknown) => {
     console.log('Form values: ', values);
   };
 
   return (
-    <div className="flex flex-rol md:flex-row h-screen w-screen justify-evenly p-4 md:p-12 bg-[#F6F6F6]">
+    <div className="flex flex-row h-screen w-screen justify-evenly p-4 md:p-12 bg-[#F6F6F6]">
       <div className="relative md:flex md:items-center md:justify-center hidden">
         <Image
-          className="relative hidden md:block lg:max-w-[700px] md:max-w-[90%]"
+          className="relative lg:max-w-[700px] md:max-w-[90%]"
           src={MockupIC}
           preview={false}
         />
         <div className="hidden md:block absolute top-6 left-8 text-3xl font-medium">
-          {t('login.signInToPayment')}
+          {t('register.signUpToPayment')}
         </div>
         <div className="hidden md:block absolute top-[90px] left-8 text-sm font-light text-[#4F555A] max-w-[300px]">
-          {t('login.noAccount')} <span className="ml-1"></span>
-          <Link to="/register" className="text-[#56B280] font-semibold underline">
-            {t('login.registerHere')}
+          {t('register.account')} <span className="ml-1"></span>
+          <Link to="/sign-in" className="text-[#56B280] font-semibold underline">
+            {t('register.signInHere')}
           </Link>
         </div>
       </div>
@@ -52,12 +51,12 @@ const SignIn = () => {
 
         <div className="flex flex-col gap-3 flex-grow justify-center">
           <div className="md:hidden text-center mb-4 text-3xl font-medium">
-            {t('login.signInToPayment')}
+            {t('register.signUpToPayment')}
           </div>
           <div className="md:hidden text-center mb-4 text-sm font-light text-[#4F555A]">
-            {t('login.noAccount')} <span className="ml-1"></span>
-            <Link to="/register" className="text-[#56B280] font-semibold underline">
-              {t('login.registerHere')}
+            {t('register.account')} <span className="ml-1"></span>
+            <Link to="/sign-in" className="text-[#56B280] font-semibold underline">
+              {t('register.signInHere')}
             </Link>
             <Image
               className="md:hidden fixed inset-0 w-full h-full object-cover z-0 pointer-events-none"
@@ -65,12 +64,45 @@ const SignIn = () => {
               preview={false}
             />
           </div>
+
           <Form
-            name="sign_in_form"
+            name="register_form"
             onFinish={onFinish}
-            initialValues={{ email: '', password: '' }}
+            initialValues={{ name: '', phone: '', email: '', password: '' }}
             layout="vertical"
           >
+            <Form.Item
+              name="name"
+              rules={[
+                {
+                  required: true,
+                  message: t('validation.name.nameRequired'),
+                },
+              ]}
+            >
+              <Input placeholder={t('common.input.enterName')} allowClear />
+            </Form.Item>
+
+            <Form.Item
+              name="phone"
+              rules={[
+                {
+                  required: true,
+                  message: t('validation.phone.required'),
+                },
+                {
+                  min: 10,
+                  message: t('validation.phone.min'),
+                },
+                {
+                  pattern: /^[0-9]*$/,
+                  message: t('validation.phone.invalid'),
+                },
+              ]}
+            >
+              <Input placeholder={t('common.input.enterPhone')} allowClear maxLength={11} />
+            </Form.Item>
+
             <FormItem
               name="email"
               type="email"
@@ -106,15 +138,8 @@ const SignIn = () => {
             </Form.Item>
           </Form>
 
-          <Link
-            to="/forgot"
-            className="text-xs font-extralight text-[#56B280] text-right hover:text-[#a8a8a8] cursor-pointer"
-          >
-            {t('login.recoverPassword')}
-          </Link>
-
           <Button className="py-4 bg-[#56B280] font-semibold" type="primary" htmlType="submit">
-            {t('common.button.signIn')}
+            {t('common.button.register')}
           </Button>
 
           <div>
@@ -138,4 +163,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Register;
