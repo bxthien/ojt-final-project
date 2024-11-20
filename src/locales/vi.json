@@ -7,7 +7,11 @@
       "save": "Lưu",
       "signIn": "Đăng Nhập",
       "register": "Đăng Ký",
-      "home": "Trang Chủ"
+      "home": "Trang Chủ",
+      "next": "Tiếp Tục",
+      "check": "Xác minh mã",
+      "update": "Cập Nhật Mật Khẩu",
+      "continue": "Tiếp Tục"
     },
 
     "input": {
@@ -27,7 +31,38 @@
   "login": {
     "signInToPayment": "Đăng Nhập Để Thanh Toán",
     "noAccount": "Nếu bạn chưa có tài khoản, bạn có thể",
-    "registerHere": "Đăng Ký Tại Đây!",
-    "recoverPassword": "Khôi Phục Mật Khẩu"
+    "registerHere": "Đăng Ký Tại Đây!"
+  },
+
+  "forgot": {
+    "forgotPassword": "Quên Mật Khẩu",
+    "reset": "Vui lòng nhập email của bạn để đặt lại mật khẩu"
+  },
+
+  "success": {
+    "success": "Gửi Mật Khẩu Thành Công",
+    "check": "Mật khẩu của bạn đã được gửi thành công đến Email!"
+  },
+
+  "validation": {
+    "email": {
+      "required": "Vui lòng nhập email của bạn!",
+      "invalid": "Vui lòng nhập email hợp lệ!"
+    },
+
+    "password": {
+      "required": "Vui lòng nhập mật khẩu!",
+      "invalid": "Mật khẩu phải có 8+ ký tự bao gồm chữ cái và số!"
+    },
+
+    "phone": {
+      "invalid": "Số điện thoại chỉ có thể nhập số!",
+      "min": "Độ Dài Tối Thiểu Của Số Điện Thoại",
+      "required": "Vui lòng nhập số điện thoại của bạn!"
+    },
+
+    "name": {
+      "nameRequired": "Vui lòng nhập tên của bạn!"
+    }
   }
 }
