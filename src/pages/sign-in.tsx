@@ -1,54 +1,25 @@
-import { Button, Divider, Image, Input, Form, notification } from 'antd';
+import { Button, Divider, Image, Input, Form } from 'antd';
 import { authenticationType, thirdMethod } from '../constants/login';
 import MockupIC from '../assets/images/mockupIp.png';
 import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
-import FormItem from '../components/common/form';
-import { passwordValidator } from '../constants/regex';
-import { useState } from 'react';
-import { authService, SignInPayload } from '../constants/service';
-import axios from 'axios';
+// import { passwordValidator } from '../constants/regex';
+import { signin, SignInPayload } from '../constants/service';
 
 const SignIn = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
   const handleSignIn = async (values: SignInPayload) => {
     try {
-      setLoading(true);
-      const response = await authService.signIn(values);
+      const res = await signin(values);
 
-      if (response.statusCode === 200) {
-        notification.success({
-          message: 'Thành công',
-          description: response.message || 'Đăng nhập thành công',
-        });
-        navigate('/');
-      }
-    } catch (error: unknown) {
-      let errorMessage = 'Đăng nhập thất bại';
-
-      if (axios.isAxiosError(error)) {
-        errorMessage = error.response?.data?.message || error.message || 'Đăng nhập thất bại';
-      } else if (error instanceof Error) {
-        errorMessage = error.message;
-      } else if (typeof error === 'object' && error !== null && 'message' in error) {
-        errorMessage = (error as { message: string }).message;
-      }
-
-      notification.error({
-        message: 'Lỗi',
-        description: errorMessage,
-      });
-      form.setFieldsValue({ password: '' });
-
-      console.error('Lỗi đăng nhập:', error);
-    } finally {
-      setLoading(false);
+      if (res) navigate('/');
+    } catch (error) {
+      console.log('error', error);
     }
   };
 
@@ -110,26 +81,24 @@ const SignIn = () => {
             initialValues={{ email: '', password: '' }}
             layout="vertical"
           >
-            <FormItem
+            <Form.Item
               name="email"
-              type="email"
               rules={[
                 { required: true, message: t('validation.email.required') },
                 { type: 'email', message: t('validation.email.invalid') },
               ]}
             >
               <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
-            </FormItem>
+            </Form.Item>
 
             <Form.Item
               name="password"
               rules={[
                 { required: true, message: t('validation.password.required') },
-                {
-                  validator: passwordValidator,
-                  min: 8,
-                  message: t('validation.password.invalid'),
-                },
+                // {
+                //   validator: passwordValidator,
+                //   message: t('validation.password.invalid'),
+                // },
               ]}
             >
               <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
@@ -142,15 +111,16 @@ const SignIn = () => {
               {t('login.recoverPassword')}
             </Link>
 
-            <Button
-              className="py-4 bg-[#56B280] font-semibold"
-              type="primary"
-              htmlType="submit"
-              block
-              loading={loading}
-            >
-              {t('common.button.signIn')}
-            </Button>
+            <Form.Item label={null}>
+              <Button
+                className="py-4 bg-[#56B280] font-semibold"
+                type="primary"
+                htmlType="submit"
+                block
+              >
+                {t('common.button.signIn')}
+              </Button>
+            </Form.Item>
           </Form>
 
           <div>

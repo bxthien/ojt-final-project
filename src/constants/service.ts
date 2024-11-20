@@ -7,58 +7,20 @@ export interface SignInPayload {
   password: string;
 }
 
-export interface SignInResponse {
-  statusCode: number;
-  message: string;
-  data: {
-    accessToken: string;
-    user: {
-      id: string;
-      email: string;
-      fullName?: string;
-      role?: string;
-    };
-  };
-}
-
-export class AuthService {
-  async signIn(credentials: SignInPayload): Promise<SignInResponse> {
-    try {
-      const response = await axios.post<SignInResponse>(`${API_URL}/auth/login`, credentials);
-
-      if (response.data.data.accessToken) {
-        localStorage.setItem('accessToken', response.data.data.accessToken);
-        localStorage.setItem('user', JSON.stringify(response.data.data.user));
-        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.accessToken}`;
-      }
-
-      return response.data;
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw {
-          message: error.response?.data?.message || 'Đăng nhập thất bại',
-          status: error.response?.status,
-        };
-      }
-      throw new Error('Đã xảy ra lỗi khi đăng nhập');
-    }
-  }
-
-  logout(): void {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('user');
-    delete axios.defaults.headers.common['Authorization'];
-  }
-
-  getCurrentUser() {
-    const userStr = localStorage.getItem('user');
-    if (userStr) return JSON.parse(userStr);
-    return null;
-  }
-
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('accessToken');
-  }
-}
-
-export const authService = new AuthService();
+export const signin = (params: SignInPayload) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${API_URL}/api/auth/login`, params)
+      .then(({ data: response }) => {
+        if (response.access_token) {
+          localStorage.setItem('accessToken', response.access_token);
+          axios.defaults.headers.common['Authorization'] = `Bearer ${response.access_token}`;
+        }
+        resolve(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
+};
