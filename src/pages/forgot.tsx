@@ -1,17 +1,35 @@
-import { Button, Image, Form, Input } from 'antd';
+import { Button, Image, Form, Input, notification } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { authenticationType } from '../constants/login';
 import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
 import FormItem from '../components/common/form';
+import { forgot, ForgotPayload } from '../constants/service';
 
 const Forgot = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
 
-  const onFinish = (values: { email: string }) => {
-    console.log('Form values: ', values);
+  const handleForgot = async (values: ForgotPayload) => {
+    try {
+      const res = await forgot(values);
+      if (res) {
+        notification.success({
+          message: t('forgot.success.noti'),
+          description: t('forgot.success.check'),
+        });
+        navigate('/success');
+      }
+    } catch (error) {
+      notification.error({
+        message: t('forgot.error.title'),
+        description: t('forgot.error.message'),
+      });
+      console.log('error', error);
+    }
   };
 
   return (
@@ -39,7 +57,7 @@ const Forgot = () => {
         ))}
 
         <Button className="bg-[#56B280] px-4 py-2" type="primary">
-          <Link to="/home">{t('common.button.home')}</Link>
+          <Link to="/">{t('common.button.home')}</Link>
         </Button>
       </div>
       <div className="flex-grow flex flex-col items-center justify-center">
@@ -49,14 +67,14 @@ const Forgot = () => {
         </div>
         <div className="w-full max-w-md">
           <Form
+            form={form}
             name="forgot_form"
-            onFinish={onFinish}
+            onFinish={handleForgot}
             initialValues={{ email: '' }}
             layout="vertical"
           >
             <FormItem
               name="email"
-              type="email"
               rules={[
                 {
                   required: true,
@@ -70,14 +88,15 @@ const Forgot = () => {
             >
               <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
             </FormItem>
-
-            <Button
-              className="w-full py-2 bg-[#56B280] font-semibold"
-              type="primary"
-              htmlType="submit"
-            >
-              {t('common.button.next')}
-            </Button>
+            <Form.Item label={null}>
+              <Button
+                className="w-full py-2 bg-[#56B280] font-semibold"
+                type="primary"
+                htmlType="submit"
+              >
+                {t('common.button.next')}
+              </Button>
+            </Form.Item>
           </Form>
         </div>
       </div>

@@ -25,23 +25,48 @@
   "register": {
     "signUpToPayment": "Đăng Ký Để Thanh Toán",
     "account": "Nếu bạn đã có tài khoản, bạn có thể",
-    "signInHere": "Đăng Nhập Tại Đây!"
+    "signInHere": "Đăng Nhập Tại Đây!",
+    "nameRequired": "Tên Yêu Cầu",
+    "phoneRequired": "Số Điện Thoại Yêu Cầu",
+
+    "success": {
+      "title": "Đăng Ký Thành Công",
+      "message": "Bạn đã đăng ký thành công. Chào mừng đến với ViperS"
+    },
+    "error": {
+      "title": "Đăng Ký Thất Bại",
+      "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
+    }
   },
 
   "login": {
     "signInToPayment": "Đăng Nhập Để Thanh Toán",
     "noAccount": "Nếu bạn chưa có tài khoản, bạn có thể",
-    "registerHere": "Đăng Ký Tại Đây!"
+    "registerHere": "Đăng Ký Tại Đây!",
+    "recoverPassword": "Khôi phục mật khẩu",
+
+    "success": {
+      "title": "Đăng Nhập Thành Công",
+      "message": "Bạn đã đăng nhập thành công. Chào mừng đến với ViperS"
+    },
+    "error": {
+      "title": "Đăng Nhập Thất Bại",
+      "message": "Vui lòng kiểm tra email và mật khẩu của bạn và thử lại."
+    }
   },
 
   "forgot": {
     "forgotPassword": "Quên Mật Khẩu",
-    "reset": "Vui lòng nhập email của bạn để đặt lại mật khẩu"
-  },
+    "reset": "Vui lòng nhập email của bạn để đặt lại mật khẩu",
 
-  "success": {
-    "success": "Gửi Mật Khẩu Thành Công",
-    "check": "Mật khẩu của bạn đã được gửi thành công đến Email!"
+    "success": {
+      "noti": "Gửi Mật Khẩu Thành Công",
+      "check": "Mật khẩu của bạn đã được gửi thành công đến Email!"
+    },
+    "error": {
+      "title": "Gửi Email Không Thành Công",
+      "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
+    }
   },
 
   "validation": {

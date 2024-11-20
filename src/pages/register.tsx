@@ -1,17 +1,36 @@
-import { Button, Divider, Image, Input, Form } from 'antd';
+import { Button, Divider, Image, Input, Form, notification } from 'antd';
 import { authenticationType, thirdMethod } from '../constants/login';
 import MockupIC from '../assets/images/mockupIp.png';
 import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
 import FormItem from '../components/common/form';
 import { passwordValidator } from '../constants/regex';
+import { register, RegisterPayload } from '../constants/service';
 
 const Register = () => {
   const { t } = useTranslation();
-  const onFinish = (values: unknown) => {
-    console.log('Form values: ', values);
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
+
+  const handleRegister = async (values: RegisterPayload) => {
+    try {
+      const res = await register(values);
+      if (res) {
+        notification.success({
+          message: t('register.success.title'),
+          description: t('register.success.message'),
+        });
+        navigate('/');
+      }
+    } catch (error) {
+      notification.error({
+        message: t('register.error.title'),
+        description: t('register.error.message'),
+      });
+      console.log('error', error);
+    }
   };
 
   return (
@@ -45,7 +64,7 @@ const Register = () => {
             </Link>
           ))}
           <Button className="bg-[#56B280] px-4 py-2" type="primary">
-            <Link to="/home">{t('common.button.home')}</Link>
+            <Link to="/">{t('common.button.home')}</Link>
           </Button>
         </div>
 
@@ -66,19 +85,15 @@ const Register = () => {
           </div>
 
           <Form
+            form={form}
             name="register_form"
-            onFinish={onFinish}
+            onFinish={handleRegister}
             initialValues={{ name: '', phone: '', email: '', password: '' }}
             layout="vertical"
           >
             <Form.Item
-              name="name"
-              rules={[
-                {
-                  required: true,
-                  message: t('validation.name.nameRequired'),
-                },
-              ]}
+              name="username"
+              rules={[{ required: true, message: t('validation.name.nameRequired') }]}
             >
               <Input placeholder={t('common.input.enterName')} allowClear />
             </Form.Item>
@@ -105,7 +120,6 @@ const Register = () => {
 
             <FormItem
               name="email"
-              type="email"
               rules={[
                 {
                   required: true,
@@ -129,18 +143,24 @@ const Register = () => {
                 },
                 {
                   validator: passwordValidator,
-                  min: 8,
                   message: t('validation.password.invalid'),
                 },
               ]}
             >
               <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
             </Form.Item>
-          </Form>
 
-          <Button className="py-4 bg-[#56B280] font-semibold" type="primary" htmlType="submit">
-            {t('common.button.register')}
-          </Button>
+            <Form.Item label={null}>
+              <Button
+                className="py-4 bg-[#56B280] font-semibold"
+                type="primary"
+                htmlType="submit"
+                block
+              >
+                {t('common.button.register')}
+              </Button>
+            </Form.Item>
+          </Form>
 
           <div>
             <div className="relative">

@@ -33,24 +33,46 @@
     "account": "If you have an account, you can",
     "signInHere": "Sign In here!",
     "nameRequired": "Name Required",
-    "phoneRequired": "Phone Required"
+    "phoneRequired": "Phone Required",
+
+    "success": {
+      "title": "Register Successful",
+      "message": "You have successfully registered. Welcome to ViperS!"
+    },
+    "error": {
+      "title": "Register Failed",
+      "message": "An unexpected error occurred. Please try again."
+    }
   },
 
   "login": {
     "signInToPayment": "Sign In To Payment",
     "noAccount": "If you don't have an account, you can",
     "registerHere": "Register here!",
-    "recoverPassword": "Recover Passwword"
+    "recoverPassword": "Recover Passwword",
+
+    "success": {
+      "title": "Login Successful",
+      "message": "You have successfully logged in. Welcome to ViperS!+"
+    },
+    "error": {
+      "title": "Login Failed",
+      "message": "Please check your email and password and try again."
+    }
   },
 
   "forgot": {
     "forgotPassword": "Forgot Password",
-    "reset": "Please enter your email to reset the password"
-  },
+    "reset": "Please enter your email to reset the password",
 
-  "success": {
-    "success": "Password Sent Successfully",
-    "check": "Your password has been successfully sent to your Email!"
+    "success": {
+      "success": "Password Sent Successfully",
+      "check": "Your password has been successfully sent to your Email!"
+    },
+    "error": {
+      "title": "Email Sending Failed",
+      "message": "An unexpected error occurred. Please try again."
+    }
   },
 
   "validation": {

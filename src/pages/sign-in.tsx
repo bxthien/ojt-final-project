@@ -1,11 +1,11 @@
-import { Button, Divider, Image, Input, Form } from 'antd';
+import { Button, Divider, Image, Input, Form, notification } from 'antd';
 import { authenticationType, thirdMethod } from '../constants/login';
 import MockupIC from '../assets/images/mockupIp.png';
 import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
-// import { passwordValidator } from '../constants/regex';
+import { passwordValidator } from '../constants/regex';
 import { signin, SignInPayload } from '../constants/service';
 
 const SignIn = () => {
@@ -16,9 +16,18 @@ const SignIn = () => {
   const handleSignIn = async (values: SignInPayload) => {
     try {
       const res = await signin(values);
-
-      if (res) navigate('/');
+      if (res) {
+        notification.success({
+          message: t('login.success.title'),
+          description: t('login.success.message'),
+        });
+        navigate('/');
+      }
     } catch (error) {
+      notification.error({
+        message: t('login.error.title'),
+        description: t('login.error.message'),
+      });
       console.log('error', error);
     }
   };
@@ -55,7 +64,7 @@ const SignIn = () => {
             </Link>
           ))}
           <Button className="bg-[#56B280] px-4 py-2" type="primary">
-            <Link to="/home">{t('common.button.home')}</Link>
+            <Link to="/">{t('common.button.home')}</Link>
           </Button>
         </div>
 
@@ -95,10 +104,10 @@ const SignIn = () => {
               name="password"
               rules={[
                 { required: true, message: t('validation.password.required') },
-                // {
-                //   validator: passwordValidator,
-                //   message: t('validation.password.invalid'),
-                // },
+                {
+                  validator: passwordValidator,
+                  message: t('validation.password.invalid'),
+                },
               ]}
             >
               <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
