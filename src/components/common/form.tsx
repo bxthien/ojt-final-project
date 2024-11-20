@@ -1,5 +1,5 @@
 import React from 'react';
-import { emailValidator, passwordValidator, phoneValidator } from '../../constants/regex'; // Import đúng các regex
+import { emailValidator, passwordValidator, phoneValidator } from '../../constants/regex';
 import { Form } from 'antd';
 import { Rule } from 'antd/es/form';
 

@@ -26,6 +26,7 @@
     }
   },
   "dependencies": {
+    "@types/axios": "^0.14.4",
     "antd": "^5.22.0",
     "axios": "^1.7.7",
     "i18next": "^23.16.5",
