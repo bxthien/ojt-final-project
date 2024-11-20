@@ -1,7 +1,6 @@
-import { JSXElementConstructor, ReactElement, ReactNode, useState } from 'react';
+import { useState } from 'react';
 import { Table, Input, Button, Select, Card, Row, Col, Space, Typography } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
@@ -11,8 +10,7 @@ function Cart() {
     { id: 2, name: 'H1 Gamepad', price: 550, quantity: 2, image: 'src/assets/images/taycam.png' },
   ]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleQuantityChange = (id: number, newQuantity: any) => {
+  const handleQuantityChange = (id: number, newQuantity: number) => {
     setItems(items.map((item) => (item.id === id ? { ...item, quantity: newQuantity } : item)));
   };
 
@@ -31,29 +29,14 @@ function Cart() {
       title: 'Product',
       dataIndex: 'name',
       key: 'name',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (
-        _: any,
-        record: {
-          id: any;
-          image: string | undefined;
-          name:
-            | string
-            | number
-            | boolean
-            | ReactElement<any, string | JSXElementConstructor<any>>
-            | Iterable<ReactNode>
-            | null
-            | undefined;
-        }
-      ) => (
-        <Space size="middle">
+      render: (_: unknown, record: { id: number; image: string | undefined; name: string }) => (
+        <Space size="middle" className="flex items-center">
           <Button
             type="text"
-            icon={<CloseOutlined style={{ color: 'red' }} />}
+            icon={<CloseOutlined className="text-red-500" />}
             onClick={() => handleRemoveItem(record.id)}
           />
-          <img src={record.image} style={{ width: '60px', height: '60px', borderRadius: '4px' }} />
+          <img src={record.image} alt={record.name} className="w-15 h-15 rounded" />
           <Text>{record.name}</Text>
         </Space>
       ),
@@ -62,18 +45,17 @@ function Cart() {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
-      render: (price: unknown) => `$${price}`,
+      render: (price: number) => `$${price}`,
     },
     {
       title: 'Quantity',
       dataIndex: 'quantity',
       key: 'quantity',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (quantity: any, record: { id: any }) => (
+      render: (quantity: number, record: { id: number }) => (
         <Select
           value={quantity}
           onChange={(value) => handleQuantityChange(record.id, value)}
-          style={{ width: 80 }}
+          className="w-20"
         >
           {[...Array(10).keys()].map((q) => (
             <Select.Option key={q + 1} value={q + 1}>
@@ -87,14 +69,13 @@ function Cart() {
       title: 'Subtotal',
       dataIndex: 'subtotal',
       key: 'subtotal',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      render: (_: any, record: { price: number; quantity: number }) =>
+      render: (_: unknown, record: { price: number; quantity: number }) =>
         `$${record.price * record.quantity}`,
     },
   ];
 
   return (
-    <div className="cart-container" style={{ padding: '20px', maxWidth: '1200px', margin: 'auto' }}>
+    <div className="cart-container p-5 max-w-5xl mx-auto">
       <Title level={2}>Cart</Title>
       <Text type="secondary">Home / Cart</Text>
       <Table
@@ -102,7 +83,7 @@ function Cart() {
         columns={columns}
         rowKey="id"
         pagination={false}
-        style={{ marginTop: '20px', marginBottom: '40px' }}
+        className="mt-5 mb-10"
       />
 
       <Row gutter={24}>
@@ -110,10 +91,11 @@ function Cart() {
         <Col xs={24} md={12}>
           <Card>
             <Title level={4}>Apply Coupon</Title>
-            <Space direction="vertical" size="middle">
+            <Space direction="vertical" size="middle" className="w-full">
               <Input placeholder="Coupon Code" />
               <Button
-                className="bg-[#56B280] border-[#56B280] hover:bg-[#3D8F64] text-white"
+                type="primary"
+                className="bg-[#56B280] border-[#56B280] text-white hover:bg-[#3D8F64] hover:border-[#3D8F64]"
                 onClick={handleApplyCoupon}
               >
                 Apply Coupon
@@ -126,21 +108,26 @@ function Cart() {
         <Col xs={24} md={12}>
           <Card>
             <Title level={4}>Cart Total</Title>
-            <Space direction="vertical" size="middle" style={{ width: '100%' }}>
-              <Row justify="space-between">
+            <Space direction="vertical" size="middle" className="w-full">
+              <Row justify="space-between" className="w-full">
                 <Text>Subtotal:</Text>
                 <Text>${subtotal}</Text>
               </Row>
-              <Row justify="space-between">
+              <Row justify="space-between" className="w-full">
                 <Text>Shipping:</Text>
                 <Text>Free</Text>
               </Row>
-              <Row justify="space-between" style={{ fontWeight: 'bold' }}>
+              <Row justify="space-between" className="w-full font-bold">
                 <Text>Total:</Text>
                 <Text>${subtotal}</Text>
               </Row>
-              <Button block className="bg-[#56B280] border-[#56B280] hover:bg-[#3D8F64] text-white">
-                <Link to="/checkout">Proceed to checkout</Link>
+              <Button
+                type="primary"
+                className="bg-[#56B280] border-[#56B280] text-white hover:bg-[#3D8F64] hover:border-[#3D8F64]"
+                block
+                onClick={() => (window.location.href = '/checkout')}
+              >
+                Proceed to checkout
               </Button>
             </Space>
           </Card>
