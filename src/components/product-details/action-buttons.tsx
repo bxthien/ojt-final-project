@@ -1,12 +1,23 @@
+import { Button } from 'antd';
+
 const ActionButtons = () => {
   return (
-    <div className="flex gap-4">
-      <button className="bg-gray-200 text-black py-2 px-4 rounded-md hover:bg-gray-300">
+    <div className="flex gap-4 flex-wrap">
+      {/* Buy Now Button */}
+      <Button
+        className="bg-gray-200 text-black hover:bg-gray-300 transition-colors rounded-md py-2 px-6 text-lg md:text-base lg:text-base"
+        size="large"
+      >
         Buy Now
-      </button>
-      <button className="bg-[#56B280] text-white py-2 px-4 rounded-md hover:bg-green-700">
+      </Button>
+
+      {/* Add to Cart Button */}
+      <Button
+        className="bg-[#56B280] text-white transition-colors rounded-md py-2 px-6 border-none text-lg md:text-base lg:text-base"
+        size="large"
+      >
         Add to Cart
-      </button>
+      </Button>
     </div>
   );
 };

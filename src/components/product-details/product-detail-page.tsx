@@ -16,58 +16,52 @@ const ProductDetailPage = () => {
     name: 'Apple iPhone 14 Pro Max',
     price: '$1399',
     oldPrice: '$1499',
-    photos: [
-      PlayStation, // URL ảnh sản phẩm
-      AppleWatch,
-      PlayStationMobile,
-    ],
+    photos: [PlayStation, AppleWatch, PlayStationMobile],
     colors: ['#000000', '#781DBC', '#E10000', '#E1B000', '#E8E8E8'],
     sizes: ['128GB', '256GB', '512GB', '1TB'],
   };
 
-  // State để quản lý ảnh lớn và màu đã chọn
-  const [selectedImage, setSelectedImage] = useState<string>(product.photos[0]); // Ảnh lớn mặc định là ảnh đầu tiên
-  const [selectedColor, setSelectedColor] = useState<string>(product.colors[0]); // Màu mặc định là màu đầu tiên
-  const [selectedSize, setSelectedSize] = useState<string>(product.sizes[0]); // Kích thước mặc định là kích thước đầu tiên
+  const [selectedImage, setSelectedImage] = useState<string>(product.photos[0]);
+  const [selectedColor, setSelectedColor] = useState<string>(product.colors[0]);
+  const [selectedSize, setSelectedSize] = useState<string>(product.sizes[0]);
 
-  // Hàm xử lý khi chọn ảnh nhỏ
-  const handleImageSelect = (image: string) => {
-    setSelectedImage(image); // Cập nhật ảnh lớn
-  };
-
-  // Hàm xử lý khi chọn màu
-  const handleColorSelect = (color: string) => {
-    setSelectedColor(color); // Cập nhật màu
-  };
-
-  // Hàm xử lý khi chọn dung lượng
-  const handleSizeSelect = (size: string) => {
-    setSelectedSize(size); // Cập nhật dung lượng
-  };
+  const handleImageSelect = (image: string) => setSelectedImage(image);
+  const handleColorSelect = (color: string) => setSelectedColor(color);
+  const handleSizeSelect = (size: string) => setSelectedSize(size);
 
   return (
-    <div className="container mx-auto pr-40 pl-40 pt-28 pb-28 grid grid-cols-1 lg:grid-cols-2 gap-12">
-      {/* Left Section: Images */}
-      <div className="flex gap-12">
-        <ProductImages images={product.photos} onImageSelect={handleImageSelect} />
-        <ProductMainImage image={selectedImage} />
-      </div>
+    <div className="container mx-auto pt-8 pb-8 px-4 lg:pt-28 lg:pb-28 lg:px-40">
+      {/* Grid responsive: 1 cột trên mobile, 2 cột trên tablet và desktop */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Left Section: Images */}
+        <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8">
+          {/* Small Images */}
+          <div className="flex md:flex-col gap-4 justify-center md:justify-start">
+            <ProductImages images={product.photos} onImageSelect={handleImageSelect} />
+          </div>
+          {/* Main Image */}
+          <div className="w-full">
+            <ProductMainImage image={selectedImage} />
+          </div>
+        </div>
 
-      {/* Right Section: Details */}
-      <div>
-        <ProductDetails name={product.name} price={product.price} />
-        <ColorSelector
-          colors={product.colors}
-          selectedColor={selectedColor}
-          onColorSelect={handleColorSelect}
-        />
-        <MemorySelector
-          sizes={product.sizes}
-          selectedSize={selectedSize}
-          onSizeSelect={handleSizeSelect}
-        />
-        <ProductDescription />
-        <ActionButtons />
+        {/* Right Section: Details */}
+        <div className="flex flex-col gap-6 md:text-left md:items-start pl-9">
+          {/* Thông tin sản phẩm */}
+          <ProductDetails name={product.name} price={product.price} />
+          <ColorSelector
+            colors={product.colors}
+            selectedColor={selectedColor}
+            onColorSelect={handleColorSelect}
+          />
+          <MemorySelector
+            sizes={product.sizes}
+            selectedSize={selectedSize}
+            onSizeSelect={handleSizeSelect}
+          />
+          <ProductDescription />
+          <ActionButtons />
+        </div>
       </div>
     </div>
   );

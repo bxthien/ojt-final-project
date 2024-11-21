@@ -21,7 +21,7 @@ const ProductPage = () => {
     const fetchProducts = async () => {
       try {
         const { data: response } = await axios.get(
-          'https://b7c7-113-160-225-96.ngrok-free.app/product',
+          'https://a161-113-160-225-96.ngrok-free.app/product',
           {
             headers: {
               'Content-Type': 'application/json;charset=UTF-8',
