@@ -77,8 +77,6 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
-  // console.log('products', products);
-
   return (
     <div className="bg-white min-h-screen p-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-36">
       <h1 className="text-4xl font-bold mb-6 text-center">New Arrival</h1>
