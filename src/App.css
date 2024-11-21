@@ -1,3 +1,20 @@
+@import '~antd/dist/antd.css';
+.ant-steps-item-icon {
+  background-color: #56b280 !important;
+  border-color: #56b280 !important;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon,
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: #56b280 !important;
+  border-color: #56b280 !important;
+}
+
+.ant-steps-item-finish .ant-steps-item-title,
+.ant-steps-item-process .ant-steps-item-title {
+  color: #56b280 !important;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
