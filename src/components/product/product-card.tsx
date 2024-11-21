@@ -1,24 +1,23 @@
-//import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Product } from '../home-page/product-list';
-//import { Product } from '../../constants/data';
 
-// type ProductCardProps = {
-//   product: {
-//     id: string;
-//     name: string;
-//     price: number;
-//     image: string[];
-//   };
-// };
-//const ProductCard = ({ product }: Product) => {
 type ProductCardProps = {
-  product: Product; // product phải có kiểu là Product
+  product: Product;
 };
+
 const ProductCard = ({ product }: ProductCardProps) => {
   const { photos, name, price } = product;
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate('/product-detail-page', { state: { product } });
+  };
 
   return (
-    <div className="bg-[#F6F6F6] shadow-md rounded-lg w-full h-auto p-4 flex flex-col items-center transition-transform hover:scale-105">
+    <div
+      className="bg-[#F6F6F6] shadow-md rounded-lg w-full h-auto p-4 flex flex-col items-center transition-transform hover:scale-105 cursor-pointer"
+      onClick={handleNavigate}
+    >
       <div className="relative w-full pt-[100%] mb-4">
         <img
           src={photos[0]}

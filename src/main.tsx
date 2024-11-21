@@ -17,11 +17,14 @@ import SelectAddress from './components/SelectAdress/SelectAddress';
 import ShipmentMethod from './components/SelectAdress/ShipmentMethod';
 import PaymentPage from './components/SelectAdress/PaymentPage';
 import ProductPage from './pages/product-page';
+import LayOut from './layout';
+import ProductDetailPage from './components/product-details/product-detail-page';
 
 const router = createBrowserRouter([
   {
     path: '/',
     errorElement: <NotFound />,
+    element: <LayOut />,
     children: [
       {
         path: '/',
@@ -70,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: '/product-page',
         element: <ProductPage />,
+      },
+      {
+        path: '/product-detail-page',
+        element: <ProductDetailPage />,
       },
     ],
   },
