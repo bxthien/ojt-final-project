@@ -1,22 +1,27 @@
-import React from 'react';
-// import { Product } from '../../constants/data';
+//import React from 'react';
+import { Product } from '../home-page/product-list';
+//import { Product } from '../../constants/data';
 
+// type ProductCardProps = {
+//   product: {
+//     id: string;
+//     name: string;
+//     price: number;
+//     image: string[];
+//   };
+// };
+//const ProductCard = ({ product }: Product) => {
 type ProductCardProps = {
-  product: {
-    id: string;
-    name: string;
-    price: number;
-    image: string[];
-  };
+  product: Product; // product phải có kiểu là Product
 };
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { image, name, price } = product;
+const ProductCard = ({ product }: ProductCardProps) => {
+  const { photos, name, price } = product;
 
   return (
     <div className="bg-[#F6F6F6] shadow-md rounded-lg w-full h-auto p-4 flex flex-col items-center transition-transform hover:scale-105">
       <div className="relative w-full pt-[100%] mb-4">
         <img
-          src={image[0]}
+          src={photos[0]}
           alt={name}
           className="absolute top-0 left-0 w-full h-full object-cover rounded-md"
         />
