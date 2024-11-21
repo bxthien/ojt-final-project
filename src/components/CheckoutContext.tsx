@@ -9,7 +9,7 @@ interface CheckoutContextType {
     city: string;
     postalCode: string;
     province: string;
-    country: string;
+    district: string;
   };
   paymentMethod: string;
   taxInformation: {
@@ -26,7 +26,6 @@ interface CheckoutContextType {
   setTaxInformation: (info: CheckoutContextType['taxInformation']) => void;
   setBillingAddress: (address: CheckoutContextType['billingAddress']) => void;
 }
-
 const CheckoutContext = createContext<CheckoutContextType | undefined>(undefined);
 
 export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -38,7 +37,7 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     city: '',
     postalCode: '',
     province: '',
-    country: '',
+    district: '',
   });
   const [paymentMethod, setPaymentMethod] = useState('');
   const [taxInformation, setTaxInformation] = useState({ vatNumber: '', pec: '' });

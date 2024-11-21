@@ -4,7 +4,7 @@ import './index.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './router';
 import './locales';
-import { CheckoutProvider } from './component/CheckoutContext';
+import { CheckoutProvider } from './components/CheckoutContext';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
