@@ -50,7 +50,7 @@ const DualRangeSlider = ({
             type="number"
             value={minInputValue}
             onChange={handleMinInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full px-2 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
             min="0"
             max={maxPrice - 1}
           />
@@ -61,7 +61,7 @@ const DualRangeSlider = ({
             type="number"
             value={maxInputValue}
             onChange={handleMaxInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            className="w-full px-2 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
             min={minPrice + 1}
             max="5000"
           />
