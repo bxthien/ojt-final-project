@@ -1,3 +1,4 @@
+import { Radio } from 'antd';
 import { filterSections } from '../../constants/data';
 
 interface MemoryFilterProps {
@@ -9,20 +10,18 @@ const MemoryFilter = ({ selectedMemory, onMemorySelect }: MemoryFilterProps) => 
   const memorySection = filterSections.find((section) => section.id === 'memory');
 
   return (
-    <div className="space-y-2">
-      {memorySection?.items?.map((item) => (
-        <label key={item.id} className="flex items-center space-x-2 cursor-pointer">
-          <input
-            type="radio"
-            name="memory"
-            value={item.id}
-            checked={selectedMemory === item.id}
-            onChange={() => onMemorySelect(item.id)}
-            className="form-radio text-[#56B280] focus:ring-[#56B280]"
-          />
-          <span className="text-sm text-gray-600">{item.name}</span>
-        </label>
-      ))}
+    <div className="flex flex-col space-y-2">
+      <Radio.Group
+        value={selectedMemory}
+        onChange={(e) => onMemorySelect(e.target.value)}
+        className="flex flex-col space-y-2"
+      >
+        {memorySection?.items?.map((item) => (
+          <Radio key={item.id} value={item.id}>
+            <span className="text-sm text-gray-600">{item.name}</span>
+          </Radio>
+        ))}
+      </Radio.Group>
     </div>
   );
 };
