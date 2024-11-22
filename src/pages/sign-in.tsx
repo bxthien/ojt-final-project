@@ -1,18 +1,35 @@
-import { Button, Divider, Image, Input, Form } from 'antd';
+import { Button, Divider, Image, Input, Form, notification } from 'antd';
 import { authenticationType, thirdMethod } from '../constants/login';
 import MockupIC from '../assets/images/mockupIp.png';
 import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
-import FormItem from '../components/common/form';
-import { passwordValidator } from '../constants/regex';
+import { emailValidator, passwordValidator } from '../constants/regex';
+import { signin, SignInPayload } from '../constants/service';
 
 const SignIn = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [form] = Form.useForm();
 
-  const onFinish = (values: unknown) => {
-    console.log('Form values: ', values);
+  const handleSignIn = async (values: SignInPayload) => {
+    try {
+      const res = await signin(values);
+      if (res) {
+        notification.success({
+          message: t('success.signin'),
+          description: t('success.noti'),
+        });
+        navigate('/');
+      }
+    } catch (error) {
+      notification.error({
+        message: t('error.faild_2'),
+        description: t('error.message'),
+      });
+      console.log('error', error);
+    }
   };
 
   return (
@@ -33,6 +50,7 @@ const SignIn = () => {
           </Link>
         </div>
       </div>
+
       <div className="flex flex-col">
         <div className="flex items-center justify-end w-full gap-6 p-4">
           <LanguageSelector />
@@ -46,7 +64,7 @@ const SignIn = () => {
             </Link>
           ))}
           <Button className="bg-[#56B280] px-4 py-2" type="primary">
-            <Link to="/home">{t('common.button.home')}</Link>
+            <Link to="/">{t('common.button.home')}</Link>
           </Button>
         </div>
 
@@ -66,56 +84,61 @@ const SignIn = () => {
             />
           </div>
           <Form
+            form={form}
             name="sign_in_form"
-            onFinish={onFinish}
+            onFinish={handleSignIn}
             initialValues={{ email: '', password: '' }}
             layout="vertical"
           >
-            <FormItem
+            <Form.Item
+              label={
+                <span>
+                  {' '}
+                  <span className="text-red-500">*</span> {t('common.input.enterEmail')}{' '}
+                </span>
+              }
               name="email"
-              type="email"
-              rules={[
-                {
-                  required: true,
-                  message: t('validation.email.required'),
-                },
-                {
-                  type: 'email',
-                  message: t('validation.email.invalid'),
-                },
-              ]}
+              rules={[{ validator: emailValidator, message: t('validation.email.invalid') }]}
             >
-              <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
-            </FormItem>
+              <Input allowClear />
+            </Form.Item>
 
             <Form.Item
+              label={
+                <span>
+                  {' '}
+                  <span className="text-red-500">*</span> {t('common.input.enterPassword')}{' '}
+                </span>
+              }
               name="password"
               rules={[
                 {
-                  required: true,
-                  message: t('validation.password.required'),
-                },
-                {
                   validator: passwordValidator,
-                  min: 8,
                   message: t('validation.password.invalid'),
                 },
               ]}
             >
-              <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
+              <Input.Password allowClear />
+            </Form.Item>
+
+            <Link
+              to="/forgot"
+              className="text-xs font-extralight text-[#56B280] text-right hover:text-[#a8a8a8] cursor-pointer block mb-4"
+            >
+              {t('login.recoverPassword')}
+            </Link>
+
+            <Form.Item label={null}>
+              <Button
+                className="py-4 bg-[#56B280] font-semibold"
+                type="primary"
+                htmlType="submit"
+                block
+              >
+                {t('common.button.signIn')}
+              </Button>
             </Form.Item>
           </Form>
-
-          <Link
-            to="/forgot"
-            className="text-xs font-extralight text-[#56B280] text-right hover:text-[#a8a8a8] cursor-pointer"
-          >
-            {t('login.recoverPassword')}
-          </Link>
-
-          <Button className="py-4 bg-[#56B280] font-semibold" type="primary" htmlType="submit">
-            {t('common.button.signIn')}
-          </Button>
 
           <div>
             <div className="relative">

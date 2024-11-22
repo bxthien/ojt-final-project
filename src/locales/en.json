@@ -49,18 +49,28 @@
   },
 
   "success": {
-    "success": "Password Sent Successfully",
-    "check": "Your password has been successfully sent to your Email!"
+    "success": "Email Sent Successfully",
+    "check": "Please check your email",
+    "register": "Register Successful",
+    "signin": "Login Successful",
+    "noti": "Welcome to ViperS!",
+    "pass": "Password Sent Successfully",
+    "sent": "Your password has been successfully sent to your Email!"
+  },
+
+  "error": {
+    "faild": "Register Failed",
+    "faild_2": "Login Faild",
+    "email": "Password Sending Failed",
+    "message": "An unexpected error occurred. Please try again."
   },
 
   "validation": {
     "email": {
-      "required": "Please input your email!",
       "invalid": "Please input a valid email!"
     },
 
     "password": {
-      "required": "Please input your password!",
       "invalid": "Password must be 8+ characters with letters and numbers."
     },
 
