@@ -33,56 +33,44 @@
     "account": "If you have an account, you can",
     "signInHere": "Sign In here!",
     "nameRequired": "Name Required",
-    "phoneRequired": "Phone Required",
-
-    "success": {
-      "title": "Register Successful",
-      "message": "You have successfully registered. Welcome to ViperS!"
-    },
-    "error": {
-      "title": "Register Failed",
-      "message": "An unexpected error occurred. Please try again."
-    }
+    "phoneRequired": "Phone Required"
   },
 
   "login": {
     "signInToPayment": "Sign In To Payment",
     "noAccount": "If you don't have an account, you can",
     "registerHere": "Register here!",
-    "recoverPassword": "Recover Passwword",
-
-    "success": {
-      "title": "Login Successful",
-      "message": "You have successfully logged in. Welcome to ViperS!+"
-    },
-    "error": {
-      "title": "Login Failed",
-      "message": "Please check your email and password and try again."
-    }
+    "recoverPassword": "Recover Passwword"
   },
 
   "forgot": {
     "forgotPassword": "Forgot Password",
-    "reset": "Please enter your email to reset the password",
+    "reset": "Please enter your email to reset the password"
+  },
 
-    "success": {
-      "success": "Password Sent Successfully",
-      "check": "Your password has been successfully sent to your Email!"
-    },
-    "error": {
-      "title": "Email Sending Failed",
-      "message": "An unexpected error occurred. Please try again."
-    }
+  "success": {
+    "success": "Email Sent Successfully",
+    "check": "Please check your email",
+    "register": "Register Successful",
+    "signin": "Login Successful",
+    "noti": "Welcome to ViperS!",
+    "pass": "Password Sent Successfully",
+    "sent": "Your password has been successfully sent to your Email!"
+  },
+
+  "error": {
+    "faild": "Register Failed",
+    "faild_2": "Login Faild",
+    "email": "Password Sending Failed",
+    "message": "An unexpected error occurred. Please try again."
   },
 
   "validation": {
     "email": {
-      "required": "Please input your email!",
       "invalid": "Please input a valid email!"
     },
 
     "password": {
-      "required": "Please input your password!",
       "invalid": "Password must be 8+ characters with letters and numbers."
     },
 

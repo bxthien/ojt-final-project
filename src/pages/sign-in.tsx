@@ -5,7 +5,7 @@ import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
-import { passwordValidator } from '../constants/regex';
+import { emailValidator, passwordValidator } from '../constants/regex';
 import { signin, SignInPayload } from '../constants/service';
 
 const SignIn = () => {
@@ -18,15 +18,15 @@ const SignIn = () => {
       const res = await signin(values);
       if (res) {
         notification.success({
-          message: t('login.success.title'),
-          description: t('login.success.message'),
+          message: t('success.signin'),
+          description: t('success.noti'),
         });
         navigate('/');
       }
     } catch (error) {
       notification.error({
-        message: t('login.error.title'),
-        description: t('login.error.message'),
+        message: t('error.faild_2'),
+        description: t('error.message'),
       });
       console.log('error', error);
     }
@@ -91,26 +91,34 @@ const SignIn = () => {
             layout="vertical"
           >
             <Form.Item
+              label={
+                <span>
+                  {' '}
+                  <span className="text-red-500">*</span> {t('common.input.enterEmail')}{' '}
+                </span>
+              }
               name="email"
-              rules={[
-                { required: true, message: t('validation.email.required') },
-                { type: 'email', message: t('validation.email.invalid') },
-              ]}
+              rules={[{ validator: emailValidator, message: t('validation.email.invalid') }]}
             >
-              <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
+              <Input allowClear />
             </Form.Item>
 
             <Form.Item
+              label={
+                <span>
+                  {' '}
+                  <span className="text-red-500">*</span> {t('common.input.enterPassword')}{' '}
+                </span>
+              }
               name="password"
               rules={[
-                { required: true, message: t('validation.password.required') },
                 {
                   validator: passwordValidator,
                   message: t('validation.password.invalid'),
                 },
               ]}
             >
-              <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
+              <Input.Password allowClear />
             </Form.Item>
 
             <Link

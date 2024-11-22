@@ -5,8 +5,7 @@ import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
-import FormItem from '../components/common/form';
-import { passwordValidator } from '../constants/regex';
+import { emailValidator, passwordValidator } from '../constants/regex';
 import { register, RegisterPayload } from '../constants/service';
 
 const Register = () => {
@@ -19,15 +18,15 @@ const Register = () => {
       const res = await register(values);
       if (res) {
         notification.success({
-          message: t('register.success.title'),
-          description: t('register.success.message'),
+          message: t('success.register'),
+          description: t('success.noti'),
         });
         navigate('/');
       }
     } catch (error) {
       notification.error({
-        message: t('register.error.title'),
-        description: t('register.error.message'),
+        message: t('error.fail'),
+        description: t('error.message'),
       });
       console.log('error', error);
     }
@@ -92,62 +91,70 @@ const Register = () => {
             layout="vertical"
           >
             <Form.Item
+              label={
+                <span>
+                  <span className="text-red-500"></span> {t('common.input.enterName')}{' '}
+                </span>
+              }
               name="username"
-              rules={[{ required: true, message: t('validation.name.nameRequired') }]}
+              rules={[
+                { required: true, message: t('validation.name.nameRequired') },
+                {
+                  validator: (_, value) => {
+                    if (!value) {
+                      return Promise.resolve();
+                    }
+                    if (/\s/.test(value)) {
+                      return Promise.reject(t('validation.name.nameRequired'));
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
             >
-              <Input placeholder={t('common.input.enterName')} allowClear />
+              <Input allowClear />
             </Form.Item>
 
             <Form.Item
+              label={
+                <span>
+                  <span className="text-red-500"></span> {t('common.input.enterPhone')}{' '}
+                </span>
+              }
               name="phone"
               rules={[
-                {
-                  required: true,
-                  message: t('validation.phone.required'),
-                },
-                {
-                  min: 10,
-                  message: t('validation.phone.min'),
-                },
-                {
-                  pattern: /^[0-9]*$/,
-                  message: t('validation.phone.invalid'),
-                },
+                { required: true, message: t('validation.phone.required') },
+                { min: 10, message: t('validation.phone.min') },
+                { pattern: /^[0-9]*$/, message: t('validation.phone.invalid') },
               ]}
             >
-              <Input placeholder={t('common.input.enterPhone')} allowClear maxLength={11} />
+              <Input allowClear maxLength={11} />
             </Form.Item>
 
-            <FormItem
+            <Form.Item
+              label={
+                <span>
+                  {' '}
+                  <span className="text-red-500">*</span> {t('common.input.enterEmail')}{' '}
+                </span>
+              }
               name="email"
-              rules={[
-                {
-                  required: true,
-                  message: t('validation.email.required'),
-                },
-                {
-                  type: 'email',
-                  message: t('validation.email.invalid'),
-                },
-              ]}
+              rules={[{ validator: emailValidator, message: t('validation.email.invalid') }]}
             >
-              <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
-            </FormItem>
+              <Input allowClear />
+            </Form.Item>
 
             <Form.Item
+              label={
+                <span>
+                  {' '}
+                  <span className="text-red-500">*</span> {t('common.input.enterPassword')}{' '}
+                </span>
+              }
               name="password"
-              rules={[
-                {
-                  required: true,
-                  message: t('validation.password.required'),
-                },
-                {
-                  validator: passwordValidator,
-                  message: t('validation.password.invalid'),
-                },
-              ]}
+              rules={[{ validator: passwordValidator, message: t('validation.password.invalid') }]}
             >
-              <Input.Password placeholder={t('common.input.enterPassword')} allowClear />
+              <Input.Password allowClear />
             </Form.Item>
 
             <Form.Item label={null}>
@@ -161,7 +168,6 @@ const Register = () => {
               </Button>
             </Form.Item>
           </Form>
-
           <div>
             <div className="relative">
               <Divider />

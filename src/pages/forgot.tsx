@@ -5,7 +5,7 @@ import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
-import FormItem from '../components/common/form';
+import { emailValidator } from '../constants/regex';
 import { forgot, ForgotPayload } from '../constants/service';
 
 const Forgot = () => {
@@ -18,15 +18,15 @@ const Forgot = () => {
       const res = await forgot(values);
       if (res) {
         notification.success({
-          message: t('forgot.success.noti'),
-          description: t('forgot.success.check'),
+          message: t('success.noti'),
+          description: t('success.sent'),
         });
         navigate('/success');
       }
     } catch (error) {
       notification.error({
-        message: t('forgot.error.title'),
-        description: t('forgot.error.message'),
+        message: t('error.email'),
+        description: t('error.message'),
       });
       console.log('error', error);
     }
@@ -73,21 +73,18 @@ const Forgot = () => {
             initialValues={{ email: '' }}
             layout="vertical"
           >
-            <FormItem
+            <Form.Item
+              label={
+                <span>
+                  {' '}
+                  <span className="text-red-500">*</span> {t('common.input.enterEmail')}{' '}
+                </span>
+              }
               name="email"
-              rules={[
-                {
-                  required: true,
-                  message: t('validation.email.required'),
-                },
-                {
-                  type: 'email',
-                  message: t('validation.email.invalid'),
-                },
-              ]}
+              rules={[{ validator: emailValidator, message: t('validation.email.invalid') }]}
             >
-              <Input placeholder={t('common.input.enterEmail')} allowClear type="email" />
-            </FormItem>
+              <Input allowClear />
+            </Form.Item>
             <Form.Item label={null}>
               <Button
                 className="w-full py-2 bg-[#56B280] font-semibold"

@@ -27,56 +27,44 @@
     "account": "Nếu bạn đã có tài khoản, bạn có thể",
     "signInHere": "Đăng Nhập Tại Đây!",
     "nameRequired": "Tên Yêu Cầu",
-    "phoneRequired": "Số Điện Thoại Yêu Cầu",
-
-    "success": {
-      "title": "Đăng Ký Thành Công",
-      "message": "Bạn đã đăng ký thành công. Chào mừng đến với ViperS"
-    },
-    "error": {
-      "title": "Đăng Ký Thất Bại",
-      "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
-    }
+    "phoneRequired": "Số Điện Thoại Yêu Cầu"
   },
 
   "login": {
     "signInToPayment": "Đăng Nhập Để Thanh Toán",
     "noAccount": "Nếu bạn chưa có tài khoản, bạn có thể",
     "registerHere": "Đăng Ký Tại Đây!",
-    "recoverPassword": "Khôi phục mật khẩu",
-
-    "success": {
-      "title": "Đăng Nhập Thành Công",
-      "message": "Bạn đã đăng nhập thành công. Chào mừng đến với ViperS"
-    },
-    "error": {
-      "title": "Đăng Nhập Thất Bại",
-      "message": "Vui lòng kiểm tra email và mật khẩu của bạn và thử lại."
-    }
+    "recoverPassword": "Khôi phục mật khẩu"
   },
 
   "forgot": {
     "forgotPassword": "Quên Mật Khẩu",
-    "reset": "Vui lòng nhập email của bạn để đặt lại mật khẩu",
+    "reset": "Vui lòng nhập email của bạn để đặt lại mật khẩu"
+  },
 
-    "success": {
-      "noti": "Gửi Mật Khẩu Thành Công",
-      "check": "Mật khẩu của bạn đã được gửi thành công đến Email!"
-    },
-    "error": {
-      "title": "Gửi Email Không Thành Công",
-      "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
-    }
+  "success": {
+    "success": "Gửi Email Thành Công",
+    "check": "Vui lòng kiểm tra email của bạn.",
+    "register": "Đăng Ký Thành Công",
+    "signin": "Đăng Nhập Thành Công",
+    "noti": "Chào Mừng Đến Với ViperS!",
+    "pass": "Mật Khẩu Đã Được Gửi Thành Công",
+    "sent": "Mật khẩu của bạn đã được gửi thành công tới Email của bạn!"
+  },
+
+  "error": {
+    "faild": "Đăng Ký Thất Bại",
+    "faild_2": "Đăng Nhập Thất Bại",
+    "email": "Gửi Mật Khẩu Thất Bại",
+    "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
   },
 
   "validation": {
     "email": {
-      "required": "Vui lòng nhập email của bạn!",
       "invalid": "Vui lòng nhập email hợp lệ!"
     },
 
     "password": {
-      "required": "Vui lòng nhập mật khẩu!",
       "invalid": "Mật khẩu phải có 8+ ký tự bao gồm chữ cái và số!"
     },
 
