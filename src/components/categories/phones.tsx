@@ -1,21 +1,14 @@
 import { useState } from 'react';
-import ProductCard from '../components/product/product-card';
-import ProductSidebar from '../components/product/product-side-bar';
-import { useProducts } from '../constants/useProducts';
+import ProductCard from '../product/product-card';
+import ProductSidebar from '../product/product-side-bar';
+import { useProducts } from '../../constants/useProducts'; // Import custom hook
 
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  photos: string[];
-}
-
-const ProductPage = () => {
+const PhonesPage = () => {
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedMemory, setSelectedMemory] = useState('');
 
-  // Gọi hook useProducts mà không truyền category để lấy toàn bộ sản phẩm
-  const { products, loading, error } = useProducts('', selectedBrand, selectedMemory);
+  // Sử dụng hook để lấy sản phẩm của category 'phone'
+  const { products, loading, error } = useProducts('phone', selectedBrand, selectedMemory);
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -32,6 +25,7 @@ const ProductPage = () => {
       {/* Product Grid */}
       <div className="flex-1 justify-center items-center p-10 md:p-10">
         {error && <p className="text-red-500 text-center">{error}</p>}
+
         {/* Loading state */}
         {loading ? (
           <div className="flex justify-center items-center h-64">
@@ -51,4 +45,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default PhonesPage;
