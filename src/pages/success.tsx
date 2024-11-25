@@ -34,7 +34,7 @@ const Forgot = () => {
           </Link>
         ))}
         <Button className="bg-[#56B280] px-4 py-2" type="primary">
-          <Link to="/home">{t('common.button.home')}</Link>
+          <Link to="/">{t('common.button.home')}</Link>
         </Button>
       </div>
 

@@ -25,13 +25,16 @@
   "register": {
     "signUpToPayment": "Đăng Ký Để Thanh Toán",
     "account": "Nếu bạn đã có tài khoản, bạn có thể",
-    "signInHere": "Đăng Nhập Tại Đây!"
+    "signInHere": "Đăng Nhập Tại Đây!",
+    "nameRequired": "Tên Yêu Cầu",
+    "phoneRequired": "Số Điện Thoại Yêu Cầu"
   },
 
   "login": {
     "signInToPayment": "Đăng Nhập Để Thanh Toán",
     "noAccount": "Nếu bạn chưa có tài khoản, bạn có thể",
-    "registerHere": "Đăng Ký Tại Đây!"
+    "registerHere": "Đăng Ký Tại Đây!",
+    "recoverPassword": "Khôi phục mật khẩu"
   },
 
   "forgot": {
@@ -40,18 +43,28 @@
   },
 
   "success": {
-    "success": "Gửi Mật Khẩu Thành Công",
-    "check": "Mật khẩu của bạn đã được gửi thành công đến Email!"
+    "success": "Gửi Email Thành Công",
+    "check": "Vui lòng kiểm tra email của bạn.",
+    "register": "Đăng Ký Thành Công",
+    "signin": "Đăng Nhập Thành Công",
+    "noti": "Chào Mừng Đến Với ViperS!",
+    "pass": "Mật Khẩu Đã Được Gửi Thành Công",
+    "sent": "Mật khẩu của bạn đã được gửi thành công tới Email của bạn!"
+  },
+
+  "error": {
+    "faild": "Đăng Ký Thất Bại",
+    "faild_2": "Đăng Nhập Thất Bại",
+    "email": "Gửi Mật Khẩu Thất Bại",
+    "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
   },
 
   "validation": {
     "email": {
-      "required": "Vui lòng nhập email của bạn!",
       "invalid": "Vui lòng nhập email hợp lệ!"
     },
 
     "password": {
-      "required": "Vui lòng nhập mật khẩu!",
       "invalid": "Mật khẩu phải có 8+ ký tự bao gồm chữ cái và số!"
     },
 
