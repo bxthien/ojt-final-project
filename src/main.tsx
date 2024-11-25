@@ -18,12 +18,6 @@ import ShipmentMethod from './components/SelectAdress/ShipmentMethod';
 import PaymentPage from './components/SelectAdress/PaymentPage';
 import ProductPage from './pages/product-page';
 import LayOut from './layout';
-import PhonesPage from './components/categories/phones';
-import ComputersPage from './components/categories/computers';
-import CameraPage from './components/categories/cameras';
-import SmartWatchPage from './components/categories/smart-watch';
-import HeadphonesPage from './components/categories/headphones';
-import GamingPage from './components/categories/gaming';
 import ProductDetailPage from './components/product-details/product-detail-page';
 
 const router = createBrowserRouter([
@@ -67,30 +61,6 @@ const router = createBrowserRouter([
       {
         path: '/product-detail/:id',
         element: <ProductDetailPage />,
-      },
-      {
-        path: '/phones',
-        element: <PhonesPage />,
-      },
-      {
-        path: '/computers',
-        element: <ComputersPage />,
-      },
-      {
-        path: '/cameras',
-        element: <CameraPage />,
-      },
-      {
-        path: '/smart-watches',
-        element: <SmartWatchPage />,
-      },
-      {
-        path: '/headphones',
-        element: <HeadphonesPage />,
-      },
-      {
-        path: '/gaming',
-        element: <GamingPage />,
       },
     ],
   },

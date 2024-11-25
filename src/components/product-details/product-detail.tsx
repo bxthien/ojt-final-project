@@ -4,7 +4,7 @@ const ProductDetails = ({
   description,
 }: {
   name: string;
-  price: string;
+  price: string | number;
   description?: string; // Cho phép mô tả tùy chọn
 }) => {
   return (

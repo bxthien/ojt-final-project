@@ -1,16 +1,35 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+
+// Define the Product type based on API response
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  info: {
+    description: string;
+    color: string[];
+    size: string[];
+  };
+  photos: string[];
+}
+
+// Define the expected structure of the response
+interface ProductDetailResponse {
+  data: Product;
+}
 
 export const useProductDetail = (productId: string) => {
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!productId) return;
+
     const fetchProductDetail = async () => {
-      setLoading(true);
       try {
-        const { data: response } = await axios.get(
+        const response = await axios.get<ProductDetailResponse>(
           `https://be-final-project-bddr.onrender.com/product/${productId}`,
           {
             headers: {
@@ -21,22 +40,26 @@ export const useProductDetail = (productId: string) => {
           }
         );
 
-        // Đảm bảo response chứa thông tin sản phẩm
-        if (response && response.data) {
-          setProduct(response.data); // Lưu thông tin chi tiết sản phẩm
+        if (response.data) {
+          setProduct(response.data.data);
         } else {
           setError('Không tìm thấy sản phẩm');
         }
-      } catch {
-        setError('Lỗi khi tải thông tin sản phẩm');
+      } catch (err) {
+        if (err instanceof AxiosError) {
+          setError(err.response?.data?.message || 'Lỗi khi tải chi tiết sản phẩm');
+        } else if (err instanceof Error) {
+          setError(err.message || 'Lỗi khi tải chi tiết sản phẩm');
+        } else {
+          setError('Lỗi không xác định');
+        }
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
-    if (productId) {
-      fetchProductDetail();
-    }
-  }, [productId]); // Chạy lại khi productId thay đổi
+    fetchProductDetail();
+  }, [productId]);
 
   return { product, loading, error };
 };
