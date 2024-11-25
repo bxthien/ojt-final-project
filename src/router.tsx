@@ -7,7 +7,6 @@ import Forgot from './pages/forgot';
 import Success from './pages/success';
 import Shipping from './pages/shipping';
 import Payment from './pages/payment';
-import PaymentSuccess from './pages/PaymentSuccess';
 
 const router = createBrowserRouter([
   {
@@ -38,10 +37,6 @@ const router = createBrowserRouter([
   {
     path: '/payment',
     element: <Payment />,
-  },
-  {
-    path: '/paymentsuccess',
-    element: <PaymentSuccess />,
   },
 ]);
 

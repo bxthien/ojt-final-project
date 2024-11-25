@@ -26,7 +26,7 @@
     }
   },
   "dependencies": {
-    "antd": "^5.22.0",
+    "antd": "^5.22.2",
     "axios": "^1.7.7",
     "i18next": "^23.16.5",
     "localforage": "^1.10.0",

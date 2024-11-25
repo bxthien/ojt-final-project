@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form, Input, Button } from 'antd';
 import MockupIp from '../../assets/images/mockupIp.png';
 
 const OrderSummary: React.FC = () => {
@@ -12,13 +13,14 @@ const OrderSummary: React.FC = () => {
           <p className="text-green-600">$9.99</p>
         </div>
       </div>
+
       <div className="mt-4">
-        <input
-          type="text"
-          placeholder="Coupon code"
-          className="w-full p-2 border rounded-md mb-2"
-        />
-        <button className="bg-gray-300 p-2 rounded-md">Add Code</button>
+        <Form.Item>
+          <Input type="text" placeholder="Coupon code" className="w-full mb-2" />
+        </Form.Item>
+        <Form.Item>
+          <Button className="bg-gray-300 p-2 rounded-md">Add Code</Button>
+        </Form.Item>
       </div>
 
       <div className="mt-6 border-t pt-4">

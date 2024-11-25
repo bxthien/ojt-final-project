@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCheckout } from '../CheckoutContext';
+import { Form, Input, Button } from 'antd';
 import QRVNPay from '../../assets/images/QRVNPay.png';
 
 const PaymentMethod: React.FC = () => {
@@ -51,7 +52,7 @@ const PaymentMethod: React.FC = () => {
         <div className="mt-4 p-4 border rounded-md bg-gray-50">
           <h4 className="font-semibold text-md mb-2">Payment Details</h4>
           <div className="space-y-2">
-            <button
+            <Button
               onClick={() => {
                 setQrVisible(true);
                 setCardFormVisible(false);
@@ -59,8 +60,8 @@ const PaymentMethod: React.FC = () => {
               className="bg-blue-500 text-white w-full py-2 rounded-md hover:bg-blue-600"
             >
               Scan QR Code
-            </button>
-            <button
+            </Button>
+            <Button
               onClick={() => {
                 setQrVisible(false);
                 setCardFormVisible(true);
@@ -68,7 +69,7 @@ const PaymentMethod: React.FC = () => {
               className="bg-green-500 text-white w-full py-2 rounded-md hover:bg-green-600"
             >
               Enter Card Information
-            </button>
+            </Button>
           </div>
 
           {qrVisible && (
@@ -78,56 +79,50 @@ const PaymentMethod: React.FC = () => {
           )}
 
           {cardFormVisible && (
-            <form className="mt-4 space-y-4">
-              <div>
-                <label className="block text-sm font-semibold">Card Number</label>
-                <input
+            <Form className="mt-4 space-y-4">
+              <Form.Item label="Card Number">
+                <Input
                   type="text"
                   value={cardInfo.cardNumber}
                   onChange={(e) => handleCardInput('cardNumber', e.target.value)}
                   placeholder="1234 5678 9012 3456"
-                  className="w-full p-2 border rounded-md"
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold">Card Holder</label>
-                <input
+              </Form.Item>
+
+              <Form.Item label="Card Holder">
+                <Input
                   type="text"
                   value={cardInfo.cardHolder}
                   onChange={(e) => handleCardInput('cardHolder', e.target.value)}
                   placeholder="CARD HOLDER NAME"
-                  className="w-full p-2 border rounded-md"
                 />
-              </div>
+              </Form.Item>
+
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold">Valid From (MM/YYYY)</label>
-                  <input
+                <Form.Item label="Valid From (MM/YYYY)" className="m-0">
+                  <Input
                     type="text"
                     value={cardInfo.validFrom}
                     onChange={(e) => handleCardInput('validFrom', e.target.value)}
                     placeholder="01/2024"
-                    className="w-full p-2 border rounded-md"
                   />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold">Expiry Date (MM/YYYY)</label>
-                  <input
+                </Form.Item>
+                <Form.Item label="Expiry Date (MM/YYYY)" className="m-0">
+                  <Input
                     type="text"
                     value={cardInfo.expiryDate}
                     onChange={(e) => handleCardInput('expiryDate', e.target.value)}
                     placeholder="12/2028"
-                    className="w-full p-2 border rounded-md"
                   />
-                </div>
+                </Form.Item>
               </div>
-              <button
-                type="submit"
-                className="bg-green-500 text-white w-full py-2 rounded-md hover:bg-green-600"
-              >
-                Confirm Payment
-              </button>
-            </form>
+
+              <Form.Item>
+                <Button type="primary" htmlType="submit" className="w-full">
+                  Confirm Payment
+                </Button>
+              </Form.Item>
+            </Form>
           )}
         </div>
       )}

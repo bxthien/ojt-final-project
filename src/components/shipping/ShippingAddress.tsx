@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useCheckout } from '../CheckoutContext';
 import { provinces } from '../../constants/locationData';
+import { Form, Input, Select } from 'antd';
+
+const { Option } = Select;
 
 const ShippingAddress: React.FC = () => {
   const { shippingAddress, setShippingAddress } = useCheckout();
@@ -30,83 +33,79 @@ const ShippingAddress: React.FC = () => {
   return (
     <div className="mt-4">
       <h3 className="font-semibold text-lg mb-2">Shipping Address</h3>
-      <input
-        type="text"
-        placeholder="First Name"
-        value={shippingAddress.name || ''}
-        onChange={(e) => setShippingAddress({ ...shippingAddress, name: e.target.value })}
-        className="w-full p-2 border rounded-md mb-2"
-      />
-      <input
-        type="text"
-        placeholder="Last Name"
-        value={shippingAddress.secondName || ''}
-        onChange={(e) => setShippingAddress({ ...shippingAddress, secondName: e.target.value })}
-        className="w-full p-2 border rounded-md mb-2"
-      />
-      <input
-        type="text"
-        placeholder="Address"
-        value={shippingAddress.address || ''}
-        onChange={(e) => setShippingAddress({ ...shippingAddress, address: e.target.value })}
-        className="w-full p-2 border rounded-md mb-2"
-      />
-      <input
-        type="text"
-        placeholder="Postal Code"
-        value={shippingAddress.postalCode || ''}
-        onChange={(e) => setShippingAddress({ ...shippingAddress, postalCode: e.target.value })}
-        className="w-full p-2 border rounded-md mb-2"
-      />
-      <div className="mt-4">
-        <label className="block mb-2 font-medium">Province</label>
-        <select
-          value={selectedProvince}
-          onChange={(e) => handleProvinceChange(e.target.value)}
-          className="w-full p-2 border rounded-md mb-2"
-        >
-          <option value="">Select Province</option>
-          {provinces.map((prov) => (
-            <option key={prov.name} value={prov.name}>
-              {prov.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      {selectedProvince && (
-        <div>
-          <label className="block mb-2 font-medium">District</label>
-          <select
-            value={selectedDistrict}
-            onChange={(e) => handleDistrictChange(e.target.value)}
-            className="w-full p-2 border rounded-md mb-2"
+      <Form layout="vertical">
+        <Form.Item label="First Name" required>
+          <Input
+            placeholder="First Name"
+            value={shippingAddress.name || ''}
+            onChange={(e) => setShippingAddress({ ...shippingAddress, name: e.target.value })}
+          />
+        </Form.Item>
+        <Form.Item label="Last Name" required>
+          <Input
+            placeholder="Last Name"
+            value={shippingAddress.secondName || ''}
+            onChange={(e) => setShippingAddress({ ...shippingAddress, secondName: e.target.value })}
+          />
+        </Form.Item>
+        <Form.Item label="Address" required>
+          <Input
+            placeholder="Address"
+            value={shippingAddress.address || ''}
+            onChange={(e) => setShippingAddress({ ...shippingAddress, address: e.target.value })}
+          />
+        </Form.Item>
+        <Form.Item label="Postal Code" required>
+          <Input
+            placeholder="Postal Code"
+            value={shippingAddress.postalCode || ''}
+            onChange={(e) => setShippingAddress({ ...shippingAddress, postalCode: e.target.value })}
+          />
+        </Form.Item>
+        <Form.Item label="Province" required>
+          <Select
+            value={selectedProvince}
+            onChange={handleProvinceChange}
+            placeholder="Select Province"
           >
-            <option value="">Select District</option>
-            {availableDistricts.map((dist) => (
-              <option key={dist.name} value={dist.name}>
-                {dist.name}
-              </option>
+            {provinces.map((prov) => (
+              <Option key={prov.name} value={prov.name}>
+                {prov.name}
+              </Option>
             ))}
-          </select>
-        </div>
-      )}
-      {selectedDistrict && (
-        <div>
-          <label className="block mb-2 font-medium">City</label>
-          <select
-            value={shippingAddress.city || ''}
-            onChange={(e) => handleCityChange(e.target.value)}
-            className="w-full p-2 border rounded-md mb-2"
-          >
-            <option value="">Select City</option>
-            {availableCities.map((city) => (
-              <option key={city} value={city}>
-                {city}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+          </Select>
+        </Form.Item>
+        {selectedProvince && (
+          <Form.Item label="District" required>
+            <Select
+              value={selectedDistrict}
+              onChange={handleDistrictChange}
+              placeholder="Select District"
+            >
+              {availableDistricts.map((dist) => (
+                <Option key={dist.name} value={dist.name}>
+                  {dist.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
+        {selectedDistrict && (
+          <Form.Item label="City" required>
+            <Select
+              value={shippingAddress.city || ''}
+              onChange={handleCityChange}
+              placeholder="Select City"
+            >
+              {availableCities.map((city) => (
+                <Option key={city} value={city}>
+                  {city}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        )}
+      </Form>
     </div>
   );
 };

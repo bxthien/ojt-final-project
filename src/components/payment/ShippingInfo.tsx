@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useCheckout } from '../CheckoutContext';
+import { Form, Input, Button } from 'antd';
 
 const ShippingInfo: React.FC = () => {
   const { shippingAddress, setShippingAddress } = useCheckout();
@@ -15,29 +16,28 @@ const ShippingInfo: React.FC = () => {
     <div className="mb-6">
       <h3 className="font-semibold text-lg mb-2">Shipping Address</h3>
       {isEditing ? (
-        <div>
+        <Form layout="vertical">
           {Object.keys(shippingAddress).map((key) => (
-            <input
-              key={key}
-              type="text"
-              placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-              value={shippingInput[key as keyof typeof shippingAddress]}
-              onChange={(e) =>
-                setShippingInput((prev) => ({
-                  ...prev,
-                  [key]: e.target.value,
-                }))
-              }
-              className="w-full p-2 border rounded-md mb-2"
-            />
+            <Form.Item key={key} label={key.charAt(0).toUpperCase() + key.slice(1)}>
+              <Input
+                type="text"
+                value={shippingInput[key as keyof typeof shippingAddress]}
+                onChange={(e) =>
+                  setShippingInput((prev) => ({
+                    ...prev,
+                    [key]: e.target.value,
+                  }))
+                }
+                placeholder={`Enter ${key}`}
+              />
+            </Form.Item>
           ))}
-          <button
-            onClick={handleSave}
-            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-          >
-            Save
-          </button>
-        </div>
+          <Form.Item>
+            <Button type="primary" onClick={handleSave} className="w-full">
+              Save
+            </Button>
+          </Form.Item>
+        </Form>
       ) : (
         <div className="flex justify-between items-center">
           <p>{`${shippingAddress.name || 'No Name'} ${shippingAddress.secondName || ''}`}</p>
@@ -45,9 +45,9 @@ const ShippingInfo: React.FC = () => {
             {shippingAddress.address || 'No Address'}, {shippingAddress.city || ''},{' '}
             {shippingAddress.district || ''}, {shippingAddress.province || ''}
           </p>
-          <button onClick={() => setIsEditing(true)} className="text-green-500 hover:underline">
+          <Button onClick={() => setIsEditing(true)} type="link" className="text-green-500">
             Edit
-          </button>
+          </Button>
         </div>
       )}
     </div>
