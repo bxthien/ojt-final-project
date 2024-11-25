@@ -40,7 +40,7 @@ const ProductPage = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 justify-center">
             {Array.isArray(products) && products.length > 0 ? (
-              products.map((product) => <ProductCard key={product.id} product={product} />)
+              products.map((product: Product) => <ProductCard key={product.id} product={product} />)
             ) : (
               <p className="text-center w-full">No products available</p>
             )}

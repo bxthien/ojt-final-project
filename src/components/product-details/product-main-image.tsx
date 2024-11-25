@@ -1,14 +1,18 @@
 import { Image } from 'antd';
 
 type ProductMainImageProps = {
-  image: string; // Prop nhận ảnh lớn
+  photos: string;
 };
 
-const ProductMainImage = ({ image }: ProductMainImageProps) => {
+const ProductMainImage = ({ photos }: ProductMainImageProps) => {
   return (
     <div className="flex flex-col items-center lg:flex-row gap-4 lg:gap-8">
       <Image
-        src={image}
+        src={
+          photos
+            ? photos
+            : 'https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'
+        }
         alt="Main Product"
         className="rounded-lg shadow-lg"
         width="100%"

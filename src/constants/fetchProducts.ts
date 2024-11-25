@@ -11,7 +11,7 @@ export interface Product {
 export const fetchProducts = async (): Promise<Product[]> => {
   try {
     const { data: response } = await axios.get(
-      'https://a161-113-160-225-96.ngrok-free.app/product',
+      'https://be-final-project-bddr.onrender.com/product',
       {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',

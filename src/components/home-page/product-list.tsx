@@ -7,6 +7,7 @@ export interface Product {
   name: string;
   price: number;
   photos: string[];
+  createdAt?: string;
 }
 
 const ProductList = () => {
@@ -18,7 +19,7 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         const { data: response } = await axios.get(
-          'https://a161-113-160-225-96.ngrok-free.app/product',
+          'https://be-final-project-bddr.onrender.com/product',
           {
             headers: {
               'Content-Type': 'application/json;charset=UTF-8',
@@ -33,9 +34,17 @@ const ProductList = () => {
           }
         );
 
-        // Đảm bảo response.data tồn tại
         if (Array.isArray(response.data)) {
-          setProducts(response.data); // Lưu danh sách sản phẩm
+          // Lọc và sắp xếp sản phẩm dựa trên createdAt nếu có
+          const sortedProducts = response.data
+            .filter((product: Product) => product.createdAt) // Loại bỏ sản phẩm không có createdAt
+            .sort(
+              (a: Product, b: Product) =>
+                new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
+            );
+
+          // Chỉ lấy 4 sản phẩm mới nhất
+          setProducts(sortedProducts.slice(0, 4));
         }
         setLoading(false);
       } catch {

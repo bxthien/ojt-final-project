@@ -18,13 +18,13 @@ import ShipmentMethod from './components/SelectAdress/ShipmentMethod';
 import PaymentPage from './components/SelectAdress/PaymentPage';
 import ProductPage from './pages/product-page';
 import LayOut from './layout';
-import ProductDetailPage from './components/product-details/product-detail-page';
 import PhonesPage from './components/categories/phones';
 import ComputersPage from './components/categories/computers';
 import CameraPage from './components/categories/cameras';
 import SmartWatchPage from './components/categories/smart-watch';
 import HeadphonesPage from './components/categories/headphones';
 import GamingPage from './components/categories/gaming';
+import ProductDetailPage from './components/product-details/product-detail-page';
 
 const router = createBrowserRouter([
   {
@@ -35,22 +35,6 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
-      },
-      {
-        path: '/sign-in',
-        element: <SignIn />,
-      },
-      {
-        path: '/register',
-        element: <Register />,
-      },
-      {
-        path: '/forgot',
-        element: <Forgot />,
-      },
-      {
-        path: '/success',
-        element: <Success />,
       },
       {
         path: '/cart',
@@ -81,7 +65,7 @@ const router = createBrowserRouter([
         element: <ProductPage />,
       },
       {
-        path: '/product-detail-page',
+        path: '/product-detail/:id',
         element: <ProductDetailPage />,
       },
       {
@@ -109,6 +93,22 @@ const router = createBrowserRouter([
         element: <GamingPage />,
       },
     ],
+  },
+  {
+    path: '/sign-in',
+    element: <SignIn />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/forgot',
+    element: <Forgot />,
+  },
+  {
+    path: '/success',
+    element: <Success />,
   },
 ]);
 

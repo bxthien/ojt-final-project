@@ -20,17 +20,13 @@ const MemoryFilter = ({ selectedMemory, onMemorySelect }: MemoryFilterProps) => 
   useEffect(() => {
     const fetchMemoryOptions = async () => {
       try {
-        const { data: response } = await axios.get(
-          'https://409e-113-160-225-96.ngrok-free.app/memory',
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=UTF-8',
-              'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': 'true',
-            },
-          }
-        );
-
+        const { data: response } = await axios.get('https://be-final-project-bddr.onrender.com', {
+          headers: {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Access-Control-Allow-Origin': '*',
+            'ngrok-skip-browser-warning': 'true',
+          },
+        });
         if (Array.isArray(response.data)) {
           setMemoryOptions(response.data);
         }
@@ -40,7 +36,6 @@ const MemoryFilter = ({ selectedMemory, onMemorySelect }: MemoryFilterProps) => 
         setLoading(false);
       }
     };
-
     fetchMemoryOptions();
   }, []);
 
