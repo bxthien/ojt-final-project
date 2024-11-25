@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './locales';
+import { CheckoutProvider } from './components/CheckoutContext';
 
 import NotFound from './pages/not-found';
 import HomePage from './pages/home-page';
@@ -84,6 +85,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CheckoutProvider>
+      <RouterProvider router={router} />
+    </CheckoutProvider>
   </StrictMode>
 );
