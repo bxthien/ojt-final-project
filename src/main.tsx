@@ -1,8 +1,9 @@
 import { StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
+import * as ReactDOM from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './locales';
+
 import NotFound from './pages/not-found';
 import HomePage from './pages/home-page';
 import SignIn from './pages/sign-in';
@@ -15,11 +16,15 @@ import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import SelectAddress from './components/SelectAdress/SelectAddress';
 import ShipmentMethod from './components/SelectAdress/ShipmentMethod';
 import PaymentPage from './components/SelectAdress/PaymentPage';
+import ProductPage from './pages/product-page';
+import LayOut from './layout';
+import ProductDetailPage from './components/product-details/product-detail-page';
 
 const router = createBrowserRouter([
   {
     path: '/',
     errorElement: <NotFound />,
+    element: <LayOut />,
     children: [
       {
         path: '/',
@@ -64,6 +69,14 @@ const router = createBrowserRouter([
       {
         path: '/payment',
         element: <PaymentPage />,
+      },
+      {
+        path: '/product-page',
+        element: <ProductPage />,
+      },
+      {
+        path: '/product-detail-page',
+        element: <ProductDetailPage />,
       },
     ],
   },

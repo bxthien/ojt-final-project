@@ -1,18 +1,26 @@
-import React from 'react';
-import { Product } from '../../constants/data';
+import { useNavigate } from 'react-router-dom';
+import { Product } from '../home-page/product-list';
 
-interface ProductCardProps {
+type ProductCardProps = {
   product: Product;
-}
+};
 
-const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const { image, name, price } = product;
+const ProductCard = ({ product }: ProductCardProps) => {
+  const { photos, name, price } = product;
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate('/product-detail-page', { state: { product } });
+  };
 
   return (
-    <div className="bg-[#F6F6F6] shadow-md rounded-lg w-full h-auto p-4 flex flex-col items-center transition-transform hover:scale-105">
+    <div
+      className="bg-[#F6F6F6] shadow-md rounded-lg w-full h-auto p-4 flex flex-col items-center transition-transform hover:scale-105 cursor-pointer"
+      onClick={handleNavigate}
+    >
       <div className="relative w-full pt-[100%] mb-4">
         <img
-          src={image}
+          src={photos[0]}
           alt={name}
           className="absolute top-0 left-0 w-full h-full object-cover rounded-md"
         />
