@@ -31,22 +31,6 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/sign-in',
-        element: <SignIn />,
-      },
-      {
-        path: '/register',
-        element: <Register />,
-      },
-      {
-        path: '/forgot',
-        element: <Forgot />,
-      },
-      {
-        path: '/success',
-        element: <Success />,
-      },
-      {
         path: '/cart',
         element: <Cart />,
       },
@@ -75,10 +59,26 @@ const router = createBrowserRouter([
         element: <ProductPage />,
       },
       {
-        path: '/product-detail-page',
+        path: '/product-detail/:id',
         element: <ProductDetailPage />,
       },
     ],
+  },
+  {
+    path: '/sign-in',
+    element: <SignIn />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/forgot',
+    element: <Forgot />,
+  },
+  {
+    path: '/success',
+    element: <Success />,
   },
 ]);
 

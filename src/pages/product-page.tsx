@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import ProductCard from '../components/product/product-card';
 import ProductSidebar from '../components/product/product-side-bar';
+import { useProducts } from '../constants/useProducts';
 
 export interface Product {
   id: string;
@@ -11,44 +11,11 @@ export interface Product {
 }
 
 const ProductPage = () => {
-  const [products, setProducts] = useState<Product[]>([]);
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedMemory, setSelectedMemory] = useState('');
-  const [loading, setLoading] = useState<boolean>(true); // Trạng thái loading
-  const [error, setError] = useState<string | null>(null); // Trạng thái lỗi
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const { data: response } = await axios.get(
-          'https://a161-113-160-225-96.ngrok-free.app/product',
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=UTF-8',
-              'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': 'true',
-            },
-            params: {
-              orderBy: 'ASC',
-              page: 1,
-              take: 10,
-            },
-          }
-        );
-
-        // Đảm bảo response.data tồn tại
-        if (Array.isArray(response.data)) {
-          setProducts(response.data); // Lưu danh sách sản phẩm
-        }
-        setLoading(false);
-      } catch {
-        setError('Lỗi khi tải dữ liệu sản phẩm');
-        setLoading(false);
-      }
-    };
-
-    fetchProducts();
-  }, [selectedBrand, selectedMemory]); // Re-run when the filters change
+  // Gọi hook useProducts mà không truyền category để lấy toàn bộ sản phẩm
+  const { products, loading, error } = useProducts('', selectedBrand, selectedMemory);
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -73,7 +40,7 @@ const ProductPage = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 justify-center">
             {Array.isArray(products) && products.length > 0 ? (
-              products.map((product) => <ProductCard key={product.id} product={product} />)
+              products.map((product: Product) => <ProductCard key={product.id} product={product} />)
             ) : (
               <p className="text-center w-full">No products available</p>
             )}
