@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://409e-113-160-225-96.ngrok-free.app';
+const API_URL = 'https://be-final-project-bddr.onrender.com';
 
 export interface SignInPayload {
   email: string;

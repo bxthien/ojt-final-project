@@ -16,6 +16,9 @@ const ProductPage = () => {
 
   // Gọi hook useProducts mà không truyền category để lấy toàn bộ sản phẩm
   const { products, loading, error } = useProducts('', selectedBrand, selectedMemory);
+  const handlePriceSort = (order: 'asc' | 'desc') => {
+    console.log(`Sorting by price: ${order}`);
+  };
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -26,6 +29,7 @@ const ProductPage = () => {
           onMemorySelect={setSelectedMemory}
           selectedBrand={selectedBrand}
           selectedMemory={selectedMemory}
+          onPriceSortChange={handlePriceSort}
         />
       </div>
 
@@ -38,7 +42,7 @@ const ProductPage = () => {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 justify-center">
             {Array.isArray(products) && products.length > 0 ? (
               products.map((product: Product) => <ProductCard key={product.id} product={product} />)
             ) : (
