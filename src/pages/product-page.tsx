@@ -14,27 +14,43 @@ const ProductPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); // Default sort order
+  const [minPrice, setMinPrice] = useState<number>(0); // State for min price
+  const [maxPrice, setMaxPrice] = useState<number>(10000); // State for max price (adjust based on your products)
 
   useEffect(() => {
     const loadProducts = async () => {
       const fetchedProducts = await fetchProducts();
       setProducts(fetchedProducts);
-      setSortedProducts(fetchedProducts); // Initialize sortedProducts
+      setSortedProducts(fetchedProducts);
     };
     loadProducts();
   }, []);
 
+  // Filter products based on price range
+  useEffect(() => {
+    const filtered = products.filter(
+      (product) => product.price >= minPrice && product.price <= maxPrice
+    );
+    setSortedProducts(filtered);
+  }, [minPrice, maxPrice, products]);
+
   // Handle sorting when sortOrder changes
   useEffect(() => {
-    const sorted = [...products].sort((a, b) =>
+    const sorted = [...sortedProducts].sort((a, b) =>
       sortOrder === 'asc' ? a.price - b.price : b.price - a.price
     );
     setSortedProducts(sorted);
-  }, [sortOrder, products]);
+  }, [sortOrder, sortedProducts]);
 
   // Callback to update sort order
   const handlePriceSortChange = (order: 'asc' | 'desc') => {
     setSortOrder(order);
+  };
+
+  // Callback for price range change
+  const handlePriceRangeChange = (min: number, max: number) => {
+    setMinPrice(min);
+    setMaxPrice(max);
   };
 
   return (
@@ -47,6 +63,7 @@ const ProductPage: React.FC = () => {
           selectedBrand=""
           selectedMemory=""
           onPriceSortChange={handlePriceSortChange}
+          onPriceChange={handlePriceRangeChange}
         />
       </div>
 

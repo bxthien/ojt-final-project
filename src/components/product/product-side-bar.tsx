@@ -13,6 +13,7 @@ interface ProductSidebarProps {
   selectedBrand: string;
   selectedMemory: string;
   onPriceSortChange: (order: 'asc' | 'desc') => void; // Add callback for sorting
+  onPriceChange: (min: number, max: number) => void;
 }
 
 const ProductSidebar = ({
