@@ -14,7 +14,6 @@ const ProductPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); // Default sort order
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 1000]); // Default price range
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -27,16 +26,11 @@ const ProductPage: React.FC = () => {
 
   // Handle sorting when sortOrder changes
   useEffect(() => {
-    const sorted = [...products]
-      .filter((product) => product.price >= priceRange[0] && product.price <= priceRange[1]) // Filter by price range
-      .sort((a, b) => (sortOrder === 'asc' ? a.price - b.price : b.price - a.price));
+    const sorted = [...products].sort((a, b) =>
+      sortOrder === 'asc' ? a.price - b.price : b.price - a.price
+    );
     setSortedProducts(sorted);
-  }, [sortOrder, priceRange, products]);
-
-  // Handle price range change from slider
-  const handlePriceRangeChange = (min: number, max: number) => {
-    setPriceRange([min, max]);
-  };
+  }, [sortOrder, products]);
 
   // Callback to update sort order
   const handlePriceSortChange = (order: 'asc' | 'desc') => {
@@ -48,10 +42,11 @@ const ProductPage: React.FC = () => {
       <div className="w-full md:w-1/4 pl-5">
         {/* Sidebar */}
         <ProductSidebar
+          onBrandSelect={() => {}}
+          onMemorySelect={() => {}}
+          selectedBrand=""
+          selectedMemory=""
           onPriceSortChange={handlePriceSortChange}
-          onPriceRangeChange={handlePriceRangeChange} // Pass the callback for price range
-          priceRange={priceRange} // Pass current price range to the sidebar
-          sortOrder={sortOrder} // Pass current sort order
         />
       </div>
 

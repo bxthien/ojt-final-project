@@ -7,6 +7,7 @@ import ProductDetails from './product-detail';
 import ColorSelector from './color-selector';
 import MemorySelector from './memory-selector';
 import ActionButtons from './action-buttons';
+import { Breadcrumb } from 'antd'; // Import Breadcrumb from Ant Design
 
 const ProductDetailPage = () => {
   // Lấy productId từ URL
@@ -29,7 +30,18 @@ const ProductDetailPage = () => {
   if (error || !product) return <div>{error || 'Không tìm thấy sản phẩm'}</div>;
 
   return (
-    <div className="container mx-auto pt-8 pb-8 px-4 lg:pt-28 lg:pb-28 lg:px-40">
+    <div className="container mx-auto pt-4 pb-4 px-2 lg:pt-12 lg:pb-28 lg:px-40">
+      {/* Breadcrumb */}
+      <Breadcrumb className="mb-6">
+        <Breadcrumb.Item>
+          <a href="/">Home</a>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <a href="/product-page">Product</a>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>{product.name}</Breadcrumb.Item>
+      </Breadcrumb>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Phần bên trái: Hình ảnh sản phẩm */}
         <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8">
