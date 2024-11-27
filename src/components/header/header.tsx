@@ -2,13 +2,14 @@ import { useLocation } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoClose } from 'react-icons/io5';
 import HeaderLogo from './header-logo';
-import SearchBar from './search';
+// import SearchBar from './search';
 import DesktopMenu from './desktop-menu';
 import MobileMenu from './mobile-menu';
 import CategoryNav from './category-nav';
 import CartIcon from './cart-icon';
 import ProfileIcon from './profile-icon';
 import { useState } from 'react';
+import SearchIcon from './search-icon';
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -25,14 +26,15 @@ const Header = () => {
           </div>
 
           {/* Search Bar  */}
-          <div className="hidden lg:flex items-center flex-1 max-w-lg mx-8">
+          {/* <div className="hidden lg:flex items-center flex-1 max-w-lg mx-8">
             <SearchBar isMobile={false} />
-          </div>
+          </div> */}
 
           {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center space-x-11">
             <DesktopMenu />
             <div className="flex items-center space-x-6">
+              <SearchIcon isActive={isActivePath('/search')} />
               <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
               <ProfileIcon isActive={isActivePath('/profile')} />
             </div>
@@ -40,6 +42,7 @@ const Header = () => {
 
           {/* Tablet/Mobile Icons */}
           <div className="flex lg:hidden items-center space-x-4">
+            <SearchIcon isActive={isActivePath('/search')} />
             <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
             <ProfileIcon isActive={isActivePath('/profile')} />
             <button
@@ -58,9 +61,9 @@ const Header = () => {
       </div>
 
       {/* Mobile Search Bar */}
-      <div className="lg:hidden">
+      {/* <div className="lg:hidden">
         <SearchBar isMobile={true} />
-      </div>
+      </div> */}
 
       {/* Mobile Menu */}
       <MobileMenu isOpen={isMobileMenuOpen} />
