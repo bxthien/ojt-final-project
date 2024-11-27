@@ -87,8 +87,11 @@ const ProductPage = () => {
           selectedMemory=""
           onPriceSortChange={handlePriceSortChange}
           onPriceChange={handlePriceRangeChange}
+          minPrice={0}
+          maxPrice={0}
         />
       </div>
+      {/* Price Range Sidebar */}
 
       {/* Main Content */}
       <div className="flex-1 p-5 md:p-10">
@@ -117,32 +120,6 @@ const ProductPage = () => {
               ))}
             </ul>
           )}
-        </div>
-
-        {/* Price Range Filter */}
-        <div className="mb-5">
-          <label htmlFor="minPrice" className="block text-sm font-medium">
-            Min Price
-          </label>
-          <input
-            id="minPrice"
-            type="number"
-            value={minPrice}
-            onChange={(e) => setMinPrice(Number(e.target.value))}
-            className="w-full border-gray-300 rounded-md"
-            min={0}
-          />
-          <label htmlFor="maxPrice" className="block text-sm font-medium mt-2">
-            Max Price
-          </label>
-          <input
-            id="maxPrice"
-            type="number"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(Number(e.target.value))}
-            className="w-full border-gray-300 rounded-md"
-            min={0}
-          />
         </div>
 
         {/* Product Grid */}
