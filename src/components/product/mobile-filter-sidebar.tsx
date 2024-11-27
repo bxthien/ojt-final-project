@@ -1,9 +1,9 @@
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
-import PriceSlider from './price-slider';
 import BrandFilter from './branch-filter';
 import MemoryFilter from './memory-filter';
 import { FaTimes } from 'react-icons/fa';
 import PriceSortSelect from './price-sort-select'; // Import PriceSortSelect
+import PriceRangeSidebar from './price-range';
 
 // Define the Section interface
 interface Section {
@@ -22,7 +22,10 @@ interface MobileFilterSidebarProps {
   selectedBrand: string;
   selectedMemory: string;
   priceSortOrder: 'asc' | 'desc'; // Add sort state
-  onPriceSortChange: (order: 'asc' | 'desc') => void; // Callback for sorting
+  onPriceSortChange: (order: 'asc' | 'desc') => void;
+  onPriceChange: (min: number, max: number) => void;
+  minPrice: number;
+  maxPrice: number;
 }
 
 const MobileFilterSidebar = ({
@@ -36,6 +39,9 @@ const MobileFilterSidebar = ({
   selectedMemory,
   priceSortOrder,
   onPriceSortChange,
+  onPriceChange,
+  minPrice,
+  maxPrice,
 }: MobileFilterSidebarProps) => {
   if (!isOpen) return null;
 
@@ -79,7 +85,13 @@ const MobileFilterSidebar = ({
 
               {section.isOpen && (
                 <div className="pl-2">
-                  {section.id === 'price' && <PriceSlider />}
+                  {section.id === 'price' && (
+                    <PriceRangeSidebar
+                      onPriceChange={onPriceChange} // Pass onPriceChange function
+                      minPrice={minPrice}
+                      maxPrice={maxPrice}
+                    />
+                  )}
                   {section.id === 'brand' && (
                     <BrandFilter selectedBrand={selectedBrand} onBrandSelect={onBrandSelect} />
                   )}
