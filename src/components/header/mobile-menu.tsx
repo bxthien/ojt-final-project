@@ -1,7 +1,7 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { menuItems, categoryItems } from '../../constants/data';
 
-const MobileMenu = ({ isOpen }: { isOpen: boolean }) => {
+const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const location = useLocation();
   const isActivePath = (path: string) => location.pathname.startsWith(path);
 
@@ -10,9 +10,10 @@ const MobileMenu = ({ isOpen }: { isOpen: boolean }) => {
       <div className="lg:hidden bg-white shadow-lg absolute w-full z-50">
         <nav className="p-4">
           {menuItems.map((item) => (
-            <Link
+            <a
               key={item.label}
-              to={item.href}
+              href={item.href}
+              onClick={() => onClose()} // Đóng menu khi nhấn vào link
               className={`block py-2 ${
                 isActivePath(item.href)
                   ? 'text-[#56B280] font-bold'
@@ -20,13 +21,14 @@ const MobileMenu = ({ isOpen }: { isOpen: boolean }) => {
               }`}
             >
               {item.label}
-            </Link>
+            </a>
           ))}
           <hr className="my-2" />
           {categoryItems.map((item) => (
-            <Link
+            <a
               key={item.label}
-              to={item.href}
+              href={item.href}
+              onClick={() => onClose()} // Đóng menu khi nhấn vào link
               className={`block flex items-center py-2 transition-all space-x-2 whitespace-nowrap ${
                 isActivePath(item.href)
                   ? 'text-[#56B280] font-bold'
@@ -35,7 +37,7 @@ const MobileMenu = ({ isOpen }: { isOpen: boolean }) => {
             >
               <item.Icon className="w-5 h-5" />
               <span>{item.label}</span>
-            </Link>
+            </a>
           ))}
         </nav>
       </div>

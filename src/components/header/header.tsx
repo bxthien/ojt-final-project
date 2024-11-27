@@ -2,7 +2,6 @@ import { useLocation } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoClose } from 'react-icons/io5';
 import HeaderLogo from './header-logo';
-// import SearchBar from './search';
 import DesktopMenu from './desktop-menu';
 import MobileMenu from './mobile-menu';
 import CategoryNav from './category-nav';
@@ -24,11 +23,6 @@ const Header = () => {
           <div className="flex items-center">
             <HeaderLogo />
           </div>
-
-          {/* Search Bar  */}
-          {/* <div className="hidden lg:flex items-center flex-1 max-w-lg mx-8">
-            <SearchBar isMobile={false} />
-          </div> */}
 
           {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center space-x-11">
@@ -60,13 +54,8 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Search Bar */}
-      {/* <div className="lg:hidden">
-        <SearchBar isMobile={true} />
-      </div> */}
-
       {/* Mobile Menu */}
-      <MobileMenu isOpen={isMobileMenuOpen} />
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
       <div className="hidden lg:block">
         <CategoryNav />
       </div>
