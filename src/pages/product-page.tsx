@@ -1,51 +1,79 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ProductCard from '../components/product/product-card';
 import ProductSidebar from '../components/product/product-side-bar';
-import { useProducts } from '../constants/useProducts';
+import { fetchProducts } from '../constants/fetchProducts';
 
-export interface Product {
+interface Product {
   id: string;
   name: string;
   price: number;
   photos: string[];
 }
 
-const ProductPage = () => {
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedMemory, setSelectedMemory] = useState('');
+const ProductPage: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc'); // Default sort order
+  const [minPrice, setMinPrice] = useState<number>(0); // State for min price
+  const [maxPrice, setMaxPrice] = useState<number>(10000); // State for max price (adjust based on your products)
 
-  // Gọi hook useProducts mà không truyền category để lấy toàn bộ sản phẩm
-  const { products, loading, error } = useProducts('', selectedBrand, selectedMemory);
+  useEffect(() => {
+    const loadProducts = async () => {
+      const fetchedProducts = await fetchProducts();
+      setProducts(fetchedProducts);
+      setSortedProducts(fetchedProducts);
+    };
+    loadProducts();
+  }, []);
+
+  // Filter products based on price range
+  useEffect(() => {
+    const filtered = products.filter(
+      (product) => product.price >= minPrice && product.price <= maxPrice
+    );
+    setSortedProducts(filtered);
+  }, [minPrice, maxPrice, products]);
+
+  // Handle sorting when sortOrder changes
+  useEffect(() => {
+    const sorted = [...sortedProducts].sort((a, b) =>
+      sortOrder === 'asc' ? a.price - b.price : b.price - a.price
+    );
+    setSortedProducts(sorted);
+  }, [sortOrder, sortedProducts]);
+
+  // Callback to update sort order
+  const handlePriceSortChange = (order: 'asc' | 'desc') => {
+    setSortOrder(order);
+  };
+
+  // Callback for price range change
+  const handlePriceRangeChange = (min: number, max: number) => {
+    setMinPrice(min);
+    setMaxPrice(max);
+  };
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Sidebar */}
       <div className="w-full md:w-1/4 pl-5">
+        {/* Sidebar */}
         <ProductSidebar
-          onBrandSelect={setSelectedBrand}
-          onMemorySelect={setSelectedMemory}
-          selectedBrand={selectedBrand}
-          selectedMemory={selectedMemory}
+          onBrandSelect={() => {}}
+          onMemorySelect={() => {}}
+          selectedBrand=""
+          selectedMemory=""
+          onPriceSortChange={handlePriceSortChange}
+          onPriceChange={handlePriceRangeChange}
         />
       </div>
 
       {/* Product Grid */}
       <div className="flex-1 justify-center items-center p-10 md:p-10">
-        {error && <p className="text-red-500 text-center">{error}</p>}
-        {/* Loading state */}
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 justify-center">
-            {Array.isArray(products) && products.length > 0 ? (
-              products.map((product: Product) => <ProductCard key={product.id} product={product} />)
-            ) : (
-              <p className="text-center w-full">No products available</p>
-            )}
-          </div>
-        )}
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {sortedProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
     </div>
   );

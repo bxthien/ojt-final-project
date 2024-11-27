@@ -5,12 +5,15 @@ import PriceSlider from './price-slider';
 import BrandFilter from './branch-filter';
 import MemoryFilter from './memory-filter';
 import MobileFilterSidebar from './mobile-filter-sidebar';
+import PriceSortSelect from './price-sort-select'; // Import component
 
 interface ProductSidebarProps {
   onBrandSelect: (brand: string) => void;
   onMemorySelect: (memory: string) => void;
   selectedBrand: string;
   selectedMemory: string;
+  onPriceSortChange: (order: 'asc' | 'desc') => void; // Add callback for sorting
+  onPriceChange: (min: number, max: number) => void;
 }
 
 const ProductSidebar = ({
@@ -18,9 +21,11 @@ const ProductSidebar = ({
   onMemorySelect,
   selectedBrand,
   selectedMemory,
+  onPriceSortChange,
 }: ProductSidebarProps) => {
   const [sections, setSections] = useState(filterSections);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [priceSortOrder, setPriceSortOrder] = useState<'asc' | 'desc'>('asc'); // State for price sort
 
   const toggleSection = (sectionId: string) => {
     setSections((prev) =>
@@ -35,11 +40,21 @@ const ProductSidebar = ({
     document.body.style.overflow = isMobileFilterOpen ? 'unset' : 'hidden';
   };
 
+  const handlePriceSortChange = (order: 'asc' | 'desc') => {
+    setPriceSortOrder(order);
+    onPriceSortChange(order); // Pass the selected sort order to parent
+  };
+
   return (
     <>
       {/* Desktop Sidebar */}
       <div className="hidden lg:block p-6 w-64 bg-white border-r">
         <div className="p-6">
+          {/* Add PriceSortSelect below the sections */}
+          <PriceSortSelect
+            priceSortOrder={priceSortOrder}
+            onPriceSortChange={handlePriceSortChange}
+          />
           {sections.map((section) => (
             <div key={section.id} className="mb-6">
               <button
@@ -90,6 +105,8 @@ const ProductSidebar = ({
         onMemorySelect={onMemorySelect}
         selectedBrand={selectedBrand}
         selectedMemory={selectedMemory}
+        priceSortOrder={priceSortOrder}
+        onPriceSortChange={handlePriceSortChange}
       />
     </>
   );
