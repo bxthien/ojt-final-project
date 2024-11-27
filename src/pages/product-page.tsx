@@ -12,18 +12,20 @@ export interface Product {
 }
 
 const ProductPage = () => {
-  const [selectedBrand, setSelectedBrand] = useState('');
-  const [selectedMemory, setSelectedMemory] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestedProducts, setSuggestedProducts] = useState<Product[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [sortedProducts, setSortedProducts] = useState<Product[]>([]);
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [minPrice, setMinPrice] = useState<number>(0);
+  const [maxPrice, setMaxPrice] = useState<number>(10000);
 
   const suggestionsRef = useRef<HTMLDivElement>(null);
 
-  // Gọi hook useProducts mà không truyền category để lấy toàn bộ sản phẩm
-  const { products, loading, error } = useProducts('', selectedBrand, selectedMemory);
+  // Fetch products from the useProducts hook
+  const { products, loading, error } = useProducts('');
 
-  // Cập nhật danh sách gợi ý khi searchTerm thay đổi
+  // Update suggested products based on search term
   useEffect(() => {
     if (searchTerm.trim() === '') {
       setSuggestedProducts([]);
@@ -37,7 +39,29 @@ const ProductPage = () => {
     }
   }, [searchTerm, products]);
 
-  // Xử lý khi click ra ngoài danh sách gợi ý
+  // Filter and sort products when price range, sort order, or search term changes
+  useEffect(() => {
+    const filtered = products
+      .filter((product) => product.price >= minPrice && product.price <= maxPrice) // Filter by price range
+      .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase())) // Filter by search term
+      .sort(
+        (a, b) => (sortOrder === 'asc' ? a.price - b.price : b.price - a.price) // Sort by price
+      );
+    setSortedProducts(filtered);
+  }, [minPrice, maxPrice, sortOrder, searchTerm, products]);
+
+  // Callback to update sort order
+  const handlePriceSortChange = (order: 'asc' | 'desc') => {
+    setSortOrder(order);
+  };
+
+  // Callback for price range change
+  const handlePriceRangeChange = (min: number, max: number) => {
+    setMinPrice(min);
+    setMaxPrice(max);
+  };
+
+  // Handle click outside the suggestion list
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (suggestionsRef.current && !suggestionsRef.current.contains(event.target as Node)) {
@@ -57,10 +81,12 @@ const ProductPage = () => {
       {/* Sidebar */}
       <div className="w-full md:w-1/4 pl-5">
         <ProductSidebar
-          onBrandSelect={setSelectedBrand}
-          onMemorySelect={setSelectedMemory}
-          selectedBrand={selectedBrand}
-          selectedMemory={selectedMemory}
+          onBrandSelect={() => {}}
+          onMemorySelect={() => {}}
+          selectedBrand=""
+          selectedMemory=""
+          onPriceSortChange={handlePriceSortChange}
+          onPriceChange={handlePriceRangeChange}
         />
       </div>
 
@@ -73,7 +99,7 @@ const ProductPage = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          {/* Gợi ý tìm kiếm */}
+          {/* Search Suggestions */}
           {showSuggestions && suggestedProducts.length > 0 && (
             <ul className="absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg w-full max-h-60 overflow-y-auto">
               {suggestedProducts.map((product) => (
@@ -81,9 +107,9 @@ const ProductPage = () => {
                   key={product.id}
                   className="p-2 hover:bg-gray-100 cursor-pointer"
                   onClick={(e) => {
-                    e.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
-                    setSearchTerm(product.name); // Cập nhật giá trị thanh tìm kiếm
-                    setShowSuggestions(false); // Ẩn danh sách gợi ý
+                    e.stopPropagation(); // Prevent event propagation
+                    setSearchTerm(product.name); // Set search term to product name
+                    setShowSuggestions(false); // Hide suggestions
                   }}
                 >
                   {product.name}
@@ -91,6 +117,32 @@ const ProductPage = () => {
               ))}
             </ul>
           )}
+        </div>
+
+        {/* Price Range Filter */}
+        <div className="mb-5">
+          <label htmlFor="minPrice" className="block text-sm font-medium">
+            Min Price
+          </label>
+          <input
+            id="minPrice"
+            type="number"
+            value={minPrice}
+            onChange={(e) => setMinPrice(Number(e.target.value))}
+            className="w-full border-gray-300 rounded-md"
+            min={0}
+          />
+          <label htmlFor="maxPrice" className="block text-sm font-medium mt-2">
+            Max Price
+          </label>
+          <input
+            id="maxPrice"
+            type="number"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(Number(e.target.value))}
+            className="w-full border-gray-300 rounded-md"
+            min={0}
+          />
         </div>
 
         {/* Product Grid */}
@@ -101,10 +153,10 @@ const ProductPage = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 justify-center">
-            {Array.isArray(products) && products.length > 0 ? (
-              products
-                .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
-                .map((product: Product) => <ProductCard key={product.id} product={product} />)
+            {sortedProducts.length > 0 ? (
+              sortedProducts.map((product: Product) => (
+                <ProductCard key={product.id} product={product} />
+              ))
             ) : (
               <p className="text-center w-full">No products available</p>
             )}

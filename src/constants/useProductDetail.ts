@@ -16,7 +16,15 @@ interface Product {
 
 // Define the expected structure of the response
 interface ProductDetailResponse {
-  data: Product;
+  id: string;
+  name: string;
+  price: number;
+  info: {
+    description: string;
+    color: string[];
+    size: string[];
+  };
+  photos: string[];
 }
 
 export const useProductDetail = (productId: string) => {
@@ -41,16 +49,19 @@ export const useProductDetail = (productId: string) => {
         );
 
         if (response.data) {
-          setProduct(response.data.data);
+          setProduct(response.data);
         } else {
           setError('Không tìm thấy sản phẩm');
         }
       } catch (err) {
         if (err instanceof AxiosError) {
+          console.error('Axios Error:', err.response);
           setError(err.response?.data?.message || 'Lỗi khi tải chi tiết sản phẩm');
         } else if (err instanceof Error) {
+          console.error('General Error:', err.message);
           setError(err.message || 'Lỗi khi tải chi tiết sản phẩm');
         } else {
+          console.error('Unknown Error:', err);
           setError('Lỗi không xác định');
         }
       } finally {

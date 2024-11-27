@@ -3,6 +3,7 @@ import PriceSlider from './price-slider';
 import BrandFilter from './branch-filter';
 import MemoryFilter from './memory-filter';
 import { FaTimes } from 'react-icons/fa';
+import PriceSortSelect from './price-sort-select'; // Import PriceSortSelect
 
 // Define the Section interface
 interface Section {
@@ -14,12 +15,14 @@ interface Section {
 interface MobileFilterSidebarProps {
   isOpen: boolean;
   onClose: () => void;
-  sections: Section[]; // Use the Section[] type instead of any[]
+  sections: Section[];
   toggleSection: (sectionId: string) => void;
   onBrandSelect: (brand: string) => void;
   onMemorySelect: (memory: string) => void;
   selectedBrand: string;
   selectedMemory: string;
+  priceSortOrder: 'asc' | 'desc'; // Add sort state
+  onPriceSortChange: (order: 'asc' | 'desc') => void; // Callback for sorting
 }
 
 const MobileFilterSidebar = ({
@@ -31,12 +34,14 @@ const MobileFilterSidebar = ({
   onMemorySelect,
   selectedBrand,
   selectedMemory,
+  priceSortOrder,
+  onPriceSortChange,
 }: MobileFilterSidebarProps) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex justify-start">
-      <div className=" bg-white h-full flex flex-col">
+      <div className="bg-white h-full flex flex-col">
         <div className="flex items-center justify-between border-b">
           <h2 className="text-lg font-semibold p-4">Filters</h2>
           <button
@@ -50,6 +55,13 @@ const MobileFilterSidebar = ({
 
         {/* Filter Sections */}
         <div className="flex-1 overflow-y-auto p-4">
+          {/* Sort by Price Section */}
+          <div className="mb-6">
+            <PriceSortSelect
+              priceSortOrder={priceSortOrder}
+              onPriceSortChange={onPriceSortChange}
+            />
+          </div>
           {sections.map((section) => (
             <div key={section.id} className="mb-6">
               <button
