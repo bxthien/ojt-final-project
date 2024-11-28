@@ -3,7 +3,7 @@ import { getStorageData } from '../storage';
 import { ACCESS_TOKEN } from '../../constants/auth';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://api.example.com',
+  baseURL: 'https://5f08-113-160-225-96.ngrok-free.app',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -37,3 +37,5 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+export default axiosInstance;
