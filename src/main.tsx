@@ -1,8 +1,10 @@
 import { StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
+import * as ReactDOM from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './locales';
+import { CheckoutProvider } from './components/CheckoutContext';
+
 import NotFound from './pages/not-found';
 import HomePage from './pages/home-page';
 import SignIn from './pages/sign-in';
@@ -16,31 +18,21 @@ import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import SelectAddress from './components/SelectAdress/SelectAddress';
 import ShipmentMethod from './components/SelectAdress/ShipmentMethod';
 import PaymentPage from './components/SelectAdress/PaymentPage';
+import LayOut from './layout';
+import ProductDetailPage from './components/product-details/product-detail-page';
+import Shipping from './pages/shipping';
+import Payment from './pages/payment';
+import PaymentStatus from './pages/PaymentStatus';
 
 const router = createBrowserRouter([
   {
     path: '/',
     errorElement: <NotFound />,
+    element: <LayOut />,
     children: [
       {
         path: '/',
         element: <HomePage />,
-      },
-      {
-        path: '/sign-in',
-        element: <SignIn />,
-      },
-      {
-        path: '/register',
-        element: <Register />,
-      },
-      {
-        path: '/forgot',
-        element: <Forgot />,
-      },
-      {
-        path: '/success',
-        element: <Success />,
       },
       {
         path: '/cart',
@@ -70,12 +62,50 @@ const router = createBrowserRouter([
         path: '/profile',
         element: <Profile />,
       },
+      {
+        path: '/product-detail/:id',
+        element: <ProductDetailPage />,
+      },
+      {
+        path: '/shipping',
+        element: <Shipping />,
+      },
+      {
+        path: '/payments',
+        element: <Payment />,
+      },
+      {
+        path: '/paymentsuccess',
+        element: <PaymentStatus status={'success'} />,
+      },
+      {
+        path: '/paymentfailed',
+        element: <PaymentStatus status={'failed'} />,
+      },
     ],
+  },
+  {
+    path: '/sign-in',
+    element: <SignIn />,
+  },
+  {
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/forgot',
+    element: <Forgot />,
+  },
+  {
+    path: '/success',
+    element: <Success />,
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CheckoutProvider>
+      <RouterProvider router={router} />
+    </CheckoutProvider>
   </StrictMode>
 );

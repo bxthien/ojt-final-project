@@ -3,7 +3,6 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import { MdLogout } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
 import HeaderLogo from './header-logo';
-import SearchBar from './search';
 import DesktopMenu from './desktop-menu';
 import MobileMenu from './mobile-menu';
 import CategoryNav from './category-nav';
@@ -11,6 +10,7 @@ import CartIcon from './cart-icon';
 import ProfileIcon from './profile-icon';
 import { Button } from 'antd';
 import { useState } from 'react';
+import SearchIcon from './search-icon';
 
 const Header: React.FC = () => {
   const { pathname } = useLocation();
@@ -35,6 +35,13 @@ const Header: React.FC = () => {
     navigate('/');
   };
 
+  // const [cartCount, setCartCount] = useState(0);
+
+  // Function to handle adding items to the cart
+  // const handleAddToCart = () => {
+  //   setCartCount(cartCount + 1); // Increment cart count by 1
+  // };
+
   return (
     <header className="w-full relative">
       <div className="border-b">
@@ -42,12 +49,12 @@ const Header: React.FC = () => {
           <div className="flex items-center">
             <HeaderLogo />
           </div>
-          <div className="hidden lg:flex items-center flex-1 max-w-lg mx-8">
-            <SearchBar isMobile={false} />
-          </div>
+
+          {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center space-x-11">
             <DesktopMenu />
             <div className="flex items-center space-x-6">
+              <SearchIcon isActive={isActivePath('/search')} />
               <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
               {isLoggedIn ? (
                 <div className="flex items-center space-x-4">
@@ -68,6 +75,7 @@ const Header: React.FC = () => {
             </div>
           </nav>
           <div className="flex lg:hidden items-center space-x-4">
+            <SearchIcon isActive={isActivePath('/search')} />
             <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
             {isLoggedIn ? (
               <>
@@ -100,10 +108,9 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="lg:hidden">
-        <SearchBar isMobile={true} />
-      </div>
-      <MobileMenu isOpen={isMobileMenuOpen} />
+
+      {/* Mobile Menu */}
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
       <div className="hidden lg:block">
         <CategoryNav />
       </div>
