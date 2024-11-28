@@ -9,6 +9,7 @@ export interface Product {
   name: string;
   price: number;
   photos: string[];
+  url: string;
 }
 
 const ProductPage = () => {
@@ -94,7 +95,7 @@ const ProductPage = () => {
       {/* Price Range Sidebar */}
 
       {/* Main Content */}
-      <div className="flex-1 p-5 md:p-10">
+      <div className="flex-1 p-8  pt-5 md:p-8">
         {/* Search Bar */}
         <div className="mb-5 relative" ref={suggestionsRef}>
           <Search
@@ -129,7 +130,7 @@ const ProductPage = () => {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-full justify-center">
             {sortedProducts.length > 0 ? (
               sortedProducts.map((product: Product) => (
                 <ProductCard key={product.id} product={product} />

@@ -16,6 +16,13 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState(0);
 
+  // const [cartCount, setCartCount] = useState(0);
+
+  // Function to handle adding items to the cart
+  // const handleAddToCart = () => {
+  //   setCartCount(cartCount + 1); // Increment cart count by 1
+  // };
+
   return (
     <header className="w-full relative">
       <div className="border-b">

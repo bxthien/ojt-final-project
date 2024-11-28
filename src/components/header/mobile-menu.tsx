@@ -3,12 +3,15 @@ import { menuItems, categoryItems } from '../../constants/data';
 
 const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const location = useLocation();
-  const isActivePath = (path: string) => location.pathname.startsWith(path);
+
+  // Xác định trạng thái active chính xác
+  const isActivePath = (path: string) => location.pathname === path;
 
   return (
     isOpen && (
       <div className="lg:hidden bg-white shadow-lg absolute w-full z-50">
         <nav className="p-4">
+          {/* Menu Items */}
           {menuItems.map((item) => (
             <a
               key={item.label}
@@ -23,7 +26,10 @@ const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
               {item.label}
             </a>
           ))}
+
           <hr className="my-2" />
+
+          {/* Category Items */}
           {categoryItems.map((item) => (
             <a
               key={item.label}

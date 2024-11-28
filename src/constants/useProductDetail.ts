@@ -3,6 +3,7 @@ import axios, { AxiosError } from 'axios';
 
 // Define the Product type based on API response
 interface Product {
+  url: string;
   id: string;
   name: string;
   price: number;
@@ -25,6 +26,7 @@ interface ProductDetailResponse {
     size: string[];
   };
   photos: string[];
+  url: string;
 }
 
 export const useProductDetail = (productId: string) => {
@@ -38,7 +40,7 @@ export const useProductDetail = (productId: string) => {
     const fetchProductDetail = async () => {
       try {
         const response = await axios.get<ProductDetailResponse>(
-          `https://be-final-project-bddr.onrender.com/product/${productId}`,
+          `https://0837-113-160-225-96.ngrok-free.app/product/${productId}`,
           {
             headers: {
               'Content-Type': 'application/json;charset=UTF-8',
@@ -51,18 +53,18 @@ export const useProductDetail = (productId: string) => {
         if (response.data) {
           setProduct(response.data);
         } else {
-          setError('Không tìm thấy sản phẩm');
+          setError('No found product');
         }
       } catch (err) {
         if (err instanceof AxiosError) {
           console.error('Axios Error:', err.response);
-          setError(err.response?.data?.message || 'Lỗi khi tải chi tiết sản phẩm');
+          setError(err.response?.data?.message || 'Error fetching product detail');
         } else if (err instanceof Error) {
           console.error('General Error:', err.message);
-          setError(err.message || 'Lỗi khi tải chi tiết sản phẩm');
+          setError(err.message || 'Error fetching product detail');
         } else {
           console.error('Unknown Error:', err);
-          setError('Lỗi không xác định');
+          setError('Unknown Error');
         }
       } finally {
         setLoading(false);

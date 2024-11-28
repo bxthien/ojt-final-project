@@ -1,14 +1,28 @@
-const ProductDescription = () => {
+const ProductDescription = ({
+  name,
+  price,
+  description,
+}: {
+  name: string;
+  price: string | number;
+  description?: string;
+}) => {
   return (
-    <div className="mt-4 mb-6">
-      <h2 className="text-xl font-medium">Details</h2>
-      <ul className="list-disc pl-6 mt-2">
-        <li>6.7-inch Super Retina XDR display with ProMotion</li>
-        <li>A16 Bionic chip</li>
-        <li>48MP main camera</li>
-        <li>Cinematic mode, Action mode, and Photographic Styles</li>
-        <li>Up to 29 hours of video playback</li>
-      </ul>
+    <div>
+      {/* Tên sản phẩm */}
+      <h1 className="text-[30px] font-semibold">{name}</h1>
+
+      {/* Giá sản phẩm */}
+      <div className="flex items-center gap-2 mb-4">
+        <span className="text-2xl font-base text-[#56B280]">{price} $</span>
+      </div>
+
+      {/* Mô tả sản phẩm */}
+      {description && (
+        <p className="text-base text-gray-600 mt-2">
+          <strong>Description:</strong> {description}
+        </p>
+      )}
     </div>
   );
 };

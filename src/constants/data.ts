@@ -9,9 +9,9 @@ import { FaTwitter, FaFacebook, FaTiktok, FaInstagram } from 'react-icons/fa';
 
 export const menuItems = [
   { href: '/', label: 'Home' },
+  { href: '/product-page', label: 'Product' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact Us' },
-  { href: '/product-page', label: 'Product' },
 ];
 
 export const categoryItems = [

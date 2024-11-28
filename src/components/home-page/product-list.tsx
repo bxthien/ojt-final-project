@@ -8,6 +8,7 @@ export interface Product {
   price: number;
   photos: string[];
   createdAt?: string;
+  url: string;
 }
 
 const ProductList = () => {
@@ -19,7 +20,7 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         const { data: response } = await axios.get(
-          'https://be-final-project-bddr.onrender.com/product',
+          'https://0837-113-160-225-96.ngrok-free.app/product',
           {
             headers: {
               'Content-Type': 'application/json;charset=UTF-8',
@@ -57,7 +58,7 @@ const ProductList = () => {
   }, []);
 
   return (
-    <div className="bg-white min-h-screen p-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-36">
+    <div className="bg-white p-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-14">
       <h1 className="text-4xl font-bold mb-6 text-center">New Arrival</h1>
 
       {/* Hiển thị thông báo lỗi nếu có */}

@@ -6,12 +6,14 @@ export interface Product {
   price: number;
   category: string;
   photos: string[];
+  url: string;
 }
 
 export const fetchProducts = async (): Promise<Product[]> => {
   try {
     const { data: response } = await axios.get(
-      'https://be-final-project-bddr.onrender.com/product',
+      'https://0837-113-160-225-96.ngrok-free.app/product',
+      // 'https://315e-113-160-225-96.ngrok-free.app/product',
       {
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
@@ -32,6 +34,6 @@ export const fetchProducts = async (): Promise<Product[]> => {
       throw new Error('No products found');
     }
   } catch {
-    throw new Error('Lỗi khi tải dữ liệu sản phẩm');
+    throw new Error('Error fetching products');
   }
 };
