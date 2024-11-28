@@ -20,6 +20,9 @@ import PaymentPage from './components/SelectAdress/PaymentPage';
 import ProductPage from './pages/product-page';
 import LayOut from './layout';
 import ProductDetailPage from './components/product-details/product-detail-page';
+import Shipping from './pages/shipping';
+import Payment from './pages/payment';
+import PaymentStatus from './pages/PaymentStatus';
 
 const router = createBrowserRouter([
   {
@@ -62,6 +65,22 @@ const router = createBrowserRouter([
       {
         path: '/product-detail/:id',
         element: <ProductDetailPage />,
+      },
+      {
+        path: '/shipping',
+        element: <Shipping />,
+      },
+      {
+        path: '/payments',
+        element: <Payment />,
+      },
+      {
+        path: '/paymentsuccess',
+        element: <PaymentStatus status={'success'} />,
+      },
+      {
+        path: '/paymentfailed',
+        element: <PaymentStatus status={'failed'} />,
       },
     ],
   },
