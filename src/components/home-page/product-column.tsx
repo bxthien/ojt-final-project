@@ -14,7 +14,7 @@ const ProductColumn: React.FC<ProductColumnProps> = ({
   backgroundColor,
 }) => {
   return (
-    <div className={`${backgroundColor} p-4 sm:p-6 transition-transform hover:scale-105`}>
+    <div className={`${backgroundColor} p-6 sm:p-8 transition-transform hover:scale-105`}>
       <div className="flex flex-col h-full space-y-4">
         <div className="relative pt-[75%] sm:pt-[100%] w-full overflow-hidden">
           <img

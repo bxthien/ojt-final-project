@@ -10,14 +10,14 @@ export const useProducts = (category: string, brand: string = '', memory: string
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
-      setError(null); // Reset error before fetching
+      setError(null);
 
       try {
         // Build params dynamically
         const params: Record<string, string> = {
           orderBy: 'ASC',
           page: '1',
-          take: '10',
+          take: '12',
         };
 
         if (category) params.category = category;
@@ -28,7 +28,7 @@ export const useProducts = (category: string, brand: string = '', memory: string
         const { data: response } = await axios.get<{
           data: Product[];
           message?: string;
-        }>('https://be-final-project-bddr.onrender.com/product', {
+        }>('https://0837-113-160-225-96.ngrok-free.app/product', {
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             'Access-Control-Allow-Origin': '*',
