@@ -21,7 +21,7 @@ const Register = () => {
           message: t('success.register'),
           description: t('success.noti'),
         });
-        navigate('/');
+        navigate('/sign-in');
       }
     } catch (error) {
       notification.error({

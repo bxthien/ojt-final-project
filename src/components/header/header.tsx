@@ -1,5 +1,6 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
+import { MdLogout } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
 import HeaderLogo from './header-logo';
 import SearchBar from './search';
@@ -8,13 +9,31 @@ import MobileMenu from './mobile-menu';
 import CategoryNav from './category-nav';
 import CartIcon from './cart-icon';
 import ProfileIcon from './profile-icon';
+import { Button } from 'antd';
 import { useState } from 'react';
 
-const Header = () => {
+const Header: React.FC = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const isActivePath = (path: string) => pathname === path;
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState(0);
+
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+  const handleLogin = () => {
+    if (isLoggedIn) {
+      navigate('/profile');
+    } else {
+      navigate('/sign-in');
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    navigate('/');
+  };
 
   return (
     <header className="w-full relative">
@@ -23,25 +42,50 @@ const Header = () => {
           <div className="flex items-center">
             <HeaderLogo />
           </div>
-
-          {/* Search Bar  */}
           <div className="hidden lg:flex items-center flex-1 max-w-lg mx-8">
             <SearchBar isMobile={false} />
           </div>
-
-          {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center space-x-11">
             <DesktopMenu />
             <div className="flex items-center space-x-6">
               <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
-              <ProfileIcon isActive={isActivePath('/profile')} />
+              {isLoggedIn ? (
+                <div className="flex items-center space-x-4">
+                  <ProfileIcon isActive={isActivePath('/profile')} />
+                  <Button type="link" onClick={handleLogout} className="text-[#56B280] text-2xl">
+                    <MdLogout />
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  type="primary"
+                  onClick={handleLogin}
+                  className="py-4 bg-[#56B280] font-semibold"
+                >
+                  Sign In
+                </Button>
+              )}
             </div>
           </nav>
-
-          {/* Tablet/Mobile Icons */}
           <div className="flex lg:hidden items-center space-x-4">
             <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
-            <ProfileIcon isActive={isActivePath('/profile')} />
+            {isLoggedIn ? (
+              <>
+                <ProfileIcon isActive={isActivePath('/profile')} />
+                <Button type="link" onClick={handleLogout} className="text-[#56B280] text-2xl">
+                  <MdLogout />
+                </Button>
+              </>
+            ) : (
+              <Button
+                type="primary"
+                className="py-4 bg-[#56B280] font-semibol"
+                size="small"
+                onClick={handleLogin}
+              >
+                Sign In
+              </Button>
+            )}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="block lg:hidden"
@@ -56,13 +100,9 @@ const Header = () => {
           </div>
         </div>
       </div>
-
-      {/* Mobile Search Bar */}
       <div className="lg:hidden">
         <SearchBar isMobile={true} />
       </div>
-
-      {/* Mobile Menu */}
       <MobileMenu isOpen={isMobileMenuOpen} />
       <div className="hidden lg:block">
         <CategoryNav />

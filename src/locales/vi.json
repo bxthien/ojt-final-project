@@ -53,8 +53,8 @@
   },
 
   "error": {
-    "faild": "Đăng Ký Thất Bại",
-    "faild_2": "Đăng Nhập Thất Bại",
+    "fail": "Đăng Ký Thất Bại",
+    "fail_2": "Đăng Nhập Thất Bại",
     "email": "Gửi Mật Khẩu Thất Bại",
     "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
   },

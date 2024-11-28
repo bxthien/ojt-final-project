@@ -11,6 +11,7 @@ import HomePage from './pages/home-page';
 import Register from './pages/register';
 import Forgot from './pages/forgot';
 import Success from './pages/success';
+import Profile from './pages/profile';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: '/success',
         element: <Success />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
       },
       {
         path: '/cart',
