@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 const Header = () => {
   const { pathname } = useLocation();
-  const isActivePath = (path: string) => pathname === path;
+  const isActivePath = (path: string) => pathname.startsWith(path);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState(0);
 

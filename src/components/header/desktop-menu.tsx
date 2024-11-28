@@ -3,7 +3,13 @@ import { menuItems } from '../../constants/data';
 
 const DesktopMenu = () => {
   const location = useLocation();
-  const isActivePath = (path: string) => location.pathname.startsWith(path);
+
+  const isActivePath = (path: string) => {
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname.startsWith(path) && location.pathname !== '/';
+  };
 
   return (
     <nav className="hidden md:flex items-center space-x-12">
