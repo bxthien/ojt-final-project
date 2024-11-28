@@ -23,6 +23,7 @@ import ProductDetailPage from './components/product-details/product-detail-page'
 import Shipping from './pages/shipping';
 import Payment from './pages/payment';
 import PaymentStatus from './pages/PaymentStatus';
+import ProductPage from './pages/product-page';
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: '/payment',
         element: <PaymentPage />,
+      },
+      {
+        path: '/product-page',
+        element: <ProductPage />,
       },
       {
         path: '/profile',
