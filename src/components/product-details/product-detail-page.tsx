@@ -43,19 +43,19 @@ const ProductDetailPage = () => {
         <Breadcrumb.Item>{product.name}</Breadcrumb.Item>
       </Breadcrumb>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center">
         {/* Phần bên trái: Hình ảnh sản phẩm */}
-        <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8">
-          {/* ảnh nhỏ */}
-          {/* <div className="flex md:flex-col gap-4 justify-center md:justify-start">
+        {/* <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8"> */}
+        {/* ảnh nhỏ */}
+        {/* <div className="flex md:flex-col gap-4 justify-center md:justify-start">
             <ProductImages images={product.photos} onImageSelect={handleImageSelect} />
           </div> */}
-          {/* ảnh chính */}
-          <div className="w-full">
-            <ProductMainImage url={product.url} photos={[]} />
-            {/* <ProductMainImage photos={product.url[0]} url={''} /> */}
-          </div>
+        {/* ảnh chính */}
+        <div className="w-full">
+          <ProductMainImage url={product.url} photos={[]} />
+          {/* <ProductMainImage photos={product.url[0]} url={''} /> */}
         </div>
+        {/* </div> */}
         {/*Bên phải: Thông tin sản phẩm */}
         <div className="flex flex-col gap-6 md:text-left md:items-start pl-9">
           {/* Thông tin chi tiết sản phẩm */}
