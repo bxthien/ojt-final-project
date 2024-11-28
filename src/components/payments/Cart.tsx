@@ -23,8 +23,8 @@ interface CardProduct {
 function Cart() {
   const [items, setItems] = useState<CardProduct[]>([]); // Dữ liệu giỏ hàng với kiểu dữ liệu CardProduct
   const [loading, setLoading] = useState(false); // Trạng thái tải dữ liệu
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [transactionId, setTransactionId] = useState('54f51a4d-f9b5-4f17-9f17-385eb4b9e834');
+
+  const [transactionId] = useState('54f51a4d-f9b5-4f17-9f17-385eb4b9e834');
   const [coupon, setCoupon] = useState(''); // Mã giảm giá
   const [total, setTotal] = useState(0); // Tổng tiền
 
@@ -106,7 +106,7 @@ function Cart() {
       title: 'Price',
       dataIndex: 'price',
       key: 'price',
-      render: (price: number, record: CardProduct) => `$${record.product.price}`,
+      render: (_price: number, record: CardProduct) => `$${record.product.price}`,
     },
     {
       title: 'Quantity',
