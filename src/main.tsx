@@ -11,13 +11,13 @@ import SignIn from './pages/sign-in';
 import Register from './pages/register';
 import Forgot from './pages/forgot';
 import Success from './pages/success';
+import Profile from './pages/profile';
 import Cart from './components/payments/Cart';
 import Checkout from './components/payments/CheckoutPage';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import SelectAddress from './components/SelectAdress/SelectAddress';
 import ShipmentMethod from './components/SelectAdress/ShipmentMethod';
 import PaymentPage from './components/SelectAdress/PaymentPage';
-import ProductPage from './pages/product-page';
 import LayOut from './layout';
 import ProductDetailPage from './components/product-details/product-detail-page';
 import Shipping from './pages/shipping';
@@ -59,8 +59,8 @@ const router = createBrowserRouter([
         element: <PaymentPage />,
       },
       {
-        path: '/product-page',
-        element: <ProductPage />,
+        path: '/profile',
+        element: <Profile />,
       },
       {
         path: '/product-detail/:id',
