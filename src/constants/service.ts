@@ -1,6 +1,9 @@
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './auth';
-import { setStorageData } from '../services/storage';
+import { removeStorageData, setStorageData } from '../services/storage';
 import axiosInstance from '../services/axios';
+import { useDispatch } from 'react-redux';
+import { login, logout } from '../redux/auth/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 export interface SignInResponse {
   access_token: string;
@@ -27,18 +30,43 @@ export interface ForgotPayload {
   email: string;
 }
 
-export const signin = async (params: SignInPayload): Promise<SignInResponse> => {
-  try {
-    const { data: response } = await axiosInstance.post<SignInResponse>(`/auth/login`, params);
-    if (response.access_token) {
-      setStorageData(ACCESS_TOKEN, response.access_token);
-      setStorageData(REFRESH_TOKEN, response.refresh_token);
+export const useSignIn = () => {
+  const dispatchAuth = useDispatch();
+
+  const signIn = async (params: SignInPayload): Promise<SignInResponse> => {
+    try {
+      const { data: response } = await axiosInstance.post<SignInResponse>(`/auth/login`, params);
+
+      if (response.access_token) {
+        setStorageData(ACCESS_TOKEN, response.access_token);
+        setStorageData(REFRESH_TOKEN, response.refresh_token);
+        dispatchAuth(login());
+      }
+
+      return response;
+    } catch (err) {
+      console.error('Login error:', err);
+      throw err;
     }
-    return response;
-  } catch (err) {
-    console.error('Login error:', err);
-    throw err;
-  }
+  };
+
+  return { signIn };
+};
+
+export const useLogout = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    removeStorageData(ACCESS_TOKEN);
+    removeStorageData(REFRESH_TOKEN);
+
+    dispatch(logout());
+
+    navigate('/sign-in');
+  };
+
+  return { logOut };
 };
 
 export const register = async (params: RegisterPayload) => {

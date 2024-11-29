@@ -5,17 +5,18 @@ import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
-import { emailValidator, passwordValidator } from '../constants/regex';
-import { signin, SignInPayload } from '../constants/service';
+import { emailValidator /* passwordValidator */ } from '../constants/regex';
+import { useSignIn, SignInPayload } from '../constants/service';
 
 const SignIn: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const { signIn } = useSignIn();
 
   const handleSignIn = async (values: SignInPayload) => {
     try {
-      const res = await signin(values);
+      const res = await signIn(values);
       if (res) {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('userProfile', JSON.stringify(res.user));
@@ -112,12 +113,12 @@ const SignIn: React.FC = () => {
                 </span>
               }
               name="password"
-              rules={[
-                {
-                  validator: passwordValidator,
-                  message: t('validation.password.invalid'),
-                },
-              ]}
+              // rules={[
+              //   {
+              //     validator: passwordValidator,
+              //     message: t('validation.password.invalid'),
+              //   },
+              // ]}
             >
               <Input.Password allowClear />
             </Form.Item>

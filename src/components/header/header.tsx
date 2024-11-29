@@ -11,19 +11,20 @@ import ProfileIcon from './profile-icon';
 import { Button } from 'antd';
 import { useState } from 'react';
 import SearchIcon from './search-icon';
+import { useAuth } from '../../hook/useAuth';
+import { useLogout } from '../../constants/service';
 
 const Header: React.FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isActivePath = (path: string) => pathname === path;
-
+  const isAuth = useAuth();
+  const { logOut } = useLogout();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState(0);
 
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-
   const handleLogin = () => {
-    if (isLoggedIn) {
+    if (isAuth) {
       navigate('/profile');
     } else {
       navigate('/sign-in');
@@ -31,8 +32,7 @@ const Header: React.FC = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    navigate('/');
+    logOut();
   };
 
   // const [cartCount, setCartCount] = useState(0);
@@ -56,7 +56,7 @@ const Header: React.FC = () => {
             <div className="flex items-center space-x-6">
               <SearchIcon isActive={isActivePath('/search')} />
               <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
-              {isLoggedIn ? (
+              {isAuth ? (
                 <div className="flex items-center space-x-4">
                   <ProfileIcon isActive={isActivePath('/profile')} />
                   <Button type="link" onClick={handleLogout} className="text-[#56B280] text-2xl">
@@ -77,7 +77,7 @@ const Header: React.FC = () => {
           <div className="flex lg:hidden items-center space-x-4">
             <SearchIcon isActive={isActivePath('/search')} />
             <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
-            {isLoggedIn ? (
+            {isAuth ? (
               <>
                 <ProfileIcon isActive={isActivePath('/profile')} />
                 <Button type="link" onClick={handleLogout} className="text-[#56B280] text-2xl">
@@ -89,7 +89,7 @@ const Header: React.FC = () => {
                 type="primary"
                 className="py-4 bg-[#56B280] font-semibol"
                 size="small"
-                onClick={handleLogin}
+                onClick={() => navigate('/sign-in')}
               >
                 Sign In
               </Button>
