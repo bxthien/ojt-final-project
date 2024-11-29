@@ -2,7 +2,7 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import { getStorageData } from '../storage';
 import { ACCESS_TOKEN } from '../../constants/auth';
 
-const BASE_URL = 'https://0837-113-160-225-96.ngrok-free.app';
+const BASE_URL = 'https://fd8f-113-160-225-96.ngrok-free.app';
 axios.defaults.baseURL = BASE_URL;
 
 const axiosInstance = axios.create({

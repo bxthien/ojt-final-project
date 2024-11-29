@@ -1,166 +1,169 @@
 import { useEffect, useState } from 'react';
-import { Form, Input, Button, Avatar, Tabs, message } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
+import { Form, Input, Button, Select, Row, Col, message, Tabs } from 'antd';
 import { getProfile, updateProfile, changePassword } from '../constants/service';
+import TabPane from 'antd/es/tabs/TabPane';
 
-const { TabPane } = Tabs;
-
-interface Profile {
-  email: string;
-  username: string;
-  avatar: string;
-}
-
-interface ProfileFormValues {
-  fullName: string;
-  email: string;
-  address: string;
-  phone: string;
-  description: string;
-}
+const { Option } = Select;
 
 const Profile = () => {
-  const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [profile, setProfile] = useState<Profile>({ email: '', username: '', avatar: '' });
+  const [activeTab, setActiveTab] = useState('1');
 
   useEffect(() => {
     getProfile()
       .then((response) => {
-        setProfile({ email: response.email, username: response.username, avatar: response.avatar });
         form.setFieldsValue({
-          fullName: response?.fullName || '',
+          username: response?.username || '',
           email: response?.email || '',
-          address: response?.address || '',
           phone: response?.phone || '',
+          address: response?.address || '',
           description: response?.description || '',
         });
       })
-      .catch((err) => {
-        console.error('Error fetching profile:', err);
-      });
+      .catch((err) => console.error('Error fetching profile:', err));
   }, [form]);
 
-  const handleSaveChanges = (values: ProfileFormValues) => {
+  const handleSaveChanges = (values: {
+    fullName: string;
+    email: string;
+    address: string;
+    phone: string;
+    description: string;
+  }) => {
     updateProfile(values)
       .then(() => {
         message.success('Profile updated successfully');
-        window.location.reload();
       })
-      .catch((error) => {
-        console.error('Error updating profile:', error);
-        message.error('Failed to update profile');
-      });
+      .catch(() => message.error('Failed to update profile'));
   };
 
   const handleChangePassword = (values: { oldPassword: string; newPassword: string }) => {
-    const { oldPassword, newPassword } = values;
-    changePassword({ oldPassword, newPassword })
+    changePassword(values)
       .then(() => {
         message.success('Password changed successfully');
-        window.location.reload();
       })
-      .catch((error) => {
-        console.error('Error changing password:', error);
-        message.error('Failed to change password');
-      });
+      .catch(() => message.error('Failed to change password'));
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <main className="flex-grow flex items-center justify-center bg-gray-100">
-        <div className="max-w-4xl w-full p-8 bg-white rounded-lg shadow-lg">
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center gap-4">
-              <Avatar
-                size={64}
-                src={profile.avatar || <UserOutlined />}
-                icon={!profile.avatar && <UserOutlined />}
-              />
-              <div>
-                <h2 className="text-2xl font-bold">{profile.username}</h2>
-                <p className="text-gray-500">{profile.email}</p>
-              </div>
-            </div>
-            <Button
-              className="bg-[#56B280] text-white hover:bg-[#56B280] rounded-md"
-              onClick={() => navigate('/')}
-            >
-              Home
-            </Button>
-          </div>
+    <div className="flex flex-col lg:flex-row bg-gray-50 min-h-screen p-6 lg:p-10">
+      {/* Sidebar */}
+      <div className="w-full lg:w-1/4 bg-white p-6 shadow-md rounded-lg mb-6 lg:mb-0">
+        {/* Dropdown for Mobile */}
+        <div className="lg:hidden">
+          <Select
+            value={activeTab}
+            onChange={setActiveTab}
+            className="w-full"
+            placeholder="Select tab"
+          >
+            <Option value="1">My Profile</Option>
+            <Option value="2">Change Password</Option>
+            <Option value="3">My Order</Option>
+          </Select>
+        </div>
 
-          <Tabs defaultActiveKey="1" type="line">
-            <TabPane tab="My Profile" key="1">
-              <Form form={form} layout="vertical" onFinish={handleSaveChanges}>
-                <Form.Item
-                  label="Full Name"
-                  name="fullName"
-                  rules={[{ required: true, message: 'Full name is required.' }]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  label="Email"
-                  name="email"
-                  rules={[{ type: 'email', message: 'Invalid email address.' }]}
-                >
-                  <Input disabled />
-                </Form.Item>
-                <Form.Item label="Address" name="address">
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  label="Phone Number"
-                  name="phone"
-                  rules={[{ pattern: /^[0-9]+$/, message: 'Invalid phone number.' }]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item label="Description" name="description">
-                  <Input.TextArea rows={4} />
-                </Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="bg-[#56B280] text-white hover:bg-[#56B280] py-2 px-4 w-full"
-                >
-                  Save Changes
-                </Button>
-              </Form>
-            </TabPane>
-
-            <TabPane tab="Change Password" key="2">
-              <Form layout="vertical" onFinish={handleChangePassword}>
-                <Form.Item
-                  label="Old Password"
-                  name="oldPassword"
-                  rules={[{ required: true, message: 'Old password is required.' }]}
-                >
-                  <Input.Password />
-                </Form.Item>
-                <Form.Item
-                  label="New Password"
-                  name="newPassword"
-                  rules={[{ required: true, message: 'New password is required.' }]}
-                >
-                  <Input.Password />
-                </Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="bg-[#56B280] text-white hover:bg-[#56B280] py-2 px-4 w-full"
-                >
-                  Change Password
-                </Button>
-              </Form>
-            </TabPane>
-
-            <TabPane tab="My Order" key="3"></TabPane>
+        {/* Tabs for larger screens */}
+        <div className="hidden lg:block">
+          <Tabs tabPosition="left" activeKey={activeTab} onChange={setActiveTab}>
+            <TabPane tab="My Profile" key="1" />
+            <TabPane tab="Change Password" key="2" />
+            <TabPane tab="My Order" key="3" />
           </Tabs>
         </div>
-      </main>
+      </div>
+
+      {/* Content */}
+      <div className="w-full lg:w-3/4 bg-white p-8 shadow-md rounded-lg lg:ml-6">
+        {activeTab === '1' && (
+          <>
+            <h2 className="text-2xl font-bold mb-6 text-green-500">Edit Your Profile</h2>
+            <Form form={form} layout="vertical" onFinish={handleSaveChanges}>
+              <Row gutter={16}>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Username" name="username">
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Email" name="email">
+                    <Input disabled />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Row gutter={16}>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Phone Number" name="phone">
+                    <Input />
+                  </Form.Item>
+                </Col>
+                <Col xs={24} sm={12}>
+                  <Form.Item label="Address" name="address">
+                    <Input />
+                  </Form.Item>
+                </Col>
+              </Row>
+              <Form.Item label="Bio" name="description">
+                <Input.TextArea rows={3} />
+              </Form.Item>
+              <Button type="primary" htmlType="submit" className="bg-green-500 text-white">
+                Save Changes
+              </Button>
+            </Form>
+          </>
+        )}
+        {activeTab === '2' && (
+          <>
+            <h2 className="text-2xl font-bold mb-6 text-green-500">Change Password</h2>
+            <Form layout="vertical" onFinish={handleChangePassword}>
+              <Form.Item
+                label="Old Password"
+                name="oldPassword"
+                rules={[{ required: true, message: 'Please enter your old password!' }]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Form.Item
+                label="New Password"
+                name="newPassword"
+                rules={[{ required: true, message: 'Please enter your new password!' }]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Form.Item
+                label="Confirm New Password"
+                name="confirmPassword"
+                dependencies={['newPassword']}
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please confirm your new password!',
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue('newPassword') === value) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject(new Error('Passwords do not match!'));
+                    },
+                  }),
+                ]}
+              >
+                <Input.Password />
+              </Form.Item>
+              <Button type="primary" htmlType="submit" className="bg-green-500 text-white">
+                Change Password
+              </Button>
+            </Form>
+          </>
+        )}
+        {activeTab === '3' && (
+          <>
+            <h2 className="text-2xl font-bold mb-6 text-green-500">My Order</h2>
+            <p className="text-gray-500">Order history will be displayed here.</p>
+          </>
+        )}
+      </div>
     </div>
   );
 };
