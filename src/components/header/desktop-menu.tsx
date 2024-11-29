@@ -14,7 +14,7 @@ const DesktopMenu = () => {
 
   const handleClick = (href: string) => {
     navigate(href);
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
@@ -25,8 +25,8 @@ const DesktopMenu = () => {
           onClick={() => handleClick(item.href)}
           className={`transition ${
             isActivePath(item.href)
-              ? 'text-[#56B280] font-bold'
-              : 'text-gray-700 hover:text-[#56B280] hover:font-bold'
+              ? 'text-[#56B280] font-normal'
+              : 'text-gray-700 hover:text-[#56B280] hover:font-normal'
           }`}
         >
           {item.label}

@@ -28,7 +28,7 @@ export const useProducts = (category: string, brand: string = '', memory: string
         const { data: response } = await axios.get<{
           data: Product[];
           message?: string;
-        }>('https://0837-113-160-225-96.ngrok-free.app/product', {
+        }>('https://fd8f-113-160-225-96.ngrok-free.app/product', {
           headers: {
             'Content-Type': 'application/json;charset=UTF-8',
             'Access-Control-Allow-Origin': '*',

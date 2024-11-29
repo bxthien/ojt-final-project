@@ -8,7 +8,7 @@ interface SearchIconProps {
 const SearchIcon: React.FC<SearchIconProps> = ({ isActive }) => {
   return (
     <a
-      href="/product-page"
+      href="/product"
       className={`relative p-1 hover:text-[#56B280] ${
         isActive ? 'text-[#56B280] font-bold' : 'text-gray-700'
       }`}
