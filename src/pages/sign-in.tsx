@@ -8,7 +8,7 @@ import LanguageSelector from '../components/common/language';
 import { emailValidator, passwordValidator } from '../constants/regex';
 import { signin, SignInPayload } from '../constants/service';
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -17,6 +17,9 @@ const SignIn = () => {
     try {
       const res = await signin(values);
       if (res) {
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('userProfile', JSON.stringify(res.user));
+
         notification.success({
           message: t('success.signin'),
           description: t('success.noti'),
@@ -25,10 +28,10 @@ const SignIn = () => {
       }
     } catch (error) {
       notification.error({
-        message: t('error.faild_2'),
+        message: t('error.fail_2'),
         description: t('error.message'),
       });
-      console.log('error', error);
+      console.error('Signin Fail', error);
     }
   };
 
@@ -93,7 +96,6 @@ const SignIn = () => {
             <Form.Item
               label={
                 <span>
-                  {' '}
                   <span className="text-red-500">*</span> {t('common.input.enterEmail')}{' '}
                 </span>
               }
@@ -106,7 +108,6 @@ const SignIn = () => {
             <Form.Item
               label={
                 <span>
-                  {' '}
                   <span className="text-red-500">*</span> {t('common.input.enterPassword')}{' '}
                 </span>
               }

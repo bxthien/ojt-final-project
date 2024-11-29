@@ -59,8 +59,8 @@
   },
 
   "error": {
-    "faild": "Register Failed",
-    "faild_2": "Login Faild",
+    "fail": "Register Failed",
+    "fail_2": "Login Faild",
     "email": "Password Sending Failed",
     "message": "An unexpected error occurred. Please try again."
   },

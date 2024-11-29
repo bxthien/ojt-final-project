@@ -9,7 +9,7 @@ interface ProfileIconProps {
 const ProfileIcon: React.FC<ProfileIconProps> = ({ isActive }) => {
   return (
     <Link
-      to="/sign-in"
+      to="/profile"
       className={`relative p-1 hover:text-[#56B280] ${
         isActive ? 'text-[#56B280] font-bold' : 'text-gray-700'
       }`}
