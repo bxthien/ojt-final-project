@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axiosInstance from '../services/axios';
 
 // Define the Product type based on API response
 interface Product {
@@ -15,20 +16,6 @@ interface Product {
   photos: string[];
 }
 
-// Define the expected structure of the response
-interface ProductDetailResponse {
-  id: string;
-  name: string;
-  price: number;
-  info: {
-    description: string;
-    color: string[];
-    size: string[];
-  };
-  photos: string[];
-  url: string;
-}
-
 export const useProductDetail = (productId: string) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,19 +26,10 @@ export const useProductDetail = (productId: string) => {
 
     const fetchProductDetail = async () => {
       try {
-        const response = await axios.get<ProductDetailResponse>(
-          `https://0837-113-160-225-96.ngrok-free.app/product/${productId}`,
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=UTF-8',
-              'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': 'true',
-            },
-          }
-        );
+        const { data: response } = await axiosInstance.get(`/product/${productId}`);
 
-        if (response.data) {
-          setProduct(response.data);
+        if (response) {
+          setProduct(response);
         } else {
           setError('No found product');
         }

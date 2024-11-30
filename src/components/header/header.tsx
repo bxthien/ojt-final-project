@@ -10,15 +10,17 @@ import CartIcon from './cart-icon';
 import ProfileIcon from './profile-icon';
 import { Button } from 'antd';
 import { useState } from 'react';
-import SearchIcon from './search-icon';
+import Search from './search';
+import { CiSearch } from 'react-icons/ci';
 
 const Header: React.FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isActivePath = (path: string) => pathname === path;
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [cartCount] = useState(0);
+  const [cartCount] = useState<number>(0);
 
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
 
@@ -35,12 +37,9 @@ const Header: React.FC = () => {
     navigate('/');
   };
 
-  // const [cartCount, setCartCount] = useState(0);
-
-  // Function to handle adding items to the cart
-  // const handleAddToCart = () => {
-  //   setCartCount(cartCount + 1); // Increment cart count by 1
-  // };
+  const toggleSearch = () => {
+    setIsSearchVisible(!isSearchVisible);
+  };
 
   return (
     <header className="w-full relative">
@@ -50,12 +49,21 @@ const Header: React.FC = () => {
             <HeaderLogo />
           </div>
 
+          {/* Search Bar  */}
+          <div className="hidden lg:flex items-center flex-1 max-w-lg mx-8">
+            <Search placeholder="Search for products..." isMobile={false} />
+          </div>
+
           {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center space-x-11">
             <DesktopMenu />
             <div className="flex items-center space-x-6">
-              <SearchIcon isActive={isActivePath('/search')} />
               <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-sm w-5 h-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
               {isLoggedIn ? (
                 <div className="flex items-center space-x-4">
                   <ProfileIcon isActive={isActivePath('/profile')} />
@@ -75,7 +83,8 @@ const Header: React.FC = () => {
             </div>
           </nav>
           <div className="flex lg:hidden items-center space-x-4">
-            <SearchIcon isActive={isActivePath('/search')} />
+            <CiSearch className="w-6 h-6 cursor-pointer" onClick={toggleSearch} />
+            {/* <SearchIcon /> */}
             <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
             {isLoggedIn ? (
               <>
@@ -108,6 +117,13 @@ const Header: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Search Bar */}
+      {isSearchVisible && (
+        <div className="lg:hidden">
+          <Search placeholder="Search for product..." isMobile={true} />
+        </div>
+      )}
 
       {/* Mobile Menu */}
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />

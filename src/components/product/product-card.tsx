@@ -8,8 +8,9 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { name, price, url } = product;
+  // const { name, price, url } = product;
   const navigate = useNavigate();
+  const { name, price, url } = product;
 
   const handleNavigate = () => {
     navigate(`/product-detail/${product.id}`, { state: { product } });
@@ -26,7 +27,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               : 'https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'
           }
           alt={name}
-          preview={false} // Disable the preview modal
+          preview={false}
           className="rounded-sm"
           width="100%"
           height={200}
@@ -37,15 +38,21 @@ const ProductCard = ({ product }: ProductCardProps) => {
       <div className="flex flex-row w-full justify-between items-start md:items-center gap-4">
         {/* Name and Price Column */}
         <div className="flex flex-col items-start w-full md:w-3/4">
-          <h3 className="text-left text-sm md:text-base font-semibold text-gray-800 line-clamp-2 mb-2">
+          <h3
+            className="text-left text-sm md:text-base font-semibold text-gray-800 line-clamp-2 mb-2"
+            onClick={handleNavigate}
+          >
             {name}
           </h3>
-          <p className="text-[#56B280] text-base md:text-lg font-bold">${price}</p>
+          <p className="text-[#56B280] text-base md:text-lg font-bold" onClick={handleNavigate}>
+            ${price}
+          </p>
         </div>
 
         {/* Add to Cart Button Column */}
         <div className="flex items-center justify-center w-full md:w-1/4">
           <button
+            // onClick={handleAddToCart}
             className="bg-[#56B280] text-white flex items-center justify-center p-2 md:p-3 rounded-full transition-colors hover:bg-white hover:text-black border border-transparent hover:border-black"
             aria-label="Add to Cart"
           >

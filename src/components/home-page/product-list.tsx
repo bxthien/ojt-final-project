@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import ProductCard from '../product/product-card';
+import axiosInstance from '../../services/axios';
 
 export interface Product {
   id: string;
@@ -19,21 +19,14 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data: response } = await axios.get(
-          'https://0837-113-160-225-96.ngrok-free.app/product',
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=UTF-8',
-              'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': 'true',
-            },
-            params: {
-              orderBy: 'ASC',
-              page: 1,
-              take: 10,
-            },
-          }
-        );
+        // Build params dynamically
+        const params: Record<string, string> = {
+          orderBy: 'ASC',
+          page: '1',
+          take: '12',
+        };
+
+        const { data: response } = await axiosInstance.get(`/product`, { params });
 
         if (Array.isArray(response.data)) {
           // Lọc và sắp xếp sản phẩm dựa trên createdAt nếu có
