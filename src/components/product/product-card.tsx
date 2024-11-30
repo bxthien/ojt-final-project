@@ -17,9 +17,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
   };
 
   return (
-    <div className="bg-[#F6F6F6] shadow-md rounded-md w-full h-auto p-6 flex flex-col items-center transition-transform hover:scale-105 cursor-pointer">
+    <div className="bg-[#F6F6F6] shadow-md rounded-md w-full h-auto  flex flex-col items-center transition-transform hover:scale-105 cursor-pointer">
       {/* Image Section */}
-      <div className="relative mb-4 justify-center items-center" onClick={handleNavigate}>
+      <div className="relative justify-center items-center" onClick={handleNavigate}>
         <Image
           src={
             url
@@ -37,9 +37,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
       {/* Details Section */}
       <div className="flex flex-row w-full justify-between items-start md:items-center gap-4">
         {/* Name and Price Column */}
-        <div className="flex flex-col items-start w-full md:w-3/4">
+        <div className="flex flex-col items-start w-full pl-2 md:w-3/4">
           <h3
-            className="text-left text-sm md:text-base font-semibold text-gray-800 line-clamp-2 mb-2"
+            className="text-left text-sm md:text-base  font-semibold text-gray-800 line-clamp-2 mb-2"
             onClick={handleNavigate}
           >
             {name}
@@ -50,10 +50,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
 
         {/* Add to Cart Button Column */}
-        <div className="flex items-center justify-center w-full md:w-1/4">
+        <div className="flex items-center pr-2 justify-center w-full md:w-1/4">
           <button
             // onClick={handleAddToCart}
-            className="bg-[#56B280] text-white flex items-center justify-center p-2 md:p-3 rounded-full transition-colors hover:bg-white hover:text-black border border-transparent hover:border-black"
+            className="bg-[#86968d] text-white flex items-center justify-center p-2 md:p-3 rounded-lg transition-colors hover:bg-white hover:text-black border border-transparent hover:border-black"
             aria-label="Add to Cart"
           >
             <ShoppingCartOutlined className="text-lg md:text-xl" />
