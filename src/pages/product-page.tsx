@@ -13,24 +13,28 @@ export interface Product {
 }
 
 const ProductPage = () => {
-  // const location = useLocation() as { state?: { searchTerm?: string } };
-  // const [searchTerm, setSearchTerm] = useState<string>(location.state?.searchTerm || '');
+  // State for filtered products
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+
+  // State for sorting and price range
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(10000);
 
+  // State for search term from URL query parameters
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
+
+  // Fetch search term from URL query
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     setSearchTerm(searchParams.get('search') || '');
   }, [location.search]);
 
-  // Fetch products from the useProducts hook
-  const { products, loading, error } = useProducts('');
+  // Fetch products using the custom hook
+  const { products, loading, error } = useProducts(minPrice, maxPrice);
 
-  // Filter and sort products when price range, sort order, or search term changes
+  // Filter and sort products when dependencies change
   useEffect(() => {
     const filtered = products
       .filter((product) => product.price >= minPrice && product.price <= maxPrice) // Filter by price range
@@ -41,12 +45,11 @@ const ProductPage = () => {
     setFilteredProducts(filtered);
   }, [minPrice, maxPrice, sortOrder, searchTerm, products]);
 
-  // Callback to update sort order
+  // Handlers for sorting and price range changes
   const handlePriceSortChange = (order: 'asc' | 'desc') => {
     setSortOrder(order);
   };
 
-  // Callback for price range change
   const handlePriceRangeChange = (min: number, max: number) => {
     setMinPrice(min);
     setMaxPrice(max);
@@ -57,35 +60,37 @@ const ProductPage = () => {
       {/* Sidebar */}
       <div className="w-full md:w-1/4 pl-5">
         <ProductSidebar
-          onBrandSelect={() => {}}
-          onMemorySelect={() => {}}
-          selectedBrand=""
-          selectedMemory=""
-          onPriceSortChange={handlePriceSortChange}
-          onPriceChange={handlePriceRangeChange}
-          minPrice={0}
-          maxPrice={0}
+          onBrandSelect={() => {}} // Placeholder callback for brand selection
+          onMemorySelect={() => {}} // Placeholder callback for memory selection
+          selectedBrand="" // Placeholder for selected brand
+          selectedMemory="" // Placeholder for selected memory
+          onPriceSortChange={handlePriceSortChange} // Pass handler for sort order
+          onPriceChange={handlePriceRangeChange} // Pass handler for price range
+          minPrice={minPrice} // Pass minimum price
+          maxPrice={maxPrice} // Pass maximum price
         />
       </div>
-      {/* Price Range Sidebar */}
 
       {/* Main Content */}
-      <div className="flex-1 p-8  pt-5 md:p-8">
-        {/* Search Bar */}
-
+      <div className="flex-1 p-8 pt-5 md:p-8">
+        {/* Display search term */}
         {searchTerm && (
           <p className="text-lg text-gray-700 mb-6">
             Searching for: <span className="font-semibold">{searchTerm}</span>
           </p>
         )}
-        {/* Product Grid */}
+
+        {/* Error message */}
         {error && <p className="text-red-500 text-center">{error}</p>}
+
+        {/* Loading spinner */}
         {loading ? (
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-full justify-center">
+            {/* Display products */}
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product: Product) => (
                 <ProductCard key={product.id} product={product} />

@@ -2,7 +2,13 @@ import { useState, useEffect } from 'react';
 import { Product } from './fetchProducts';
 import axiosInstance from '../services/axios';
 
-export const useProducts = (category: string, brand: string = '', memory: string = '') => {
+export const useProducts = (
+  // category: string,
+  // brand: string = '',
+  // memory: string = '',
+  minPrice: number = 0,
+  maxPrice: number = 10000
+) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -15,15 +21,13 @@ export const useProducts = (category: string, brand: string = '', memory: string
 
       try {
         // Build params dynamically
-        const params: Record<string, string> = {
+        const params: Record<string, string | number> = {
+          minPrice,
+          maxPrice,
           orderBy: 'ASC',
           page: '1',
           take: '12',
         };
-
-        if (category) params.category = category;
-        if (brand) params.brand = brand;
-        if (memory) params.memory = memory;
 
         const { data: response } = await axiosInstance.get(`/product`, { params });
         // Validate and update products
@@ -46,7 +50,7 @@ export const useProducts = (category: string, brand: string = '', memory: string
     };
 
     fetchProducts();
-  }, [category, brand, memory]);
+  }, [minPrice, maxPrice]);
 
   return { products, loading, error };
 };

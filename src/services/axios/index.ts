@@ -2,7 +2,7 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import { getStorageData } from '../storage';
 import { ACCESS_TOKEN } from '../../constants/auth';
 
-const BASE_URL = 'https://be-final-project-bddr.onrender.com/';
+const BASE_URL = 'https://be-final-project-bddr.onrender.com';
 axios.defaults.baseURL = BASE_URL;
 
 const axiosInstance = axios.create({
