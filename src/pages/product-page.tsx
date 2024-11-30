@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ProductCard from '../components/product/product-card';
 import ProductSidebar from '../components/product/product-side-bar';
 import { useProducts } from '../constants/useProducts';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export interface Product {
   id: string;
@@ -24,6 +24,7 @@ const ProductPage = () => {
   // State for search term from URL query parameters
   const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   // Fetch search term from URL query
   useEffect(() => {
@@ -37,8 +38,8 @@ const ProductPage = () => {
   // Filter and sort products when dependencies change
   useEffect(() => {
     const filtered = products
-      .filter((product) => product.price >= minPrice && product.price <= maxPrice) // Filter by price range
-      .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase())) // Filter by search term
+      .filter((product) => product.price >= minPrice && product.price <= maxPrice)
+      .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
       .sort(
         (a, b) => (sortOrder === 'asc' ? a.price - b.price : b.price - a.price) // Sort by price
       );
@@ -53,6 +54,12 @@ const ProductPage = () => {
   const handlePriceRangeChange = (min: number, max: number) => {
     setMinPrice(min);
     setMaxPrice(max);
+
+    // Update URL query parameters
+    const params = new URLSearchParams(location.search);
+    params.set('minPrice', min.toString());
+    params.set('maxPrice', max.toString());
+    navigate(`/products?${params.toString()}`, { replace: true });
   };
 
   return (
@@ -60,14 +67,14 @@ const ProductPage = () => {
       {/* Sidebar */}
       <div className="w-full md:w-1/4 pl-5">
         <ProductSidebar
-          onBrandSelect={() => {}} // Placeholder callback for brand selection
-          onMemorySelect={() => {}} // Placeholder callback for memory selection
-          selectedBrand="" // Placeholder for selected brand
-          selectedMemory="" // Placeholder for selected memory
-          onPriceSortChange={handlePriceSortChange} // Pass handler for sort order
-          onPriceChange={handlePriceRangeChange} // Pass handler for price range
-          minPrice={minPrice} // Pass minimum price
-          maxPrice={maxPrice} // Pass maximum price
+          onBrandSelect={() => {}}
+          onMemorySelect={() => {}}
+          selectedBrand=""
+          selectedMemory=""
+          onPriceSortChange={handlePriceSortChange}
+          onPriceChange={handlePriceRangeChange}
+          minPrice={minPrice}
+          maxPrice={maxPrice}
         />
       </div>
 
