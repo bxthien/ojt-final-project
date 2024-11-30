@@ -70,7 +70,8 @@ const ProductDetailPage = () => {
             selectedSize={selectedSize || product.info.size[0]}
             onSizeSelect={handleSizeSelect}
           />
-          <ActionButtons />
+          {/* Add to Cart Button */}
+          <ActionButtons productId={product.id} productName={product.name} />
         </div>
       </div>
       <h3 className="text-lg font-bold mb-6 pt-10">Product Description:</h3>
