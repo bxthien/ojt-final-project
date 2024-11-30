@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { Table, Input, Button, Card, Row, Col, Space, Typography } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { getCartItems } from '../../constants/cart';
+import { CartItem } from '../cart-item/cartItem';
 
 const { Title, Text } = Typography;
 
-interface Product {
+export interface Product {
   id: string;
   name: string;
   price: number; // Chuyển price thành number
@@ -13,7 +14,7 @@ interface Product {
   quantity: number;
 }
 
-interface CardProduct {
+export interface CardProduct {
   transactionId: string;
   quantity: number;
   price: number;
@@ -141,7 +142,11 @@ function Cart() {
   return (
     <div className="cart-container p-5 max-w-5xl mx-auto">
       <Title level={2}>Cart</Title>
-      <Text type="secondary">Home / Cart</Text>
+
+      {items.map((item) => (
+        <CartItem item={item} />
+      ))}
+
       <Table
         dataSource={items}
         columns={columns}
