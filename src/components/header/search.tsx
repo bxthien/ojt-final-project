@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../../constants/useProducts';
 
@@ -11,12 +11,14 @@ const Search: React.FC<SearchProps> = ({ placeholder, isMobile }) => {
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const navigate = useNavigate();
+  const searchRef = useRef<HTMLDivElement>(null); // Reference for the search container
 
   const { products } = useProducts('');
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       navigate(`/product?search=${value}`);
+      setSuggestions([]); // Close suggestions after pressing Enter
     }
   };
 
@@ -24,7 +26,7 @@ const Search: React.FC<SearchProps> = ({ placeholder, isMobile }) => {
     const searchTerm = e.target.value;
     setValue(searchTerm);
 
-    // Lọc danh sách sản phẩm từ API để hiển thị gợi ý
+    // Filter product suggestions
     if (searchTerm.trim() === '') {
       setSuggestions([]);
     } else {
@@ -42,8 +44,25 @@ const Search: React.FC<SearchProps> = ({ placeholder, isMobile }) => {
     navigate(`/product?search=${suggestion}`);
   };
 
+  // Close suggestions when clicking outside the search container
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setSuggestions([]);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <div
+      ref={searchRef}
       className={`${
         isMobile ? 'p-4 border-t' : 'hidden md:flex items-center flex-1 max-w-lg mx-8'
       }`}
