@@ -8,6 +8,7 @@ export interface Product {
   price: number;
   photos: string[];
   createdAt?: string;
+  purchaseCount?: number; // Số lượng mua
   url: string;
 }
 
@@ -15,11 +16,14 @@ const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]); // Dữ liệu sản phẩm
   const [loading, setLoading] = useState<boolean>(true); // Trạng thái loading
   const [error, setError] = useState<string | null>(null); // Trạng thái lỗi
+  const [activeTab, setActiveTab] = useState<'newArrival' | 'bestseller' | 'featured'>(
+    'newArrival'
+  ); // Tab đang chọn
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Build params dynamically
+        setLoading(true);
         const params: Record<string, string> = {
           orderBy: 'ASC',
           page: '1',
@@ -29,16 +33,28 @@ const ProductList = () => {
         const { data: response } = await axiosInstance.get(`/product`, { params });
 
         if (Array.isArray(response.data)) {
-          // Lọc và sắp xếp sản phẩm dựa trên createdAt nếu có
-          const sortedProducts = response.data
-            .filter((product: Product) => product.createdAt) // Loại bỏ sản phẩm không có createdAt
-            .sort(
-              (a: Product, b: Product) =>
-                new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
-            );
+          let filteredProducts: Product[] = [];
 
-          // Chỉ lấy 4 sản phẩm mới nhất
-          setProducts(sortedProducts.slice(0, 4));
+          if (activeTab === 'newArrival') {
+            // Lọc sản phẩm mới
+            filteredProducts = response.data
+              .filter((product: Product) => product.createdAt) // Chỉ lấy sản phẩm có `createdAt`
+              .sort(
+                (a: Product, b: Product) =>
+                  new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
+              )
+              .slice(0, 12);
+          } else if (activeTab === 'bestseller') {
+            // Lọc sản phẩm bán chạy
+            filteredProducts = response.data
+              .filter((product: Product) => product.purchaseCount) // Chỉ lấy sản phẩm có `purchaseCount`
+              .sort((a: Product, b: Product) => (b.purchaseCount || 0) - (a.purchaseCount || 0))
+              .slice(0, 12);
+          } else if (activeTab === 'featured') {
+            filteredProducts = response.data.slice(0, 12);
+          }
+
+          setProducts(filteredProducts);
         }
         setLoading(false);
       } catch {
@@ -48,18 +64,42 @@ const ProductList = () => {
     };
 
     fetchProducts();
-  }, []);
-
+  }, [activeTab]);
   return (
     <div className="bg-white p-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-14">
-      <h1 className="text-4xl font-bold mb-6 text-center">New Arrival</h1>
+      <div className="flex flex-wrap text-xs space-x-1 sm:space-x-0 mb-4">
+        <button
+          onClick={() => setActiveTab('newArrival')}
+          className={`py-2 px-4 border-b-2 ${
+            activeTab === 'newArrival' ? 'border-black font-bold' : 'border-transparent'
+          }`}
+        >
+          New Arrival
+        </button>
+        <button
+          onClick={() => setActiveTab('bestseller')}
+          className={`py-2 px-4 border-b-2 ${
+            activeTab === 'bestseller' ? 'border-black font-bold' : 'border-transparent'
+          }`}
+        >
+          Bestseller
+        </button>
+        <button
+          onClick={() => setActiveTab('featured')}
+          className={`py-2 px-4 border-b-2 ${
+            activeTab === 'featured' ? 'border-black font-bold' : 'border-transparent'
+          }`}
+        >
+          Featured Products
+        </button>
+      </div>
 
       {/* Hiển thị thông báo lỗi nếu có */}
       {error && <p className="text-red-500 text-center">{error}</p>}
 
       {/* Show loading indicator */}
       {loading ? (
-        <div className="text-center">Loading...</div> // Replace with a spinner if needed
+        <div className="text-center">Loading...</div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 max-w-full justify-center">
           {Array.isArray(products) && products.length > 0 ? (
