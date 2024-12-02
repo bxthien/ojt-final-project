@@ -38,7 +38,7 @@ const ProductDetailPage = () => {
           <a href="/">Home</a>
         </Breadcrumb.Item>
         <Breadcrumb.Item>
-          <a href="/product-page">Product</a>
+          <a href="/product">Product</a>
         </Breadcrumb.Item>
         <Breadcrumb.Item>{product.name}</Breadcrumb.Item>
       </Breadcrumb>
@@ -70,10 +70,12 @@ const ProductDetailPage = () => {
             selectedSize={selectedSize || product.info.size[0]}
             onSizeSelect={handleSizeSelect}
           />
-          <p className="text-base text-gray-600 mt-2">{product.info.description}</p>
-          <ActionButtons />
+          {/* Add to Cart Button */}
+          <ActionButtons productId={product.id} productName={product.name} />
         </div>
       </div>
+      <h3 className="text-lg font-bold mb-6 pt-10">Product Description:</h3>
+      <p className="text-base text-gray-600 mt-2">{product.info.description}</p>
     </div>
   );
 };
