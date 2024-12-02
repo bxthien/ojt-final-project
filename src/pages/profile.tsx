@@ -36,6 +36,7 @@ const Profile = () => {
       })
       .catch(() => message.error('Failed to update profile'));
   };
+
   const handleChangePassword = (values: { oldPassword: string; newPassword: string }) => {
     changePassword(values)
       .then(() => {
@@ -142,85 +143,89 @@ const Profile = () => {
         {activeTab === 'profile' && (
           <>
             <h2 className="text-2xl font-bold mb-6 text-[#56B280]">Edit Your Profile</h2>
-            <Form form={form} layout="vertical" onFinish={handleSaveChanges}>
-              <Row gutter={[16, 16]}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Username" name="username">
-                    <Input />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Email" name="email">
-                    <Input disabled />
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Row gutter={[16, 16]}>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Phone Number" name="phone">
-                    <Input />
-                  </Form.Item>
-                </Col>
-                <Col xs={24} sm={12}>
-                  <Form.Item label="Address" name="address">
-                    <Input />
-                  </Form.Item>
-                </Col>
-              </Row>
-              <Form.Item label="Bio" name="description">
-                <Input.TextArea rows={3} />
-              </Form.Item>
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-4">
-                <Button htmlType="submit" className="bg-[#56B280] text-white w-full sm:w-auto">
-                  Save Changes
-                </Button>
-              </div>
-            </Form>
+            <div className="border-2 border-gray-300 p-6 rounded-lg">
+              <Form form={form} layout="vertical" onFinish={handleSaveChanges}>
+                <Row gutter={[16, 16]}>
+                  <Col xs={24} sm={12}>
+                    <Form.Item label="Username" name="username">
+                      <Input className="border-2 border-gray-300 p-2 rounded-md" />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} sm={12}>
+                    <Form.Item label="Email" name="email">
+                      <Input className="border-2 border-gray-300 p-2 rounded-md" disabled />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row gutter={[16, 16]}>
+                  <Col xs={24} sm={12}>
+                    <Form.Item label="Phone Number" name="phone">
+                      <Input className="border-2 border-gray-300 p-2 rounded-md" />
+                    </Form.Item>
+                  </Col>
+                  <Col xs={24} sm={12}>
+                    <Form.Item label="Address" name="address">
+                      <Input className="border-2 border-gray-300 p-2 rounded-md" />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Form.Item label="Bio" name="description">
+                  <Input.TextArea className="border-2 border-gray-300 p-2 rounded-md" rows={3} />
+                </Form.Item>
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-4">
+                  <Button htmlType="submit" className="bg-[#56B280] text-white w-full sm:w-auto">
+                    Save Changes
+                  </Button>
+                </div>
+              </Form>
+            </div>
           </>
         )}
 
         {activeTab === 'password' && (
           <>
             <h2 className="text-2xl font-bold mb-6 text-[#56B280]">Change Password</h2>
-            <Form form={passwordForm} layout="vertical" onFinish={handleChangePassword}>
-              <Form.Item
-                label="Old Password"
-                name="oldPassword"
-                rules={[{ required: true, message: 'Please enter your old password!' }]}
-              >
-                <Input.Password />
-              </Form.Item>
-              <Form.Item
-                label="New Password"
-                name="newPassword"
-                rules={[{ required: true, message: 'Please enter your new password!' }]}
-              >
-                <Input.Password />
-              </Form.Item>
-              <Form.Item
-                label="Confirm New Password"
-                name="confirmPassword"
-                dependencies={['newPassword']}
-                rules={[
-                  { required: true, message: 'Please confirm your new password!' },
-                  ({ getFieldValue }) => ({
-                    validator(_, value) {
-                      if (!value || getFieldValue('newPassword') === value) {
-                        return Promise.resolve();
-                      }
-                      return Promise.reject(new Error('Passwords do not match!'));
-                    },
-                  }),
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-4">
-                <Button htmlType="submit" className="bg-[#56B280] text-white w-full sm:w-auto">
-                  Change
-                </Button>
-              </div>
-            </Form>
+            <div className="border-2 border-gray-300 p-6 rounded-lg">
+              <Form form={passwordForm} layout="vertical" onFinish={handleChangePassword}>
+                <Form.Item
+                  label="Old Password"
+                  name="oldPassword"
+                  rules={[{ required: true, message: 'Please enter your old password!' }]}
+                >
+                  <Input.Password className="border-2 border-gray-300 p-2 rounded-md" />
+                </Form.Item>
+                <Form.Item
+                  label="New Password"
+                  name="newPassword"
+                  rules={[{ required: true, message: 'Please enter your new password!' }]}
+                >
+                  <Input.Password className="border-2 border-gray-300 p-2 rounded-md" />
+                </Form.Item>
+                <Form.Item
+                  label="Confirm New Password"
+                  name="confirmPassword"
+                  dependencies={['newPassword']}
+                  rules={[
+                    { required: true, message: 'Please confirm your new password!' },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue('newPassword') === value) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(new Error('Passwords do not match!'));
+                      },
+                    }),
+                  ]}
+                >
+                  <Input.Password className="border-2 border-gray-300 p-2 rounded-md" />
+                </Form.Item>
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-4">
+                  <Button htmlType="submit" className="bg-[#56B280] text-white w-full sm:w-auto">
+                    Change Password
+                  </Button>
+                </div>
+              </Form>
+            </div>
           </>
         )}
       </div>
