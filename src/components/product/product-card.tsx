@@ -47,7 +47,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       });
     } else {
       try {
-        const res = await axiosInstance.get(`/cart`);
+        const res = await axiosInstance.post(`/cart`);
         if (res) {
           notification.success({
             message: 'Added to cart successfully!',
