@@ -5,8 +5,11 @@ import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
-import { emailValidator /* passwordValidator */ } from '../constants/regex';
+import { emailValidator } from '../constants/regex';
 import { useSignIn, SignInPayload } from '../constants/service';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/store';
+import { useEffect } from 'react';
 
 const SignIn: React.FC = () => {
   const { t } = useTranslation();
@@ -14,13 +17,22 @@ const SignIn: React.FC = () => {
   const [form] = Form.useForm();
   const { signIn } = useSignIn();
 
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate('/');
+    }
+  }, [isAuth, navigate]);
+
+  if (isAuth) {
+    return null;
+  }
+
   const handleSignIn = async (values: SignInPayload) => {
     try {
       const res = await signIn(values);
       if (res) {
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('userProfile', JSON.stringify(res.user));
-
         notification.success({
           message: t('success.signin'),
           description: t('success.noti'),
@@ -60,14 +72,21 @@ const SignIn: React.FC = () => {
           <LanguageSelector />
           {authenticationType.map((item) => (
             <Link
-              key={item.label}
+              key={item.value}
               to={item.href}
-              className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap"
+              className={`text-sm font-semibold px-2 py-1 whitespace-nowrap ${
+                location.pathname === item.href
+                  ? 'border-b-2 border-[#56B280]'
+                  : 'text-[#56B280] bg-white rounded-2xl '
+              }`}
             >
               {t(item.label)}
             </Link>
           ))}
-          <Button className="bg-[#56B280] px-4 py-2" type="primary">
+          <Button
+            className="bg-white text-[#56B280] border-2 rounded-full px-4 py-2 hover:bg-[#56B280] hover:text-white"
+            type="text"
+          >
             <Link to="/">{t('common.button.home')}</Link>
           </Button>
         </div>
@@ -113,12 +132,6 @@ const SignIn: React.FC = () => {
                 </span>
               }
               name="password"
-              // rules={[
-              //   {
-              //     validator: passwordValidator,
-              //     message: t('validation.password.invalid'),
-              //   },
-              // ]}
             >
               <Input.Password allowClear />
             </Form.Item>
@@ -127,7 +140,7 @@ const SignIn: React.FC = () => {
               to="/forgot"
               className="text-xs font-extralight text-[#56B280] text-right hover:text-[#a8a8a8] cursor-pointer block mb-4"
             >
-              {t('login.recoverPassword')}
+              {t('forgot.forgotPassword')}
             </Link>
 
             <Form.Item label={null}>

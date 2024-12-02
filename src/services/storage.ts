@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export const fromStoredData = (storageData: any) => JSON.parse(storageData);
+export const fromStoredData = (storageData: any) => {
+  try {
+    return JSON.parse(storageData);
+  } catch {
+    return storageData;
+  }
+};
 
 export const toStoredData = (data: any) => JSON.stringify(data);
 
