@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface ProductColumnProps {
   image: string;
@@ -37,7 +38,9 @@ const ProductColumn: React.FC<ProductColumnProps> = ({
               hover:bg-[#56B280] hover:text-white hover:border-transparent 
               transition-all duration-300 text-sm sm:text-base"
             >
-              Shop Now
+              <Link to="/product" className="block w-full h-full text-center">
+                Shop Now
+              </Link>
             </button>
           </div>
         </div>

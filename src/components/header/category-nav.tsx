@@ -15,9 +15,7 @@ const CategoryNav = () => {
               <Link
                 to={item.href}
                 className={`flex items-center justify-center space-x-2 transition-all px-8 py-3 whitespace-nowrap ${
-                  isActivePath(item.href)
-                    ? 'text-gray-900 font-bold'
-                    : 'hover:text-gray-900 hover:font-bold'
+                  isActivePath(item.href) ? 'text-gray-900' : 'hover:bg-slate-200 hover:text-black'
                 }`}
               >
                 <item.Icon className="w-5 h-5 mr-2" />

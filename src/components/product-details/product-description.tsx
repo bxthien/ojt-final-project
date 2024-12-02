@@ -1,11 +1,11 @@
 const ProductDescription = ({
   name,
   price,
-  description,
+  // description,
 }: {
   name: string;
   price: string | number;
-  description?: string;
+  // description?: string;
 }) => {
   return (
     <div>
@@ -18,11 +18,11 @@ const ProductDescription = ({
       </div>
 
       {/* Mô tả sản phẩm */}
-      {description && (
+      {/* {description && (
         <p className="text-base text-gray-600 mt-2">
           <strong>Description:</strong> {description}
         </p>
-      )}
+      )} */}
     </div>
   );
 };

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Product } from './fetchProducts';
+import axiosInstance from '../services/axios';
 
 export const useProducts = (category: string, brand: string = '', memory: string = '') => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  // const [filter, setFilter] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -24,20 +25,9 @@ export const useProducts = (category: string, brand: string = '', memory: string
         if (brand) params.brand = brand;
         if (memory) params.memory = memory;
 
-        // Fetch data from the API
-        const { data: response } = await axios.get<{
-          data: Product[];
-          message?: string;
-        }>('https://0837-113-160-225-96.ngrok-free.app/product', {
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': 'true',
-          },
-          params,
-        });
-
+        const { data: response } = await axiosInstance.get(`/product`, { params });
         // Validate and update products
+
         if (Array.isArray(response.data)) {
           setProducts(response.data);
         } else {
