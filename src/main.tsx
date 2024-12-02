@@ -4,7 +4,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './locales';
 import { CheckoutProvider } from './components/CheckoutContext';
-
+import { Provider } from 'react-redux';
 import NotFound from './pages/not-found';
 import HomePage from './pages/home-page';
 import SignIn from './pages/sign-in';
@@ -24,6 +24,7 @@ import Shipping from './pages/shipping';
 import Payment from './pages/payment';
 import PaymentStatus from './pages/PaymentStatus';
 import ProductPage from './pages/product-page';
+import store from './redux/store';
 
 const router = createBrowserRouter([
   {
@@ -109,8 +110,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CheckoutProvider>
-      <RouterProvider router={router} />
-    </CheckoutProvider>
+    <Provider store={store}>
+      <CheckoutProvider>
+        <RouterProvider router={router} />
+      </CheckoutProvider>
+    </Provider>
   </StrictMode>
 );
