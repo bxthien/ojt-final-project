@@ -3,28 +3,27 @@ import { Product } from '../home-page/product-list';
 import { Button, Image, notification } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import axiosInstance from '../../services/axios';
+import { useAuth } from '../../hook/useAuth'; // Import useAuth
 
 type ProductCardProps = {
   product: Product;
 };
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  // const { name, price, url } = product;
   const navigate = useNavigate();
   const { name, price, url } = product;
+  const isAuth = useAuth(); // Sử dụng hook isAuth
 
   const handleNavigate = () => {
     navigate(`/product-detail/${product.id}`, { state: { product } });
   };
 
   const handleAddToCart = async () => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-
     const closeNotification = () => {
       notification.destroy();
     };
 
-    if (!isLoggedIn || isLoggedIn !== 'true') {
+    if (!isAuth) {
       // Nếu người dùng chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
       notification.open({
         message: 'You are not logged in yet',
@@ -47,7 +46,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
       });
     } else {
       try {
-        const res = await axiosInstance.post(`/cart`);
+        const res = await axiosInstance.post(`/cart`, { productId: product.id });
         if (res) {
           notification.success({
             message: 'Added to cart successfully!',
