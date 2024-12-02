@@ -1,5 +1,5 @@
 import React from 'react';
-import { SettingOutlined } from '@ant-design/icons';
+import { DownOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, message, Space } from 'antd';
 import { FaRegUser } from 'react-icons/fa';
@@ -47,7 +47,7 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({ isActive }) => {
   ];
 
   return (
-    <Dropdown menu={{ items }} trigger={['hover']}>
+    <Dropdown menu={{ items }} trigger={['click']}>
       <a
         onClick={(e) => e.preventDefault()}
         className={`relative p-1 hover:text-[#56B280] ${
@@ -56,6 +56,7 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({ isActive }) => {
       >
         <Space>
           <FaRegUser className="w-6 h-6" />
+          <DownOutlined />
         </Space>
       </a>
     </Dropdown>
