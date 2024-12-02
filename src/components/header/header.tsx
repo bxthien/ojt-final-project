@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
-import { MdLogout } from 'react-icons/md';
 import { IoClose } from 'react-icons/io5';
 import HeaderLogo from './header-logo';
 import DesktopMenu from './desktop-menu';
@@ -12,14 +11,12 @@ import { Button } from 'antd';
 import { useState } from 'react';
 import SearchIcon from './search-icon';
 import { useAuth } from '../../hook/useAuth';
-import { useLogout } from '../../constants/service';
 
 const Header: React.FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isActivePath = (path: string) => pathname === path;
   const isAuth = useAuth();
-  const { logOut } = useLogout();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState(0);
 
@@ -29,10 +26,6 @@ const Header: React.FC = () => {
     } else {
       navigate('/sign-in');
     }
-  };
-
-  const handleLogout = () => {
-    logOut();
   };
 
   // const [cartCount, setCartCount] = useState(0);
@@ -59,9 +52,6 @@ const Header: React.FC = () => {
               {isAuth ? (
                 <div className="flex items-center space-x-4">
                   <ProfileIcon isActive={isActivePath('/profile')} />
-                  <Button type="link" onClick={handleLogout} className="text-[#56B280] text-2xl">
-                    <MdLogout />
-                  </Button>
                 </div>
               ) : (
                 <Button
@@ -80,9 +70,6 @@ const Header: React.FC = () => {
             {isAuth ? (
               <>
                 <ProfileIcon isActive={isActivePath('/profile')} />
-                <Button type="link" onClick={handleLogout} className="text-[#56B280] text-2xl">
-                  <MdLogout />
-                </Button>
               </>
             ) : (
               <Button

@@ -29,7 +29,7 @@
   },
 
   "register": {
-    "signUpToPayment": "Sign Up To Payment",
+    "signUpToPayment": "Sign Up",
     "account": "If you have an account, you can",
     "signInHere": "Sign In here!",
     "nameRequired": "Name Required",
@@ -37,10 +37,9 @@
   },
 
   "login": {
-    "signInToPayment": "Sign In To Payment",
+    "signInToPayment": "Sign In",
     "noAccount": "If you don't have an account, you can",
-    "registerHere": "Register here!",
-    "recoverPassword": "Recover Passwword"
+    "registerHere": "Register here!"
   },
 
   "forgot": {
