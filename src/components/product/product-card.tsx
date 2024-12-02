@@ -73,7 +73,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
     border-2 border-transparent"
     >
       {/* Image Section */}
-      <div className="relative justify-center items-center" onClick={handleNavigate}>
+      <div
+        className="relative w-full h-48 overflow-hidden flex justify-center items-center"
+        onClick={handleNavigate}
+      >
         <Image
           src={
             url
@@ -85,7 +88,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
           className="w-full h-full object-cover"
         />
       </div>
-
       {/* Details Section */}
       <div className="flex flex-row w-full px-2 py-1 justify-between items-center ">
         {/* Name and Price Column */}
