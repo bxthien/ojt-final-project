@@ -12,6 +12,8 @@ import { Button } from 'antd';
 import { useState } from 'react';
 import Search from './search';
 import { CiSearch } from 'react-icons/ci';
+import { useAuth } from '../../hook/useAuth';
+import { useLogout } from '../../constants/service';
 
 const Header: React.FC = () => {
   const { pathname } = useLocation();
@@ -19,13 +21,13 @@ const Header: React.FC = () => {
   const isActivePath = (path: string) => pathname === path;
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
+  const isAuth = useAuth();
+  const { logOut } = useLogout();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState<number>(0);
 
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-
   const handleLogin = () => {
-    if (isLoggedIn) {
+    if (isAuth) {
       navigate('/profile');
     } else {
       navigate('/sign-in');
@@ -33,8 +35,7 @@ const Header: React.FC = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('isLoggedIn');
-    navigate('/');
+    logOut();
   };
 
   const toggleSearch = () => {
@@ -59,12 +60,7 @@ const Header: React.FC = () => {
             <DesktopMenu />
             <div className="flex items-center space-x-6">
               <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
-              {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-sm w-5 h-5 flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-              {isLoggedIn ? (
+              {isAuth ? (
                 <div className="flex items-center space-x-4">
                   <ProfileIcon isActive={isActivePath('/profile')} />
                   <Button type="link" onClick={handleLogout} className="text-[#56B280] text-2xl">
@@ -86,7 +82,7 @@ const Header: React.FC = () => {
             <CiSearch className="w-6 h-6 cursor-pointer" onClick={toggleSearch} />
             {/* <SearchIcon /> */}
             <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
-            {isLoggedIn ? (
+            {isAuth ? (
               <>
                 <ProfileIcon isActive={isActivePath('/profile')} />
                 <Button type="link" onClick={handleLogout} className="text-[#56B280] text-2xl">
@@ -98,7 +94,7 @@ const Header: React.FC = () => {
                 type="primary"
                 className="py-4 bg-[#56B280] font-semibol"
                 size="small"
-                onClick={handleLogin}
+                onClick={() => navigate('/sign-in')}
               >
                 Sign In
               </Button>
