@@ -2,8 +2,7 @@ import { useState, useEffect } from 'react';
 import ProductCard from '../components/product/product-card';
 import ProductSidebar from '../components/product/product-side-bar';
 import { useProducts } from '../constants/useProducts';
-import { useLocation, useNavigate } from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 export interface Product {
   id: string;
   name: string;
@@ -20,7 +19,6 @@ const ProductPage = () => {
   const [maxPrice, setMaxPrice] = useState<number>(10000);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const navigate = useNavigate();
 
   const category = searchParams.get('category') || 'default-category';
   const brand = searchParams.get('brand') || '';
@@ -44,13 +42,6 @@ const ProductPage = () => {
     searchKey,
   });
 
-  // const handlePriceChange = (min: number, max: number) => {
-  //   const params = new URLSearchParams({ minPrice: String(min), maxPrice: String(max), category });
-  //   navigate(`/product/filter?${params.toString()}`);
-  // };
-
-  // console.log(searchKey,'asc');
-
   // Filter and sort products when price range, sort order, or search term changes
   useEffect(() => {
     const filtered = products
@@ -67,13 +58,26 @@ const ProductPage = () => {
     setSortOrder(order);
   };
 
-  // Callback for price range change
-  const handlePriceRangeChange = (min: number, max: number) => {
-    setMinPrice(min);
-    setMaxPrice(max);
-    const params = new URLSearchParams({ minPrice: String(min), maxPrice: String(max), category });
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const urlMinPrice = queryParams.get('minPrice');
+    const urlMaxPrice = queryParams.get('maxPrice');
 
-    navigate(`/product?${params.toString()}`);
+    if (urlMinPrice) setMinPrice(Number(urlMinPrice));
+    if (urlMaxPrice) setMaxPrice(Number(urlMaxPrice));
+  }, [location]);
+
+  const handlePriceChange = (newMinPrice: number, newMaxPrice: number) => {
+    setMinPrice(newMinPrice);
+    setMaxPrice(newMaxPrice);
+
+    // Cập nhật giá trị minPrice và maxPrice trong URL
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('minPrice', newMinPrice.toString());
+    searchParams.set('maxPrice', newMaxPrice.toString());
+
+    // Thay đổi URL mà không reload trang
+    window.history.pushState({}, '', `${location.pathname}?${searchParams.toString()}`);
   };
 
   return (
@@ -86,7 +90,7 @@ const ProductPage = () => {
           selectedBrand=""
           selectedMemory=""
           onPriceSortChange={handlePriceSortChange}
-          onPriceChange={handlePriceRangeChange}
+          onPriceChange={handlePriceChange}
           minPrice={0}
           maxPrice={0}
         />
