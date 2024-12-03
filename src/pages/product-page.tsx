@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import ProductCard from '../components/product/product-card';
 import ProductSidebar from '../components/product/product-side-bar';
 import { useProducts } from '../constants/useProducts';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export interface Product {
   id: string;
@@ -11,7 +11,6 @@ export interface Product {
   photos: string[];
   url: string;
 }
-
 const ProductPage = () => {
   // const location = useLocation() as { state?: { searchTerm?: string } };
   // const [searchTerm, setSearchTerm] = useState<string>(location.state?.searchTerm || '');
@@ -19,8 +18,15 @@ const ProductPage = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(10000);
-
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const navigate = useNavigate();
+
+  const category = searchParams.get('category') || 'default-category';
+  const brand = searchParams.get('brand') || '';
+  const memory = searchParams.get('memory') || '';
+
+  const searchKey = searchParams.get('searchKey') || '';
   const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -28,7 +34,22 @@ const ProductPage = () => {
   }, [location.search]);
 
   // Fetch products from the useProducts hook
-  const { products, loading, error } = useProducts('');
+  // const { products, loading, error } = useProducts('');
+  const { products, loading, error } = useProducts({
+    category,
+    brand,
+    memory,
+    minPrice,
+    maxPrice,
+    searchKey,
+  });
+
+  // const handlePriceChange = (min: number, max: number) => {
+  //   const params = new URLSearchParams({ minPrice: String(min), maxPrice: String(max), category });
+  //   navigate(`/product/filter?${params.toString()}`);
+  // };
+
+  // console.log(searchKey,'asc');
 
   // Filter and sort products when price range, sort order, or search term changes
   useEffect(() => {
@@ -50,6 +71,9 @@ const ProductPage = () => {
   const handlePriceRangeChange = (min: number, max: number) => {
     setMinPrice(min);
     setMaxPrice(max);
+    const params = new URLSearchParams({ minPrice: String(min), maxPrice: String(max), category });
+
+    navigate(`/product?${params.toString()}`);
   };
 
   return (
