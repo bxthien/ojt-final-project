@@ -1,18 +1,36 @@
 import { useState, useEffect } from 'react';
-import { Product } from './fetchProducts';
 import axiosInstance from '../services/axios';
 
-export const useProducts = (
-  // category: string,
-  // brand: string = '',
-  // memory: string = '',
-  minPrice: number = 0,
-  maxPrice: number = 10000
-) => {
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  photos: string[];
+  url: string;
+}
+
+interface UseProductsParams {
+  category: string;
+  brand?: string;
+  memory?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  searchKey?: string;
+  orderBy?: 'ASC' | 'DESC';
+}
+
+export const useProducts = ({
+  category,
+  brand = '',
+  memory = '',
+  minPrice = 0,
+  maxPrice = 10000,
+  searchKey = '',
+  orderBy = 'ASC',
+}: UseProductsParams) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  // const [filter, setFilter] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -22,16 +40,20 @@ export const useProducts = (
       try {
         // Build params dynamically
         const params: Record<string, string | number> = {
+          category,
+          brand,
+          memory,
           minPrice,
           maxPrice,
-          orderBy: 'ASC',
-          page: '1',
-          take: '12',
+          searchKey,
+          orderBy,
+          page: 1,
+          take: 12,
         };
 
         const { data: response } = await axiosInstance.get(`/product`, { params });
-        // Validate and update products
 
+        // Validate and update products
         if (Array.isArray(response.data)) {
           setProducts(response.data);
         } else {
@@ -50,7 +72,7 @@ export const useProducts = (
     };
 
     fetchProducts();
-  }, [minPrice, maxPrice]);
+  }, [category, brand, memory, minPrice, maxPrice, searchKey, orderBy]);
 
   return { products, loading, error };
 };
