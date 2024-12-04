@@ -1,27 +1,10 @@
-const API_URL = 'https://provinces.open-api.vn/api/?depth=3';
-
-export interface Ward {
-  name: string;
-  code: number;
-}
-
-export interface District {
-  name: string;
-  code: number;
-  wards: Ward[];
-}
-
-export interface Province {
-  name: string;
-  code: number;
-  districts: District[];
-}
+const API_URL = 'https://provinces.open-api.vn/api/?depth=2';
 
 /**
- * Fetch location data (provinces, districts, wards) from the API.
- * @returns {Promise<Province[]>} List of provinces with detailed districts and wards.
+ *
+ * @returns {Promise<unknown>}
  */
-export const fetchLocationData = async (): Promise<Province[]> => {
+export const fetchLocationData = async (): Promise<unknown> => {
   try {
     const response = await fetch(API_URL, {
       method: 'GET',
@@ -31,12 +14,15 @@ export const fetchLocationData = async (): Promise<Province[]> => {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    return response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error('Error fetching location data:', error);
     throw error;
   }
 };
+
+export default API_URL;

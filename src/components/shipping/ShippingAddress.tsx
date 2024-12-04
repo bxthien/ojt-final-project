@@ -1,52 +1,54 @@
 import React, { useEffect, useState } from 'react';
 import { useCheckout } from '../CheckoutContext';
-import { fetchLocationData, Province } from '../../constants/locationData';
 import { Form, Input, Select } from 'antd';
 
 const { Option } = Select;
+
+interface District {
+  name: string;
+  code: number;
+}
+
+interface Province {
+  name: string;
+  code: number;
+  districts: District[];
+}
 
 const ShippingAddress: React.FC = () => {
   const { shippingAddress, setShippingAddress } = useCheckout();
   const [provinces, setProvinces] = useState<Province[]>([]);
   const [selectedProvince, setSelectedProvince] = useState(shippingAddress.province || '');
   const [selectedDistrict, setSelectedDistrict] = useState(shippingAddress.district || '');
-  const [selectedWard, setSelectedWard] = useState(shippingAddress.city || '');
 
+  // Fetch provinces from API
   useEffect(() => {
-    const loadLocationData = async () => {
+    const fetchProvinces = async () => {
       try {
-        const data = await fetchLocationData();
+        const response = await fetch('https://provinces.open-api.vn/api/?depth=2');
+        const data = await response.json();
         setProvinces(data);
       } catch (error) {
-        console.error('Failed to load location data:', error);
+        console.error('Failed to fetch provinces:', error);
       }
     };
 
-    loadLocationData();
+    fetchProvinces();
   }, []);
 
   const handleProvinceChange = (province: string) => {
     setSelectedProvince(province);
     setSelectedDistrict('');
-    setSelectedWard('');
     setShippingAddress({ ...shippingAddress, province, district: '', city: '' });
   };
 
   const handleDistrictChange = (district: string) => {
     setSelectedDistrict(district);
-    setSelectedWard('');
     setShippingAddress({ ...shippingAddress, district, city: '' });
-  };
-
-  const handleWardChange = (ward: string) => {
-    setSelectedWard(ward);
-    setShippingAddress({ ...shippingAddress, city: ward });
   };
 
   const availableDistricts =
     provinces.find((prov) => prov.name === selectedProvince)?.districts || [];
-  const availableWards =
-    availableDistricts.find((dist) => dist.name === selectedDistrict)?.wards || [];
 
   return (
     <div className="mt-4">
@@ -103,17 +105,6 @@ const ShippingAddress: React.FC = () => {
               {availableDistricts.map((dist) => (
                 <Option key={dist.code} value={dist.name}>
                   {dist.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-        )}
-        {selectedDistrict && (
-          <Form.Item label="Ward" required>
-            <Select value={selectedWard} onChange={handleWardChange} placeholder="Select Ward">
-              {availableWards.map((ward) => (
-                <Option key={ward.code} value={ward.name}>
-                  {ward.name}
                 </Option>
               ))}
             </Select>
