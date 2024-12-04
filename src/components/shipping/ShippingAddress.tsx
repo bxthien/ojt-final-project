@@ -1,34 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCheckout } from '../CheckoutContext';
-import { provinces } from '../../constants/locationData';
+import { fetchLocationData, Province } from '../../constants/locationData';
 import { Form, Input, Select } from 'antd';
 
 const { Option } = Select;
 
 const ShippingAddress: React.FC = () => {
   const { shippingAddress, setShippingAddress } = useCheckout();
+  const [provinces, setProvinces] = useState<Province[]>([]);
   const [selectedProvince, setSelectedProvince] = useState(shippingAddress.province || '');
   const [selectedDistrict, setSelectedDistrict] = useState(shippingAddress.district || '');
+  const [selectedWard, setSelectedWard] = useState(shippingAddress.city || '');
+
+  useEffect(() => {
+    const loadLocationData = async () => {
+      try {
+        const data = await fetchLocationData();
+        setProvinces(data);
+      } catch (error) {
+        console.error('Failed to load location data:', error);
+      }
+    };
+
+    loadLocationData();
+  }, []);
 
   const handleProvinceChange = (province: string) => {
     setSelectedProvince(province);
     setSelectedDistrict('');
+    setSelectedWard('');
     setShippingAddress({ ...shippingAddress, province, district: '', city: '' });
   };
 
   const handleDistrictChange = (district: string) => {
     setSelectedDistrict(district);
+    setSelectedWard('');
     setShippingAddress({ ...shippingAddress, district, city: '' });
   };
 
-  const handleCityChange = (city: string) => {
-    setShippingAddress({ ...shippingAddress, city });
+  const handleWardChange = (ward: string) => {
+    setSelectedWard(ward);
+    setShippingAddress({ ...shippingAddress, city: ward });
   };
 
   const availableDistricts =
     provinces.find((prov) => prov.name === selectedProvince)?.districts || [];
-  const availableCities =
-    availableDistricts.find((dist) => dist.name === selectedDistrict)?.cities || [];
+  const availableWards =
+    availableDistricts.find((dist) => dist.name === selectedDistrict)?.wards || [];
 
   return (
     <div className="mt-4">
@@ -69,7 +87,7 @@ const ShippingAddress: React.FC = () => {
             placeholder="Select Province"
           >
             {provinces.map((prov) => (
-              <Option key={prov.name} value={prov.name}>
+              <Option key={prov.code} value={prov.name}>
                 {prov.name}
               </Option>
             ))}
@@ -83,7 +101,7 @@ const ShippingAddress: React.FC = () => {
               placeholder="Select District"
             >
               {availableDistricts.map((dist) => (
-                <Option key={dist.name} value={dist.name}>
+                <Option key={dist.code} value={dist.name}>
                   {dist.name}
                 </Option>
               ))}
@@ -91,15 +109,11 @@ const ShippingAddress: React.FC = () => {
           </Form.Item>
         )}
         {selectedDistrict && (
-          <Form.Item label="City" required>
-            <Select
-              value={shippingAddress.city || ''}
-              onChange={handleCityChange}
-              placeholder="Select City"
-            >
-              {availableCities.map((city) => (
-                <Option key={city} value={city}>
-                  {city}
+          <Form.Item label="Ward" required>
+            <Select value={selectedWard} onChange={handleWardChange} placeholder="Select Ward">
+              {availableWards.map((ward) => (
+                <Option key={ward.code} value={ward.name}>
+                  {ward.name}
                 </Option>
               ))}
             </Select>
