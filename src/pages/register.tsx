@@ -111,7 +111,7 @@ const Register = () => {
                     if (!value) {
                       return Promise.resolve();
                     }
-                    if (/\s/.test(value)) {
+                    if (/^\s|\s$/.test(value)) {
                       return Promise.reject(t('validation.name.nameRequired'));
                     }
                     return Promise.resolve();
@@ -135,13 +135,12 @@ const Register = () => {
                 { pattern: /^[0-9]*$/, message: t('validation.phone.invalid') },
               ]}
             >
-              <Input allowClear maxLength={11} />
+              <Input allowClear maxLength={10} />
             </Form.Item>
 
             <Form.Item
               label={
                 <span>
-                  {' '}
                   <span className="text-red-500">*</span> {t('common.input.enterEmail')}{' '}
                 </span>
               }
@@ -154,12 +153,34 @@ const Register = () => {
             <Form.Item
               label={
                 <span>
-                  {' '}
                   <span className="text-red-500">*</span> {t('common.input.enterPassword')}{' '}
                 </span>
               }
               name="password"
               rules={[{ validator: passwordValidator, message: t('validation.password.invalid') }]}
+            >
+              <Input.Password allowClear />
+            </Form.Item>
+
+            <Form.Item
+              label={
+                <span>
+                  <span className="text-red-500"></span> {t('common.input.confirmPassword')}{' '}
+                </span>
+              }
+              name="confirmPassword"
+              dependencies={['password']}
+              rules={[
+                { required: true, message: t('validation.password.confirmRequired') },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error(t('validation.password.mismatch')));
+                  },
+                }),
+              ]}
             >
               <Input.Password allowClear />
             </Form.Item>
