@@ -18,7 +18,7 @@
       "enterName": "Enter Name",
       "enterPhone": "Enter Phone",
       "newPassword": "New Password",
-      "conformPassword": "Conform Password",
+      "confirmPassword": "Confirm password",
       "invalidEmail": "Invalid Email",
       "emailRequired": "Required Email",
       "passwordMinLength": "Password Min Length",
@@ -70,7 +70,10 @@
     },
 
     "password": {
-      "invalid": "Password must be 8+ characters with letters and numbers."
+      "invalid": "Password must be 8+ characters with letters and numbers.",
+      "required": "Please enter a password",
+      "confirmRequired": "Please confirm your password",
+      "mismatch": "Passwords do not match"
     },
 
     "phone": {

@@ -4,6 +4,7 @@ import axiosInstance from '../services/axios';
 import { useDispatch } from 'react-redux';
 import { login, logout } from '../redux/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export interface SignInResponse {
   access_token: string;
@@ -28,6 +29,14 @@ export interface RegisterPayload {
 
 export interface ForgotPayload {
   email: string;
+}
+interface UserProfile {
+  description: string;
+  phone: string;
+  address: string;
+  email: string;
+  username: string;
+  url: string;
 }
 
 export const useSignIn = () => {
@@ -89,17 +98,9 @@ export const forgot = async (params: ForgotPayload) => {
   }
 };
 
-export const getProfile = async (): Promise<{
-  description: string;
-  phone: string;
-  address: string;
-  fullName: string;
-  email: string;
-  username: string;
-  avatar: string;
-}> => {
+export const getProfile = async (): Promise<UserProfile> => {
   try {
-    const { data: response } = await axiosInstance.get(`/user/profile`);
+    const { data: response }: { data: UserProfile } = await axiosInstance.get(`/user/profile`);
     return response;
   } catch (err) {
     console.error('Error fetching profile:', err);
@@ -108,11 +109,12 @@ export const getProfile = async (): Promise<{
 };
 
 export const updateProfile = async (params: {
-  fullName: string;
+  username: string;
   email: string;
   address: string;
   phone: string;
   description: string;
+  url: string;
 }) => {
   try {
     const { data: response } = await axiosInstance.put(`/user/edit-profile`, params);
@@ -130,5 +132,69 @@ export const changePassword = async (params: { oldPassword: string; newPassword:
   } catch (err) {
     console.error('Error changing password:', err);
     throw { message: 'Failed to change password', details: err };
+  }
+};
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  url: string;
+  info: {
+    description: string;
+    color: string[];
+    size: string[];
+    policy: string;
+  };
+  quantity: number;
+}
+
+export interface Transaction {
+  transactionId: string;
+  isDelete: boolean;
+  quantity: number;
+  price: number;
+  createdAt: string;
+  updateAt: string;
+  product: Product;
+}
+
+export interface Order {
+  cartId: string;
+  couponCode: string | null;
+  discount: number;
+  isDelete: boolean;
+  price: number;
+  status: string;
+  address: string;
+  createdAt: string;
+  updateAt: string;
+  methodShipping: string;
+  transactions: Transaction[];
+}
+
+export const getOrders = async (): Promise<Order[]> => {
+  try {
+    const { data: response }: { data: Order[] } = await axiosInstance.get(`/cart/history/`);
+
+    if (!Array.isArray(response)) {
+      throw new Error('Invalid data format: expected an array of orders.');
+    }
+    const ordersWithTransactions = response.map((order) => ({
+      ...order,
+      transactions: order.transactions || [],
+    }));
+
+    return ordersWithTransactions;
+  } catch (err: unknown) {
+    console.error('Error fetching orders:', err);
+
+    if (axios.isAxiosError(err)) {
+      console.error('Axios error details:', err.response?.data || err.message);
+    }
+
+    throw {
+      message: 'Failed to fetch orders',
+      details: err instanceof Error ? err.message : 'Unknown error',
+    };
   }
 };
