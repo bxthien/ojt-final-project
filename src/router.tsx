@@ -89,7 +89,7 @@ const router = createBrowserRouter([
     element: <Success />,
   },
   {
-    path: '/ship',
+    path: '/shipping',
     element: <Shipping />,
   },
   {
