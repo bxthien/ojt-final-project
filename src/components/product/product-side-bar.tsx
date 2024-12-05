@@ -1,16 +1,21 @@
 import { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
 import { filterSections } from '../../constants/data';
-import PriceSlider from './price-slider';
 import BrandFilter from './branch-filter';
 import MemoryFilter from './memory-filter';
 import MobileFilterSidebar from './mobile-filter-sidebar';
+import PriceSortSelect from './price-sort-select'; // Import component
+import PriceRangeSidebar from './price-range';
 
 interface ProductSidebarProps {
   onBrandSelect: (brand: string) => void;
   onMemorySelect: (memory: string) => void;
   selectedBrand: string;
   selectedMemory: string;
+  onPriceSortChange: (order: 'asc' | 'desc') => void; // Add callback for sorting
+  onPriceChange: (min: number, max: number) => void;
+  minPrice: number;
+  maxPrice: number;
 }
 
 const ProductSidebar = ({
@@ -18,9 +23,14 @@ const ProductSidebar = ({
   onMemorySelect,
   selectedBrand,
   selectedMemory,
+  onPriceSortChange,
+  onPriceChange,
+  minPrice,
+  maxPrice,
 }: ProductSidebarProps) => {
   const [sections, setSections] = useState(filterSections);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [priceSortOrder, setPriceSortOrder] = useState<'asc' | 'desc'>('asc'); // State for price sort
 
   const toggleSection = (sectionId: string) => {
     setSections((prev) =>
@@ -35,11 +45,21 @@ const ProductSidebar = ({
     document.body.style.overflow = isMobileFilterOpen ? 'unset' : 'hidden';
   };
 
+  const handlePriceSortChange = (order: 'asc' | 'desc') => {
+    setPriceSortOrder(order);
+    onPriceSortChange(order); // Pass the selected sort order to parent
+  };
+
   return (
     <>
       {/* Desktop Sidebar */}
       <div className="hidden lg:block p-6 w-64 bg-white border-r">
         <div className="p-6">
+          {/* Add PriceSortSelect below the sections */}
+          <PriceSortSelect
+            priceSortOrder={priceSortOrder}
+            onPriceSortChange={handlePriceSortChange}
+          />
           {sections.map((section) => (
             <div key={section.id} className="mb-6">
               <button
@@ -57,7 +77,13 @@ const ProductSidebar = ({
 
               {section.isOpen && (
                 <div className="pl-2">
-                  {section.id === 'price' && <PriceSlider />}
+                  {section.id === 'price' && (
+                    <PriceRangeSidebar
+                      onPriceChange={onPriceChange} // Pass onPriceChange function
+                      minPrice={minPrice}
+                      maxPrice={maxPrice}
+                    />
+                  )}
                   {section.id === 'brand' && (
                     <BrandFilter selectedBrand={selectedBrand} onBrandSelect={onBrandSelect} />
                   )}
@@ -74,7 +100,7 @@ const ProductSidebar = ({
       {/* Mobile Filter Button */}
       <button
         onClick={toggleMobileFilter}
-        className="lg:hidden left-5 z-50 bg-[#56B280] text-white p-4 ml-4 rounded-lg shadow-lg"
+        className="lg:hidden left-5 z-50 bg-[#56B280] text-white mt-4 p-4 ml-4 rounded-lg shadow-lg"
         aria-label="Open filters"
       >
         Filter
@@ -90,6 +116,11 @@ const ProductSidebar = ({
         onMemorySelect={onMemorySelect}
         selectedBrand={selectedBrand}
         selectedMemory={selectedMemory}
+        priceSortOrder={priceSortOrder}
+        onPriceSortChange={handlePriceSortChange}
+        onPriceChange={onPriceChange} // Thêm hàm onPriceChange
+        minPrice={minPrice} // Truyền giá trị minPrice
+        maxPrice={maxPrice}
       />
     </>
   );

@@ -23,7 +23,7 @@
   },
 
   "register": {
-    "signUpToPayment": "Đăng Ký Để Thanh Toán",
+    "signUpToPayment": "Đăng Ký",
     "account": "Nếu bạn đã có tài khoản, bạn có thể",
     "signInHere": "Đăng Nhập Tại Đây!",
     "nameRequired": "Tên Yêu Cầu",
@@ -31,10 +31,9 @@
   },
 
   "login": {
-    "signInToPayment": "Đăng Nhập Để Thanh Toán",
+    "signInToPayment": "Đăng Nhập",
     "noAccount": "Nếu bạn chưa có tài khoản, bạn có thể",
-    "registerHere": "Đăng Ký Tại Đây!",
-    "recoverPassword": "Khôi phục mật khẩu"
+    "registerHere": "Đăng Ký Tại Đây!"
   },
 
   "forgot": {
@@ -53,8 +52,8 @@
   },
 
   "error": {
-    "faild": "Đăng Ký Thất Bại",
-    "faild_2": "Đăng Nhập Thất Bại",
+    "fail": "Đăng Ký Thất Bại",
+    "fail_2": "Đăng Nhập Thất Bại",
     "email": "Gửi Mật Khẩu Thất Bại",
     "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
   },

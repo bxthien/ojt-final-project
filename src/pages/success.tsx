@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
 
-const Forgot = () => {
+const Success = () => {
   const { t } = useTranslation();
 
   return (
@@ -18,22 +18,29 @@ const Forgot = () => {
         preview={false}
       />
       <div className="flex items-center justify-end gap-6 p-4">
-        <div className="flex w-3/5 justify-start ">
-          <Link to="/forgot" className=" text-black">
+        <div className="flex w-3/5 justify-start">
+          <Link to="/forgot" className="text-black">
             <ArrowLeftOutlined />
           </Link>
         </div>
         <LanguageSelector />
         {authenticationType.map((item) => (
           <Link
-            key={item.label}
+            key={item.value}
             to={item.href}
-            className="text-sm text-[#56B280] font-semibold px-2 py-1 bg-white shadow-lg rounded-2xl whitespace-nowrap"
+            className={`text-sm font-semibold px-2 py-1 whitespace-nowrap ${
+              location.pathname === item.href
+                ? 'border-b-2 border-[#56B280]'
+                : 'text-[#56B280] bg-white rounded-2xl'
+            }`}
           >
             {t(item.label)}
           </Link>
         ))}
-        <Button className="bg-[#56B280] px-4 py-2" type="primary">
+        <Button
+          className="bg-white text-[#56B280] border-2 rounded-full px-4 py-2 hover:bg-[#56B280] hover:text-white"
+          type="text"
+        >
           <Link to="/">{t('common.button.home')}</Link>
         </Button>
       </div>
@@ -60,4 +67,4 @@ const Forgot = () => {
   );
 };
 
-export default Forgot;
+export default Success;

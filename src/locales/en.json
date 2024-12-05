@@ -29,7 +29,7 @@
   },
 
   "register": {
-    "signUpToPayment": "Sign Up To Payment",
+    "signUpToPayment": "Sign Up",
     "account": "If you have an account, you can",
     "signInHere": "Sign In here!",
     "nameRequired": "Name Required",
@@ -37,10 +37,9 @@
   },
 
   "login": {
-    "signInToPayment": "Sign In To Payment",
+    "signInToPayment": "Sign In",
     "noAccount": "If you don't have an account, you can",
-    "registerHere": "Register here!",
-    "recoverPassword": "Recover Passwword"
+    "registerHere": "Register here!"
   },
 
   "forgot": {
@@ -59,8 +58,8 @@
   },
 
   "error": {
-    "faild": "Register Failed",
-    "faild_2": "Login Faild",
+    "fail": "Register Failed",
+    "fail_2": "Login Faild",
     "email": "Password Sending Failed",
     "message": "An unexpected error occurred. Please try again."
   },

@@ -2,7 +2,7 @@ import { socialData, contentData, servicesData, assistanceData } from '../consta
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white py-12">
+    <footer className="bg-black text-white pt-10 pb-5 mb-0">
       <div className="max-w-7xl mx-auto px-4 grid gap-8 md:grid-cols-[2fr_1fr_1fr] text-center md:text-left">
         <div>
           <a href="/">
