@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 interface ProductColumnProps {
   image: string;
@@ -14,7 +15,7 @@ const ProductColumn: React.FC<ProductColumnProps> = ({
   backgroundColor,
 }) => {
   return (
-    <div className={`${backgroundColor} p-4 sm:p-6 transition-transform hover:scale-105`}>
+    <div className={`${backgroundColor} p-6 sm:p-8 transition-transform hover:scale-105`}>
       <div className="flex flex-col h-full space-y-4">
         <div className="relative pt-[75%] sm:pt-[100%] w-full overflow-hidden">
           <img
@@ -37,7 +38,9 @@ const ProductColumn: React.FC<ProductColumnProps> = ({
               hover:bg-[#56B280] hover:text-white hover:border-transparent 
               transition-all duration-300 text-sm sm:text-base"
             >
-              Shop Now
+              <Link to="/product" className="block w-full h-full text-center">
+                Shop Now
+              </Link>
             </button>
           </div>
         </div>

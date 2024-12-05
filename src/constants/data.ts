@@ -9,17 +9,17 @@ import { FaTwitter, FaFacebook, FaTiktok, FaInstagram } from 'react-icons/fa';
 
 export const menuItems = [
   { href: '/', label: 'Home' },
+  { href: '/product', label: 'Product' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact Us' },
-  { href: '/product-page', label: 'Product' },
 ];
 
 export const categoryItems = [
-  { href: '/phones', label: 'Phones', Icon: IoPhonePortraitOutline },
-  { href: '/computers', label: 'Computers', Icon: MdComputer },
-  { href: '/smart-watches', label: 'Smart Watches', Icon: BsSmartwatch },
-  { href: '/cameras', label: 'Cameras', Icon: IoCameraSharp },
-  { href: '/headphones', label: 'Headphones', Icon: PiHeadphonesLight },
+  { href: '/phone', label: 'Phone', Icon: IoPhonePortraitOutline },
+  { href: '/computer', label: 'Computer', Icon: MdComputer },
+  { href: '/smart-watche', label: 'Smart Watch', Icon: BsSmartwatch },
+  { href: '/camera', label: 'Camera', Icon: IoCameraSharp },
+  { href: '/headphone', label: 'Headphone', Icon: PiHeadphonesLight },
   { href: '/gaming', label: 'Gaming', Icon: FaGamepad },
 ];
 

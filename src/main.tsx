@@ -4,22 +4,27 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './locales';
 import { CheckoutProvider } from './components/CheckoutContext';
-
+import { Provider } from 'react-redux';
 import NotFound from './pages/not-found';
 import HomePage from './pages/home-page';
 import SignIn from './pages/sign-in';
 import Register from './pages/register';
 import Forgot from './pages/forgot';
 import Success from './pages/success';
+import Profile from './pages/profile';
 import Cart from './components/payments/Cart';
 import Checkout from './components/payments/CheckoutPage';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import SelectAddress from './components/SelectAdress/SelectAddress';
 import ShipmentMethod from './components/SelectAdress/ShipmentMethod';
 import PaymentPage from './components/SelectAdress/PaymentPage';
-import ProductPage from './pages/product-page';
 import LayOut from './layout';
 import ProductDetailPage from './components/product-details/product-detail-page';
+import Shipping from './pages/shipping';
+import Payment from './pages/payment';
+import PaymentStatus from './pages/PaymentStatus';
+import ProductPage from './pages/product-page';
+import store from './redux/store';
 
 const router = createBrowserRouter([
   {
@@ -56,12 +61,33 @@ const router = createBrowserRouter([
         element: <PaymentPage />,
       },
       {
-        path: '/product-page',
+        path: '/product',
         element: <ProductPage />,
+        // element: <Product />,
+      },
+      {
+        path: '/profile',
+        element: <Profile />,
       },
       {
         path: '/product-detail/:id',
         element: <ProductDetailPage />,
+      },
+      {
+        path: '/shipping',
+        element: <Shipping />,
+      },
+      {
+        path: '/payments',
+        element: <Payment />,
+      },
+      {
+        path: '/paymentsuccess',
+        element: <PaymentStatus status={'success'} />,
+      },
+      {
+        path: '/paymentfailed',
+        element: <PaymentStatus status={'failed'} />,
       },
     ],
   },
@@ -85,8 +111,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CheckoutProvider>
-      <RouterProvider router={router} />
-    </CheckoutProvider>
+    <Provider store={store}>
+      <CheckoutProvider>
+        <RouterProvider router={router} />
+      </CheckoutProvider>
+    </Provider>
   </StrictMode>
 );

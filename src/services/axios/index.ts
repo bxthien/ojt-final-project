@@ -1,37 +1,44 @@
-import axios from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 import { getStorageData } from '../storage';
 import { ACCESS_TOKEN } from '../../constants/auth';
+
+// const BASE_URL = 'https://be-final-project-bddr.onrender.com/';
+const BASE_URL = 'https://7633-113-160-225-96.ngrok-free.app';
+axios.defaults.baseURL = BASE_URL;
 
 const axiosInstance = axios.create({
   baseURL: 'https://5f08-113-160-225-96.ngrok-free.app',
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json;charset=UTF-8',
+    'Access-Control-Allow-Origin': '*',
+    'ngrok-skip-browser-warning': 'true',
   },
   timeout: 10000,
 });
 
 axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = getStorageData('token');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+  (config: InternalAxiosRequestConfig) => {
+    if (config.url === '/auth/login') {
+      return config;
+    }
+    const accessToken = getStorageData(ACCESS_TOKEN);
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
 
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
-axios.interceptors.response.use(
+axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const { response } = error;
+    const { response, config } = error;
 
-    if (response && response.status === 401) {
+    if (response && response.status === 401 && config.url !== '/auth/login') {
       localStorage.removeItem(ACCESS_TOKEN);
-      window.location.href = `/login`;
+      window.location.replace('/sign-in');
     }
 
     return Promise.reject(error);

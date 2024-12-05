@@ -18,12 +18,20 @@
       "enterEmail": "Nhập Email",
       "enterPassword": "Nhập Mật Khẩu",
       "enterName": "Nhập Tên",
-      "enterPhone": "Nhập Số Điện Thoại"
+      "enterPhone": "Nhập Số Điện Thoại",
+      "newPassword": "Mật khẩu mới",
+      "conformPassword": "Xác nhận mật khẩu",
+      "invalidEmail": "Email không hợp lệ",
+      "emailRequired": "Email là bắt buộc",
+      "passwordMinLength": "Mật khẩu tối thiểu",
+      "passwordRequired": "Mật khẩu là bắt buộc",
+      "phoneMinLength": "Số điện thoại tối thiểu",
+      "phoneInvalid": "Số điện thoại không hợp lệ"
     }
   },
 
   "register": {
-    "signUpToPayment": "Đăng Ký Để Thanh Toán",
+    "signUpToPayment": "Đăng Ký",
     "account": "Nếu bạn đã có tài khoản, bạn có thể",
     "signInHere": "Đăng Nhập Tại Đây!",
     "nameRequired": "Tên Yêu Cầu",
@@ -31,10 +39,9 @@
   },
 
   "login": {
-    "signInToPayment": "Đăng Nhập Để Thanh Toán",
+    "signInToPayment": "Đăng Nhập",
     "noAccount": "Nếu bạn chưa có tài khoản, bạn có thể",
-    "registerHere": "Đăng Ký Tại Đây!",
-    "recoverPassword": "Khôi phục mật khẩu"
+    "registerHere": "Đăng Ký Tại Đây!"
   },
 
   "forgot": {
@@ -53,8 +60,8 @@
   },
 
   "error": {
-    "faild": "Đăng Ký Thất Bại",
-    "faild_2": "Đăng Nhập Thất Bại",
+    "fail": "Đăng Ký Thất Bại",
+    "fail_2": "Đăng Nhập Thất Bại",
     "email": "Gửi Mật Khẩu Thất Bại",
     "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
   },
@@ -65,7 +72,10 @@
     },
 
     "password": {
-      "invalid": "Mật khẩu phải có 8+ ký tự bao gồm chữ cái và số!"
+      "invalid": "Mật khẩu phải có 8+ ký tự bao gồm chữ cái và số!",
+      "required": "Vui lòng nhập mật khẩu",
+      "confirmRequired": "Vui lòng xác nhận mật khẩu",
+      "mismatch": "Mật khẩu không khớp"
     },
 
     "phone": {
