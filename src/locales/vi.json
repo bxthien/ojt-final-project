@@ -18,7 +18,15 @@
       "enterEmail": "Nhập Email",
       "enterPassword": "Nhập Mật Khẩu",
       "enterName": "Nhập Tên",
-      "enterPhone": "Nhập Số Điện Thoại"
+      "enterPhone": "Nhập Số Điện Thoại",
+      "newPassword": "Mật khẩu mới",
+      "conformPassword": "Xác nhận mật khẩu",
+      "invalidEmail": "Email không hợp lệ",
+      "emailRequired": "Email là bắt buộc",
+      "passwordMinLength": "Mật khẩu tối thiểu",
+      "passwordRequired": "Mật khẩu là bắt buộc",
+      "phoneMinLength": "Số điện thoại tối thiểu",
+      "phoneInvalid": "Số điện thoại không hợp lệ"
     }
   },
 
@@ -64,7 +72,10 @@
     },
 
     "password": {
-      "invalid": "Mật khẩu phải có 8+ ký tự bao gồm chữ cái và số!"
+      "invalid": "Mật khẩu phải có 8+ ký tự bao gồm chữ cái và số!",
+      "required": "Vui lòng nhập mật khẩu",
+      "confirmRequired": "Vui lòng xác nhận mật khẩu",
+      "mismatch": "Mật khẩu không khớp"
     },
 
     "phone": {
