@@ -13,13 +13,13 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, mi
   const handleMinSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMinPrice = parseInt(e.target.value);
     setLocalMinPrice(newMinPrice);
-    onPriceChange(newMinPrice, localMaxPrice); // Cập nhật minPrice khi thay đổi
+    onPriceChange(newMinPrice, localMaxPrice);
   };
 
   const handleMaxSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMaxPrice = parseInt(e.target.value);
     setLocalMaxPrice(newMaxPrice);
-    onPriceChange(localMinPrice, newMaxPrice); // Cập nhật maxPrice khi thay đổi
+    onPriceChange(localMinPrice, newMaxPrice);
   };
 
   // Tính toán tỷ lệ phần trăm cho thanh trượt
