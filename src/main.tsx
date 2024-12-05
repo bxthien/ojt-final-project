@@ -20,6 +20,7 @@ import ShipmentMethod from './components/SelectAdress/ShipmentMethod';
 import PaymentPage from './components/SelectAdress/PaymentPage';
 import LayOut from './layout';
 import ProductDetailPage from './components/product-details/product-detail-page';
+import ContactUs from './components/contactus/Contactus';
 import Shipping from './pages/shipping';
 import Payment from './pages/payment';
 import PaymentStatus from './pages/PaymentStatus';
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
         element: <ProductDetailPage />,
       },
       {
+        path: '/contact',
+        element: <ContactUs />,
+      },
+      {
         path: '/shipping',
         element: <Shipping />,
       },
@@ -91,6 +96,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
   {
     path: '/sign-in',
     element: <SignIn />,
@@ -106,6 +112,10 @@ const router = createBrowserRouter([
   {
     path: '/success',
     element: <Success />,
+  },
+  {
+    path: '/contact',
+    element: <ContactUs />,
   },
 ]);
 
