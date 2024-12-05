@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProductDetail } from '../../constants/useProductDetail';
 // import ProductImages from './product-image';
@@ -8,6 +8,9 @@ import MemorySelector from './memory-selector';
 import ActionButtons from './action-buttons';
 import { Breadcrumb } from 'antd'; // Import Breadcrumb from Ant Design
 import ProductDescription from './product-description';
+import axiosInstance from '../../services/axios';
+import { Product } from '../../constants/fetchProducts';
+import RelatedProducts from './related-products';
 
 const ProductDetailPage = () => {
   // Lấy productId từ URL
@@ -25,6 +28,27 @@ const ProductDetailPage = () => {
   // const handleImageSelect = (image: string) => setSelectedImage(image);
   const handleColorSelect = (color: string) => setSelectedColor(color);
   const handleSizeSelect = (size: string) => setSelectedSize(size);
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchRelatedProducts = async () => {
+      try {
+        const res = await axiosInstance.get('/product'); // Fetch all products
+        if (product) {
+          // Lọc sản phẩm tương tự dựa trên danh mục
+          const filteredProducts = res.data.filter(
+            (p: { category: string; id: string }) =>
+              p.category === product.category && // Cùng danh mục
+              p.id !== product.id // Không trùng sản phẩm hiện tại
+          );
+          setRelatedProducts(filteredProducts);
+        }
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      }
+    };
+    fetchRelatedProducts();
+  }, []);
 
   if (loading) return <div>Loading product...</div>;
   if (error || !product) return <div>{error || 'Không tìm thấy sản phẩm'}</div>;
@@ -76,6 +100,13 @@ const ProductDetailPage = () => {
       </div>
       <h3 className="text-lg font-bold mb-6 pt-10">Product Description:</h3>
       <p className="text-base text-gray-600 mt-2">{product.info.description}</p>
+
+      {/* Hiển thị sản phẩm liên quan */}
+      <div className="container mx-auto">
+        {/* Other product detail sections */}
+        <h3 className="text-lg font-bold mb-6 pt-10">Related Products:</h3>
+        <RelatedProducts products={relatedProducts} />
+      </div>
     </div>
   );
 };
