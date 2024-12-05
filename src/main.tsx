@@ -20,7 +20,6 @@ import PaymentPage from './components/SelectAdress/PaymentPage';
 import ProductPage from './pages/product-page';
 import LayOut from './layout';
 import ProductDetailPage from './components/product-details/product-detail-page';
-import ContactUs from './components/contactus/Contactus';
 
 const router = createBrowserRouter([
   {
@@ -64,10 +63,6 @@ const router = createBrowserRouter([
         path: '/product-detail/:id',
         element: <ProductDetailPage />,
       },
-      {
-        path: '/contact',
-        element: <ContactUs />,
-      },
     ],
   },
   {
@@ -85,10 +80,6 @@ const router = createBrowserRouter([
   {
     path: '/success',
     element: <Success />,
-  },
-  {
-    path: '/contact',
-    element: <ContactUs />,
   },
 ]);
 
