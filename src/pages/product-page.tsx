@@ -83,7 +83,7 @@ const ProductPage = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Sidebar */}
-      <div className="w-full md:w-1/4 pl-5">
+      <div className="w-full md:w-1/5">
         <ProductSidebar
           onBrandSelect={() => {}}
           onMemorySelect={() => {}}
@@ -113,7 +113,8 @@ const ProductPage = () => {
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900" />
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-2 p-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 p-2">
+            {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2"> */}
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product: Product) => (
                 <ProductCard key={product.id} product={product} />

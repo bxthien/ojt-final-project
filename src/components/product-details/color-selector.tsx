@@ -6,13 +6,13 @@ type ColorSelectorProps = {
 
 const ColorSelector = ({ colors, selectedColor, onColorSelect }: ColorSelectorProps) => {
   return (
-    <div className="flex flex-col mb-4">
-      <h3 className="mb-2 font-semibold">Select Color:</h3>
-      <div className="flex flex-wrap gap-2">
+    <div className="flex space-x-2 mb-6">
+      <h3 className="text-lg font-semibold mb-2">Color:</h3>
+      <div className="flex space-x-2">
         {colors.map((color, index) => (
           <div
             key={index}
-            className={`w-9 h-9 rounded-full cursor-pointer transition-all ${color === selectedColor ? 'border-4 border-[#56B280]' : ''}`}
+            className={`w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2  ${color === selectedColor ? 'border-4 border-[#56B280]' : ''}`}
             style={{ backgroundColor: color }}
             onClick={() => onColorSelect(color)}
           ></div>

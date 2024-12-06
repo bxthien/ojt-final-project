@@ -7,6 +7,7 @@ type MemorySelectorProps = {
 const MemorySelector = ({ sizes, selectedSize, onSizeSelect }: MemorySelectorProps) => {
   return (
     <div className="flex flex-wrap gap-2  lg:justify-start lg:text-left lg:items-start">
+      <h3 className="text-lg font-semibold mb-2">Memory:</h3>
       {sizes.map((size, index) => (
         <div
           key={index}

@@ -1,81 +1,167 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProductDetail } from '../../constants/useProductDetail';
-// import ProductImages from './product-image';
 import ProductMainImage from './product-main-image';
+import ProductImages from './product-image';
+import { Breadcrumb } from 'antd';
+import ProductDescription from './product-description';
 import ColorSelector from './color-selector';
 import MemorySelector from './memory-selector';
 import ActionButtons from './action-buttons';
-import { Breadcrumb } from 'antd'; // Import Breadcrumb from Ant Design
-import ProductDescription from './product-description';
+import axiosInstance from '../../services/axios';
+import RelatedProducts from './related-products';
+import { Product } from '../../constants/fetchProducts';
 
 const ProductDetailPage = () => {
   // Lấy productId từ URL
   const { id: productId } = useParams<{ id: string }>();
 
+  const mockPhotos = [
+    'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro.png',
+    'https://cdn.tgdd.vn/Products/Images/42/329135/iphone-16-blue-600x600.png',
+    'https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121030-iphone-16-plus.png',
+  ];
+
   // Sử dụng hook để lấy chi tiết sản phẩm từ API
   const { product, loading, error } = useProductDetail(productId || '');
 
   // Quản lý trạng thái lựa chọn hình ảnh, màu sắc và dung lượng
-  // const [ setSelectedImage] = useState<string | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
 
   // Xử lý lựa chọn
-  // const handleImageSelect = (image: string) => setSelectedImage(image);
+  const handleImageSelect = (image: string) => {
+    setSelectedImage(image); // Cập nhật ảnh lớn khi chọn ảnh nhỏ
+  };
+
   const handleColorSelect = (color: string) => setSelectedColor(color);
   const handleSizeSelect = (size: string) => setSelectedSize(size);
+
+  // Quản lý sản phẩm liên quan
+  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchRelatedProducts = async () => {
+      try {
+        const res = await axiosInstance.get('/product'); // Fetch all products
+        if (product) {
+          // Lọc sản phẩm tương tự dựa trên danh mục
+          const filteredProducts = res.data.filter(
+            (p: { category: string; id: string }) =>
+              p.category === product.category && // Cùng danh mục
+              p.id !== product.id // Không trùng sản phẩm hiện tại
+          );
+          setRelatedProducts(filteredProducts);
+        }
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      }
+    };
+    fetchRelatedProducts();
+  }, [product]);
+
+  // const [mainImage, setMainImage] = useState(
+  //   'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080'
+  // );
+
+  // const changeImage = (mockPhotos) => {
+  //   setMainImage(src);
+  // };
 
   if (loading) return <div>Loading product...</div>;
   if (error || !product) return <div>{error || 'Không tìm thấy sản phẩm'}</div>;
 
-  // console.log(selectedImage, product.photos[0]);
   return (
-    <div className="container mx-auto pt-4 pb-4 px-2 lg:pt-12 lg:pb-28 lg:px-40">
-      {/* Breadcrumb */}
-      <Breadcrumb className="mb-6">
-        <Breadcrumb.Item>
-          <a href="/">Home</a>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <a href="/product">Product</a>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>{product.name}</Breadcrumb.Item>
-      </Breadcrumb>
+    <div className="bg-gray-100 px-4">
+      <div className="container mx-auto px-10 py-8">
+        <Breadcrumb className="mb-6">
+          <Breadcrumb.Item>
+            <a href="/">Home</a>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <a href="/product">Product</a>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>{product.name}</Breadcrumb.Item>
+        </Breadcrumb>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 justify-center items-center">
-        {/* Phần bên trái: Hình ảnh sản phẩm */}
-        {/* <div className="flex flex-col items-center gap-6 md:flex-row md:gap-8"> */}
-        {/* ảnh nhỏ */}
-        {/* <div className="flex md:flex-col gap-4 justify-center md:justify-start">
-            <ProductImages images={product.photos} onImageSelect={handleImageSelect} />
-          </div> */}
-        {/* ảnh chính */}
-        <div className="w-full">
-          <ProductMainImage url={product.url} photos={[]} />
-          {/* <ProductMainImage photos={product.url[0]} url={''} /> */}
+        <div className="flex flex-wrap -mx-4">
+          {/* Product Images */}
+          <div className="w-full md:w-1/2 px-4 mb-8">
+            <ProductMainImage url={selectedImage || product.url} />
+            <div className="flex gap-4 py-4 justify-center overflow-x-auto">
+              <ProductImages
+                images={mockPhotos}
+                onImageSelect={handleImageSelect}
+                selectedImage={selectedImage}
+              />
+            </div>
+          </div>
+
+          {/* Product Details */}
+          <div className="w-full md:w-1/2 px-4">
+            <ProductDescription name={product.name} price={product.price} />
+            <div className="flex items-center mb-4">
+              {/* Stars */}
+              {[...Array(5)].map((_, index) => (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="size-6 text-yellow-500"
+                  key={index}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ))}
+              <span className="ml-2 text-gray-600">4.5 (120 reviews)</span>
+            </div>
+            <p className="text-gray-700 mb-6">
+              Experience premium sound quality and industry-leading noise cancellation with these
+              wireless headphones. Perfect for music lovers and frequent travelers.
+            </p>
+
+            <div className="mb-6">
+              <ColorSelector
+                colors={product.info.color}
+                selectedColor={selectedColor || product.info.color[0]}
+                onColorSelect={handleColorSelect}
+              />
+              <MemorySelector
+                sizes={product.info.size}
+                selectedSize={selectedSize || product.info.size[0]}
+                onSizeSelect={handleSizeSelect}
+              />
+            </div>
+
+            <div className="flex items-center mb-6">
+              <label htmlFor="quantity" className="mr-4">
+                Quantity:
+              </label>
+              <input
+                type="number"
+                id="quantity"
+                className="w-16 text-center border rounded-md p-2"
+                defaultValue="1"
+                min="1"
+              />
+            </div>
+            <ActionButtons productId={product.id} productName={product.name} />
+            {/* <button className="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
+              Add to Cart
+            </button> */}
+          </div>
         </div>
-        {/* </div> */}
-        {/*Bên phải: Thông tin sản phẩm */}
-        <div className="flex flex-col gap-6 md:text-left md:items-start pl-9">
-          {/* Thông tin chi tiết sản phẩm */}
-          <ProductDescription name={product.name} price={product.price} />
-          <ColorSelector
-            colors={product.info.color}
-            selectedColor={selectedColor || product.info.color[0]}
-            onColorSelect={handleColorSelect}
-          />
-          <MemorySelector
-            sizes={product.info.size}
-            selectedSize={selectedSize || product.info.size[0]}
-            onSizeSelect={handleSizeSelect}
-          />
-          {/* Add to Cart Button */}
-          <ActionButtons productId={product.id} productName={product.name} />
+        {/* Hiển thị sản phẩm liên quan */}
+        <div className="container mx-auto">
+          <h3 className="text-lg font-bold mb-6 pt-10">Related Products:</h3>
+          <RelatedProducts products={relatedProducts} />
         </div>
       </div>
-      <h3 className="text-lg font-bold mb-6 pt-10">Product Description:</h3>
-      <p className="text-base text-gray-600 mt-2">{product.info.description}</p>
     </div>
   );
 };
