@@ -11,7 +11,14 @@
       "next": "Tiếp Tục",
       "check": "Xác minh mã",
       "update": "Cập Nhật Mật Khẩu",
-      "continue": "Tiếp Tục"
+      "continue": "Tiếp Tục",
+      "cart": "Giỏ hàng",
+      "details": "Chi tiết",
+      "shipping": "Vận chuyển",
+      "payment": "Thanh toán",
+      "backToCart": "Quay lại giỏ hàng",
+      "goToPayment": "Đi đến thanh toán",
+      "products": "Sản phẩm"
     },
 
     "input": {
@@ -20,13 +27,15 @@
       "enterName": "Nhập Tên",
       "enterPhone": "Nhập Số Điện Thoại",
       "newPassword": "Mật khẩu mới",
-      "conformPassword": "Xác nhận mật khẩu",
+      "confirmPassword": "Xác nhận mật khẩu",
       "invalidEmail": "Email không hợp lệ",
       "emailRequired": "Email là bắt buộc",
       "passwordMinLength": "Mật khẩu tối thiểu",
       "passwordRequired": "Mật khẩu là bắt buộc",
       "phoneMinLength": "Số điện thoại tối thiểu",
-      "phoneInvalid": "Số điện thoại không hợp lệ"
+      "phoneInvalid": "Số điện thoại không hợp lệ",
+      "contact": "Thông tin liên hệ",
+      "enterContact": "Nhập thông tin liên hệ của bạn"
     }
   },
 
@@ -66,9 +75,33 @@
     "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
   },
 
+  "productPage": {
+    "searchingFor": "Tìm kiếm cho",
+    "noProducts": "Không có sản phẩm nào"
+  },
+
+  "notFound": {
+    "title": "Trang đang được phát triển",
+    "description": "Trang này hiện đang được phát triển. Vui lòng quay lại sau.",
+    "altText": "Đang phát triển"
+  },
+
+  "paymentStatus": {
+    "paymentConfirmed": "Thanh toán thành công",
+    "orderId": "ĐƠN HÀNG #{orderId}",
+    "thankYou": "Cảm ơn {customerName} vì đã mua hàng! Đơn hàng của bạn đã được xác nhận và sẽ sẵn sàng để vận chuyển trong 2 ngày. Vui lòng kiểm tra hộp thư đến của bạn để cập nhật.",
+    "backToShopping": "Quay lại mua sắm",
+    "printReceipt": "In hóa đơn",
+    "paymentFailed": "Thanh toán thất bại",
+    "paymentErrorMessage": "Chúng tôi gặp phải vấn đề trong việc xử lý thanh toán của bạn. Vui lòng thử lại hoặc liên hệ với hỗ trợ.",
+    "retryPayment": "Thử lại thanh toán",
+    "contactSupport": "Liên hệ hỗ trợ"
+  },
+
   "validation": {
     "email": {
-      "invalid": "Vui lòng nhập email hợp lệ!"
+      "invalid": "Vui lòng nhập email hợp lệ!",
+      "contactRequired": "Vui lòng nhập thông tin liên hệ!"
     },
 
     "password": {
@@ -87,5 +120,85 @@
     "name": {
       "nameRequired": "Vui lòng nhập tên của bạn!"
     }
+  },
+
+  "payment": {
+    "breadcrumb": {
+      "cart": "Giỏ hàng",
+      "details": "Chi tiết",
+      "shipping": "Giao hàng",
+      "payment": "Thanh toán"
+    },
+    "loading": "Đang tải sản phẩm...",
+    "error": "Đã xảy ra lỗi: {{error}}",
+    "orderSummary": {
+      "title": "Tóm tắt đơn hàng",
+      "total": "Tổng cộng"
+    },
+    "buttons": {
+      "backToShipping": "Quay lại giao hàng",
+      "payNow": "Thanh toán ngay"
+    }
+  },
+
+  "header": {
+    "searchPlaceholder": "Tìm kiếm sản phẩm...",
+    "signIn": "Đăng Nhập",
+    "closeMenu": "Đóng menu",
+    "openMenu": "Mở menu"
+  },
+
+  "footer": {
+    "services": "Dịch vụ",
+    "assistance": "Hỗ trợ người mua",
+    "copyright": "▼iperS © Bản quyền 2024 | Tất cả quyền được bảo vệ"
+  },
+
+  "profile": {
+    "editYourProfile": "Chỉnh sửa hồ sơ của bạn",
+    "changePassword": "Thay đổi mật khẩu",
+    "successUpdateProfile": "Cập nhật hồ sơ thành công",
+    "errorUpdateProfile": "Cập nhật hồ sơ thất bại",
+    "successChangePassword": "Thay đổi mật khẩu thành công",
+    "errorChangePassword": "Thay đổi mật khẩu thất bại",
+    "errorFetchProfile": "Lấy thông tin hồ sơ thất bại",
+    "errorFetchOrders": "Lấy đơn hàng thất bại"
+  },
+
+  "avatarUpload": {
+    "success": "Ảnh đại diện đã được tải lên thành công",
+    "error": "Tải ảnh đại diện thất bại"
+  },
+
+  "myOrders": {
+    "emptyOrderHistory": "Lịch sử đơn hàng của bạn trống",
+    "noOrdersMessage": "Bạn chưa có đơn hàng nào. Vui lòng quay lại sau.",
+    "orderId": "Đơn hàng #{orderId}",
+    "shippingMethod": "Phương thức vận chuyển: {method}",
+    "status": "Trạng thái: {status}",
+    "category": "Danh mục: {category}",
+    "quantityPrice": "Số lượng: {quantity} | Giá: {price} VND",
+    "total": "Tổng: {total} VND",
+    "totalPrice": "Tổng giá: {price} VND"
+  },
+
+  "passwordChange": {
+    "oldPassword": "Mật khẩu cũ",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "oldPasswordRequired": "Vui lòng nhập mật khẩu cũ của bạn!",
+    "newPasswordRequired": "Vui lòng nhập mật khẩu mới!",
+    "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu mới của bạn!",
+    "changePasswordButton": "Đổi mật khẩu"
+  },
+
+  "profileForm": {
+    "avatar": "Ảnh đại diện",
+    "username": "Tên người dùng",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ",
+    "bio": "Giới thiệu",
+    "saveChangesButton": "Lưu thay đổi"
   }
 }

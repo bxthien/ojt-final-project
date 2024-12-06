@@ -17,7 +17,7 @@ const Sidebar: React.FC<SidebarProps> = ({ url, activeTab, setActiveTab, usernam
         <img src={url} alt="User Avatar" className="w-12 h-12 rounded-full border-2 mr-3" />
         <div>
           <p className="text-gray-600 text-sm">
-            Hello{' '}
+            Hello
             <span role="img" aria-label="wave">
               👋
             </span>
@@ -60,9 +60,6 @@ const Sidebar: React.FC<SidebarProps> = ({ url, activeTab, setActiveTab, usernam
               </li>
             </ul>
           </Panel>
-          <Panel header="My Wishlist" key="3">
-            <p className="cursor-pointer pl-4">Wishlist Items</p>
-          </Panel>
         </Collapse>
       </div>
 
@@ -93,15 +90,12 @@ const Sidebar: React.FC<SidebarProps> = ({ url, activeTab, setActiveTab, usernam
           <Panel header="My Orders" key="2">
             <ul className="space-y-2">
               <li
-                className="cursor-pointer pl-4 text-gray-600 hover:text-[#56B280]"
+                className={`cursor-pointer pl-4 transition-colors duration-300 ${activeTab === 'orders' ? 'text-[#56B280] font-bold' : 'text-gray-600 hover:text-[#56B280]'}`}
                 onClick={() => setActiveTab('orders')}
               >
                 Order History
               </li>
             </ul>
-          </Panel>
-          <Panel header="My Wishlist" key="3">
-            <p className="cursor-pointer pl-4">Wishlist Items</p>
           </Panel>
         </Collapse>
       </div>
