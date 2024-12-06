@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { socialData, contentData, servicesData, assistanceData } from '../constants/data';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="bg-black text-white pt-10 pb-5 mb-0">
       <div className="max-w-7xl mx-auto px-4 grid gap-8 md:grid-cols-[2fr_1fr_1fr] text-center md:text-left">
@@ -34,7 +37,7 @@ const Footer = () => {
 
         {/* Services Section */}
         <div>
-          <h3 className="text-lg font-bold mb-2">Services</h3>
+          <h3 className="text-lg font-bold mb-2">{t('footer.services')}</h3>
           <ul className="text-sm space-y-1">
             {servicesData.map((service) => (
               <li key={service}>
@@ -48,7 +51,7 @@ const Footer = () => {
 
         {/* Assistance Section */}
         <div>
-          <h3 className="text-lg font-bold mb-2">Assistance to the Buyer</h3>
+          <h3 className="text-lg font-bold mb-2">{t('footer.assistance')}</h3>
           <ul className="text-sm space-y-1">
             {assistanceData.map((assistance) => (
               <li key={assistance}>
@@ -76,7 +79,7 @@ const Footer = () => {
       </div>
 
       <div className="mt-8 border-t border-gray-700 pt-4 text-center">
-        <p>▼iperS © Copyright 2024 | All rights reserved</p>
+        <p>{t('footer.copyright')}</p>
       </div>
     </footer>
   );

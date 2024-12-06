@@ -5,7 +5,7 @@ import Background from '../assets/images/background.png';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
 import LanguageSelector from '../components/common/language';
-import { emailValidator } from '../constants/regex';
+import { emailValidator, passwordValidator } from '../constants/regex';
 import { useSignIn, SignInPayload } from '../constants/service';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
@@ -132,6 +132,7 @@ const SignIn: React.FC = () => {
                 </span>
               }
               name="password"
+              rules={[{ validator: passwordValidator, message: t('validation.password.invalid') }]}
             >
               <Input.Password allowClear />
             </Form.Item>

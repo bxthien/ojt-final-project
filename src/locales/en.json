@@ -9,7 +9,14 @@
       "register": "Register",
       "home": "Home",
       "next": "Next",
-      "continue": "Continue"
+      "continue": "Continue",
+      "cart": "Cart",
+      "details": "Details",
+      "shipping": "Shipping",
+      "payment": "Payment",
+      "backToCart": "Back to cart",
+      "goToPayment": "Go to Payment",
+      "products": "Products"
     },
 
     "input": {
@@ -24,7 +31,9 @@
       "passwordMinLength": "Password Min Length",
       "passwordRequired": "Password Required",
       "phoneMinLength": "Phone Min Length",
-      "phoneInvalid": "Phone Invalid"
+      "phoneInvalid": "Phone Invalid",
+      "contact": "Contact Information",
+      "enterContact": "Enter your contact information"
     }
   },
 
@@ -64,9 +73,33 @@
     "message": "An unexpected error occurred. Please try again."
   },
 
+  "productPage": {
+    "searchingFor": "Searching for",
+    "noProducts": "No products available"
+  },
+
+  "notFound": {
+    "title": "Page Under Development",
+    "description": "This page is currently under development. Please check back later.",
+    "altText": "Under Development"
+  },
+
+  "paymentStatus": {
+    "paymentConfirmed": "Payment Confirmed",
+    "orderId": "ORDER #{orderId}",
+    "thankYou": "Thank you {customerName} for your purchase! Your order is confirmed and will be ready to ship in 2 days. Please check your inbox for updates.",
+    "backToShopping": "Back to shopping",
+    "printReceipt": "Print receipt",
+    "paymentFailed": "Payment Failed",
+    "paymentErrorMessage": "We encountered an issue while processing your payment. Please try again or contact support.",
+    "retryPayment": "Retry Payment",
+    "contactSupport": "Contact Support"
+  },
+
   "validation": {
     "email": {
-      "invalid": "Please input a valid email!"
+      "invalid": "Please input a valid email!",
+      "contactRequired": "Please input your contact information!"
     },
 
     "password": {
@@ -85,5 +118,85 @@
     "name": {
       "nameRequired": "Please input your name!"
     }
+  },
+
+  "payment": {
+    "breadcrumb": {
+      "cart": "Cart",
+      "details": "Details",
+      "shipping": "Shipping",
+      "payment": "Payment"
+    },
+    "loading": "Loading products...",
+    "error": "An error occurred: {{error}}",
+    "orderSummary": {
+      "title": "Order Summary",
+      "total": "Total"
+    },
+    "buttons": {
+      "backToShipping": "Back to Shipping",
+      "payNow": "Pay Now"
+    }
+  },
+
+  "header": {
+    "searchPlaceholder": "Search for products...",
+    "signIn": "Sign In",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu"
+  },
+
+  "footer": {
+    "services": "Services",
+    "assistance": "Assistance to the Buyer",
+    "copyright": "▼iperS © Copyright 2024 | All rights reserved"
+  },
+
+  "profile": {
+    "editYourProfile": "Edit Your Profile",
+    "changePassword": "Change Password",
+    "successUpdateProfile": "Profile updated successfully",
+    "errorUpdateProfile": "Failed to update profile",
+    "successChangePassword": "Password changed successfully",
+    "errorChangePassword": "Failed to change password",
+    "errorFetchProfile": "Failed to fetch profile",
+    "errorFetchOrders": "Failed to fetch orders"
+  },
+
+  "avatarUpload": {
+    "success": "Avatar uploaded successfully",
+    "error": "Failed to upload avatar"
+  },
+
+  "myOrders": {
+    "emptyOrderHistory": "Your Order History is Empty",
+    "noOrdersMessage": "You don't have any orders yet. Please come back later.",
+    "orderId": "Order #{orderId}",
+    "shippingMethod": "Shipping Method: {method}",
+    "status": "Status: {status}",
+    "category": "Category: {category}",
+    "quantityPrice": "Quantity: {quantity} | Price: {price} $",
+    "total": "Total: {total} $",
+    "totalPrice": "Total Price: {price} $"
+  },
+
+  "passwordChange": {
+    "oldPassword": "Old Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "oldPasswordRequired": "Please input your old password!",
+    "newPasswordRequired": "Please input your new password!",
+    "confirmPasswordRequired": "Please confirm your new password!",
+    "changePasswordButton": "Change Password"
+  },
+
+  "profileForm": {
+    "avatar": "Avatar",
+    "username": "Username",
+    "email": "Email",
+    "phone": "Phone Number",
+    "address": "Address",
+    "bio": "Bio",
+    "saveChangesButton": "Save Changes"
   }
 }
