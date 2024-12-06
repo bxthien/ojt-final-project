@@ -3,7 +3,6 @@ import ProductCard from '../components/product/product-card';
 import ProductSidebar from '../components/product/product-side-bar';
 import { useProducts } from '../constants/useProducts';
 import { useLocation } from 'react-router-dom';
-
 export interface Product {
   id: string;
   name: string;
@@ -11,7 +10,6 @@ export interface Product {
   photos: string[];
   url: string;
 }
-
 const ProductPage = () => {
   // const location = useLocation() as { state?: { searchTerm?: string } };
   // const [searchTerm, setSearchTerm] = useState<string>(location.state?.searchTerm || '');
@@ -19,8 +17,14 @@ const ProductPage = () => {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(10000);
-
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  const category = searchParams.get('category') || 'default-category';
+  const brand = searchParams.get('brand') || '';
+  const memory = searchParams.get('memory') || '';
+
+  const searchKey = searchParams.get('searchKey') || '';
   const [searchTerm, setSearchTerm] = useState('');
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -28,7 +32,15 @@ const ProductPage = () => {
   }, [location.search]);
 
   // Fetch products from the useProducts hook
-  const { products, loading, error } = useProducts('');
+  // const { products, loading, error } = useProducts('');
+  const { products, loading, error } = useProducts({
+    category,
+    brand,
+    memory,
+    minPrice,
+    maxPrice,
+    searchKey,
+  });
 
   // Filter and sort products when price range, sort order, or search term changes
   useEffect(() => {
@@ -46,10 +58,26 @@ const ProductPage = () => {
     setSortOrder(order);
   };
 
-  // Callback for price range change
-  const handlePriceRangeChange = (min: number, max: number) => {
-    setMinPrice(min);
-    setMaxPrice(max);
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const urlMinPrice = queryParams.get('minPrice');
+    const urlMaxPrice = queryParams.get('maxPrice');
+
+    if (urlMinPrice) setMinPrice(Number(urlMinPrice));
+    if (urlMaxPrice) setMaxPrice(Number(urlMaxPrice));
+  }, [location]);
+
+  const handlePriceChange = (newMinPrice: number, newMaxPrice: number) => {
+    setMinPrice(newMinPrice);
+    setMaxPrice(newMaxPrice);
+
+    // Cập nhật giá trị minPrice và maxPrice trong URL
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('minPrice', newMinPrice.toString());
+    searchParams.set('maxPrice', newMaxPrice.toString());
+
+    // Thay đổi URL mà không reload trang
+    window.history.pushState({}, '', `${location.pathname}?${searchParams.toString()}`);
   };
 
   return (
@@ -62,7 +90,7 @@ const ProductPage = () => {
           selectedBrand=""
           selectedMemory=""
           onPriceSortChange={handlePriceSortChange}
-          onPriceChange={handlePriceRangeChange}
+          onPriceChange={handlePriceChange}
           minPrice={0}
           maxPrice={0}
         />

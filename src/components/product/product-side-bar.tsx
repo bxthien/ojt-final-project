@@ -100,7 +100,7 @@ const ProductSidebar = ({
       {/* Mobile Filter Button */}
       <button
         onClick={toggleMobileFilter}
-        className="lg:hidden left-5 z-50 bg-[#56B280] text-white p-4 ml-4 rounded-lg shadow-lg"
+        className="lg:hidden left-5 z-50 bg-[#56B280] text-white mt-4 p-4 ml-4 rounded-lg shadow-lg"
         aria-label="Open filters"
       >
         Filter

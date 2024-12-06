@@ -47,8 +47,8 @@ const MobileFilterSidebar = ({
 
   return (
     <div className="fixed inset-0 z-50 flex justify-start">
-      <div className="bg-white h-full flex flex-col">
-        <div className="flex items-center justify-between border-b">
+      <div className="bg-white h-full  flex flex-col">
+        <div className="flex items-center  justify-between border-b">
           <h2 className="text-lg font-semibold p-4">Filters</h2>
           <button
             onClick={onClose}
@@ -87,7 +87,7 @@ const MobileFilterSidebar = ({
                 <div className="pl-2">
                   {section.id === 'price' && (
                     <PriceRangeSidebar
-                      onPriceChange={onPriceChange} // Pass onPriceChange function
+                      onPriceChange={onPriceChange} // Gọi API khi người dùng nhấn "Apply Price Range"
                       minPrice={minPrice}
                       maxPrice={maxPrice}
                     />

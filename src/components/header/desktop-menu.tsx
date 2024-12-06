@@ -14,6 +14,7 @@ const DesktopMenu = () => {
 
   const handleClick = (href: string) => {
     navigate(href);
+    // window.location.reload();
   };
 
   return (

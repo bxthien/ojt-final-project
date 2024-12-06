@@ -13,12 +13,12 @@ const Search: React.FC<SearchProps> = ({ placeholder, isMobile }) => {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null); // Reference for the search container
 
-  const { products } = useProducts('');
+  const { products } = useProducts({ category: '' });
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       navigate(`/product?search=${value}`);
-      setSuggestions([]); // Close suggestions after pressing Enter
+      setSuggestions([]);
     }
   };
 
