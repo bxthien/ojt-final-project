@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../home-page/product-list';
 import { Button, Image, notification } from 'antd';
+import { useTranslation } from 'react-i18next';
 import axiosInstance from '../../services/axios';
-import { useAuth } from '../../hook/useAuth'; // Import useAuth
+import { useAuth } from '../../hook/useAuth';
 import ShoppingCartOutlined from '@ant-design/icons/lib/icons/ShoppingCartOutlined';
 
 type ProductCardProps = {
@@ -11,8 +12,9 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { name, price, url } = product;
-  const isAuth = useAuth(); // Sử dụng hook isAuth
+  const isAuth = useAuth();
 
   const handleNavigate = () => {
     navigate(`/product-detail/${product.id}`, { state: { product } });
@@ -24,10 +26,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
     };
 
     if (!isAuth) {
-      // Nếu người dùng chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
       notification.open({
-        message: 'You are not logged in yet',
-        description: 'Login is required to add products to cart.',
+        message: t('actionButton.notLoggedInMessage'),
+        description: t('actionButton.loginRequired'),
         btn: (
           <div>
             <Button
@@ -38,7 +39,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               }}
               style={{ marginRight: 8 }}
             >
-              Sign In
+              {t('actionButton.signInButton')}
             </Button>
           </div>
         ),
@@ -49,14 +50,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
         const res = await axiosInstance.post(`/cart`, { productId: product.id });
         if (res) {
           notification.success({
-            message: 'Added to cart successfully!',
-            description: `${product.name} has been added to the cart.`,
+            message: t('actionButton.addedToCartSuccessMessage'),
+            description: `${product.name} ${t('actionButton.addedToCartSuccessDescription')}`,
           });
         }
       } catch (error) {
         notification.error({
-          message: 'Error while adding to cart',
-          description: 'An error occurred while adding products to the cart.',
+          message: t('actionButton.addToCartErrorMessage'),
+          description: t('actionButton.addToCartErrorDescription'),
         });
         console.error('Add to Cart Error:', error);
       }
@@ -136,4 +137,5 @@ const ProductCard = ({ product }: ProductCardProps) => {
     </div>
   );
 };
+
 export default ProductCard;

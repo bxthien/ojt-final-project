@@ -16,7 +16,16 @@
       "payment": "Payment",
       "backToCart": "Back to cart",
       "goToPayment": "Go to Payment",
-      "products": "Products"
+      "products": "Products",
+      "phone": "Phone",
+      "computer": "Computer",
+      "smartWatch": "Smart Watch",
+      "camera": "Camera",
+      "headphone": "Headphone",
+      "gaming": "Gaming",
+      "product": "Product",
+      "about": "About",
+      "contactUs": "Contact Us"
     },
 
     "input": {
@@ -70,7 +79,8 @@
     "fail": "Register Failed",
     "fail_2": "Login Faild",
     "email": "Password Sending Failed",
-    "message": "An unexpected error occurred. Please try again."
+    "message": "An unexpected error occurred. Please try again.",
+    "loadingProducts": "Error loading products"
   },
 
   "productPage": {
@@ -147,8 +157,24 @@
   },
 
   "footer": {
-    "services": "Services",
-    "assistance": "Assistance to the Buyer",
+    "services": {
+      "service": "Services",
+      "bonusProgram": "Bonus program",
+      "giftCards": "Gift cards",
+      "creditAndPayment": "Credit and payment",
+      "serviceContracts": "Service contracts",
+      "nonCashAccount": "Non-cash account",
+      "payment": "Payment"
+    },
+    "assistance": {
+      "assistance": "Assistance to the Buyer",
+      "findOrder": "Find an order",
+      "termsOfDelivery": "Terms of delivery",
+      "exchangeAndReturn": "Exchange and return of goods",
+      "guarantee": "Guarantee",
+      "faq": "Frequently asked questions",
+      "termsOfUse": "Terms of use of the site"
+    },
     "copyright": "▼iperS © Copyright 2024 | All rights reserved"
   },
 
@@ -198,5 +224,282 @@
     "address": "Address",
     "bio": "Bio",
     "saveChangesButton": "Save Changes"
-  }
+  },
+
+  "sidebar": {
+    "hello": "Hello",
+    "myAccount": "My Account",
+    "profile": "Profile",
+    "changePassword": "Change Password",
+    "myOrders": "My Orders",
+    "orderHistory": "Order History"
+  },
+
+  "relatedProducts": {
+    "noProducts": "No related products found."
+  },
+
+  "breadcrumb": {
+    "home": "Home",
+    "product": "Product"
+  },
+
+  "productDetail": {
+    "loading": "Loading product...",
+    "notFound": "Product not found.",
+    "description": "Experience premium sound quality and industry-leading noise cancellation with these wireless headphones. Perfect for music lovers and frequent travelers.",
+    "quantity": "Quantity",
+    "relatedProducts": "Related Products:",
+    "memory": "Memory",
+    "color": "Color"
+  },
+
+  "actionButton": {
+    "addToCartButton": "Add to Cart",
+    "notLoggedInMessage": "You are not logged in yet",
+    "loginRequired": "Login is required to add products to cart.",
+    "signInButton": "Sign In",
+    "addedToCartSuccessMessage": "Added to cart successfully!",
+    "addedToCartSuccessDescription": "has been added to the cart.",
+    "addToCartErrorMessage": "Error while adding to cart",
+    "addToCartErrorDescription": "An error occurred while adding products to the cart."
+  },
+
+  "priceSort": {
+    "label": "Sort by Price",
+    "lowToHigh": "Low to High",
+    "highToLow": "High to Low"
+  },
+
+  "priceRange": {
+    "minPrice": "Min Price",
+    "maxPrice": "Max Price"
+  },
+
+  "filters": {
+    "title": "Filters",
+    "apply": "Apply Filters",
+    "filter": "Filter",
+    "mobileFilterButton": "Open filters",
+    "sections": {
+      "price": "Price Range",
+      "brand": "Brand",
+      "memory": "Memory"
+    },
+    "memory": {
+      "loading": "Loading memory options...",
+      "error": "Failed to fetch memory options",
+      "noOptions": "No memory options available"
+    },
+    "brand": {
+      "loading": "Loading branches...",
+      "error": "Failed to fetch branches",
+      "noOptions": "No categories found"
+    }
+  },
+
+  "cart": {
+    "title": "Cart",
+    "subtitle": "Home / Cart",
+    "applyCoupon": "Apply Coupon",
+    "couponPlaceholder": "Coupon Code",
+    "applyCouponButton": "Apply Coupon",
+    "cartTotal": "Cart Total",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "free": "Free",
+    "total": "Total",
+    "proceedToCheckout": "Proceed to checkout",
+    "product": "Product",
+    "price": "Price",
+    "quantity": "Quantity",
+    "couponApplied": "Coupon applied successfully!",
+    "items": "items"
+  },
+
+  "checkout": {
+    "orderSuccess": "Order placed successfully!",
+    "fillRequiredFields": "Please fill out all required fields.",
+    "billingDetails": "Billing Details",
+    "firstName": "First Name",
+    "firstNameRequired": "Please enter your first name",
+    "companyName": "Company Name",
+    "streetAddress": "Street Address",
+    "streetAddressRequired": "Please enter your street address",
+    "apartment": "Apartment",
+    "apartmentOptional": "Apartment, floor, etc. (optional)",
+    "city": "City",
+    "cityRequired": "Please enter your city",
+    "phoneNumber": "Phone Number",
+    "phoneNumberRequired": "Please enter your phone number",
+    "emailAddress": "Email Address",
+    "emailRequired": "Please enter your email address",
+    "emailInvalid": "Please enter a valid email address",
+    "saveInfo": "Save this information for faster check-out next time",
+    "orderSummary": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "free": "Free",
+    "total": "Total",
+    "paymentMethod": "Payment Method",
+    "bank": "Bank",
+    "cashOnDelivery": "Cash on delivery",
+    "couponCode": "Coupon Code",
+    "applyCoupon": "Apply Coupon",
+    "placeOrder": "Place Order",
+    "taxInfoTitle": "Tax Information",
+    "vatNumber": "VAT Number",
+    "vatTooltip": "Your VAT identification number",
+    "pec": "PEC (Optional)",
+    "pecTooltip": "Enter your PEC (optional) if applicable",
+    "shippingAddressTitle": "Shipping Address",
+    "name": "Name",
+    "secondName": "Second Name",
+    "address": "Address",
+    "district": "District",
+    "province": "Province",
+    "enterName": "Enter Name",
+    "enterSecondName": "Enter Second Name",
+    "enterAddress": "Enter Address",
+    "enterCity": "Enter City",
+    "enterDistrict": "Enter District",
+    "enterProvince": "Enter Province",
+    "save": "Save",
+    "edit": "Edit",
+    "noName": "No Name",
+    "noAddress": "No Address"
+  },
+
+  "paymentMethod": {
+    "title": "Payment Method",
+    "VNPay": "VNPay",
+    "Stripe": "Stripe",
+    "COD": "Cash on Delivery",
+    "paymentDetails": "Payment Details",
+    "scanQRCode": "Scan QR Code",
+    "enterCardInfo": "Enter Card Information",
+    "cardNumber": "Card Number",
+    "cardHolder": "Card Holder",
+    "validFrom": "Valid From (MM/YYYY)",
+    "expiryDate": "Expiry Date (MM/YYYY)",
+    "cardNumberPlaceholder": "1234 5678 9012 3456",
+    "cardHolderPlaceholder": "CARD HOLDER NAME",
+    "validFromPlaceholder": "01/2024",
+    "expiryDatePlaceholder": "12/2028",
+    "confirmPayment": "Confirm Payment"
+  },
+
+  "orderSummary": {
+    "orderInformation": "Order Information",
+    "productName": "Spiced Mint Candleaf®",
+    "couponPlaceholder": "Coupon code",
+    "addCoupon": "Add Code",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "freeShipping": "Free Shipping",
+    "total": "Total"
+  },
+
+  "contactInfo": {
+    "contact": "Contact",
+    "enterContact": "Enter your contact information",
+    "save": "Save",
+    "noContact": "No contact information provided.",
+    "edit": "Edit"
+  },
+
+  "billingAddress": {
+    "billingAddress": "Billing Address",
+    "sameAsShipping": "Same as the shipping address",
+    "addressRequired": "Please enter your billing address!",
+    "enterBillingAddress": "Enter Billing Address"
+  },
+
+  "search": {
+    "placeholder": "Search for products..."
+  },
+
+  "menu": {
+    "home": "Home",
+    "about": "About",
+    "shop": "Shop",
+    "contact": "Contact"
+  },
+
+  "category": {
+    "electronics": "Electronics",
+    "clothing": "Clothing",
+    "home": "Home",
+    "toys": "Toys"
+  },
+
+  "bestSeller": {
+    "newArrival": "New Arrival"
+  },
+
+  "content": {
+    "part1": "We are a technology shopping platform located in Vietnam,",
+    "part2": "which provides you with top-notch technology."
+  },
+
+  "hero": {
+    "heading": "iPhone 16",
+    "subHeading": "Pro",
+    "description": "Created to change everything for the better. For everyone",
+    "buttonText": "Shop Now",
+    "tagline": "Pro.Beyond."
+  },
+
+  "product": {
+    "playstationAltText": "PlayStation",
+    "headphoneAltText": "AirPods Max",
+    "appleVisionAltText": "Apple Vision Pro",
+    "macbookAltText": "MacBook Air",
+
+    "product1": {
+      "name": "Playstation 5",
+      "description": "Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O will redefine your PlayStation experience"
+    },
+
+    "product2": {
+      "name": "Apple AirPods Max",
+      "description": "Computational audio. Listen, it's powerful"
+    },
+
+    "product3": {
+      "name": "Apple Vision Pro",
+      "description": "An immersive way to experience entertainment"
+    },
+
+    "product4": {
+      "name": "Macbook Air",
+      "description": "The new M2 chip makes every task fly—from everyday multitasking to your most demanding workflows"
+    },
+
+    "altText": "Product Image",
+    "buttonText": "Shop Now",
+    "popularProductsTitle": "Popular Products",
+    "popularProductsDescription": "Experience the integration of AI with fitness tracking, display incredible performance, multitasking and ease of use.",
+    "ipadProTitle": "iPad Pro",
+    "ipadProDescription": "Experience the integration of M2 with Retina display, incredible performance, multitasking and ease of use.",
+    "samsungGalaxyTitle": "Samsung Galaxy",
+    "samsungGalaxyDescription": "Experience high-end specifications with Retina display, incredible performance, multitasking and ease of use.",
+    "macbookProTitle": "MacBook Pro",
+    "macbookProDescription": "Experience the integration of M2 with Retina display, incredible performance, multitasking and ease of use."
+  },
+
+  "filter": {
+    "price": "Price Range",
+    "brand": "Brand",
+    "memory": "Built-in memory"
+  },
+
+  "productTabs": {
+    "newArrival": "New Arrival",
+    "bestseller": "Bestseller",
+    "featured": "Featured Products"
+  },
+
+  "loading": "Loading...",
+  "noProducts": "No products available"
 }

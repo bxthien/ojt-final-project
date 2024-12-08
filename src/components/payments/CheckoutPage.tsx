@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Form, Input, Checkbox, Radio, Button, Card, Typography, Divider, Space } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
 
 const Checkout = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [paymentMethod, setPaymentMethod] = useState('bank');
 
@@ -11,10 +13,10 @@ const Checkout = () => {
     form
       .validateFields()
       .then(() => {
-        alert('Order placed successfully!');
+        alert(t('checkout.orderSuccess'));
       })
       .catch(() => {
-        alert('Please fill out all required fields.');
+        alert(t('checkout.fillRequiredFields'));
       });
   };
 
@@ -25,68 +27,68 @@ const Checkout = () => {
       {/* Billing Details */}
       <Card className="flex-1">
         <Title level={4} className="mb-5">
-          Billing Details
+          {t('checkout.billingDetails')}
         </Title>
         <Form form={form} layout="vertical">
           <Form.Item
-            label="First Name"
+            label={t('checkout.firstName')}
             name="firstName"
-            rules={[{ required: true, message: 'Please enter your first name' }]}
+            rules={[{ required: true, message: t('checkout.firstNameRequired') }]}
           >
-            <Input placeholder="First Name*" />
+            <Input placeholder={t('checkout.firstName')} />
           </Form.Item>
 
-          <Form.Item label="Company Name" name="companyName">
-            <Input placeholder="Company Name" />
+          <Form.Item label={t('checkout.companyName')} name="companyName">
+            <Input placeholder={t('checkout.companyName')} />
           </Form.Item>
 
           <Form.Item
-            label="Street Address"
+            label={t('checkout.streetAddress')}
             name="streetAddress"
-            rules={[{ required: true, message: 'Please enter your street address' }]}
+            rules={[{ required: true, message: t('checkout.streetAddressRequired') }]}
           >
-            <Input placeholder="Street Address*" />
+            <Input placeholder={t('checkout.streetAddress')} />
           </Form.Item>
 
-          <Form.Item label="Apartment" name="apartment">
-            <Input placeholder="Apartment, floor, etc. (optional)" />
+          <Form.Item label={t('checkout.apartment')} name="apartment">
+            <Input placeholder={t('checkout.apartmentOptional')} />
           </Form.Item>
 
           <Form.Item
-            label="City"
+            label={t('checkout.city')}
             name="city"
-            rules={[{ required: true, message: 'Please enter your city' }]}
+            rules={[{ required: true, message: t('checkout.cityRequired') }]}
           >
-            <Input placeholder="Town/City*" />
+            <Input placeholder={t('checkout.city')} />
           </Form.Item>
 
           <Form.Item
-            label="Phone Number"
+            label={t('checkout.phoneNumber')}
             name="phoneNumber"
-            rules={[{ required: true, message: 'Please enter your phone number' }]}
+            rules={[{ required: true, message: t('checkout.phoneNumberRequired') }]}
           >
-            <Input placeholder="Phone Number*" />
+            <Input placeholder={t('checkout.phoneNumber')} />
           </Form.Item>
 
           <Form.Item
-            label="Email Address"
+            label={t('checkout.emailAddress')}
             name="emailAddress"
             rules={[
-              { required: true, message: 'Please enter your email address' },
-              { type: 'email', message: 'Please enter a valid email address' },
+              { required: true, message: t('checkout.emailRequired') },
+              { type: 'email', message: t('checkout.emailInvalid') },
             ]}
           >
-            <Input placeholder="Email Address*" />
+            <Input placeholder={t('checkout.emailAddress')} />
           </Form.Item>
 
           <Form.Item>
-            <Checkbox>Save this information for faster check-out next time</Checkbox>
+            <Checkbox>{t('checkout.saveInfo')}</Checkbox>
           </Form.Item>
         </Form>
       </Card>
 
       {/* Order Summary */}
-      <Card className="flex-[0.8]" title="Order Summary">
+      <Card className="flex-[0.8]" title={t('checkout.orderSummary')}>
         <Space direction="vertical" size="large" className="w-full">
           <div className="flex justify-between items-center">
             <Text>LCD Monitor</Text>
@@ -98,42 +100,42 @@ const Checkout = () => {
           </div>
           <Divider />
           <div className="flex justify-between">
-            <Text>Subtotal:</Text>
+            <Text>{t('checkout.subtotal')}:</Text>
             <Text>${subtotal}</Text>
           </div>
           <div className="flex justify-between">
-            <Text>Shipping:</Text>
-            <Text>Free</Text>
+            <Text>{t('checkout.shipping')}:</Text>
+            <Text>{t('checkout.free')}</Text>
           </div>
           <div className="flex justify-between font-bold">
-            <Text>Total:</Text>
+            <Text>{t('checkout.total')}:</Text>
             <Text>${subtotal}</Text>
           </div>
         </Space>
 
         <Divider />
 
-        <Title level={5}>Payment Method</Title>
+        <Title level={5}>{t('checkout.paymentMethod')}</Title>
         <Radio.Group
           onChange={(e) => setPaymentMethod(e.target.value)}
           value={paymentMethod}
           className="w-full"
         >
           <Space direction="vertical" size="middle">
-            <Radio value="bank">Bank</Radio>
-            <Radio value="cash">Cash on delivery</Radio>
+            <Radio value="bank">{t('checkout.bank')}</Radio>
+            <Radio value="cash">{t('checkout.cashOnDelivery')}</Radio>
           </Space>
         </Radio.Group>
 
         <Divider />
 
         <Space direction="horizontal" size="middle" className="w-full">
-          <Input placeholder="Coupon Code" />
+          <Input placeholder={t('checkout.couponCode')} />
           <Button
             type="primary"
             className="bg-[#56B280] border-[#56B280] hover:bg-[#3D8F64] text-white"
           >
-            Apply Coupon
+            {t('checkout.applyCoupon')}
           </Button>
         </Space>
 
@@ -144,7 +146,7 @@ const Checkout = () => {
           size="large"
           onClick={handlePlaceOrder}
         >
-          Place Order
+          {t('checkout.placeOrder')}
         </Button>
       </Card>
     </div>

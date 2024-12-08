@@ -18,7 +18,16 @@
       "payment": "Thanh toán",
       "backToCart": "Quay lại giỏ hàng",
       "goToPayment": "Đi đến thanh toán",
-      "products": "Sản phẩm"
+      "products": "Sản phẩm",
+      "phone": "Điện thoại",
+      "computer": "Máy tính",
+      "smartWatch": "Đồng hồ thông minh",
+      "camera": "Máy ảnh",
+      "headphone": "Tai nghe",
+      "gaming": "Trò chơi",
+      "product": "Sản phẩm",
+      "about": "Giới thiệu",
+      "contactUs": "Liên hệ"
     },
 
     "input": {
@@ -72,7 +81,8 @@
     "fail": "Đăng Ký Thất Bại",
     "fail_2": "Đăng Nhập Thất Bại",
     "email": "Gửi Mật Khẩu Thất Bại",
-    "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại."
+    "message": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
+    "loadingProducts": "Lỗi khi tải sản phẩm"
   },
 
   "productPage": {
@@ -149,8 +159,24 @@
   },
 
   "footer": {
-    "services": "Dịch vụ",
-    "assistance": "Hỗ trợ người mua",
+    "services": {
+      "service": "Dịch vụ",
+      "bonusProgram": "Chương trình thưởng",
+      "giftCards": "Thẻ quà tặng",
+      "creditAndPayment": "Tín dụng và thanh toán",
+      "serviceContracts": "Hợp đồng dịch vụ",
+      "nonCashAccount": "Tài khoản bằng thẻ",
+      "payment": "Thanh toán"
+    },
+    "assistance": {
+      "assistance": "Hỗ trợ người mua",
+      "findOrder": "Tìm đơn hàng",
+      "termsOfDelivery": "Điều khoản giao hàng",
+      "exchangeAndReturn": "Đổi trả hàng hóa",
+      "guarantee": "Bảo hành",
+      "faq": "Câu hỏi thường gặp",
+      "termsOfUse": "Điều khoản sử dụng trang web"
+    },
     "copyright": "▼iperS © Bản quyền 2024 | Tất cả quyền được bảo vệ"
   },
 
@@ -200,5 +226,275 @@
     "address": "Địa chỉ",
     "bio": "Giới thiệu",
     "saveChangesButton": "Lưu thay đổi"
-  }
+  },
+
+  "sidebar": {
+    "hello": "Xin chào",
+    "myAccount": "Tài khoản của tôi",
+    "profile": "Hồ sơ",
+    "changePassword": "Đổi mật khẩu",
+    "myOrders": "Đơn hàng của tôi",
+    "orderHistory": "Lịch sử đơn hàng"
+  },
+
+  "relatedProducts": {
+    "noProducts": "Không tìm thấy sản phẩm liên quan."
+  },
+
+  "breadcrumb": {
+    "home": "Trang chủ",
+    "product": "Sản phẩm"
+  },
+  "productDetail": {
+    "loading": "Đang tải sản phẩm...",
+    "notFound": "Không tìm thấy sản phẩm.",
+    "description": "Trải nghiệm chất lượng âm thanh cao cấp và khả năng chống ồn vượt trội với tai nghe không dây này. Hoàn hảo cho những người yêu âm nhạc và du khách thường xuyên.",
+    "quantity": "Số lượng",
+    "relatedProducts": "Sản phẩm liên quan:",
+    "memory": "Dung lượng",
+    "color": "Màu sắc"
+  },
+
+  "actionButton": {
+    "addToCartButton": "Thêm vào giỏ hàng",
+    "notLoggedInMessage": "Bạn chưa đăng nhập",
+    "loginRequired": "Đăng nhập là cần thiết để thêm sản phẩm vào giỏ hàng.",
+    "signInButton": "Đăng nhập",
+    "addedToCartSuccessMessage": "Thêm vào giỏ hàng thành công!",
+    "addedToCartSuccessDescription": "đã được thêm vào giỏ hàng.",
+    "addToCartErrorMessage": "Lỗi khi thêm vào giỏ hàng",
+    "addToCartErrorDescription": "Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng."
+  },
+
+  "priceSort": {
+    "label": "Sắp xếp theo giá",
+    "lowToHigh": "Từ thấp đến cao",
+    "highToLow": "Từ cao đến thấp"
+  },
+
+  "priceRange": {
+    "minPrice": "Giá thấp nhất",
+    "maxPrice": "Giá cao nhất"
+  },
+
+  "filters": {
+    "title": "Bộ lọc",
+    "apply": "Áp dụng bộ lọc",
+    "filter": "Lọc",
+    "mobileFilterButton": "Mở bộ lọc",
+    "sections": {
+      "price": "Khoảng giá",
+      "brand": "Thương hiệu",
+      "memory": "Bộ nhớ"
+    },
+    "memory": {
+      "loading": "Đang tải các tùy chọn bộ nhớ...",
+      "error": "Không thể tải các tùy chọn bộ nhớ",
+      "noOptions": "Không có tùy chọn bộ nhớ nào"
+    },
+    "brand": {
+      "loading": "Đang tải các thương hiệu...",
+      "error": "Không thể tải các thương hiệu",
+      "noOptions": "Không tìm thấy danh mục nào"
+    }
+  },
+
+  "cart": {
+    "title": "Giỏ hàng",
+    "subtitle": "Trang chủ / Giỏ hàng",
+    "applyCoupon": "Áp dụng mã giảm giá",
+    "couponPlaceholder": "Mã giảm giá",
+    "applyCouponButton": "Áp dụng mã",
+    "cartTotal": "Tổng giỏ hàng",
+    "subtotal": "Tạm tính",
+    "shipping": "Vận chuyển",
+    "free": "Miễn phí",
+    "total": "Tổng cộng",
+    "proceedToCheckout": "Tiến hành thanh toán",
+    "product": "Sản phẩm",
+    "price": "Giá",
+    "quantity": "Số lượng",
+    "couponApplied": "Mã giảm giá đã được áp dụng!",
+    "items": "sản phẩm"
+  },
+
+  "checkout": {
+    "orderSuccess": "Đặt hàng thành công!",
+    "fillRequiredFields": "Vui lòng điền đầy đủ thông tin yêu cầu.",
+    "billingDetails": "Chi tiết thanh toán",
+    "firstName": "Họ và tên",
+    "firstNameRequired": "Vui lòng nhập họ và tên của bạn",
+    "companyName": "Tên công ty",
+    "streetAddress": "Địa chỉ",
+    "streetAddressRequired": "Vui lòng nhập địa chỉ của bạn",
+    "apartment": "Căn hộ",
+    "apartmentOptional": "Căn hộ, tầng, vv (tuỳ chọn)",
+    "city": "Thành phố",
+    "cityRequired": "Vui lòng nhập thành phố của bạn",
+    "phoneNumber": "Số điện thoại",
+    "phoneNumberRequired": "Vui lòng nhập số điện thoại của bạn",
+    "emailAddress": "Địa chỉ email",
+    "emailRequired": "Vui lòng nhập địa chỉ email của bạn",
+    "emailInvalid": "Vui lòng nhập một địa chỉ email hợp lệ",
+    "saveInfo": "Lưu thông tin này để thanh toán nhanh hơn lần sau",
+    "orderSummary": "Tổng quan đơn hàng",
+    "subtotal": "Tạm tính",
+    "shipping": "Vận chuyển",
+    "free": "Miễn phí",
+    "total": "Tổng cộng",
+    "paymentMethod": "Phương thức thanh toán",
+    "bank": "Ngân hàng",
+    "cashOnDelivery": "Thanh toán khi nhận hàng",
+    "couponCode": "Mã giảm giá",
+    "applyCoupon": "Áp dụng mã giảm giá",
+    "placeOrder": "Đặt hàng",
+    "taxInfoTitle": "Thông tin thuế",
+    "vatNumber": "Mã số thuế VAT",
+    "vatTooltip": "Mã số thuế VAT của bạn",
+    "pec": "PEC (Tùy chọn)",
+    "pecTooltip": "Nhập PEC của bạn (tùy chọn) nếu có",
+    "shippingAddressTitle": "Địa chỉ giao hàng",
+    "name": "Tên",
+    "secondName": "Họ tên đệm",
+    "address": "Địa chỉ",
+    "district": "Quận/Huyện",
+    "province": "Tỉnh",
+    "enterName": "Nhập tên",
+    "enterSecondName": "Nhập họ tên đệm",
+    "enterAddress": "Nhập địa chỉ",
+    "enterCity": "Nhập thành phố",
+    "enterDistrict": "Nhập quận/huyện",
+    "enterProvince": "Nhập tỉnh",
+    "save": "Lưu",
+    "edit": "Chỉnh sửa",
+    "noName": "Chưa có tên",
+    "noAddress": "Chưa có địa chỉ"
+  },
+
+  "paymentMethod": {
+    "title": "Phương thức thanh toán",
+    "VNPay": "VNPay",
+    "Stripe": "Stripe",
+    "COD": "Thanh toán khi nhận hàng",
+    "paymentDetails": "Chi tiết thanh toán",
+    "scanQRCode": "Quét mã QR",
+    "enterCardInfo": "Nhập thông tin thẻ",
+    "cardNumber": "Số thẻ",
+    "cardHolder": "Chủ thẻ",
+    "validFrom": "Ngày hiệu lực (MM/YYYY)",
+    "expiryDate": "Ngày hết hạn (MM/YYYY)",
+    "cardNumberPlaceholder": "1234 5678 9012 3456",
+    "cardHolderPlaceholder": "TÊN CHỦ THẺ",
+    "validFromPlaceholder": "01/2024",
+    "expiryDatePlaceholder": "12/2028",
+    "confirmPayment": "Xác nhận thanh toán"
+  },
+
+  "orderSummary": {
+    "orderInformation": "Thông tin đơn hàng",
+    "productName": "Nến Spiced Mint Candleaf®",
+    "couponPlaceholder": "Mã giảm giá",
+    "addCoupon": "Thêm mã",
+    "subtotal": "Tạm tính",
+    "shipping": "Vận chuyển",
+    "freeShipping": "Miễn phí vận chuyển",
+    "total": "Tổng cộng"
+  },
+
+  "contactInfo": {
+    "contact": "Thông tin liên hệ",
+    "enterContact": "Nhập thông tin liên hệ của bạn",
+    "save": "Lưu",
+    "noContact": "Chưa cung cấp thông tin liên hệ.",
+    "edit": "Chỉnh sửa"
+  },
+
+  "billingAddress": {
+    "billingAddress": "Địa chỉ thanh toán",
+    "sameAsShipping": "Giống với địa chỉ giao hàng",
+    "addressRequired": "Vui lòng nhập địa chỉ thanh toán!",
+    "enterBillingAddress": "Nhập địa chỉ thanh toán"
+  },
+
+  "search": {
+    "placeholder": "Tìm kiếm sản phẩm..."
+  },
+
+  "menu": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "shop": "Cửa hàng",
+    "contact": "Liên hệ"
+  },
+
+  "category": {
+    "electronics": "Điện tử",
+    "clothing": "Thời trang",
+    "home": "Trang Chủ",
+    "toys": "Đồ chơi"
+  },
+
+  "bestSeller": {
+    "newArrival": "Sản phẩm mới"
+  },
+
+  "content": {
+    "part1": "Chúng tôi là nền tảng mua sắm công nghệ tại Việt Nam,",
+    "part2": "mang đến cho bạn công nghệ hàng đầu."
+  },
+
+  "hero": {
+    "heading": "iPhone 16",
+    "subHeading": "Pro",
+    "description": "Được tạo ra để thay đổi mọi thứ tốt đẹp hơn cho mọi người",
+    "buttonText": "Mua ngay",
+    "tagline": "Pro.Beyond."
+  },
+
+  "product": {
+    "playstationAltText": "PlayStation",
+    "headphoneAltText": "AirPods Max",
+    "appleVisionAltText": "Apple Vision Pro",
+    "macbookAltText": "MacBook Air",
+    "product1": {
+      "name": "Playstation 5",
+      "description": "CPU, GPU và SSD mạnh mẽ với I/O tích hợp sẽ định nghĩa lại trải nghiệm PlayStation của bạn"
+    },
+    "product2": {
+      "name": "Apple AirPods Max",
+      "description": "Âm thanh tính toán. Nghe đi, thật mạnh mẽ"
+    },
+    "product3": {
+      "name": "Apple Vision Pro",
+      "description": "Cách giải trí đầy trải nghiệm đắm chìm"
+    },
+    "product4": {
+      "name": "Macbook Air",
+      "description": "Chip M2 mới giúp mọi tác vụ trở nên nhanh chóng — từ đa nhiệm hàng ngày đến những công việc yêu cầu sức mạnh tính toán cao nhất"
+    },
+    "altText": "Hình ảnh sản phẩm",
+    "buttonText": "Mua ngay",
+    "popularProductsTitle": "Sản phẩm phổ biến",
+    "popularProductsDescription": "Trải nghiệm sự kết hợp giữa AI và theo dõi sức khỏe, hiệu suất đáng kinh ngạc, đa nhiệm và dễ sử dụng.",
+    "ipadProTitle": "iPad Pro",
+    "ipadProDescription": "Trải nghiệm sự kết hợp của chip M2 với màn hình Retina, hiệu suất đáng kinh ngạc, đa nhiệm và dễ sử dụng.",
+    "samsungGalaxyTitle": "Samsung Galaxy",
+    "samsungGalaxyDescription": "Trải nghiệm thông số kỹ thuật cao với màn hình Retina, hiệu suất đáng kinh ngạc, đa nhiệm và dễ sử dụng.",
+    "macbookProTitle": "MacBook Pro",
+    "macbookProDescription": "Trải nghiệm sự kết hợp của chip M2 với màn hình Retina, hiệu suất đáng kinh ngạc, đa nhiệm và dễ sử dụng."
+  },
+
+  "filter": {
+    "price": "Khoảng giá",
+    "brand": "Thương hiệu",
+    "memory": "Bộ nhớ trong"
+  },
+
+  "productTabs": {
+    "newArrival": "Sản phẩm mới",
+    "bestseller": "Sản phẩm bán chạy",
+    "featured": "Sản phẩm nổi bật"
+  },
+  "loading": "Đang tải...",
+  "noProducts": "Không có sản phẩm nào"
 }

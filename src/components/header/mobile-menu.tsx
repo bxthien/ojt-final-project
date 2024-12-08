@@ -35,7 +35,7 @@ const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
               key={item.label}
               href={item.href}
               onClick={() => onClose()} // Đóng menu khi nhấn vào link
-              className={`block flex items-center py-2 transition-all space-x-2 whitespace-nowrap ${
+              className={`flex items-center py-2 transition-all space-x-2 whitespace-nowrap ${
                 isActivePath(item.href)
                   ? 'text-[#56B280] font-bold'
                   : 'text-gray-700 hover:text-gray-900 hover:font-bold'

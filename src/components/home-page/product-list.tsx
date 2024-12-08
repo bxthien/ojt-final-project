@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ProductCard from '../product/product-card';
 import axiosInstance from '../../services/axios';
+import { useTranslation } from 'react-i18next';
 
 export interface Product {
   id: string;
@@ -13,6 +14,7 @@ export interface Product {
 }
 
 const ProductList = () => {
+  const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]); // Dữ liệu sản phẩm
   const [loading, setLoading] = useState<boolean>(true); // Trạng thái loading
   const [error, setError] = useState<string | null>(null); // Trạng thái lỗi
@@ -65,6 +67,7 @@ const ProductList = () => {
 
     fetchProducts();
   }, [activeTab]);
+
   return (
     <div className="bg-white p-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-14">
       <div className="flex flex-wrap text-xs space-x-1 sm:space-x-0 mb-4">
@@ -74,7 +77,7 @@ const ProductList = () => {
             activeTab === 'newArrival' ? 'border-black font-bold' : 'border-transparent'
           }`}
         >
-          New Arrival
+          {t('productTabs.newArrival')}
         </button>
         <button
           onClick={() => setActiveTab('bestseller')}
@@ -82,7 +85,7 @@ const ProductList = () => {
             activeTab === 'bestseller' ? 'border-black font-bold' : 'border-transparent'
           }`}
         >
-          Bestseller
+          {t('productTabs.bestseller')}
         </button>
         <button
           onClick={() => setActiveTab('featured')}
@@ -90,22 +93,22 @@ const ProductList = () => {
             activeTab === 'featured' ? 'border-black font-bold' : 'border-transparent'
           }`}
         >
-          Featured Products
+          {t('productTabs.featured')}
         </button>
       </div>
 
       {/* Hiển thị thông báo lỗi nếu có */}
-      {error && <p className="text-red-500 text-center">{error}</p>}
+      {error && <p className="text-red-500 text-center">{t('error.loadingProducts')}</p>}
 
       {/* Show loading indicator */}
       {loading ? (
-        <div className="text-center">Loading...</div>
+        <div className="text-center">{t('loading')}</div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-full justify-center">
           {Array.isArray(products) && products.length > 0 ? (
             products.map((product) => <ProductCard key={product.id} product={product} />)
           ) : (
-            <p className="text-center">No products available</p>
+            <p className="text-center">{t('noProducts')}</p>
           )}
         </div>
       )}

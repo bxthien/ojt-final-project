@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 type ColorSelectorProps = {
   colors: string[];
   selectedColor: string;
@@ -5,9 +7,11 @@ type ColorSelectorProps = {
 };
 
 const ColorSelector = ({ colors, selectedColor, onColorSelect }: ColorSelectorProps) => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex space-x-2 mb-6">
-      <h3 className="text-lg font-semibold mb-2">Color:</h3>
+      <h3 className="text-lg font-semibold mb-2">{t('productDetail.color')}:</h3>
       <div className="flex space-x-2">
         {colors.map((color, index) => (
           <div
