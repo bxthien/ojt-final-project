@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Radio } from 'antd';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 interface BrandFilterProps {
   selectedBrand: string;
@@ -13,6 +14,7 @@ interface Category {
 }
 
 const BrandFilter = ({ selectedBrand, onBrandSelect }: BrandFilterProps) => {
+  const { t } = useTranslation();
   const [branches, setBranches] = useState<Category[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +23,7 @@ const BrandFilter = ({ selectedBrand, onBrandSelect }: BrandFilterProps) => {
     const fetchBranches = async () => {
       try {
         const { data: response } = await axios.get(
-          'hhttps://409e-113-160-225-96.ngrok-free.app/branches',
+          'https://409e-113-160-225-96.ngrok-free.app/branches',
           {
             headers: {
               'Content-Type': 'application/json;charset=UTF-8',
@@ -36,18 +38,18 @@ const BrandFilter = ({ selectedBrand, onBrandSelect }: BrandFilterProps) => {
         }
         setLoading(false);
       } catch {
-        setError('Failed to fetch branches');
+        setError(t('filters.brand.error'));
         setLoading(false);
       }
     };
 
     fetchBranches();
-  }, []);
+  }, [t]);
 
   return (
     <div className="space-y-2">
       {loading ? (
-        <p className="text-gray-500">Loading branches...</p>
+        <p className="text-gray-500">{t('filters.brand.loading')}</p>
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : branches.length ? (
@@ -63,7 +65,7 @@ const BrandFilter = ({ selectedBrand, onBrandSelect }: BrandFilterProps) => {
           ))}
         </Radio.Group>
       ) : (
-        <p className="text-gray-500">No categories found.</p>
+        <p className="text-gray-500">{t('filters.brand.noOptions')}</p>
       )}
     </div>
   );

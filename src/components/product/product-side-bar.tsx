@@ -4,8 +4,9 @@ import { filterSections } from '../../constants/data';
 import BrandFilter from './branch-filter';
 import MemoryFilter from './memory-filter';
 import MobileFilterSidebar from './mobile-filter-sidebar';
-import PriceSortSelect from './price-sort-select'; // Import component
+import PriceSortSelect from './price-sort-select';
 import PriceRangeSidebar from './price-range';
+import { useTranslation } from 'react-i18next';
 
 interface ProductSidebarProps {
   onBrandSelect: (brand: string) => void;
@@ -28,6 +29,7 @@ const ProductSidebar = ({
   minPrice,
   maxPrice,
 }: ProductSidebarProps) => {
+  const { t } = useTranslation();
   const [sections, setSections] = useState(filterSections);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [priceSortOrder, setPriceSortOrder] = useState<'asc' | 'desc'>('asc'); // State for price sort
@@ -52,10 +54,8 @@ const ProductSidebar = ({
 
   return (
     <>
-      {/* Desktop Sidebar */}
       <div className="hidden lg:block p-6 w-64 bg-white border-r">
         <div className="p-6">
-          {/* Add PriceSortSelect below the sections */}
           <PriceSortSelect
             priceSortOrder={priceSortOrder}
             onPriceSortChange={handlePriceSortChange}
@@ -66,7 +66,7 @@ const ProductSidebar = ({
                 onClick={() => toggleSection(section.id)}
                 className="flex items-center justify-between w-full mb-3 font-semibold text-gray-800"
               >
-                {section.title}
+                {t(`filters.sections.${section.id}`)}
                 {section.isOpen ? (
                   <FaChevronUp className="w-4 h-4" />
                 ) : (
@@ -79,7 +79,7 @@ const ProductSidebar = ({
                 <div className="pl-2">
                   {section.id === 'price' && (
                     <PriceRangeSidebar
-                      onPriceChange={onPriceChange} // Pass onPriceChange function
+                      onPriceChange={onPriceChange}
                       minPrice={minPrice}
                       maxPrice={maxPrice}
                     />
@@ -101,9 +101,9 @@ const ProductSidebar = ({
       <button
         onClick={toggleMobileFilter}
         className="lg:hidden left-5 z-50 bg-[#56B280] text-white mt-4 p-4 ml-4 rounded-lg shadow-lg"
-        aria-label="Open filters"
+        aria-label={t('filters.mobileFilterButton')}
       >
-        Filter
+        {t('filters.filter')}
       </button>
 
       {/* Mobile Filter Sidebar */}

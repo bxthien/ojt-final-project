@@ -1,14 +1,17 @@
 import React from 'react';
 import { Product } from '../home-page/product-list';
 import ProductCard from '../product/product-card';
+import { useTranslation } from 'react-i18next';
 
 interface RelatedProductsProps {
   products: Product[];
 }
 
 const RelatedProducts: React.FC<RelatedProductsProps> = ({ products }) => {
+  const { t } = useTranslation();
+
   if (products.length === 0) {
-    return <p className="text-gray-500">No related products found.</p>;
+    return <p className="text-gray-500">{t('relatedProducts.noProducts')}</p>;
   }
 
   return (

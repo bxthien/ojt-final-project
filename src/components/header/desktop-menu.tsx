@@ -1,7 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { menuItems } from '../../constants/data';
-
+import { useTranslation } from 'react-i18next';
 const DesktopMenu = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -29,7 +30,7 @@ const DesktopMenu = () => {
               : 'text-gray-700 hover:text-[#56B280] hover:font-normal'
           }`}
         >
-          {item.label}
+          {t(item.label)}
         </button>
       ))}
     </nav>

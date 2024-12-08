@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { Table, Input, Button, Card, Row, Col, Space, Typography } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import { getCartItems } from '../../constants/cart';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
 
 interface Product {
   id: string;
   name: string;
-  price: number; // Chuyển price thành number
+  price: number;
   url: string;
   quantity: number;
 }
@@ -21,12 +22,13 @@ interface CardProduct {
 }
 
 function Cart() {
-  const [items, setItems] = useState<CardProduct[]>([]); // Dữ liệu giỏ hàng với kiểu dữ liệu CardProduct
-  const [loading, setLoading] = useState(false); // Trạng thái tải dữ liệu
+  const { t } = useTranslation();
+  const [items, setItems] = useState<CardProduct[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const [transactionId] = useState('54f51a4d-f9b5-4f17-9f17-385eb4b9e834');
-  const [coupon, setCoupon] = useState(''); // Mã giảm giá
-  const [total, setTotal] = useState(0); // Tổng tiền
+  const [coupon, setCoupon] = useState('');
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -34,11 +36,11 @@ function Cart() {
       setLoading(true);
       try {
         const data = await getCartItems(transactionId);
-        console.log('Fetched cart data:', data); // Log phản hồi từ API
-        setItems(data.transactions || []); // Giả sử API trả về mảng `transactions`
+        console.log('Fetched cart data:', data);
+        setItems(data.transactions || []);
         setTotal(data.price || 0);
       } catch (error) {
-        console.error('Error fetching cart items:', error); // Log lỗi từ API
+        console.error('Error fetching cart items:', error);
       } finally {
         setLoading(false);
       }
@@ -50,7 +52,7 @@ function Cart() {
   const handleRemoveItem = async (id: string) => {
     setLoading(true);
     try {
-      setItems(items.filter((item) => item.product.id !== id)); // Cập nhật danh sách hiển thị
+      setItems(items.filter((item) => item.product.id !== id));
     } catch (error) {
       console.error('Error removing item:', error);
     } finally {
@@ -58,12 +60,11 @@ function Cart() {
     }
   };
 
-  // Cập nhật số lượng sản phẩm
   const handleQuantityChange = (id: string, operation: 'increase' | 'decrease') => {
     const updatedItems = items.map((item) => {
       if (item.product.id === id) {
         const updatedQuantity = operation === 'increase' ? item.quantity + 1 : item.quantity - 1;
-        return { ...item, quantity: updatedQuantity >= 1 ? updatedQuantity : 1 }; // Đảm bảo quantity không < 1
+        return { ...item, quantity: updatedQuantity >= 1 ? updatedQuantity : 1 };
       }
       return item;
     });
@@ -71,7 +72,6 @@ function Cart() {
     setItems(updatedItems);
   };
 
-  // Tính tổng tiền
   useEffect(() => {
     const calculatedTotal = items.reduce(
       (total, item) => total + item.product.price * item.quantity,
@@ -80,14 +80,13 @@ function Cart() {
     setTotal(calculatedTotal);
   }, [items]);
 
-  // Xử lý áp dụng mã giảm giá
   const handleApplyCoupon = () => {
-    alert('Coupon applied successfully!');
+    alert(t('cart.couponApplied'));
   };
 
   const columns = [
     {
-      title: 'Product',
+      title: t('cart.product'),
       dataIndex: 'name',
       key: 'name',
       render: (_: unknown, record: CardProduct) => (
@@ -103,13 +102,13 @@ function Cart() {
       ),
     },
     {
-      title: 'Price',
+      title: t('cart.price'),
       dataIndex: 'price',
       key: 'price',
       render: (_price: number, record: CardProduct) => `$${record.product.price}`,
     },
     {
-      title: 'Quantity',
+      title: t('cart.quantity'),
       dataIndex: 'quantity',
       key: 'quantity',
       render: (quantity: number, record: CardProduct) => (
@@ -131,7 +130,7 @@ function Cart() {
       ),
     },
     {
-      title: 'Subtotal',
+      title: t('cart.subtotal'),
       dataIndex: 'subtotal',
       key: 'subtotal',
       render: (_: unknown, record: CardProduct) => `$${record.quantity * record.product.price}`,
@@ -140,25 +139,24 @@ function Cart() {
 
   return (
     <div className="cart-container p-5 max-w-5xl mx-auto">
-      <Title level={2}>Cart</Title>
-      <Text type="secondary">Home / Cart</Text>
+      <Title level={2}>{t('cart.title')}</Title>
+      <Text type="secondary">{t('cart.subtitle')}</Text>
       <Table
         dataSource={items}
         columns={columns}
-        rowKey="transactionId" // Sử dụng transactionId làm rowKey
+        rowKey="transactionId"
         pagination={false}
         loading={loading}
         className="mt-5 mb-10"
       />
 
       <Row gutter={24}>
-        {/* Coupon Section */}
         <Col xs={24} md={12}>
           <Card>
-            <Title level={4}>Apply Coupon</Title>
+            <Title level={4}>{t('cart.applyCoupon')}</Title>
             <Space direction="vertical" size="middle" className="w-full">
               <Input
-                placeholder="Coupon Code"
+                placeholder={t('cart.couponPlaceholder')}
                 value={coupon}
                 onChange={(e) => setCoupon(e.target.value)}
               />
@@ -167,27 +165,26 @@ function Cart() {
                 className="bg-[#56B280] border-[#56B280] text-white hover:bg-[#3D8F64] hover:border-[#3D8F64]"
                 onClick={handleApplyCoupon}
               >
-                Apply Coupon
+                {t('cart.applyCouponButton')}
               </Button>
             </Space>
           </Card>
         </Col>
 
-        {/* Cart Total Section */}
         <Col xs={24} md={12}>
           <Card>
-            <Title level={4}>Cart Total</Title>
+            <Title level={4}>{t('cart.cartTotal')}</Title>
             <Space direction="vertical" size="middle" className="w-full">
               <Row justify="space-between" className="w-full">
-                <Text>Subtotal:</Text>
+                <Text>{t('cart.subtotal')}:</Text>
                 <Text>${total}</Text>
               </Row>
               <Row justify="space-between" className="w-full">
-                <Text>Shipping:</Text>
-                <Text>Free</Text>
+                <Text>{t('cart.shipping')}:</Text>
+                <Text>{t('cart.free')}</Text>
               </Row>
               <Row justify="space-between" className="w-full font-bold">
-                <Text>Total:</Text>
+                <Text>{t('cart.total')}:</Text>
                 <Text>${total}</Text>
               </Row>
               <Button
@@ -196,7 +193,7 @@ function Cart() {
                 block
                 onClick={() => (window.location.href = '/checkout')}
               >
-                Proceed to checkout
+                {t('cart.proceedToCheckout')}
               </Button>
             </Space>
           </Card>

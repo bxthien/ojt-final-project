@@ -14,7 +14,7 @@ const Footer = () => {
           <p className="text-base mb-7 mt-4">
             {contentData.map((line, index) => (
               <span key={index}>
-                {line}
+                {t(line)}
                 <br />
               </span>
             ))}
@@ -37,12 +37,12 @@ const Footer = () => {
 
         {/* Services Section */}
         <div>
-          <h3 className="text-lg font-bold mb-2">{t('footer.services')}</h3>
+          <h3 className="text-lg font-bold mb-2">{t('footer.services.service')}</h3>
           <ul className="text-sm space-y-1">
-            {servicesData.map((service) => (
-              <li key={service}>
+            {servicesData.map((key, index) => (
+              <li key={index}>
                 <a href="#" className="hover:text-[#CFCFCF]">
-                  {service}
+                  {t(key)}
                 </a>
               </li>
             ))}
@@ -51,12 +51,12 @@ const Footer = () => {
 
         {/* Assistance Section */}
         <div>
-          <h3 className="text-lg font-bold mb-2">{t('footer.assistance')}</h3>
+          <h3 className="text-lg font-bold mb-2">{t('footer.assistance.assistance')}</h3>
           <ul className="text-sm space-y-1">
-            {assistanceData.map((assistance) => (
-              <li key={assistance}>
+            {assistanceData.map((key, index) => (
+              <li key={index}>
                 <a href="#" className="hover:text-[#CFCFCF]">
-                  {assistance}
+                  {t(key)}
                 </a>
               </li>
             ))}

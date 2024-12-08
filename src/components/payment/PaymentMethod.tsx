@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useCheckout } from '../CheckoutContext';
 import { Form, Input, Button } from 'antd';
 import QRVNPay from '../../assets/images/QRVNPay.png';
+import { useTranslation } from 'react-i18next';
 
 const PaymentMethod: React.FC = () => {
+  const { t } = useTranslation();
   const { paymentMethod, setPaymentMethod } = useCheckout();
   const [showPaymentDetails, setShowPaymentDetails] = useState(false);
   const [qrVisible, setQrVisible] = useState(false);
@@ -32,7 +34,7 @@ const PaymentMethod: React.FC = () => {
 
   return (
     <div className="mb-6 border-b pb-4">
-      <h3 className="font-semibold text-lg mb-2">Payment Method</h3>
+      <h3 className="font-semibold text-lg mb-2">{t('paymentMethod.title')}</h3>
       <div className="space-y-2">
         {['VNPay', 'Stripe', 'COD'].map((method) => (
           <label key={method} className="flex items-center space-x-2">
@@ -43,14 +45,14 @@ const PaymentMethod: React.FC = () => {
               checked={paymentMethod === method}
               onChange={(e) => handlePaymentMethodChange(e.target.value)}
             />
-            <span>{method}</span>
+            <span>{t(`paymentMethod.${method}`)}</span>
           </label>
         ))}
       </div>
 
       {showPaymentDetails && (
         <div className="mt-4 p-4 border rounded-md bg-gray-50">
-          <h4 className="font-semibold text-md mb-2">Payment Details</h4>
+          <h4 className="font-semibold text-md mb-2">{t('paymentMethod.paymentDetails')}</h4>
           <div className="space-y-2">
             <Button
               onClick={() => {
@@ -59,7 +61,7 @@ const PaymentMethod: React.FC = () => {
               }}
               className="bg-blue-500 text-white w-full py-2 rounded-md hover:bg-blue-600"
             >
-              Scan QR Code
+              {t('paymentMethod.scanQRCode')}
             </Button>
             <Button
               onClick={() => {
@@ -68,7 +70,7 @@ const PaymentMethod: React.FC = () => {
               }}
               className="bg-green-500 text-white w-full py-2 rounded-md hover:bg-green-600"
             >
-              Enter Card Information
+              {t('paymentMethod.enterCardInfo')}
             </Button>
           </div>
 
@@ -80,46 +82,46 @@ const PaymentMethod: React.FC = () => {
 
           {cardFormVisible && (
             <Form className="mt-4 space-y-4">
-              <Form.Item label="Card Number">
+              <Form.Item label={t('paymentMethod.cardNumber')}>
                 <Input
                   type="text"
                   value={cardInfo.cardNumber}
                   onChange={(e) => handleCardInput('cardNumber', e.target.value)}
-                  placeholder="1234 5678 9012 3456"
+                  placeholder={t('paymentMethod.cardNumberPlaceholder')}
                 />
               </Form.Item>
 
-              <Form.Item label="Card Holder">
+              <Form.Item label={t('paymentMethod.cardHolder')}>
                 <Input
                   type="text"
                   value={cardInfo.cardHolder}
                   onChange={(e) => handleCardInput('cardHolder', e.target.value)}
-                  placeholder="CARD HOLDER NAME"
+                  placeholder={t('paymentMethod.cardHolderPlaceholder')}
                 />
               </Form.Item>
 
               <div className="grid grid-cols-2 gap-4">
-                <Form.Item label="Valid From (MM/YYYY)" className="m-0">
+                <Form.Item label={t('paymentMethod.validFrom')}>
                   <Input
                     type="text"
                     value={cardInfo.validFrom}
                     onChange={(e) => handleCardInput('validFrom', e.target.value)}
-                    placeholder="01/2024"
+                    placeholder={t('paymentMethod.validFromPlaceholder')}
                   />
                 </Form.Item>
-                <Form.Item label="Expiry Date (MM/YYYY)" className="m-0">
+                <Form.Item label={t('paymentMethod.expiryDate')}>
                   <Input
                     type="text"
                     value={cardInfo.expiryDate}
                     onChange={(e) => handleCardInput('expiryDate', e.target.value)}
-                    placeholder="12/2028"
+                    placeholder={t('paymentMethod.expiryDatePlaceholder')}
                   />
                 </Form.Item>
               </div>
 
               <Form.Item>
                 <Button type="primary" htmlType="submit" className="w-full">
-                  Confirm Payment
+                  {t('paymentMethod.confirmPayment')}
                 </Button>
               </Form.Item>
             </Form>
