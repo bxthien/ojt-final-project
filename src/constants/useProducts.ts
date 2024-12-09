@@ -1,8 +1,33 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Product } from './fetchProducts';
+import axiosInstance from '../services/axios';
 
-export const useProducts = (category: string, brand: string = '', memory: string = '') => {
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  photos: string[];
+  url: string;
+}
+
+interface UseProductsParams {
+  category: string;
+  brand?: string;
+  memory?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  searchKey?: string;
+  orderBy?: 'ASC' | 'DESC';
+}
+
+export const useProducts = ({
+  category,
+  brand = '',
+  memory = '',
+  minPrice = 0,
+  maxPrice = 10000,
+  searchKey = '',
+  orderBy = 'ASC',
+}: UseProductsParams) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -10,32 +35,23 @@ export const useProducts = (category: string, brand: string = '', memory: string
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
-      setError(null); // Reset error before fetching
+      setError(null);
 
       try {
         // Build params dynamically
-        const params: Record<string, string> = {
-          orderBy: 'ASC',
-          page: '1',
-          take: '10',
+        const params: Record<string, string | number> = {
+          category,
+          brand,
+          memory,
+          minPrice,
+          maxPrice,
+          searchKey,
+          orderBy,
+          page: 1,
+          take: 12,
         };
 
-        if (category) params.category = category;
-        if (brand) params.brand = brand;
-        if (memory) params.memory = memory;
-
-        // Fetch data from the API
-        const { data: response } = await axios.get<{
-          data: Product[];
-          message?: string;
-        }>('https://be-final-project-bddr.onrender.com/product', {
-          headers: {
-            'Content-Type': 'application/json;charset=UTF-8',
-            'Access-Control-Allow-Origin': '*',
-            'ngrok-skip-browser-warning': 'true',
-          },
-          params,
-        });
+        const { data: response } = await axiosInstance.get(`/product`, { params });
 
         // Validate and update products
         if (Array.isArray(response.data)) {
@@ -56,7 +72,7 @@ export const useProducts = (category: string, brand: string = '', memory: string
     };
 
     fetchProducts();
-  }, [category, brand, memory]);
+  }, [category, brand, memory, minPrice, maxPrice, searchKey, orderBy]);
 
   return { products, loading, error };
 };

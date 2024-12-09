@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { categoryItems } from '../../constants/data';
+import { useTranslation } from 'react-i18next';
 
 const CategoryNav = () => {
+  const { t } = useTranslation();
   const location = useLocation();
+
   const isActivePath = (path: string) => location.pathname.startsWith(path);
 
   return (
@@ -15,13 +18,11 @@ const CategoryNav = () => {
               <Link
                 to={item.href}
                 className={`flex items-center justify-center space-x-2 transition-all px-8 py-3 whitespace-nowrap ${
-                  isActivePath(item.href)
-                    ? 'text-gray-900 font-bold'
-                    : 'hover:text-gray-900 hover:font-bold'
+                  isActivePath(item.href) ? 'text-gray-900' : 'hover:bg-slate-200 hover:text-black'
                 }`}
               >
                 <item.Icon className="w-5 h-5 mr-2" />
-                {item.label}
+                {t(item.label)}
               </Link>
               {index < categoryItems.length - 1 && <span className="h-6 w-px bg-[#CFCFCF]" />}
             </React.Fragment>

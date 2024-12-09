@@ -7,13 +7,14 @@ import {
   plusQuantityCartProduct,
   removeFromCart,
 } from '../../constants/cart';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
 
 export interface Product {
   id: string;
   name: string;
-  price: number; // Chuyển price thành number
+  price: number;
   url: string;
   quantity: number;
 }
@@ -26,12 +27,13 @@ export interface CardProduct {
 }
 
 function Cart() {
-  const [items, setItems] = useState<CardProduct[]>([]); // Dữ liệu giỏ hàng với kiểu dữ liệu CardProduct
-  const [loading, setLoading] = useState(false); // Trạng thái tải dữ liệu
+  const { t } = useTranslation();
+  const [items, setItems] = useState<CardProduct[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const [transactionId] = useState('54f51a4d-f9b5-4f17-9f17-385eb4b9e834');
-  const [coupon, setCoupon] = useState(''); // Mã giảm giá
-  const [total, setTotal] = useState(0); // Tổng tiền
+  // const [coupon, setCoupon] = useState('');
+  const [total, setTotal] = useState(0);
 
   console.log(items);
 
@@ -41,11 +43,11 @@ function Cart() {
       setLoading(true);
       try {
         const data = await getCartItems(transactionId);
-        console.log('Fetched cart data:', data); // Log phản hồi từ API
-        setItems(data.transactions || []); // Giả sử API trả về mảng `transactions`
+        console.log('Fetched cart data:', data);
+        setItems(data.transactions || []);
         setTotal(data.price || 0);
       } catch (error) {
-        console.error('Error fetching cart items:', error); // Log lỗi từ API
+        console.error('Error fetching cart items:', error);
       } finally {
         setLoading(false);
       }
@@ -57,7 +59,7 @@ function Cart() {
   const handleRemoveItem = async (id: string) => {
     setLoading(true);
     try {
-      const res = await removeFromCart(id);
+      await removeFromCart(id);
 
       setItems(items.filter((item) => item.transactionId !== id));
     } catch (error) {
@@ -111,7 +113,7 @@ function Cart() {
 
   const columns = [
     {
-      title: 'Product',
+      title: t('cart.product'),
       dataIndex: 'name',
       key: 'name',
       render: (_: unknown, record: CardProduct) => (
@@ -122,13 +124,13 @@ function Cart() {
       ),
     },
     {
-      title: 'Price',
+      title: t('cart.price'),
       dataIndex: 'price',
       key: 'price',
       render: (_price: number, record: CardProduct) => `$${record.product.price}`,
     },
     {
-      title: 'Quantity',
+      title: t('cart.quantity'),
       dataIndex: 'quantity',
       key: 'quantity',
       render: (quantity: number, record: CardProduct) => (
@@ -144,7 +146,7 @@ function Cart() {
       ),
     },
     {
-      title: 'Subtotal',
+      title: t('cart.subtotal'),
       dataIndex: 'subtotal',
       key: 'subtotal',
       render: (_: unknown, record: CardProduct) => `$${record.quantity * record.product.price}`,
@@ -189,16 +191,16 @@ function Cart() {
             <Title level={4}>Cart Total</Title>
             <Space direction="vertical" size="middle" className="w-full">
               <Row justify="space-between" className="w-full">
-                <Text>Subtotal:</Text>
+                <Text>{t('cart.subtotal')}:</Text>
                 <Text>${total}</Text>
               </Row>
               <Row justify="space-between" className="w-full">
-                <Text>Shipping:</Text>
-                <Text>Free</Text>
+                <Text>{t('cart.shipping')}:</Text>
+                <Text>{t('cart.free')}</Text>
               </Row>
               <Divider />
-              <Row justify="space-between" className="w-full py-0 font-bold">
-                <Text>Total:</Text>
+              <Row justify="space-between" className="w-full font-bold">
+                <Text>{t('cart.total')}:</Text>
                 <Text>${total}</Text>
               </Row>
             </Space>
@@ -210,7 +212,7 @@ function Cart() {
               block
               onClick={() => (window.location.href = '/checkout')}
             >
-              Proceed to checkout
+              {t('cart.proceedToCheckout')}
             </Button>
           </div>
         </Col>

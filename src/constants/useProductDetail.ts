@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
+import axiosInstance from '../services/axios';
 
 // Define the Product type based on API response
 interface Product {
+  category: string;
+  url: string;
   id: string;
   name: string;
   price: number;
@@ -12,11 +15,6 @@ interface Product {
     size: string[];
   };
   photos: string[];
-}
-
-// Define the expected structure of the response
-interface ProductDetailResponse {
-  data: Product;
 }
 
 export const useProductDetail = (productId: string) => {
@@ -29,29 +27,23 @@ export const useProductDetail = (productId: string) => {
 
     const fetchProductDetail = async () => {
       try {
-        const response = await axios.get<ProductDetailResponse>(
-          `https://be-final-project-bddr.onrender.com/product/${productId}`,
-          {
-            headers: {
-              'Content-Type': 'application/json;charset=UTF-8',
-              'Access-Control-Allow-Origin': '*',
-              'ngrok-skip-browser-warning': 'true',
-            },
-          }
-        );
+        const { data: response } = await axiosInstance.get(`/product/${productId}`);
 
-        if (response.data) {
-          setProduct(response.data.data);
+        if (response) {
+          setProduct(response);
         } else {
-          setError('Không tìm thấy sản phẩm');
+          setError('No found product');
         }
       } catch (err) {
         if (err instanceof AxiosError) {
-          setError(err.response?.data?.message || 'Lỗi khi tải chi tiết sản phẩm');
+          console.error('Axios Error:', err.response);
+          setError(err.response?.data?.message || 'Error fetching product detail');
         } else if (err instanceof Error) {
-          setError(err.message || 'Lỗi khi tải chi tiết sản phẩm');
+          console.error('General Error:', err.message);
+          setError(err.message || 'Error fetching product detail');
         } else {
-          setError('Lỗi không xác định');
+          console.error('Unknown Error:', err);
+          setError('Unknown Error');
         }
       } finally {
         setLoading(false);

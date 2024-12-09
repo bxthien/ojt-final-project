@@ -1,8 +1,10 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { menuItems } from '../../constants/data';
-
+import { useTranslation } from 'react-i18next';
 const DesktopMenu = () => {
+  const { t } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActivePath = (path: string) => {
     if (path === '/') {
@@ -11,20 +13,25 @@ const DesktopMenu = () => {
     return location.pathname.startsWith(path) && location.pathname !== '/';
   };
 
+  const handleClick = (href: string) => {
+    navigate(href);
+    // window.location.reload();
+  };
+
   return (
     <nav className="hidden md:flex items-center space-x-12">
       {menuItems.map((item) => (
-        <Link
+        <button
           key={item.label}
-          to={item.href}
+          onClick={() => handleClick(item.href)}
           className={`transition ${
             isActivePath(item.href)
-              ? 'text-[#56B280] font-bold'
-              : 'text-gray-700 hover:text-[#56B280] hover:font-bold'
+              ? 'text-[#56B280] font-normal'
+              : 'text-gray-700 hover:text-[#56B280] hover:font-normal'
           }`}
         >
-          {item.label}
-        </Link>
+          {t(item.label)}
+        </button>
       ))}
     </nav>
   );
