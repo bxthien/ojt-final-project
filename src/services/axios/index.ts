@@ -3,7 +3,7 @@ import { getStorageData } from '../storage';
 import { ACCESS_TOKEN } from '../../constants/auth';
 
 // const BASE_URL = 'https://be-final-project-bddr.onrender.com/';
-const BASE_URL = 'https://6fc8-113-160-225-96.ngrok-free.app';
+const BASE_URL = 'https://6f8c-116-105-175-134.ngrok-free.app';
 axios.defaults.baseURL = BASE_URL;
 
 const axiosInstance = axios.create({
