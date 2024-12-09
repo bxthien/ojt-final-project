@@ -2,24 +2,39 @@ import { useNavigate } from 'react-router-dom';
 import { Button, notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import axiosInstance from '../../services/axios';
+import { RootState } from '../../redux/store';
+import { useSelector } from 'react-redux';
 
 type AddToCartButtonProps = {
   productId: string;
   productName: string;
+  quantity: number;
 };
 
-const ActionButton = ({ productName }: AddToCartButtonProps) => {
+export type Error = {
+  response: {
+    data: {
+      message: string;
+    };
+  };
+};
+
+const ActionButton = ({ productId, productName, quantity }: AddToCartButtonProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  let userId = localStorage.getItem('userId');
 
   const handleAddToCart = async () => {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-
     const closeNotification = () => {
       notification.destroy();
     };
 
-    if (!isLoggedIn || isLoggedIn !== 'true') {
+    if (userId?.startsWith('"') && userId.endsWith('"')) {
+      userId = userId.slice(1, -1);
+    }
+
+    if (!isAuth) {
       notification.open({
         message: t('actionButton.notLoggedInMessage'),
         description: t('actionButton.loginRequired'),
@@ -41,7 +56,11 @@ const ActionButton = ({ productName }: AddToCartButtonProps) => {
       });
     } else {
       try {
-        const res = await axiosInstance.get(`/cart`);
+        const res = await axiosInstance.post(`/cart/add`, {
+          userId,
+          productId,
+          quantity,
+        });
         if (res) {
           notification.success({
             message: t('actionButton.addedToCartSuccessMessage'),
@@ -52,6 +71,7 @@ const ActionButton = ({ productName }: AddToCartButtonProps) => {
         notification.error({
           message: t('actionButton.addToCartErrorMessage'),
           description: t('actionButton.addToCartErrorDescription'),
+          // description: error.response.data.message,
         });
         console.error('Add to Cart Error:', error);
       }

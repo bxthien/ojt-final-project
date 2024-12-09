@@ -31,20 +31,25 @@ function Cart() {
   const [items, setItems] = useState<CardProduct[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const [transactionId] = useState('54f51a4d-f9b5-4f17-9f17-385eb4b9e834');
+  // const [transactionId] = useState('54f51a4d-f9b5-4f17-9f17-385eb4b9e834');
   // const [coupon, setCoupon] = useState('');
+  let userId = localStorage.getItem('userId');
+
   const [total, setTotal] = useState(0);
 
   console.log(items);
 
   useEffect(() => {
     const fetchCart = async () => {
-      console.log('Fetching cart with transactionId:', transactionId);
+      if (userId?.startsWith('"') && userId.endsWith('"')) {
+        userId = userId.slice(1, -1);
+      }
+      console.log('Fetching cart with transactionId:', userId);
       setLoading(true);
       try {
-        const data = await getCartItems(transactionId);
+        const data = await getCartItems(userId || '');
         console.log('Fetched cart data:', data);
-        setItems(data.transactions || []);
+        setItems(data || []);
         setTotal(data.price || 0);
       } catch (error) {
         console.error('Error fetching cart items:', error);
@@ -54,7 +59,7 @@ function Cart() {
     };
 
     fetchCart();
-  }, [transactionId]);
+  }, [userId]);
 
   const handleRemoveItem = async (id: string) => {
     setLoading(true);
