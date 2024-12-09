@@ -16,7 +16,12 @@ const Sidebar: React.FC<SidebarProps> = ({ url, activeTab, setActiveTab, usernam
   return (
     <div className="w-full">
       <div className="flex items-center p-4 bg-white shadow-md rounded-lg mb-4">
-        <img src={url} alt="User Avatar" className="w-12 h-12 rounded-full border-2 mr-3" />
+        <img
+          src={url}
+          alt="User Avatar"
+          sizes="large"
+          className="w-12 h-12 rounded-full border-2 mr-3"
+        />
         <div>
           <p className="text-gray-600 text-sm">
             {t('sidebar.hello')}

@@ -190,6 +190,7 @@
   },
 
   "avatarUpload": {
+    "fileTooLarge": "The file is too large. Maximum size is 10MB.",
     "success": "Avatar uploaded successfully",
     "error": "Failed to upload avatar"
   },
@@ -210,10 +211,12 @@
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
-    "oldPasswordRequired": "Please input your old password!",
-    "newPasswordRequired": "Please input your new password!",
+    "oldPasswordRequired": "Please enter your old password!",
+    "newPasswordRequired": "Please enter your new password!",
     "confirmPasswordRequired": "Please confirm your new password!",
-    "changePasswordButton": "Change Password"
+    "changePasswordButton": "Change Password",
+    "passwordStrength": "Password must contain at least one lowercase letter, one uppercase letter, and one number",
+    "passwordMismatch": "Passwords do not match"
   },
 
   "profileForm": {

@@ -1,8 +1,10 @@
 import { useLocation } from 'react-router-dom';
 import { menuItems, categoryItems } from '../../constants/data';
+import { useTranslation } from 'react-i18next';
 
 const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const location = useLocation();
+  const { t } = useTranslation();
 
   // Xác định trạng thái active chính xác
   const isActivePath = (path: string) => location.pathname === path;
@@ -23,7 +25,7 @@ const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
                   : 'text-gray-700 hover:text-[#56B280] hover:font-bold'
               }`}
             >
-              {item.label}
+              {t(item.label)}
             </a>
           ))}
 
@@ -42,7 +44,7 @@ const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void 
               }`}
             >
               <item.Icon className="w-5 h-5" />
-              <span>{item.label}</span>
+              <span>{t(item.label)}</span>
             </a>
           ))}
         </nav>

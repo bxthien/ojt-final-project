@@ -130,7 +130,7 @@ const ProductDetailPage = () => {
             </div>
 
             <div className="flex items-center mb-6">
-              <label htmlFor="quantity" className="mr-4">
+              <label htmlFor="quantity" className="text-lg font-semibold mb-2 mr-2">
                 {t('productDetail.quantity')}:
               </label>
               <input

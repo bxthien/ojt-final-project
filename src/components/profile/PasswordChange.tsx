@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, FormInstance } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { passwordValidator } from '../../constants/regex';
 
 interface PasswordChangeProps {
   form: FormInstance;
@@ -19,20 +20,36 @@ const PasswordChange: React.FC<PasswordChangeProps> = ({ form, handleChangePassw
       >
         <Input.Password className="border-2 border-gray-300 p-2 rounded-md" />
       </Form.Item>
+
       <Form.Item
         label={t('passwordChange.newPassword')}
         name="newPassword"
-        rules={[{ required: true, message: t('passwordChange.newPasswordRequired') }]}
+        rules={[
+          { required: true, message: t('passwordChange.newPasswordRequired') },
+          { validator: passwordValidator, message: t('passwordChange.passwordStrength') },
+        ]}
       >
         <Input.Password className="border-2 border-gray-300 p-2 rounded-md" />
       </Form.Item>
+
       <Form.Item
         label={t('passwordChange.confirmPassword')}
         name="confirmPassword"
-        rules={[{ required: true, message: t('passwordChange.confirmPasswordRequired') }]}
+        rules={[
+          { required: true, message: t('passwordChange.confirmPasswordRequired') },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('newPassword') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error(t('passwordChange.passwordMismatch')));
+            },
+          }),
+        ]}
       >
         <Input.Password className="border-2 border-gray-300 p-2 rounded-md" />
       </Form.Item>
+
       <Button htmlType="submit" className="bg-[#56B280] text-white w-full sm:w-auto">
         {t('passwordChange.changePasswordButton')}
       </Button>
