@@ -31,6 +31,16 @@ const ProductDetailPage = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    if (value && value >= 1) {
+      setQuantity(value);
+    } else {
+      setQuantity(1); // Nếu giá trị không hợp lệ, đặt lại về 1
+    }
+  };
 
   // Xử lý lựa chọn
   const handleImageSelect = (image: string) => {
@@ -136,12 +146,13 @@ const ProductDetailPage = () => {
               <input
                 type="number"
                 id="quantity"
-                className="w-16 text-center border rounded-md p-2"
-                defaultValue="1"
+                className="w-16 text-center border-t border-b p-2"
+                value={quantity}
+                onChange={handleQuantityChange}
                 min="1"
               />
             </div>
-            <ActionButtons productId={product.id} productName={product.name} />
+            <ActionButtons productId={product.id} productName={product.name} quantity={quantity} />
           </div>
         </div>
 

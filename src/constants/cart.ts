@@ -1,13 +1,8 @@
-import axios from 'axios';
-
-const axiosInstance = axios.create({
-  baseURL: 'https://7633-113-160-225-96.ngrok-free.app',
-  headers: { 'Content-Type': 'application/json', 'ngrok-skip-browser-warning': 'true' },
-});
+import axiosInstance from '../services/axios';
 
 //đúng
 export const getCartItems = async (transactionId: string) => {
-  const response = await axiosInstance.get(`/cart/${transactionId}`);
+  const response = await axiosInstance.get(`/cart/items/${transactionId}`);
   return response.data;
 };
 
@@ -21,7 +16,17 @@ export const addToCart = async (
 };
 
 //đúng
-export const removeFromCart = async (productId: number) => {
+export const removeFromCart = async (productId: string) => {
   const response = await axiosInstance.delete(`/cart/product/${productId}`);
+  return response.data;
+};
+
+export const plusQuantityCartProduct = async (id: string) => {
+  const response = await axiosInstance.patch(`/cart/${id}/plus-quantity`);
+  return response.data;
+};
+
+export const minusQuantityCartProduct = async (id: string) => {
+  const response = await axiosInstance.patch(`/cart/${id}/minus-quantity`);
   return response.data;
 };

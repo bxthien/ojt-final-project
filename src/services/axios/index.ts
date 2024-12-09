@@ -6,7 +6,7 @@ import { ACCESS_TOKEN } from '../../constants/auth';
 const BASE_URL = 'https://zq66ssqv-3000.asse.devtunnels.ms/';
 axios.defaults.baseURL = BASE_URL;
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',

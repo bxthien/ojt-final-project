@@ -6,6 +6,7 @@ import { login, logout } from '../redux/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+// const API_URL = 'https://7633-113-160-225-96.ngrok-free.app';
 export interface SignInResponse {
   access_token: string;
   refresh_token: string;
@@ -13,6 +14,8 @@ export interface SignInResponse {
     id: string;
     email: string;
   };
+  roles: string;
+  userId: string;
 }
 
 export interface SignInPayload {
@@ -45,10 +48,11 @@ export const useSignIn = () => {
   const signIn = async (params: SignInPayload): Promise<SignInResponse> => {
     try {
       const { data: response } = await axiosInstance.post<SignInResponse>(`/auth/login`, params);
-
+      console.log(response, 'acb');
       if (response.access_token) {
         setStorageData(ACCESS_TOKEN, response.access_token);
         setStorageData(REFRESH_TOKEN, response.refresh_token);
+        setStorageData('userId', response.userId);
         dispatchAuth(login());
       }
 
