@@ -4,6 +4,7 @@ import axiosInstance from '../services/axios';
 
 // Define the Product type based on API response
 interface Product {
+  category: string;
   url: string;
   id: string;
   name: string;

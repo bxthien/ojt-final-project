@@ -63,6 +63,7 @@ export const CheckoutProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCheckout = () => {
   const context = useContext(CheckoutContext);
   if (!context) {

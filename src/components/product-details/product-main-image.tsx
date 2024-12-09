@@ -1,16 +1,12 @@
 import { Image } from 'antd';
-// import { Product } from '../../constants/fetchProducts';
 
 type ProductMainImageProps = {
-  photos: string[];
   url: string;
-  // product: Product;
 };
 
 const ProductMainImage = ({ url }: ProductMainImageProps) => {
-  // const { url } = product;
   return (
-    <div className="flex flex-col items-center lg:flex-row">
+    <div className="flex justify-center items-center">
       <Image
         src={
           url
@@ -18,12 +14,11 @@ const ProductMainImage = ({ url }: ProductMainImageProps) => {
             : 'https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'
         }
         alt="Main Product"
-        className="rounded-sm"
-        width="70%"
-        height="70%"
+        className="w-full h-auto rounded-lg shadow-md mb-4"
+        width="50%"
+        height="50%"
         preview={true}
       />
-      <div></div>
     </div>
   );
 };

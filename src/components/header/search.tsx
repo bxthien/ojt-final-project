@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProducts } from '../../constants/useProducts';
+import { useTranslation } from 'react-i18next';
 
 interface SearchProps {
   isMobile: boolean;
@@ -8,6 +9,7 @@ interface SearchProps {
 }
 
 const Search: React.FC<SearchProps> = ({ placeholder, isMobile }) => {
+  const { t } = useTranslation();
   const [value, setValue] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const navigate = useNavigate();
@@ -71,7 +73,7 @@ const Search: React.FC<SearchProps> = ({ placeholder, isMobile }) => {
         <input
           type="text"
           className="w-full border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring focus:ring-[#56B280]"
-          placeholder={placeholder}
+          placeholder={placeholder || t('search.placeholder')}
           value={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}

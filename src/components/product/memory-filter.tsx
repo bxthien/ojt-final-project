@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Radio } from 'antd';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 interface MemoryFilterProps {
   selectedMemory: string;
@@ -13,6 +14,7 @@ interface MemoryOption {
 }
 
 const MemoryFilter = ({ selectedMemory, onMemorySelect }: MemoryFilterProps) => {
+  const { t } = useTranslation();
   const [memoryOptions, setMemoryOptions] = useState<MemoryOption[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -32,17 +34,17 @@ const MemoryFilter = ({ selectedMemory, onMemorySelect }: MemoryFilterProps) => 
         }
         setLoading(false);
       } catch {
-        setError('Failed to fetch memory options');
+        setError(t('filters.memory.error'));
         setLoading(false);
       }
     };
     fetchMemoryOptions();
-  }, []);
+  }, [t]);
 
   return (
     <div className="flex flex-col space-y-2">
       {loading ? (
-        <p className="text-gray-500">Loading memory options...</p>
+        <p className="text-gray-500">{t('filters.memory.loading')}</p>
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : memoryOptions.length ? (
@@ -58,7 +60,7 @@ const MemoryFilter = ({ selectedMemory, onMemorySelect }: MemoryFilterProps) => 
           ))}
         </Radio.Group>
       ) : (
-        <p className="text-gray-500">No memory options available.</p>
+        <p className="text-gray-500">{t('filters.memory.noOptions')}</p>
       )}
     </div>
   );

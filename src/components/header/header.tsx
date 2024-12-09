@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoClose } from 'react-icons/io5';
@@ -8,18 +9,19 @@ import CategoryNav from './category-nav';
 import CartIcon from './cart-icon';
 import ProfileIcon from './profile-icon';
 import { Button } from 'antd';
-import { useState } from 'react';
-import Search from './search';
 import { CiSearch } from 'react-icons/ci';
-import { useAuth } from '../../hook/useAuth';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import Search from './search';
+import LanguageSelector from '../common/language';
+import { useTranslation } from 'react-i18next';
 
 const Header: React.FC = () => {
+  const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const isActivePath = (path: string) => pathname === path;
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-
-  const isAuth = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState<number>(0);
 
@@ -35,6 +37,8 @@ const Header: React.FC = () => {
     setIsSearchVisible(!isSearchVisible);
   };
 
+  const isActivePath = (path: string) => pathname === path;
+
   return (
     <header className="w-full relative">
       <div className="border-b">
@@ -43,9 +47,8 @@ const Header: React.FC = () => {
             <HeaderLogo />
           </div>
 
-          {/* Search Bar  */}
           <div className="hidden lg:flex items-center flex-1 max-w-lg mx-8">
-            <Search placeholder="Search for products..." isMobile={false} />
+            <Search placeholder={t('header.searchPlaceholder')} isMobile={false} />
           </div>
 
           {/* Desktop Menu */}
@@ -53,6 +56,7 @@ const Header: React.FC = () => {
             <DesktopMenu />
             <div className="flex items-center space-x-6">
               <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
+              <LanguageSelector />
               {isAuth ? (
                 <div className="flex items-center space-x-4">
                   <ProfileIcon isActive={isActivePath('/profile')} />
@@ -63,33 +67,31 @@ const Header: React.FC = () => {
                   onClick={handleLogin}
                   className="py-4 bg-[#56B280] font-semibold"
                 >
-                  Sign In
+                  {t('header.signIn')}
                 </Button>
               )}
             </div>
           </nav>
+
           <div className="flex lg:hidden items-center space-x-4">
             <CiSearch className="w-6 h-6 cursor-pointer" onClick={toggleSearch} />
-            {/* <SearchIcon /> */}
             <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
             {isAuth ? (
-              <>
-                <ProfileIcon isActive={isActivePath('/profile')} />
-              </>
+              <ProfileIcon isActive={isActivePath('/profile')} />
             ) : (
               <Button
                 type="primary"
-                className="py-4 bg-[#56B280] font-semibol"
+                className="py-4 bg-[#56B280] font-semibold"
                 size="small"
-                onClick={() => navigate('/sign-in')}
+                onClick={handleLogin}
               >
-                Sign In
+                {t('header.signIn')}
               </Button>
             )}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="block lg:hidden"
-              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-label={isMobileMenuOpen ? t('header.closeMenu') : t('header.openMenu')}
             >
               {isMobileMenuOpen ? (
                 <IoClose className="w-6 h-6" />
@@ -104,7 +106,7 @@ const Header: React.FC = () => {
       {/* Mobile Search Bar */}
       {isSearchVisible && (
         <div className="lg:hidden">
-          <Search placeholder="Search for product..." isMobile={true} />
+          <Search placeholder={t('header.searchPlaceholder')} isMobile={true} />
         </div>
       )}
 

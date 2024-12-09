@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 type MemorySelectorProps = {
   sizes: string[];
   selectedSize: string;
@@ -5,8 +7,11 @@ type MemorySelectorProps = {
 };
 
 const MemorySelector = ({ sizes, selectedSize, onSizeSelect }: MemorySelectorProps) => {
+  const { t } = useTranslation();
+
   return (
-    <div className="flex flex-wrap gap-2  lg:justify-start lg:text-left lg:items-start">
+    <div className="flex flex-wrap gap-2 lg:justify-start lg:text-left lg:items-start">
+      <h3 className="text-lg font-semibold mb-2">{t('productDetail.memory')}:</h3>
       {sizes.map((size, index) => (
         <div
           key={index}
