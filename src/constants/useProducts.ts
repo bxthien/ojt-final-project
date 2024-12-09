@@ -13,9 +13,9 @@ interface UseProductsParams {
   category: string;
   brand?: string;
   memory?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  searchKey?: string;
+  minPrice?: number | undefined;
+  maxPrice?: number | undefined;
+  search?: string;
   orderBy?: 'ASC' | 'DESC';
 }
 
@@ -23,9 +23,9 @@ export const useProducts = ({
   category,
   // brand = '',
   // memory = '',
-  minPrice = 0,
-  maxPrice = 10000,
-  searchKey = 'iphone18',
+  minPrice = undefined,
+  maxPrice = undefined,
+  search = '',
   orderBy = 'ASC',
 }: UseProductsParams) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -39,17 +39,17 @@ export const useProducts = ({
 
       try {
         // Build params dynamically
-        const params: Record<string, string | number> = {
-          category,
-          minPrice,
-          maxPrice,
-          searchKey,
+        const params = {
+          search,
           orderBy,
           page: 1,
           take: 12,
+          limit: 1,
+          minPrice,
+          maxPrice,
         };
 
-        const { data: response } = await axiosInstance.get(`/product`, { params });
+        const { data: response } = await axiosInstance.post(`/product/filter`, { ...params });
 
         // Validate and update products
         if (Array.isArray(response.data)) {
@@ -70,7 +70,7 @@ export const useProducts = ({
     };
 
     fetchProducts();
-  }, [category, minPrice, maxPrice, searchKey, orderBy]);
+  }, [category, minPrice, maxPrice, search, orderBy]);
 
   return { products, loading, error };
 };

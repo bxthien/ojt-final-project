@@ -14,7 +14,7 @@ const ProductPage = () => {
   // const location = useLocation() as { state?: { searchTerm?: string } };
   // const [searchTerm, setSearchTerm] = useState<string>(location.state?.searchTerm || '');
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('ASC');
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(10000);
   const location = useLocation();
@@ -24,7 +24,7 @@ const ProductPage = () => {
   // const brand = searchParams.get('brand') || '';
   // const memory = searchParams.get('memory') || '';
 
-  const searchKey = searchParams.get('searchKey') || '';
+  const search = searchParams.get('search') || '';
   const [searchTerm, setSearchTerm] = useState('');
   console.log('product page');
   useEffect(() => {
@@ -40,7 +40,8 @@ const ProductPage = () => {
     // memory,
     minPrice,
     maxPrice,
-    searchKey,
+    search,
+    orderBy: sortOrder,
   });
 
   // Filter and sort products when price range, sort order, or search term changes
@@ -49,13 +50,13 @@ const ProductPage = () => {
       .filter((product) => product.price >= minPrice && product.price <= maxPrice) // Filter by price range
       .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase())) // Filter by search term
       .sort(
-        (a, b) => (sortOrder === 'asc' ? a.price - b.price : b.price - a.price) // Sort by price
+        (a, b) => (sortOrder === 'ASC' ? a.price - b.price : b.price - a.price) // Sort by price
       );
     setFilteredProducts(filtered);
   }, [minPrice, maxPrice, sortOrder, searchTerm, products]);
 
   // Callback to update sort order
-  const handlePriceSortChange = (order: 'asc' | 'desc') => {
+  const handlePriceSortChange = (order: 'ASC' | 'DESC') => {
     setSortOrder(order);
   };
 

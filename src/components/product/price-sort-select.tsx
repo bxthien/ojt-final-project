@@ -1,13 +1,13 @@
 import React from 'react';
 
 interface PriceSortSelectProps {
-  priceSortOrder: 'asc' | 'desc';
-  onPriceSortChange: (order: 'asc' | 'desc') => void;
+  priceSortOrder: 'ASC' | 'DESC';
+  onPriceSortChange: (order: 'ASC' | 'DESC') => void;
 }
 
 const PriceSortSelect: React.FC<PriceSortSelectProps> = ({ priceSortOrder, onPriceSortChange }) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOrder = event.target.value as 'asc' | 'desc';
+    const selectedOrder = event.target.value as 'ASC' | 'DESC';
     onPriceSortChange(selectedOrder); // Gọi callback để cập nhật giá trị sắp xếp
   };
 
@@ -22,8 +22,8 @@ const PriceSortSelect: React.FC<PriceSortSelectProps> = ({ priceSortOrder, onPri
         onChange={handleChange}
         className="w-full p-2 border rounded"
       >
-        <option value="asc">Low to High</option>
-        <option value="desc">High to Low</option>
+        <option value="ASC">Low to High</option>
+        <option value="DESC">High to Low</option>
       </select>
     </div>
   );

@@ -12,7 +12,7 @@ interface ProductSidebarProps {
   onMemorySelect: (memory: string) => void;
   selectedBrand: string;
   selectedMemory: string;
-  onPriceSortChange: (order: 'asc' | 'desc') => void; // Add callback for sorting
+  onPriceSortChange: (order: 'ASC' | 'DESC') => void; // Add callback for sorting
   onPriceChange: (min: number, max: number) => void;
   minPrice: number;
   maxPrice: number;
@@ -30,7 +30,7 @@ const ProductSidebar = ({
 }: ProductSidebarProps) => {
   const [sections, setSections] = useState(filterSections);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [priceSortOrder, setPriceSortOrder] = useState<'asc' | 'desc'>('asc'); // State for price sort
+  const [priceSortOrder, setPriceSortOrder] = useState<'ASC' | 'DESC'>('ASC'); // State for price sort
 
   const toggleSection = (sectionId: string) => {
     setSections((prev) =>
@@ -45,7 +45,7 @@ const ProductSidebar = ({
     document.body.style.overflow = isMobileFilterOpen ? 'unset' : 'hidden';
   };
 
-  const handlePriceSortChange = (order: 'asc' | 'desc') => {
+  const handlePriceSortChange = (order: 'ASC' | 'DESC') => {
     setPriceSortOrder(order);
     onPriceSortChange(order); // Pass the selected sort order to parent
   };

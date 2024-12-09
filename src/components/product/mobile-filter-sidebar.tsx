@@ -21,8 +21,8 @@ interface MobileFilterSidebarProps {
   onMemorySelect: (memory: string) => void;
   selectedBrand: string;
   selectedMemory: string;
-  priceSortOrder: 'asc' | 'desc'; // Add sort state
-  onPriceSortChange: (order: 'asc' | 'desc') => void;
+  priceSortOrder: 'ASC' | 'DESC'; // Add sort state
+  onPriceSortChange: (order: 'ASC' | 'DESC') => void;
   onPriceChange: (min: number, max: number) => void;
   minPrice: number;
   maxPrice: number;
