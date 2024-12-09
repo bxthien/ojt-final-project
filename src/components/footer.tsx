@@ -1,8 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import { socialData, contentData, servicesData, assistanceData } from '../constants/data';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
-    <footer className="bg-black text-white py-12">
+    <footer className="bg-black text-white pt-10 pb-5 mb-0">
       <div className="max-w-7xl mx-auto px-4 grid gap-8 md:grid-cols-[2fr_1fr_1fr] text-center md:text-left">
         <div>
           <a href="/">
@@ -11,7 +14,7 @@ const Footer = () => {
           <p className="text-base mb-7 mt-4">
             {contentData.map((line, index) => (
               <span key={index}>
-                {line}
+                {t(line)}
                 <br />
               </span>
             ))}
@@ -34,12 +37,12 @@ const Footer = () => {
 
         {/* Services Section */}
         <div>
-          <h3 className="text-lg font-bold mb-2">Services</h3>
+          <h3 className="text-lg font-bold mb-2">{t('footer.services.service')}</h3>
           <ul className="text-sm space-y-1">
-            {servicesData.map((service) => (
-              <li key={service}>
+            {servicesData.map((key, index) => (
+              <li key={index}>
                 <a href="#" className="hover:text-[#CFCFCF]">
-                  {service}
+                  {t(key)}
                 </a>
               </li>
             ))}
@@ -48,12 +51,12 @@ const Footer = () => {
 
         {/* Assistance Section */}
         <div>
-          <h3 className="text-lg font-bold mb-2">Assistance to the Buyer</h3>
+          <h3 className="text-lg font-bold mb-2">{t('footer.assistance.assistance')}</h3>
           <ul className="text-sm space-y-1">
-            {assistanceData.map((assistance) => (
-              <li key={assistance}>
+            {assistanceData.map((key, index) => (
+              <li key={index}>
                 <a href="#" className="hover:text-[#CFCFCF]">
-                  {assistance}
+                  {t(key)}
                 </a>
               </li>
             ))}
@@ -76,7 +79,7 @@ const Footer = () => {
       </div>
 
       <div className="mt-8 border-t border-gray-700 pt-4 text-center">
-        <p>▼iperS © Copyright 2024 | All rights reserved</p>
+        <p>{t('footer.copyright')}</p>
       </div>
     </footer>
   );

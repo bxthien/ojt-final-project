@@ -5,22 +5,23 @@ import { BsSmartwatch } from 'react-icons/bs';
 import { IoCameraSharp } from 'react-icons/io5';
 import { FaGamepad } from 'react-icons/fa6';
 import { FaTwitter, FaFacebook, FaTiktok, FaInstagram } from 'react-icons/fa';
+import { t } from 'i18next';
 // import Iphone16 from '../assets/photoss/Iphone16-hero.png';
 
 export const menuItems = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact Us' },
-  { href: '/product-page', label: 'Product' },
+  { href: '/', label: 'common.button.home' },
+  { href: '/product', label: 'common.button.product' },
+  { href: '/about', label: 'common.button.about' },
+  { href: '/contact', label: 'common.button.contactUs' },
 ];
 
 export const categoryItems = [
-  { href: '/phones', label: 'Phones', Icon: IoPhonePortraitOutline },
-  { href: '/computers', label: 'Computers', Icon: MdComputer },
-  { href: '/smart-watches', label: 'Smart Watches', Icon: BsSmartwatch },
-  { href: '/cameras', label: 'Cameras', Icon: IoCameraSharp },
-  { href: '/headphones', label: 'Headphones', Icon: PiHeadphonesLight },
-  { href: '/gaming', label: 'Gaming', Icon: FaGamepad },
+  { href: '/phone', label: 'common.button.phone', Icon: IoPhonePortraitOutline },
+  { href: '/computer', label: 'common.button.computer', Icon: MdComputer },
+  { href: '/smart-watche', label: 'common.button.smartWatch', Icon: BsSmartwatch },
+  { href: '/camera', label: 'common.button.camera', Icon: IoCameraSharp },
+  { href: '/headphone', label: 'common.button.headphone', Icon: PiHeadphonesLight },
+  { href: '/gaming', label: 'common.button.gaming', Icon: FaGamepad },
 ];
 
 export const socialData = [
@@ -30,58 +31,58 @@ export const socialData = [
   { href: '#', label: 'Instagram', icon: FaInstagram },
 ];
 
-export const contentData = [
-  'We are a technology shopping platform located in Vietnam,',
-  'which provides you with top-notch technology.',
-];
+export const contentData = ['content.part1', 'content.part2'];
 
 export const servicesData = [
-  'Bonus program',
-  'Gift cards',
-  'Credit and payment',
-  'Service contracts',
-  'Non-cash account',
-  'Payment',
+  'footer.services.bonusProgram',
+  'footer.services.giftCards',
+  'footer.services.creditAndPayment',
+  'footer.services.serviceContracts',
+  'footer.services.nonCashAccount',
+  'footer.services.payment',
 ];
 
 export const assistanceData = [
-  'Find an order',
-  'Terms of delivery',
-  'Exchange and return of goods',
-  'Guarantee',
-  'Frequently asked questions',
-  'Terms of use of the site',
+  'footer.assistance.findOrder',
+  'footer.assistance.termsOfDelivery',
+  'footer.assistance.exchangeAndReturn',
+  'footer.assistance.guarantee',
+  'footer.assistance.faq',
+  'footer.assistance.termsOfUse',
 ];
 
 export const heroData = {
-  heading: 'iPhone 16',
-  subHeading: 'Pro',
-  description: 'Created to change everything for the better. For everyone',
-  buttonText: 'Shop Now',
-  tagline: 'Pro.Beyond.',
+  heading: t('hero.heading'),
+  subHeading: t('hero.subHeading'),
+  description: t('hero.description'),
+  buttonText: t('hero.buttonText'),
+  tagline: t('hero.tagline'),
 };
 
 export const productData = {
   product1: {
-    name: 'Playstation 5',
-    description:
-      'Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O will redefine your PlayStation experience',
-    description2: '.',
+    name: 'product.product1.name',
+    description: 'product.product1.description',
   },
   product2: {
-    name: 'Apple AirPods Max',
-    description: "Computational audio. Listen, it's powerful",
+    name: 'product.product2.name',
+    description: 'product.product2.description',
   },
   product3: {
-    name: 'Apple Vision Pro',
-    description: 'An immersive way to experience entertainment',
+    name: 'product.product3.name',
+    description: 'product.product3.description',
   },
   product4: {
-    name: 'Macbook Air',
-    description:
-      'The new M2 chip makes every task fly—from everyday multitasking to your most demanding workflows',
+    name: 'product.product4.name',
+    description: 'product.product4.description',
   },
-  buttonText: 'Shop Now',
+  buttonText: 'product.buttonText',
+  altText: {
+    playstation: 'product.playstationAltText',
+    headphone: 'product.headphoneAltText',
+    appleVision: 'product.appleVisionAltText',
+    macbook: 'product.macbookAltText',
+  },
 };
 
 export interface Product {
@@ -91,66 +92,15 @@ export interface Product {
   photos: string[];
 }
 
-// export const products: Product[] = [
-//   {
-//     id: '1',
-//     name: 'Apple iPhone 14 Pro Max 128GB Deep Purple',
-//     price: 900,
-//     photos: Iphone16,
-//   },
-//   {
-//     id: '2',
-//     name: 'Blackmagic Pocket Cinema Camera 6K',
-//     price: 2535,
-//     photos: Iphone16,
-//   },
-//   {
-//     id: '3',
-//     name: 'Apple Watch Series 6 GPS 41mm Starlight Aluminum Case',
-//     price: 399,
-//     photos: Iphone16,
-//   },
-//   {
-//     id: '4',
-//     name: 'AirPods Max Silver',
-//     price: 549,
-//     photos: Iphone16,
-//   },
-//   {
-//     id: '5',
-//     name: 'Samsung Galaxy Watch6 Classic 47mm Black',
-//     price: 369,
-//     photos: Iphone16,
-//   },
-//   {
-//     id: '6',
-//     name: 'Galaxy Z Fold5 Unlocked | 256GB | Phantom Black',
-//     price: 1799,
-//     photos: Iphone16,
-//   },
-//   {
-//     id: '7',
-//     name: 'Galaxy Buds FE Graphite',
-//     price: 99.99,
-//     photos: Iphone16,
-//   },
-//   {
-//     id: '8',
-//     name: "Apple iPad 9 10.2' 64GB Wi-Fi Silver (MK2L3)",
-//     price: 398,
-//     photos: Iphone16,
-//   },
-// ];
-
 export const filterSections = [
   {
     id: 'price',
-    title: 'Price Range',
+    title: t('filter.price'),
     isOpen: true,
   },
   {
     id: 'brand',
-    title: 'Brand',
+    title: t('filter.brand'),
     isOpen: true,
     items: [
       { id: 'apple', name: 'Apple' },
@@ -165,7 +115,7 @@ export const filterSections = [
   },
   {
     id: 'memory',
-    title: 'Built-in memory',
+    title: t('filter.memory'),
     isOpen: true,
     items: [
       { id: '16gb', name: '16GB' },
