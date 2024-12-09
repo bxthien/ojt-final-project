@@ -67,9 +67,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <div
       className="relative flex w-full max-w-xs flex-col overflow-hidden rounded-lg border
        border-gray-100 bg-white shadow-md hover:border-[#56B280] hover:border-1 cursor-pointer"
-      onClick={handleNavigate}
     >
-      <div className="relative mx-3 mt-3 flex h-60 items-center justify-center overflow-hidden rounded-xl">
+      <div
+        className="relative mx-3 mt-3 flex h-60 items-center justify-center overflow-hidden rounded-xl"
+        onClick={handleNavigate}
+      >
         <Image
           src={
             url
@@ -82,10 +84,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
         />
       </div>
       <div className="mt-4 px-5 pb-5">
-        <a href="#">
-          <h5 className="text-xl tracking-tight text-slate-900">{name}</h5>
-        </a>
-        <div className="mt-2.5 mb-5 flex items-center">
+        <h5 className="text-xl tracking-tight text-slate-900" onClick={handleNavigate}>
+          {name}
+        </h5>
+        <div className="mt-2.5 mb-5 flex items-center" onClick={handleNavigate}>
           {Array(5)
             .fill('')
             .map((_, index) => (
@@ -110,12 +112,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <p>
-            <span className="text-2xl font-bold text-slate-900"> ${price.toFixed(2)}</span>
+          <p onClick={handleNavigate}>
+            <span className="text-base font-bold text-slate-900"> ${price.toFixed(2)}</span>
           </p>
-          <a
-            onClick={handleAddToCart}
-            href="#"
+          <div
             className="flex items-center justify-center rounded-md px-5 py-2.5 
         text-center  font-medium text-whitefocus:outline-none 
         focus:ring-4 focus:ring-blue-300"
@@ -130,7 +130,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             >
               <ShoppingCartOutlined className="text-xl sm:text-2xl" />
             </button>
-          </a>
+          </div>
         </div>
       </div>
     </div>

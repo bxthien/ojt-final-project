@@ -21,11 +21,11 @@ interface UseProductsParams {
 
 export const useProducts = ({
   category,
-  brand = '',
-  memory = '',
+  // brand = '',
+  // memory = '',
   minPrice = 0,
   maxPrice = 10000,
-  searchKey = '',
+  searchKey = 'iphone18',
   orderBy = 'ASC',
 }: UseProductsParams) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -41,8 +41,6 @@ export const useProducts = ({
         // Build params dynamically
         const params: Record<string, string | number> = {
           category,
-          brand,
-          memory,
           minPrice,
           maxPrice,
           searchKey,
@@ -72,7 +70,7 @@ export const useProducts = ({
     };
 
     fetchProducts();
-  }, [category, brand, memory, minPrice, maxPrice, searchKey, orderBy]);
+  }, [category, minPrice, maxPrice, searchKey, orderBy]);
 
   return { products, loading, error };
 };

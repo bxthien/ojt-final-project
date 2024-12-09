@@ -21,11 +21,12 @@ const ProductPage = () => {
   const searchParams = new URLSearchParams(location.search);
 
   const category = searchParams.get('category') || 'default-category';
-  const brand = searchParams.get('brand') || '';
-  const memory = searchParams.get('memory') || '';
+  // const brand = searchParams.get('brand') || '';
+  // const memory = searchParams.get('memory') || '';
 
   const searchKey = searchParams.get('searchKey') || '';
   const [searchTerm, setSearchTerm] = useState('');
+  console.log('product page');
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     setSearchTerm(searchParams.get('search') || '');
@@ -35,8 +36,8 @@ const ProductPage = () => {
   // const { products, loading, error } = useProducts('');
   const { products, loading, error } = useProducts({
     category,
-    brand,
-    memory,
+    // brand,
+    // memory,
     minPrice,
     maxPrice,
     searchKey,
