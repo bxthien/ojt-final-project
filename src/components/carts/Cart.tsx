@@ -1,12 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Table, Input, Button, Card, Row, Col, Space, Typography } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
-import { getCartItems } from '../../constants/cart';
+import { Button, Card, Col, Divider, Row, Space, Table, Typography } from 'antd';
+import { useEffect, useState } from 'react';
+import {
+  getCartItems,
+  minusQuantityCartProduct,
+  plusQuantityCartProduct,
+  removeFromCart,
+} from '../../constants/cart';
 import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
 
-interface Product {
+export interface Product {
   id: string;
   name: string;
   price: number;
@@ -14,7 +19,7 @@ interface Product {
   quantity: number;
 }
 
-interface CardProduct {
+export interface CardProduct {
   transactionId: string;
   quantity: number;
   price: number;
@@ -27,8 +32,10 @@ function Cart() {
   const [loading, setLoading] = useState(false);
 
   const [transactionId] = useState('54f51a4d-f9b5-4f17-9f17-385eb4b9e834');
-  const [coupon, setCoupon] = useState('');
+  // const [coupon, setCoupon] = useState('');
   const [total, setTotal] = useState(0);
+
+  console.log(items);
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -52,7 +59,9 @@ function Cart() {
   const handleRemoveItem = async (id: string) => {
     setLoading(true);
     try {
-      setItems(items.filter((item) => item.product.id !== id));
+      await removeFromCart(id);
+
+      setItems(items.filter((item) => item.transactionId !== id));
     } catch (error) {
       console.error('Error removing item:', error);
     } finally {
@@ -60,16 +69,38 @@ function Cart() {
     }
   };
 
-  const handleQuantityChange = (id: string, operation: 'increase' | 'decrease') => {
-    const updatedItems = items.map((item) => {
-      if (item.product.id === id) {
-        const updatedQuantity = operation === 'increase' ? item.quantity + 1 : item.quantity - 1;
-        return { ...item, quantity: updatedQuantity >= 1 ? updatedQuantity : 1 };
+  const handlePlusChange = async (id: string) => {
+    try {
+      const updatedItem = await plusQuantityCartProduct(id);
+      if (updatedItem) {
+        setItems((prevItems) =>
+          prevItems.map((item) =>
+            item.transactionId === id ? { ...item, quantity: item.quantity + 1 } : item
+          )
+        );
       }
-      return item;
-    });
+    } catch (error) {
+      console.error('Error increasing quantity:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    setItems(updatedItems);
+  const handleMinusChange = async (id: string) => {
+    try {
+      const updatedItem = await minusQuantityCartProduct(id);
+      if (updatedItem) {
+        setItems((prevItems) =>
+          prevItems.map((item) =>
+            item.transactionId === id ? { ...item, quantity: item.quantity - 1 } : item
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error increasing quantity:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -80,10 +111,6 @@ function Cart() {
     setTotal(calculatedTotal);
   }, [items]);
 
-  const handleApplyCoupon = () => {
-    alert(t('cart.couponApplied'));
-  };
-
   const columns = [
     {
       title: t('cart.product'),
@@ -91,12 +118,7 @@ function Cart() {
       key: 'name',
       render: (_: unknown, record: CardProduct) => (
         <Space size="middle" className="flex items-center">
-          <Button
-            type="text"
-            icon={<CloseOutlined className="text-red-500" />}
-            onClick={() => handleRemoveItem(record.product.id)}
-          />
-          <img src={record.product.url} alt={record.product.name} className="w-15 h-15 rounded" />
+          <img src={record.product.url} alt={record.product.name} className="w-20 h-20 rounded" />
           <Text>{record.product.name}</Text>
         </Space>
       ),
@@ -113,17 +135,11 @@ function Cart() {
       key: 'quantity',
       render: (quantity: number, record: CardProduct) => (
         <div className="flex items-center">
-          <button
-            onClick={() => handleQuantityChange(record.product.id, 'decrease')}
-            className="px-2 py-1"
-          >
+          <button onClick={() => handleMinusChange(record.transactionId)} className="px-2 py-1">
             -
           </button>
           <span className="px-4">{quantity}</span>
-          <button
-            onClick={() => handleQuantityChange(record.product.id, 'increase')}
-            className="px-2 py-1"
-          >
+          <button onClick={() => handlePlusChange(record.transactionId)} className="px-2 py-1">
             +
           </button>
         </div>
@@ -135,45 +151,44 @@ function Cart() {
       key: 'subtotal',
       render: (_: unknown, record: CardProduct) => `$${record.quantity * record.product.price}`,
     },
+    {
+      title: 'Action',
+      dataIndex: 'action',
+      key: 'action',
+      render: (_: unknown, record: CardProduct) => (
+        <Space size="middle" className="flex items-center">
+          <Button
+            type="text"
+            icon={<CloseOutlined className="text-red-500" />}
+            onClick={() => handleRemoveItem(record.transactionId)}
+          />
+        </Space>
+      ),
+    },
   ];
 
   return (
-    <div className="cart-container p-5 max-w-5xl mx-auto">
-      <Title level={2}>{t('cart.title')}</Title>
-      <Text type="secondary">{t('cart.subtitle')}</Text>
-      <Table
-        dataSource={items}
-        columns={columns}
-        rowKey="transactionId"
-        pagination={false}
-        loading={loading}
-        className="mt-5 mb-10"
-      />
+    <div className="cart-container py-5 max-w-5xl mx-auto">
+      <Title level={2}>Cart</Title>
+
+      {/* {items.map((item) => (
+        <CartItem item={item} />
+      ))} */}
 
       <Row gutter={24}>
-        <Col xs={24} md={12}>
-          <Card>
-            <Title level={4}>{t('cart.applyCoupon')}</Title>
-            <Space direction="vertical" size="middle" className="w-full">
-              <Input
-                placeholder={t('cart.couponPlaceholder')}
-                value={coupon}
-                onChange={(e) => setCoupon(e.target.value)}
-              />
-              <Button
-                type="primary"
-                className="bg-[#56B280] border-[#56B280] text-white hover:bg-[#3D8F64] hover:border-[#3D8F64]"
-                onClick={handleApplyCoupon}
-              >
-                {t('cart.applyCouponButton')}
-              </Button>
-            </Space>
-          </Card>
+        {/* Coupon Section */}
+        <Col xs={24} md={16}>
+          <Table
+            dataSource={items}
+            columns={columns}
+            rowKey="transactionId" // Sử dụng transactionId làm rowKey
+            pagination={false}
+            loading={loading}
+          />
         </Col>
-
-        <Col xs={24} md={12}>
-          <Card>
-            <Title level={4}>{t('cart.cartTotal')}</Title>
+        <Col xs={24} md={8}>
+          <Card className="shadow-md">
+            <Title level={4}>Cart Total</Title>
             <Space direction="vertical" size="middle" className="w-full">
               <Row justify="space-between" className="w-full">
                 <Text>{t('cart.subtotal')}:</Text>
@@ -183,20 +198,23 @@ function Cart() {
                 <Text>{t('cart.shipping')}:</Text>
                 <Text>{t('cart.free')}</Text>
               </Row>
+              <Divider />
               <Row justify="space-between" className="w-full font-bold">
                 <Text>{t('cart.total')}:</Text>
                 <Text>${total}</Text>
               </Row>
-              <Button
-                type="primary"
-                className="bg-[#56B280] border-[#56B280] text-white hover:bg-[#3D8F64] hover:border-[#3D8F64]"
-                block
-                onClick={() => (window.location.href = '/checkout')}
-              >
-                {t('cart.proceedToCheckout')}
-              </Button>
             </Space>
           </Card>
+          <div className="px-4 mt-4 flex items-end justify-center">
+            <Button
+              type="primary"
+              className="bg-[#56B280] border-[#56B280] text-white hover:bg-[#3D8F64] hover:border-[#3D8F64] h-10"
+              block
+              onClick={() => (window.location.href = '/checkout')}
+            >
+              {t('cart.proceedToCheckout')}
+            </Button>
+          </div>
         </Col>
       </Row>
     </div>
