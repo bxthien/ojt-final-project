@@ -1,36 +1,50 @@
-import { useState } from 'react';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
+import { useEffect, useState } from 'react';
 import { filterSections } from '../../constants/data';
-import BrandFilter from './branch-filter';
-import MemoryFilter from './memory-filter';
 import MobileFilterSidebar from './mobile-filter-sidebar';
-import PriceSortSelect from './price-sort-select'; // Import component
+import PriceSortSelect from './price-sort-select';
 import PriceRangeSidebar from './price-range';
+import { getCategories } from '../../constants/useCategory';
+import SelectCategory from './select-category';
+
+interface Category {
+  id: string;
+  name: string;
+}
 
 interface ProductSidebarProps {
-  onBrandSelect: (brand: string) => void;
-  onMemorySelect: (memory: string) => void;
-  selectedBrand: string;
-  selectedMemory: string;
-  onPriceSortChange: (order: 'ASC' | 'DESC') => void; // Add callback for sorting
-  onPriceChange: (min: number, max: number) => void;
+  onPriceSortChange: (order: 'ASC' | 'DESC') => void;
+  onPriceChange: (newMinPrice: number, newMaxPrice: number) => void;
   minPrice: number;
   maxPrice: number;
+  onCategorySelect: (newCategory: string[]) => void;
+  selectedCategories: string[];
 }
 
 const ProductSidebar = ({
-  onBrandSelect,
-  onMemorySelect,
-  selectedBrand,
-  selectedMemory,
   onPriceSortChange,
   onPriceChange,
   minPrice,
   maxPrice,
+  onCategorySelect,
+  selectedCategories,
 }: ProductSidebarProps) => {
   const [sections, setSections] = useState(filterSections);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
-  const [priceSortOrder, setPriceSortOrder] = useState<'ASC' | 'DESC'>('ASC'); // State for price sort
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [priceSortOrder, setPriceSortOrder] = useState<'ASC' | 'DESC'>('ASC');
+
+  // Fetch categories from API
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data = await getCategories();
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+    fetchCategories();
+  }, []);
 
   const toggleSection = (sectionId: string) => {
     setSections((prev) =>
@@ -47,7 +61,11 @@ const ProductSidebar = ({
 
   const handlePriceSortChange = (order: 'ASC' | 'DESC') => {
     setPriceSortOrder(order);
-    onPriceSortChange(order); // Pass the selected sort order to parent
+    onPriceSortChange(order);
+  };
+
+  const handleCategorySelect = (selected: string[]) => {
+    onCategorySelect(selected); // Gửi danh sách category về component cha
   };
 
   return (
@@ -55,40 +73,33 @@ const ProductSidebar = ({
       {/* Desktop Sidebar */}
       <div className="hidden lg:block p-6 w-64 bg-white border-r">
         <div className="p-6">
-          {/* Add PriceSortSelect below the sections */}
+          {/* Price Sort Select */}
           <PriceSortSelect
             priceSortOrder={priceSortOrder}
             onPriceSortChange={handlePriceSortChange}
           />
+
+          {/* Categories Section */}
+          <div className="mb-6">
+            <SelectCategory
+              categories={categories}
+              selectedCategories={selectedCategories}
+              onCategorySelect={onCategorySelect}
+            />
+          </div>
+
+          {/* Sections */}
           {sections.map((section) => (
             <div key={section.id} className="mb-6">
-              <button
-                onClick={() => toggleSection(section.id)}
-                className="flex items-center justify-between w-full mb-3 font-semibold text-gray-800"
-              >
-                {section.title}
-                {section.isOpen ? (
-                  <FaChevronUp className="w-4 h-4" />
-                ) : (
-                  <FaChevronDown className="w-4 h-4" />
-                )}
-              </button>
               <hr className="mb-4" />
-
               {section.isOpen && (
                 <div className="pl-2">
                   {section.id === 'price' && (
                     <PriceRangeSidebar
-                      onPriceChange={onPriceChange} // Pass onPriceChange function
+                      onPriceChange={onPriceChange}
                       minPrice={minPrice}
                       maxPrice={maxPrice}
                     />
-                  )}
-                  {section.id === 'brand' && (
-                    <BrandFilter selectedBrand={selectedBrand} onBrandSelect={onBrandSelect} />
-                  )}
-                  {section.id === 'memory' && (
-                    <MemoryFilter selectedMemory={selectedMemory} onMemorySelect={onMemorySelect} />
                   )}
                 </div>
               )}
@@ -112,15 +123,14 @@ const ProductSidebar = ({
         onClose={toggleMobileFilter}
         sections={sections}
         toggleSection={toggleSection}
-        onBrandSelect={onBrandSelect}
-        onMemorySelect={onMemorySelect}
-        selectedBrand={selectedBrand}
-        selectedMemory={selectedMemory}
         priceSortOrder={priceSortOrder}
         onPriceSortChange={handlePriceSortChange}
-        onPriceChange={onPriceChange} // Thêm hàm onPriceChange
-        minPrice={minPrice} // Truyền giá trị minPrice
+        onPriceChange={onPriceChange}
+        minPrice={minPrice}
         maxPrice={maxPrice}
+        categories={categories}
+        onCategorySelect={handleCategorySelect}
+        selectedCategories={[]}
       />
     </>
   );

@@ -1,9 +1,8 @@
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa6';
-import BrandFilter from './branch-filter';
-import MemoryFilter from './memory-filter';
 import { FaTimes } from 'react-icons/fa';
-import PriceSortSelect from './price-sort-select'; // Import PriceSortSelect
+import PriceSortSelect from './price-sort-select';
 import PriceRangeSidebar from './price-range';
+// import { Select } from 'antd';
+import SelectCategory from './select-category';
 
 // Define the Section interface
 interface Section {
@@ -12,43 +11,46 @@ interface Section {
   isOpen: boolean;
 }
 
+interface Category {
+  id: string;
+  name: string;
+}
+
 interface MobileFilterSidebarProps {
   isOpen: boolean;
   onClose: () => void;
   sections: Section[];
   toggleSection: (sectionId: string) => void;
-  onBrandSelect: (brand: string) => void;
-  onMemorySelect: (memory: string) => void;
-  selectedBrand: string;
-  selectedMemory: string;
-  priceSortOrder: 'ASC' | 'DESC'; // Add sort state
+  priceSortOrder: 'ASC' | 'DESC';
   onPriceSortChange: (order: 'ASC' | 'DESC') => void;
   onPriceChange: (min: number, max: number) => void;
   minPrice: number;
   maxPrice: number;
+  categories: Category[];
+  selectedCategories: string[];
+  onCategorySelect: (categories: string[]) => void;
 }
 
-const MobileFilterSidebar = ({
+const MobileFilterSidebar: React.FC<MobileFilterSidebarProps> = ({
   isOpen,
   onClose,
   sections,
-  toggleSection,
-  onBrandSelect,
-  onMemorySelect,
-  selectedBrand,
-  selectedMemory,
+  // toggleSection,
   priceSortOrder,
   onPriceSortChange,
   onPriceChange,
   minPrice,
   maxPrice,
-}: MobileFilterSidebarProps) => {
+  categories,
+  selectedCategories,
+  onCategorySelect,
+}) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex justify-start">
-      <div className="bg-white h-full  flex flex-col">
-        <div className="flex items-center  justify-between border-b">
+      <div className="bg-white h-full flex flex-col">
+        <div className="flex items-center justify-between border-b">
           <h2 className="text-lg font-semibold p-4">Filters</h2>
           <button
             onClick={onClose}
@@ -68,35 +70,30 @@ const MobileFilterSidebar = ({
               onPriceSortChange={onPriceSortChange}
             />
           </div>
+
+          {/* Categories Section */}
+          <div className="mb-6">
+            <h3 className="font-semibold text-lg mb-4">Categories</h3>
+            <SelectCategory
+              categories={categories}
+              selectedCategories={selectedCategories}
+              onCategorySelect={onCategorySelect}
+            />
+          </div>
+
+          {/* Sections */}
           {sections.map((section) => (
             <div key={section.id} className="mb-6">
-              <button
-                onClick={() => toggleSection(section.id)}
-                className="flex items-center justify-between w-full mb-3 font-semibold text-gray-800"
-              >
-                {section.title}
-                {section.isOpen ? (
-                  <FaChevronUp className="w-4 h-4" />
-                ) : (
-                  <FaChevronDown className="w-4 h-4" />
-                )}
-              </button>
               <hr className="mb-4" />
 
               {section.isOpen && (
                 <div className="pl-2">
                   {section.id === 'price' && (
                     <PriceRangeSidebar
-                      onPriceChange={onPriceChange} // Gọi API khi người dùng nhấn "Apply Price Range"
+                      onPriceChange={onPriceChange}
                       minPrice={minPrice}
                       maxPrice={maxPrice}
                     />
-                  )}
-                  {section.id === 'brand' && (
-                    <BrandFilter selectedBrand={selectedBrand} onBrandSelect={onBrandSelect} />
-                  )}
-                  {section.id === 'memory' && (
-                    <MemoryFilter selectedMemory={selectedMemory} onMemorySelect={onMemorySelect} />
                   )}
                 </div>
               )}

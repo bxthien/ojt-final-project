@@ -7,10 +7,11 @@ export interface Product {
   price: number;
   photos: string[];
   url: string;
+  category: string[];
 }
 
 interface UseProductsParams {
-  category: string;
+  categories: string[];
   brand?: string;
   memory?: string;
   minPrice?: number | undefined;
@@ -20,9 +21,7 @@ interface UseProductsParams {
 }
 
 export const useProducts = ({
-  category,
-  // brand = '',
-  // memory = '',
+  categories = [],
   minPrice = undefined,
   maxPrice = undefined,
   search = '',
@@ -40,6 +39,7 @@ export const useProducts = ({
       try {
         // Build params dynamically
         const params = {
+          categories,
           search,
           orderBy,
           page: 1,
@@ -70,7 +70,7 @@ export const useProducts = ({
     };
 
     fetchProducts();
-  }, [category, minPrice, maxPrice, search, orderBy]);
+  }, [categories.join(','), minPrice, maxPrice, search, orderBy]);
 
   return { products, loading, error };
 };
