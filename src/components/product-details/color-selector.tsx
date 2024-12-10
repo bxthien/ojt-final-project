@@ -16,7 +16,7 @@ const ColorSelector = ({ colors, selectedColor, onColorSelect }: ColorSelectorPr
         {colors.map((color, index) => (
           <div
             key={index}
-            className={`w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2  ${color === selectedColor ? 'border-4 border-[#56B280]' : ''}`}
+            className={`w-8 h-8 rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2  ${color === selectedColor ? 'border-2 border-[#56B280]' : ''}`}
             style={{ backgroundColor: color }}
             onClick={() => onColorSelect(color)}
           ></div>
