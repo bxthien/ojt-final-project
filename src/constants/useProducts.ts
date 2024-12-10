@@ -39,7 +39,7 @@ export const useProducts = ({
       try {
         // Build params dynamically
         const params = {
-          categories,
+          categoryIds: categories,
           search,
           orderBy,
           page: 1,

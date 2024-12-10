@@ -15,13 +15,10 @@ export interface Product {
 
 const ProductPage = () => {
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
+  // const searchParams = new URLSearchParams(location.search);
 
   // Improved category handling
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(() => {
-    const categoriesFromUrl = searchParams.get('categories');
-    return categoriesFromUrl ? categoriesFromUrl.split(',') : [];
-  });
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [sortOrder, setSortOrder] = useState<'ASC' | 'DESC'>('ASC');
@@ -43,15 +40,15 @@ const ProductPage = () => {
     if (urlMaxPrice) setMaxPrice(Number(urlMaxPrice));
 
     // Update selected categories
-    const categoriesFromUrl = searchParams.get('categories');
-    if (categoriesFromUrl) {
-      setSelectedCategories(categoriesFromUrl.split(','));
-    }
+    // const categoriesFromUrl = searchParams.get('categories');
+    // if (categoriesFromUrl) {
+    //   setSelectedCategories(categoriesFromUrl.split(','));
+    // }
   }, [location.search]); // This will trigger whenever the URL changes
 
-  // Update handleCategorySelect to properly update the URL and state
   const handleCategorySelect = (categories: string[]) => {
     setSelectedCategories(categories);
+    console.log('categories', categories);
 
     const searchParams = new URLSearchParams(location.search);
 
@@ -78,12 +75,8 @@ const ProductPage = () => {
   useEffect(() => {
     const filtered = products
       .filter((product) => product.price >= minPrice && product.price <= maxPrice)
-      .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()))
-      .filter((product) => {
-        // Filter by selected categories
-        if (selectedCategories.length === 0) return true;
-        return selectedCategories.some((category) => product.category.includes(category));
-      });
+      .filter((product) => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    // .filter((product) => {});
 
     // Sort by price
     filtered.sort((a, b) => (sortOrder === 'ASC' ? a.price - b.price : b.price - a.price));
@@ -133,11 +126,6 @@ const ProductPage = () => {
         )}
 
         {/* Category Filter Display */}
-        {selectedCategories.length > 0 && (
-          <p className="text-lg text-gray-700 mb-6">
-            Categories: <span className="font-semibold">{selectedCategories.join(', ')}</span>
-          </p>
-        )}
 
         {/* Error Handling */}
         {error && <p className="text-red-500 text-center">{error}</p>}

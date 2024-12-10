@@ -6,7 +6,7 @@ import PriceRangeSidebar from './price-range';
 import { getCategories } from '../../constants/useCategory';
 import SelectCategory from './select-category';
 
-interface Category {
+export interface Category {
   id: string;
   name: string;
 }
@@ -38,7 +38,8 @@ const ProductSidebar = ({
     const fetchCategories = async () => {
       try {
         const data = await getCategories();
-        setCategories(data);
+        const formatCategory = data.map((item: Category) => ({ id: item.id, name: item.name }));
+        setCategories(formatCategory);
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
