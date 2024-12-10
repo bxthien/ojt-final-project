@@ -11,9 +11,16 @@ interface AvatarUploadProps {
 
 const AvatarUpload: React.FC<AvatarUploadProps> = ({ url, setUrl, setUploading }) => {
   const { t } = useTranslation();
+
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    const maxFileSize = 10 * 1024 * 1024;
+    if (file.size > maxFileSize) {
+      message.error(t('avatarUpload.fileTooLarge'));
+      return;
+    }
 
     const formData = new FormData();
     formData.append('file', file);

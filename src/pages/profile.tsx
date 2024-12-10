@@ -6,16 +6,21 @@ import Sidebar from '../components/profile/Sidebar';
 import MyOrders from '../components/profile/order';
 import { getProfile, updateProfile, changePassword, Order, getOrders } from '../constants/service';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProfile as updateUserProfile } from '../redux/auth/authSlice';
+import { RootState } from '../redux/store';
 
 const Profile = () => {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const [passwordForm] = Form.useForm();
   const [activeTab, setActiveTab] = useState('profile');
-  const [username, setUsername] = useState('');
-  const [url, setUrl] = useState('');
   const [orders, setOrders] = useState<Order[]>([]);
   const [, setUploading] = useState(false);
+
+  const dispatch = useDispatch();
+  const username = useSelector((state: RootState) => state.auth.username);
+  const url = useSelector((state: RootState) => state.auth.url);
 
   useEffect(() => {
     getProfile()
@@ -28,8 +33,13 @@ const Profile = () => {
           address: userData.address || '',
           description: userData.description || '',
         });
-        setUsername(userData.username || '');
-        setUrl(userData.url || '');
+
+        dispatch(
+          updateUserProfile({
+            username: userData.username || '',
+            url: userData.url || '',
+          })
+        );
       })
       .catch((err) => {
         console.error('Error fetching profile:', err);
@@ -45,7 +55,7 @@ const Profile = () => {
         console.error('Error fetching orders:', err);
         message.error(t('profile.errorFetchOrders'));
       });
-  }, [form, t]);
+  }, [dispatch, form, t]);
 
   const handleSaveChanges = (values: {
     username: string;
@@ -62,7 +72,12 @@ const Profile = () => {
     updateProfile(updatedValues)
       .then(() => {
         message.success(t('profile.successUpdateProfile'));
-        setUsername(values.username);
+        dispatch(
+          updateUserProfile({
+            username: values.username,
+            url: values.url,
+          })
+        );
       })
       .catch(() => message.error(t('profile.errorUpdateProfile')));
   };
@@ -94,7 +109,7 @@ const Profile = () => {
               <ProfileForm
                 form={form}
                 url={url}
-                setUrl={setUrl}
+                setUrl={(newUrl) => dispatch(updateUserProfile({ username, url: newUrl }))}
                 setUploading={setUploading}
                 handleSaveChanges={handleSaveChanges}
               />

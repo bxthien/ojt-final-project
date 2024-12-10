@@ -192,6 +192,7 @@
   },
 
   "avatarUpload": {
+    "fileTooLarge": "Tệp quá lớn. Kích thước tối đa là 10MB.",
     "success": "Ảnh đại diện đã được tải lên thành công",
     "error": "Tải ảnh đại diện thất bại"
   },
@@ -215,7 +216,9 @@
     "oldPasswordRequired": "Vui lòng nhập mật khẩu cũ của bạn!",
     "newPasswordRequired": "Vui lòng nhập mật khẩu mới!",
     "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu mới của bạn!",
-    "changePasswordButton": "Đổi mật khẩu"
+    "changePasswordButton": "Đổi mật khẩu",
+    "passwordStrength": "Mật khẩu phải chứa ít nhất một chữ cái viết thường, một chữ cái viết hoa và một số",
+    "passwordMismatch": "Mật khẩu không khớp"
   },
 
   "profileForm": {

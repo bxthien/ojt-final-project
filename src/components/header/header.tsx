@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoClose } from 'react-icons/io5';
@@ -10,20 +10,40 @@ import CartIcon from './cart-icon';
 import ProfileIcon from './profile-icon';
 import { Button } from 'antd';
 import { CiSearch } from 'react-icons/ci';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import Search from './search';
 import LanguageSelector from '../common/language';
 import { useTranslation } from 'react-i18next';
+import { getProfile } from '../../constants/service';
+import { updateProfile } from '../../redux/auth/authSlice';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartCount] = useState<number>(0);
+  const dispatch = useDispatch();
+  const isAuth = useSelector((state: RootState) => state.auth.isAuth);
+  const username = useSelector((state: RootState) => state.auth.username);
+  const url = useSelector((state: RootState) => state.auth.url);
+
+  useEffect(() => {
+    getProfile()
+      .then((response) => {
+        dispatch(
+          updateProfile({
+            username: response.username || '',
+            url: response.url || '',
+          })
+        );
+      })
+      .catch((error) => {
+        console.error('Failed to fetch profile:', error);
+      });
+  }, [dispatch]);
 
   const handleLogin = () => {
     if (isAuth) {
@@ -59,7 +79,9 @@ const Header: React.FC = () => {
               <LanguageSelector />
               {isAuth ? (
                 <div className="flex items-center space-x-4">
-                  <ProfileIcon isActive={isActivePath('/profile')} />
+                  {isAuth && (
+                    <ProfileIcon username={username} url={url} isActive={pathname === '/profile'} />
+                  )}
                 </div>
               ) : (
                 <Button
@@ -76,8 +98,9 @@ const Header: React.FC = () => {
           <div className="flex lg:hidden items-center space-x-4">
             <CiSearch className="w-6 h-6 cursor-pointer" onClick={toggleSearch} />
             <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
+            <LanguageSelector />
             {isAuth ? (
-              <ProfileIcon isActive={isActivePath('/profile')} />
+              <ProfileIcon username={''} url={url} isActive={pathname === '/profile'} />
             ) : (
               <Button
                 type="primary"

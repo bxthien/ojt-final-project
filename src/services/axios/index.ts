@@ -31,18 +31,18 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const { response, config } = error;
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const { response, config } = error;
 
-    if (response && response.status === 401 && config.url !== '/auth/login') {
-      localStorage.removeItem(ACCESS_TOKEN);
-      window.location.replace('/sign-in');
-    }
+//     if (response && response.status === 401 && config.url !== '/auth/login') {
+//       localStorage.removeItem(ACCESS_TOKEN);
+//       window.location.replace('/sign-in');
+//     }
 
-    return Promise.reject(error);
-  }
-);
+//     return Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;
