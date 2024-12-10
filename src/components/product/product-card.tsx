@@ -121,7 +121,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           >
             <Button
               onClick={handleAddToCart}
-              className=" text-[#56B280] border-gray-400 flex items-center justify-center transition-colors hover:bg-white hover:text-black border-transparent"
+              className=" text-[#56B280] border-gray-400 flex items-center justify-center transition-colors hover:bg-white hover:text-black border-transparent p-0"
               aria-label="Add to Cart"
               type="link"
             >
