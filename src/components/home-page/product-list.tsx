@@ -80,9 +80,8 @@ const ProductList = () => {
             </div>
           </section>
 
-          {/* Danh mục Low to High Price */}
           <section>
-            <h2 className="text-xl font-bold mb-4">Low to High Price</h2>
+            <h2 className="text-xl font-bold mb-4">Best Seller</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-full justify-center">
               {lowToHighPriceProducts.length > 0 ? (
                 lowToHighPriceProducts.map((product) => (
