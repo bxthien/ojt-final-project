@@ -1,6 +1,7 @@
 import React from 'react';
 import { Result, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface PaymentStatusProps {
   status: 'success' | 'failed';
@@ -9,11 +10,13 @@ interface PaymentStatusProps {
 }
 
 const PaymentStatus: React.FC<PaymentStatusProps> = ({ status, orderId, customerName }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleBackToShopping = () => {
     navigate('/');
   };
+
   const handleBackToPayment = () => {
     navigate('/shipping');
   };
@@ -23,36 +26,33 @@ const PaymentStatus: React.FC<PaymentStatusProps> = ({ status, orderId, customer
       {status === 'success' ? (
         <Result
           status="success"
-          title="Payment Confirmed"
+          title={t('paymentStatus.paymentConfirmed')}
           subTitle={
             <>
-              {orderId && <p>ORDER #{orderId}</p>}
-              <p>
-                Thank you {customerName || 'Customer'} for your purchase! Your order is confirmed
-                and will be ready to ship in 2 days. Please check your inbox for updates.
-              </p>
+              {orderId && <p>{t('paymentStatus.orderId', { orderId })}</p>}
+              <p>{t('paymentStatus.thankYou', { customerName: customerName || 'Customer' })}</p>
             </>
           }
           extra={[
             <Button type="primary" onClick={handleBackToShopping} key="back">
-              Back to shopping
+              {t('paymentStatus.backToShopping')}
             </Button>,
             <Button onClick={() => window.print()} key="print">
-              Print receipt
+              {t('paymentStatus.printReceipt')}
             </Button>,
           ]}
         />
       ) : (
         <Result
           status="error"
-          title="Payment Failed"
-          subTitle="We encountered an issue while processing your payment. Please try again or contact support."
+          title={t('paymentStatus.paymentFailed')}
+          subTitle={t('paymentStatus.paymentErrorMessage')}
           extra={[
             <Button type="primary" onClick={handleBackToPayment} key="retry">
-              Retry Payment
+              {t('paymentStatus.retryPayment')}
             </Button>,
             <Button onClick={() => navigate('/help')} key="help">
-              Contact Support
+              {t('paymentStatus.contactSupport')}
             </Button>,
           ]}
         />

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, FormInstance } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { passwordValidator } from '../../constants/regex';
 
 interface PasswordChangeProps {
   form: FormInstance;
@@ -7,31 +9,49 @@ interface PasswordChangeProps {
 }
 
 const PasswordChange: React.FC<PasswordChangeProps> = ({ form, handleChangePassword }) => {
+  const { t } = useTranslation();
+
   return (
     <Form form={form} layout="vertical" onFinish={handleChangePassword}>
       <Form.Item
-        label="Old Password"
+        label={t('passwordChange.oldPassword')}
         name="oldPassword"
-        rules={[{ required: true, message: 'Please input your old password!' }]}
+        rules={[{ required: true, message: t('passwordChange.oldPasswordRequired') }]}
       >
         <Input.Password className="border-2 border-gray-300 p-2 rounded-md" />
       </Form.Item>
+
       <Form.Item
-        label="New Password"
+        label={t('passwordChange.newPassword')}
         name="newPassword"
-        rules={[{ required: true, message: 'Please input your new password!' }]}
+        rules={[
+          { required: true, message: t('passwordChange.newPasswordRequired') },
+          { validator: passwordValidator, message: t('passwordChange.passwordStrength') },
+        ]}
       >
         <Input.Password className="border-2 border-gray-300 p-2 rounded-md" />
       </Form.Item>
+
       <Form.Item
-        label="Confirm Password"
+        label={t('passwordChange.confirmPassword')}
         name="confirmPassword"
-        rules={[{ required: true, message: 'Please input your confirm password!' }]}
+        rules={[
+          { required: true, message: t('passwordChange.confirmPasswordRequired') },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('newPassword') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(new Error(t('passwordChange.passwordMismatch')));
+            },
+          }),
+        ]}
       >
         <Input.Password className="border-2 border-gray-300 p-2 rounded-md" />
       </Form.Item>
+
       <Button htmlType="submit" className="bg-[#56B280] text-white w-full sm:w-auto">
-        Change Password
+        {t('passwordChange.changePasswordButton')}
       </Button>
     </Form>
   );

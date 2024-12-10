@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ProductCard from '../product/product-card';
 import axiosInstance from '../../services/axios';
+import { useTranslation } from 'react-i18next';
 
 export interface Product {
   id: string;
@@ -14,6 +15,7 @@ export interface Product {
 }
 
 const ProductList = () => {
+  const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]); // Dữ liệu sản phẩm
   const [loading, setLoading] = useState<boolean>(true); // Trạng thái loading
   const [error, setError] = useState<string | null>(null); // Trạng thái lỗi
@@ -59,11 +61,11 @@ const ProductList = () => {
   return (
     <div className="bg-white p-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-14">
       {/* Hiển thị thông báo lỗi nếu có */}
-      {error && <p className="text-red-500 text-center">{error}</p>}
+      {error && <p className="text-red-500 text-center">{t('error.loadingProducts')}</p>}
 
       {/* Show loading indicator */}
       {loading ? (
-        <div className="text-center">Loading...</div>
+        <div className="text-center">{t('loading')}</div>
       ) : (
         <div className="space-y-8">
           {/* Danh mục New Arrival */}

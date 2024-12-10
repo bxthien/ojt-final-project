@@ -1,6 +1,7 @@
 import React from 'react';
 import { message } from 'antd';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 interface AvatarUploadProps {
   url: string;
@@ -9,23 +10,32 @@ interface AvatarUploadProps {
 }
 
 const AvatarUpload: React.FC<AvatarUploadProps> = ({ url, setUrl, setUploading }) => {
+  const { t } = useTranslation();
+
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    const maxFileSize = 10 * 1024 * 1024;
+    if (file.size > maxFileSize) {
+      message.error(t('avatarUpload.fileTooLarge'));
+      return;
+    }
+
     const formData = new FormData();
     formData.append('file', file);
     setUploading(true);
+
     axios
       .post('/upload/image', formData)
       .then((response) => {
         const imageUrl = response.data.url;
         setUrl(imageUrl);
-        message.success('Avatar uploaded successfully');
+        message.success(t('avatarUpload.success'));
       })
       .catch((error) => {
         console.error('Error uploading image:', error);
-        message.error('Failed to upload avatar');
+        message.error(t('avatarUpload.error'));
       })
       .finally(() => {
         setUploading(false);

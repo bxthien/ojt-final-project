@@ -1,5 +1,4 @@
 import { Dropdown, Space } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -9,7 +8,16 @@ const LanguageSelector = () => {
 
   const items = [
     {
-      label: 'English',
+      label: (
+        <div className="flex items-center space-x-2">
+          <img
+            src="https://flagcdn.com/w320/gb.png"
+            alt="English"
+            className="w-4 h-4 rounded-full"
+          />
+          <span>English</span>
+        </div>
+      ),
       key: 'en',
       onClick: () => {
         setCurrentLanguage('en');
@@ -17,7 +25,16 @@ const LanguageSelector = () => {
       },
     },
     {
-      label: 'Vietnamese',
+      label: (
+        <div className="flex items-center space-x-2">
+          <img
+            src="https://flagcdn.com/w320/vn.png"
+            alt="Vietnamese"
+            className="w-4 h-4 rounded-full"
+          />
+          <span>Vietnamese</span>
+        </div>
+      ),
       key: 'vi',
       onClick: () => {
         setCurrentLanguage('vi');
@@ -29,8 +46,18 @@ const LanguageSelector = () => {
   return (
     <Dropdown menu={{ items }} trigger={['click']}>
       <Space>
-        {currentLanguage === 'en' ? 'English' : 'Vietnamese'}
-        <DownOutlined />
+        <div className="flex items-center space-x-2">
+          <img
+            src={
+              currentLanguage === 'en'
+                ? 'https://flagcdn.com/w320/gb.png'
+                : 'https://flagcdn.com/w320/vn.png'
+            }
+            alt={currentLanguage === 'en' ? 'English' : 'Vietnamese'}
+            className="w-4 h-4 rounded-full"
+          />
+          <span className="text-sm">{currentLanguage === 'en' ? 'EN' : 'VI'}</span>
+        </div>
       </Space>
     </Dropdown>
   );

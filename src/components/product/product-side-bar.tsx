@@ -10,6 +10,7 @@ export interface Category {
   id: string;
   name: string;
 }
+import { useTranslation } from 'react-i18next';
 
 interface ProductSidebarProps {
   onPriceSortChange: (order: 'ASC' | 'DESC') => void;
@@ -28,6 +29,7 @@ const ProductSidebar = ({
   onCategorySelect,
   selectedCategories,
 }: ProductSidebarProps) => {
+  const { t } = useTranslation();
   const [sections, setSections] = useState(filterSections);
   const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -71,7 +73,6 @@ const ProductSidebar = ({
 
   return (
     <>
-      {/* Desktop Sidebar */}
       <div className="hidden lg:block p-6 w-64 bg-white border-r">
         <div className="p-6">
           {/* Price Sort Select */}
@@ -113,9 +114,9 @@ const ProductSidebar = ({
       <button
         onClick={toggleMobileFilter}
         className="lg:hidden left-5 z-50 bg-[#56B280] text-white mt-4 p-4 ml-4 rounded-lg shadow-lg"
-        aria-label="Open filters"
+        aria-label={t('filters.mobileFilterButton')}
       >
-        Filter
+        {t('filters.filter')}
       </button>
 
       {/* Mobile Filter Sidebar */}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface PriceRangeSidebarProps {
   onPriceChange: (min: number, max: number) => void;
@@ -7,6 +8,7 @@ interface PriceRangeSidebarProps {
 }
 
 const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, minPrice }) => {
+  const { t } = useTranslation();
   const [localMinPrice, setLocalMinPrice] = useState(minPrice);
   const [localMaxPrice, setLocalMaxPrice] = useState(5000); // Đặt giá trị mặc định cho maxPrice là 5000
 
@@ -30,7 +32,7 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, mi
     <div className="space-y-4">
       <div>
         <label htmlFor="minPrice" className="block">
-          Min Price
+          {t('priceRange.minPrice')}
         </label>
         <input
           type="number"
@@ -46,7 +48,7 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, mi
       </div>
       <div>
         <label htmlFor="maxPrice" className="block">
-          Max Price
+          {t('priceRange.maxPrice')}
         </label>
         <input
           type="number"

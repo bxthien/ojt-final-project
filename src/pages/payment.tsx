@@ -8,10 +8,12 @@ import TaxInfo from '../components/payment/TaxInformation';
 import BillingAddress from '../components/payment/BillingAddress';
 import OrderSummary from '../components/payment/OrderSummary';
 import { fetchProducts, Product } from '../constants/payment';
+import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;
 
 const Payment: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -38,10 +40,10 @@ const Payment: React.FC = () => {
     <div className="flex flex-col md:flex-row p-6 bg-gray-100 min-h-screen">
       <div className="flex-1 bg-white p-6 shadow-md rounded-md">
         <div className="mb-6 text-sm text-gray-500">
-          <span>Cart &gt; </span>
-          <span>Details &gt; </span>
-          <span>Shipping &gt; </span>
-          <span className="text-green-500 font-medium">Payment</span>
+          <span>{t('payment.breadcrumb.cart')} &gt; </span>
+          <span>{t('payment.breadcrumb.details')} &gt; </span>
+          <span>{t('payment.breadcrumb.shipping')} &gt; </span>
+          <span className="text-green-500 font-medium">{t('payment.breadcrumb.payment')}</span>
         </div>
         <ContactInfo />
         <ShippingAddress />
@@ -50,11 +52,11 @@ const Payment: React.FC = () => {
         <BillingAddress />
 
         {loading ? (
-          <Text>Loading products...</Text>
+          <Text>{t('payment.loading')}</Text>
         ) : error ? (
-          <Text type="danger">{error}</Text>
+          <Text type="danger">{t('payment.error', { error })}</Text>
         ) : (
-          <Card title="Order Summary" className="mt-6">
+          <Card title={t('payment.orderSummary.title')} className="mt-6">
             <Space direction="vertical" size="large" className="w-full">
               {products.map((product) => (
                 <div key={product.id} className="flex justify-between items-center">
@@ -64,7 +66,7 @@ const Payment: React.FC = () => {
               ))}
               <Divider />
               <div className="flex justify-between">
-                <Text>Total:</Text>
+                <Text>{t('payment.orderSummary.total')}:</Text>
                 <Text>${products.reduce((acc, product) => acc + product.price, 0)}</Text>
               </div>
             </Space>
@@ -77,10 +79,10 @@ const Payment: React.FC = () => {
             onClick={handleBackToShipping}
             className="text-green-500 hover:underline"
           >
-            Back to Shipping
+            {t('payment.buttons.backToShipping')}
           </Button>
           <Button type="primary" className="bg-green-500 text-white">
-            Pay Now
+            {t('payment.buttons.payNow')}
           </Button>
         </div>
       </div>

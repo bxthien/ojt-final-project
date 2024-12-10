@@ -5,15 +5,22 @@ import PasswordChange from '../components/profile/PasswordChange';
 import Sidebar from '../components/profile/Sidebar';
 import MyOrders from '../components/profile/order';
 import { getProfile, updateProfile, changePassword, Order, getOrders } from '../constants/service';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProfile as updateUserProfile } from '../redux/auth/authSlice';
+import { RootState } from '../redux/store';
 
 const Profile = () => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const [passwordForm] = Form.useForm();
   const [activeTab, setActiveTab] = useState('profile');
-  const [username, setUsername] = useState('');
-  const [url, setUrl] = useState('');
   const [orders, setOrders] = useState<Order[]>([]);
   const [, setUploading] = useState(false);
+
+  const dispatch = useDispatch();
+  const username = useSelector((state: RootState) => state.auth.username);
+  const url = useSelector((state: RootState) => state.auth.url);
 
   useEffect(() => {
     getProfile()
@@ -26,12 +33,17 @@ const Profile = () => {
           address: userData.address || '',
           description: userData.description || '',
         });
-        setUsername(userData.username || '');
-        setUrl(userData.url || '');
+
+        dispatch(
+          updateUserProfile({
+            username: userData.username || '',
+            url: userData.url || '',
+          })
+        );
       })
       .catch((err) => {
         console.error('Error fetching profile:', err);
-        message.error('Failed to fetch profile');
+        message.error(t('profile.errorFetchProfile'));
       });
 
     getOrders()
@@ -41,9 +53,9 @@ const Profile = () => {
       })
       .catch((err) => {
         console.error('Error fetching orders:', err);
-        message.error('Failed to fetch orders');
+        message.error(t('profile.errorFetchOrders'));
       });
-  }, [form]);
+  }, [dispatch, form, t]);
 
   const handleSaveChanges = (values: {
     username: string;
@@ -59,38 +71,45 @@ const Profile = () => {
     };
     updateProfile(updatedValues)
       .then(() => {
-        message.success('Profile updated successfully');
-        setUsername(values.username);
+        message.success(t('profile.successUpdateProfile'));
+        dispatch(
+          updateUserProfile({
+            username: values.username,
+            url: values.url,
+          })
+        );
       })
-      .catch(() => message.error('Failed to update profile'));
+      .catch(() => message.error(t('profile.errorUpdateProfile')));
   };
 
   const handleChangePassword = (values: { oldPassword: string; newPassword: string }) => {
     changePassword(values)
       .then(() => {
-        message.success('Password changed successfully');
+        message.success(t('profile.successChangePassword'));
         passwordForm.resetFields();
       })
-      .catch(() => message.error('Failed to change password'));
+      .catch(() => message.error(t('profile.errorChangePassword')));
   };
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
+    <div className="flex flex-col lg:flex-row gap-4">
       {/* Sidebar */}
-      <div className="w-full lg:w-1/4 bg-white p-6 shadow-md">
+      <div className="w-full lg:w-1/4 bg-white p-8 shadow-md rounded-lg mt-2 mb-2">
         <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} username={username} url={url} />
       </div>
 
-      {/* Nội dung chính */}
-      <div className="w-full lg:w-3/4 bg-white p-6 lg:p-8 shadow-md rounded-lg">
+      {/* Main content */}
+      <div className="w-full lg:w-3/4 bg-white p-8 shadow-md rounded-lg mt-2 mb-2">
         {activeTab === 'profile' && (
           <>
-            <h2 className="text-xl font-bold mb-6 text-[#56B280]">Edit Your Profile</h2>
+            <h2 className="text-xl font-bold mb-6 text-[#56B280]">
+              {t('profile.editYourProfile')}
+            </h2>
             <div className="border-2 border-gray-300 p-6 rounded-lg">
               <ProfileForm
                 form={form}
                 url={url}
-                setUrl={setUrl}
+                setUrl={(newUrl) => dispatch(updateUserProfile({ username, url: newUrl }))}
                 setUploading={setUploading}
                 handleSaveChanges={handleSaveChanges}
               />
@@ -99,7 +118,7 @@ const Profile = () => {
         )}
         {activeTab === 'password' && (
           <>
-            <h2 className="text-xl font-bold mb-6 text-[#56B280]">Change Password</h2>
+            <h2 className="text-xl font-bold mb-6 text-[#56B280]">{t('profile.changePassword')}</h2>
             <div className="border-2 border-gray-300 p-6 rounded-lg">
               <PasswordChange form={passwordForm} handleChangePassword={handleChangePassword} />
             </div>

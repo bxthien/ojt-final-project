@@ -3,6 +3,7 @@ import ProductCard from '../components/product/product-card';
 import ProductSidebar from '../components/product/product-side-bar';
 import { useProducts } from '../constants/useProducts';
 import { useLocation } from 'react-router-dom';
+import { t } from 'i18next';
 
 export interface Product {
   id: string;
@@ -105,7 +106,7 @@ const ProductPage = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Sidebar */}
-      <div className="w-full md:w-1/5">
+      <div className="">
         <ProductSidebar
           onPriceSortChange={handlePriceSortChange}
           onPriceChange={handlePriceChange}
@@ -121,7 +122,7 @@ const ProductPage = () => {
         {/* Search Term Display */}
         {searchTerm && (
           <p className="text-lg text-gray-700 mb-6">
-            Searching for: <span className="font-semibold">{searchTerm}</span>
+            {t('productPage.searchingFor')}: <span className="font-semibold">{searchTerm}</span>
           </p>
         )}
 
@@ -142,7 +143,7 @@ const ProductPage = () => {
                 <ProductCard key={product.id} product={product} />
               ))
             ) : (
-              <p className="text-center w-full">No products available</p>
+              <p className="text-center w-full">{t('productPage.noProducts')}</p>
             )}
           </div>
         )}

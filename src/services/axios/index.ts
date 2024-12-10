@@ -6,7 +6,7 @@ import { ACCESS_TOKEN } from '../../constants/auth';
 const BASE_URL = 'https://zq66ssqv-3000.asse.devtunnels.ms';
 axios.defaults.baseURL = BASE_URL;
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
@@ -31,18 +31,18 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const { response, config } = error;
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     const { response, config } = error;
 
-    if (response && response.status === 401 && config.url !== '/auth/login') {
-      localStorage.removeItem(ACCESS_TOKEN);
-      window.location.replace('/sign-in');
-    }
+//     if (response && response.status === 401 && config.url !== '/auth/login') {
+//       localStorage.removeItem(ACCESS_TOKEN);
+//       window.location.replace('/sign-in');
+//     }
 
-    return Promise.reject(error);
-  }
-);
+//     return Promise.reject(error);
+//   }
+// );
 
 export default axiosInstance;

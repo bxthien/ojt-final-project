@@ -11,10 +11,12 @@ import ActionButtons from './action-buttons';
 import axiosInstance from '../../services/axios';
 import RelatedProducts from './related-products';
 import { Product } from '../../constants/fetchProducts';
+import { useTranslation } from 'react-i18next';
 
 const ProductDetailPage = () => {
   // Lấy productId từ URL
   const { id: productId } = useParams<{ id: string }>();
+  const { t } = useTranslation(); // Sử dụng i18n
 
   const mockPhotos = [
     'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro.png',
@@ -29,6 +31,16 @@ const ProductDetailPage = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    if (value && value >= 1) {
+      setQuantity(value);
+    } else {
+      setQuantity(1); // Nếu giá trị không hợp lệ, đặt lại về 1
+    }
+  };
 
   // Xử lý lựa chọn
   const handleImageSelect = (image: string) => {
@@ -61,26 +73,18 @@ const ProductDetailPage = () => {
     fetchRelatedProducts();
   }, [product]);
 
-  // const [mainImage, setMainImage] = useState(
-  //   'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxfHxoZWFkcGhvbmV8ZW58MHwwfHx8MTcyMTMwMzY5MHww&ixlib=rb-4.0.3&q=80&w=1080'
-  // );
-
-  // const changeImage = (mockPhotos) => {
-  //   setMainImage(src);
-  // };
-
-  if (loading) return <div>Loading product...</div>;
-  if (error || !product) return <div>{error || 'Không tìm thấy sản phẩm'}</div>;
+  if (loading) return <div>{t('productDetail.loading')}</div>;
+  if (error || !product) return <div>{error || t('productDetail.notFound')}</div>;
 
   return (
     <div className="bg-gray-100 px-4">
       <div className="container mx-auto px-10 py-8">
         <Breadcrumb className="mb-6">
           <Breadcrumb.Item>
-            <a href="/">Home</a>
+            <a href="/">{t('breadcrumb.home')}</a>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <a href="/product">Product</a>
+            <a href="/product">{t('breadcrumb.product')}</a>
           </Breadcrumb.Item>
           <Breadcrumb.Item>{product.name}</Breadcrumb.Item>
         </Breadcrumb>
@@ -120,10 +124,7 @@ const ProductDetailPage = () => {
               ))}
               <span className="ml-2 text-gray-600">4.5 (120 reviews)</span>
             </div>
-            <p className="text-gray-700 mb-6">
-              Experience premium sound quality and industry-leading noise cancellation with these
-              wireless headphones. Perfect for music lovers and frequent travelers.
-            </p>
+            <p className="text-gray-700 mb-6">{t('productDetail.description')}</p>
 
             <div className="mb-6">
               <ColorSelector
@@ -138,27 +139,26 @@ const ProductDetailPage = () => {
               />
             </div>
 
-            <div className="flex items-center mb-6">
-              <label htmlFor="quantity" className="mr-4">
-                Quantity:
+            <div className="flex items-center mb-6 rounded-lg">
+              <label htmlFor="quantity" className="text-lg font-semibold mb-2 mr-2">
+                {t('productDetail.quantity')}:
               </label>
               <input
                 type="number"
                 id="quantity"
-                className="w-16 text-center border rounded-md p-2"
-                defaultValue="1"
+                className="w-16 text-center border-t border-b p-2"
+                value={quantity}
+                onChange={handleQuantityChange}
                 min="1"
               />
             </div>
-            <ActionButtons productId={product.id} productName={product.name} />
-            {/* <button className="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300">
-              Add to Cart
-            </button> */}
+            <ActionButtons productId={product.id} productName={product.name} quantity={quantity} />
           </div>
         </div>
+
         {/* Hiển thị sản phẩm liên quan */}
         <div className="container mx-auto">
-          <h3 className="text-lg font-bold mb-6 pt-10">Related Products:</h3>
+          <h3 className="text-lg font-bold mb-6 pt-10">{t('productDetail.relatedProducts')}</h3>
           <RelatedProducts products={relatedProducts} />
         </div>
       </div>

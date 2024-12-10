@@ -1,34 +1,42 @@
 import React from 'react';
-import { SettingOutlined } from '@ant-design/icons';
+import { SettingOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Dropdown, message, Space } from 'antd';
-import { FaRegUser } from 'react-icons/fa';
+import { Dropdown, message, Space, Avatar } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/auth/authSlice';
 
 interface ProfileIconProps {
   isActive: boolean;
+  username: string;
+  url: string;
 }
 
-const ProfileIcon: React.FC<ProfileIconProps> = ({ isActive }) => {
+const ProfileIcon: React.FC<ProfileIconProps> = ({ isActive, username, url }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
+    dispatch(logout());
     message.success('Logged out successfully');
-    navigate('/sign-in');
+    navigate('/');
   };
 
   const items: MenuProps['items'] = [
     {
       key: '1',
-      label: <Link to="/profile">Profile</Link>,
+      label: (
+        <Link to="/profile">
+          <Space>
+            <UserOutlined />
+            Profile
+          </Space>
+        </Link>
+      ),
     },
     {
       key: '2',
-      label: <Link to="/billing">Billing</Link>,
-    },
-    {
-      key: '3',
       label: (
         <Link to="/settings">
           <Space>
@@ -42,8 +50,15 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({ isActive }) => {
       type: 'divider',
     },
     {
-      key: '4',
-      label: <span onClick={handleLogout}>Logout</span>,
+      key: '3',
+      label: (
+        <span onClick={handleLogout}>
+          <Space>
+            <LogoutOutlined />
+            Logout
+          </Space>
+        </span>
+      ),
     },
   ];
 
@@ -54,7 +69,8 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({ isActive }) => {
         className={`relative p-1 hover:text-[#56B280] ${isActive ? 'text-[#56B280] font-bold' : 'text-gray-700'}`}
       >
         <Space>
-          <FaRegUser className="w-6 h-6" />
+          <Avatar src={url} alt="User Avatar" size="small" className="border-2 border-[#56B280]" />
+          <span className="font-medium text-sm">{username}</span>
         </Space>
       </a>
     </Dropdown>

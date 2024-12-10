@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../home-page/product-list';
 import { Button, Image, notification } from 'antd';
+import { useTranslation } from 'react-i18next';
 import axiosInstance from '../../services/axios';
-import { useAuth } from '../../hook/useAuth'; // Import useAuth
+import { useAuth } from '../../hook/useAuth';
 import ShoppingCartOutlined from '@ant-design/icons/lib/icons/ShoppingCartOutlined';
 
 type ProductCardProps = {
@@ -11,8 +12,9 @@ type ProductCardProps = {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { name, price, url } = product;
-  const isAuth = useAuth(); // Sử dụng hook isAuth
+  const isAuth = useAuth();
 
   const handleNavigate = () => {
     navigate(`/product-detail/${product.id}`, { state: { product } });
@@ -24,10 +26,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
     };
 
     if (!isAuth) {
-      // Nếu người dùng chưa đăng nhập, hiển thị thông báo yêu cầu đăng nhập
       notification.open({
-        message: 'You are not logged in yet',
-        description: 'Login is required to add products to cart.',
+        message: t('actionButton.notLoggedInMessage'),
+        description: t('actionButton.loginRequired'),
         btn: (
           <div>
             <Button
@@ -38,7 +39,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               }}
               style={{ marginRight: 8 }}
             >
-              Sign In
+              {t('actionButton.signInButton')}
             </Button>
           </div>
         ),
@@ -49,14 +50,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
         const res = await axiosInstance.post(`/cart`, { productId: product.id });
         if (res) {
           notification.success({
-            message: 'Added to cart successfully!',
-            description: `${product.name} has been added to the cart.`,
+            message: t('actionButton.addedToCartSuccessMessage'),
+            description: `${product.name} ${t('actionButton.addedToCartSuccessDescription')}`,
           });
         }
       } catch (error) {
         notification.error({
-          message: 'Error while adding to cart',
-          description: 'An error occurred while adding products to the cart.',
+          message: t('actionButton.addToCartErrorMessage'),
+          description: t('actionButton.addToCartErrorDescription'),
         });
         console.error('Add to Cart Error:', error);
       }
@@ -94,7 +95,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <svg
                 key={index}
                 aria-hidden="true"
-                className="h-5 w-5 text-yellow-300"
+                className="h-3 w-3 text-yellow-300"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +108,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 ></path>
               </svg>
             ))}
-          <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">
+          <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-[10px] font-semibold">
             5.0
           </span>
         </div>
@@ -120,20 +121,19 @@ const ProductCard = ({ product }: ProductCardProps) => {
         text-center  font-medium text-whitefocus:outline-none 
         focus:ring-4 focus:ring-blue-300"
           >
-            <button
+            <Button
               onClick={handleAddToCart}
-              className=" text-[#56B280] border-gray-400 flex items-center justify-center
-     p-1.5 sm:p-2 rounded-lg transition-colors
-     hover:bg-white hover:text-black
-     border-transparen"
+              className=" text-[#56B280] border-gray-400 flex items-center justify-center transition-colors hover:bg-white hover:text-black border-transparent p-0"
               aria-label="Add to Cart"
+              type="link"
             >
               <ShoppingCartOutlined className="text-xl sm:text-2xl" />
-            </button>
+            </Button>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default ProductCard;
