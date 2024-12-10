@@ -1,13 +1,34 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../services/axios';
 
+export type Photo = {
+  id: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export interface Product {
   id: string;
   name: string;
   price: number;
-  photos: string[];
-  url: string;
-  category: string[];
+  isDelete: boolean;
+  url: string | null;
+  info: {
+    description: string;
+    policy: string;
+  };
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+  photos: Photo[];
+  category: {
+    id: string;
+    name: string;
+    categoryId: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 interface UseProductsParams {

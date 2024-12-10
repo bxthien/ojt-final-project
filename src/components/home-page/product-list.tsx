@@ -3,15 +3,34 @@ import ProductCard from '../product/product-card';
 import axiosInstance from '../../services/axios';
 import { useTranslation } from 'react-i18next';
 
+export type Photo = {
+  id: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export interface Product {
   id: string;
   name: string;
   price: number;
-  photos: string[];
-  category: string[];
-  createdAt?: string;
-  purchaseCount?: number; // Số lượng mua
-  url: string;
+  isDelete: boolean;
+  url: string | null;
+  info: {
+    description: string;
+    policy: string;
+  };
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+  photos: Photo[];
+  category: {
+    id: string;
+    name: string;
+    categoryId: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 const ProductList = () => {
