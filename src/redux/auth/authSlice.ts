@@ -20,14 +20,8 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    login: (state, action) => {
-      if (action.payload?.username && action.payload?.url) {
-        state.isAuth = true;
-        state.username = action.payload.username;
-        state.url = action.payload.url;
-      } else {
-        console.warn('Invalid payload for login:', action.payload);
-      }
+    login: (state) => {
+      state.isAuth = true;
     },
     logout: (state) => {
       state.isAuth = false;
