@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { CloseOutlined } from '@ant-design/icons';
 import { Button, Card, Col, Divider, Row, Space, Table, Typography } from 'antd';
 import { useEffect, useState } from 'react';
@@ -31,26 +32,19 @@ function Cart() {
   const [items, setItems] = useState<CardProduct[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // const [transactionId] = useState('54f51a4d-f9b5-4f17-9f17-385eb4b9e834');
-  // const [coupon, setCoupon] = useState('');
   let userId = localStorage.getItem('userId');
-
   const [total, setTotal] = useState(0);
-
-  console.log(items);
 
   useEffect(() => {
     const fetchCart = async () => {
       if (userId?.startsWith('"') && userId.endsWith('"')) {
         userId = userId.slice(1, -1);
       }
-      console.log('Fetching cart with transactionId:', userId);
       setLoading(true);
       try {
         const data = await getCartItems(userId || '');
-        console.log('Fetched cart data:', data);
         setItems(data || []);
-        setTotal(data.price || 0);
+        setTotal(data?.price || 0);
       } catch (error) {
         console.error('Error fetching cart items:', error);
       } finally {
@@ -65,7 +59,6 @@ function Cart() {
     setLoading(true);
     try {
       await removeFromCart(id);
-
       setItems(items.filter((item) => item.transactionId !== id));
     } catch (error) {
       console.error('Error removing item:', error);
@@ -102,7 +95,7 @@ function Cart() {
         );
       }
     } catch (error) {
-      console.error('Error increasing quantity:', error);
+      console.error('Error decreasing quantity:', error);
     } finally {
       setLoading(false);
     }
@@ -157,7 +150,7 @@ function Cart() {
       render: (_: unknown, record: CardProduct) => `$${record.quantity * record.product.price}`,
     },
     {
-      title: 'Action',
+      title: t('cart.action'),
       dataIndex: 'action',
       key: 'action',
       render: (_: unknown, record: CardProduct) => (
@@ -174,26 +167,21 @@ function Cart() {
 
   return (
     <div className="cart-container py-5 max-w-5xl mx-auto">
-      <Title level={2}>Cart</Title>
-
-      {/* {items.map((item) => (
-        <CartItem item={item} />
-      ))} */}
+      <Title level={2}>{t('cart.title')}</Title>
 
       <Row gutter={24}>
-        {/* Coupon Section */}
         <Col xs={24} md={16}>
           <Table
             dataSource={items}
             columns={columns}
-            rowKey="transactionId" // Sử dụng transactionId làm rowKey
+            rowKey="transactionId"
             pagination={false}
             loading={loading}
           />
         </Col>
         <Col xs={24} md={8}>
           <Card className="shadow-md">
-            <Title level={4}>Cart Total</Title>
+            <Title level={4}>{t('cart.cartTotal')}</Title>
             <Space direction="vertical" size="middle" className="w-full">
               <Row justify="space-between" className="w-full">
                 <Text>{t('cart.subtotal')}:</Text>

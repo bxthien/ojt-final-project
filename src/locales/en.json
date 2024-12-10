@@ -146,7 +146,29 @@
     "buttons": {
       "backToShipping": "Back to Shipping",
       "payNow": "Pay Now"
-    }
+    },
+    "address": "Address",
+    "shipping": "Shipping",
+    "payment": "Payment",
+    "summary": "Summary",
+    "addressLabel": "Address",
+    "shipmentMethod": "Shipment Method",
+    "free": "Free",
+    "subtotal": "Subtotal",
+    "estimatedTax": "Estimated Tax",
+    "estimatedShipping": "Estimated shipping & Handling",
+    "total": "Total",
+    "creditCard": "Credit Card",
+    "paypal": "PayPal",
+    "paypalCredit": "PayPal Credit",
+    "cardholderName": "Cardholder Name",
+    "cardNumber": "Card Number",
+    "expDate": "Exp.Date",
+    "cvv": "CVV",
+    "sameAsBilling": "Same as billing address",
+    "back": "Back",
+    "pay": "Pay",
+    "paymentSuccess": "Payment Successful!"
   },
 
   "header": {
@@ -317,7 +339,8 @@
     "price": "Price",
     "quantity": "Quantity",
     "couponApplied": "Coupon applied successfully!",
-    "items": "items"
+    "items": "items",
+    "action": "Action"
   },
 
   "checkout": {
@@ -504,5 +527,27 @@
   },
 
   "loading": "Loading...",
-  "noProducts": "No products available"
+  "noProducts": "No products available",
+
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "title": "Contact Us",
+    "faxTitle": "Fax",
+    "faxNumber": "+1-548-2588",
+    "chatTitle": "Chat to us",
+    "chatEmail": "Viper@gmail.com",
+    "callus": "Call us",
+    "phonenumber": "+123 456 789",
+    "visitoffice": "Visit office",
+    "officeaddress": "116 Mai Thuc Lan, Ngu Hanh Son, Da Nang",
+    "sendmessage": "Send Message"
+  },
+
+  "address": {
+    "edit": "Edit",
+    "delete": "Delete"
+  }
 }

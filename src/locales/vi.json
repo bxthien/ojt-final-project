@@ -148,7 +148,29 @@
     "buttons": {
       "backToShipping": "Quay lại giao hàng",
       "payNow": "Thanh toán ngay"
-    }
+    },
+    "address": "Địa chỉ",
+    "shipping": "Vận chuyển",
+    "payment": "Thanh toán",
+    "summary": "Tóm tắt",
+    "addressLabel": "Địa chỉ",
+    "shipmentMethod": "Phương thức vận chuyển",
+    "free": "Miễn phí",
+    "subtotal": "Tổng phụ",
+    "estimatedTax": "Thuế ước tính",
+    "estimatedShipping": "Phí vận chuyển ước tính",
+    "total": "Tổng cộng",
+    "creditCard": "Thẻ tín dụng",
+    "paypal": "PayPal",
+    "paypalCredit": "PayPal Credit",
+    "cardholderName": "Tên chủ thẻ",
+    "cardNumber": "Số thẻ",
+    "expDate": "Ngày hết hạn",
+    "cvv": "CVV",
+    "sameAsBilling": "Giống như địa chỉ thanh toán",
+    "back": "Quay lại",
+    "pay": "Thanh toán",
+    "paymentSuccess": "Thanh toán thành công!"
   },
 
   "header": {
@@ -304,7 +326,7 @@
 
   "cart": {
     "title": "Giỏ hàng",
-    "subtitle": "Trang chủ / Giỏ hàng",
+    "subtitle": "Giỏ hàng",
     "applyCoupon": "Áp dụng mã giảm giá",
     "couponPlaceholder": "Mã giảm giá",
     "applyCouponButton": "Áp dụng mã",
@@ -318,7 +340,8 @@
     "price": "Giá",
     "quantity": "Số lượng",
     "couponApplied": "Mã giảm giá đã được áp dụng!",
-    "items": "sản phẩm"
+    "items": "sản phẩm",
+    "action": "Hành động"
   },
 
   "checkout": {
@@ -499,5 +522,27 @@
     "featured": "Sản phẩm nổi bật"
   },
   "loading": "Đang tải...",
-  "noProducts": "Không có sản phẩm nào"
+  "noProducts": "Không có sản phẩm nào",
+
+  "contact": {
+    "name": "Họ và tên",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "message": "Tin nhắn",
+    "title": "Liên hệ chúng tôi",
+    "faxTitle": "Số Fax",
+    "faxNumber": "+1-548-2588",
+    "chatTitle": "Chat với chúng tôi",
+    "chatEmail": "Viper@gmail.com",
+    "callus": "Gọi cho chúng tôi",
+    "phonenumber": "+123 456 789",
+    "visitoffice": "Thăm văn phòng",
+    "officeaddress": "116 Mai Thục Lân, Ngũ Hành Sơn, Đà Nẵng",
+    "sendmessage": "Gửi tin nhắn"
+  },
+
+  "address": {
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa"
+  }
 }
