@@ -32,7 +32,7 @@ export interface Product {
 }
 
 interface UseProductsParams {
-  categories: string[];
+  categories?: string[];
   brand?: string;
   memory?: string;
   minPrice?: number | undefined;
