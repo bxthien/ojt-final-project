@@ -119,7 +119,7 @@ const Register = () => {
                 },
               ]}
             >
-              <Input allowClear />
+              <Input className="w-full" allowClear />
             </Form.Item>
 
             <Form.Item
@@ -135,31 +135,43 @@ const Register = () => {
                 { pattern: /^[0-9]*$/, message: t('validation.phone.invalid') },
               ]}
             >
-              <Input allowClear maxLength={10} />
+              <Input className="w-full" allowClear maxLength={10} />
             </Form.Item>
 
             <Form.Item
               label={
                 <span>
-                  <span className="text-red-500">*</span> {t('common.input.enterEmail')}{' '}
+                  <span className="text-red-500"></span> {t('common.input.enterEmail')}{' '}
                 </span>
               }
               name="email"
-              rules={[{ validator: emailValidator, message: t('validation.email.invalid') }]}
+              rules={[
+                {
+                  required: true,
+                  validator: emailValidator,
+                  message: t('validation.email.invalid'),
+                },
+              ]}
             >
-              <Input allowClear />
+              <Input className="w-full" allowClear />
             </Form.Item>
 
             <Form.Item
               label={
                 <span>
-                  <span className="text-red-500">*</span> {t('common.input.enterPassword')}{' '}
+                  <span className="text-red-500"></span> {t('common.input.enterPassword')}{' '}
                 </span>
               }
               name="password"
-              rules={[{ validator: passwordValidator, message: t('validation.password.invalid') }]}
+              rules={[
+                {
+                  required: true,
+                  validator: passwordValidator,
+                  message: t('validation.password.invalid'),
+                },
+              ]}
             >
-              <Input.Password allowClear />
+              <Input.Password className="w-full" allowClear />
             </Form.Item>
 
             <Form.Item
@@ -182,20 +194,20 @@ const Register = () => {
                 }),
               ]}
             >
-              <Input.Password allowClear />
+              <Input.Password className="w-full" allowClear />
             </Form.Item>
 
             <Form.Item label={null}>
               <Button
-                className="py-4 bg-[#56B280] font-semibold"
+                className="w-full py-4 bg-[#56B280] font-semibold"
                 type="primary"
                 htmlType="submit"
-                block
               >
                 {t('common.button.register')}
               </Button>
             </Form.Item>
           </Form>
+
           <div>
             <div className="relative">
               <Divider />

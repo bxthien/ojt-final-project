@@ -35,8 +35,6 @@ interface MobileFilterSidebarProps {
 const MobileFilterSidebar: React.FC<MobileFilterSidebarProps> = ({
   isOpen,
   onClose,
-  sections,
-  toggleSection,
   priceSortOrder,
   onPriceSortChange,
   onPriceChange,
@@ -109,32 +107,14 @@ const MobileFilterSidebar: React.FC<MobileFilterSidebarProps> = ({
             </p>
           </div>
 
-          {/* Sections */}
-          {sections.map((section) => (
-            <div key={section.id} className="mb-6">
-              <div
-                onClick={() => toggleSection(section.id)}
-                className="cursor-pointer flex justify-between items-center mb-2"
-              >
-                <h3 className="font-semibold text-lg">{section.title}</h3>
-                <span>{section.isOpen ? '-' : '+'}</span>
-              </div>
-
-              {section.isOpen && (
-                <div className="pl-2">
-                  {section.id === 'price' && (
-                    <PriceRangeSidebar
-                      onPriceChange={onPriceChange}
-                      minPrice={minPrice}
-                      maxPrice={maxPrice}
-                    />
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
+          <div className="pl-2">
+            <PriceRangeSidebar
+              onPriceChange={onPriceChange}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+            />
+          </div>
         </div>
-
         {/* Apply Filters Button */}
         <div className="p-4 border-t">
           <button

@@ -8,15 +8,11 @@ interface PriceRangeSidebarProps {
   maxPrice: number;
 }
 
-const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({
-  onPriceChange,
-  minPrice,
-  maxPrice,
-}) => {
+const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, minPrice }) => {
   const { t } = useTranslation();
   const { formatCurrency } = useCurrencyFormatter();
   const [localMinPrice, setLocalMinPrice] = useState(minPrice);
-  const [localMaxPrice, setLocalMaxPrice] = useState(maxPrice); // Sử dụng maxPrice thay vì giá trị mặc định
+  const [localMaxPrice, setLocalMaxPrice] = useState(5000);
 
   const handleMinSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMinPrice = parseInt(e.target.value);
@@ -31,8 +27,8 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({
   };
 
   // Tính toán tỷ lệ phần trăm cho thanh trượt
-  const leftPosition = (localMinPrice / maxPrice) * 100;
-  const rightPosition = 100 - (localMaxPrice / maxPrice) * 100;
+  const leftPosition = (localMinPrice / 5000) * 100;
+  const rightPosition = 100 - (localMaxPrice / 5000) * 100;
 
   return (
     <div className="space-y-4">
@@ -81,7 +77,7 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({
         <input
           type="range"
           min="0"
-          max={maxPrice}
+          max={5000}
           value={localMinPrice}
           onChange={handleMinSliderChange}
           className="absolute w-full h-2 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#56B280] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:bg-[#56B280]"
@@ -89,7 +85,7 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({
         <input
           type="range"
           min="0"
-          max={maxPrice}
+          max={5000}
           value={localMaxPrice}
           onChange={handleMaxSliderChange}
           className="absolute w-full h-2 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#56B280] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:bg-[#56B280]"

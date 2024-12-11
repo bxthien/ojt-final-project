@@ -44,7 +44,7 @@ const LanguageSelector = () => {
   ];
 
   return (
-    <Dropdown menu={{ items }} trigger={['click']}>
+    <Dropdown menu={{ items }} trigger={['click']} className="cursor-pointer">
       <Space>
         <div className="flex items-center space-x-2">
           <img
