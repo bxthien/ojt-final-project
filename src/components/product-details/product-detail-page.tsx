@@ -8,8 +8,8 @@ import ProductDescription from './product-description';
 import ColorSelector from './color-selector';
 import MemorySelector from './memory-selector';
 import ActionButtons from './action-buttons';
-// import RelatedProducts from './related-products';
 import { useTranslation } from 'react-i18next';
+import RelatedProducts from './related-products';
 
 const ProductDetailPage = () => {
   // Lấy productId từ URL
@@ -24,7 +24,6 @@ const ProductDetailPage = () => {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
-
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
     if (value && value >= 1) {
@@ -48,7 +47,7 @@ const ProductDetailPage = () => {
   return (
     <div className="bg-gray-100 px-4">
       <div className="container mx-auto px-10 py-8">
-        <Breadcrumb className="mx-8 mb-6">
+        <Breadcrumb className="mx-8 mb-6 text-xs sm:text-sm md:text-base">
           <Breadcrumb.Item>
             <a href="/">{t('breadcrumb.home')}</a>
           </Breadcrumb.Item>
@@ -94,7 +93,7 @@ const ProductDetailPage = () => {
               ))}
               <span className="ml-2 text-gray-600">4.5 (120 reviews)</span>
             </div>
-            <p className="text-gray-700 mb-6">{t('productDetail.description')}</p>
+            {product.info.description}
 
             <div className="mb-6">
               {selectedColor && product.info.color[0] && (
@@ -128,7 +127,11 @@ const ProductDetailPage = () => {
             </div>
             <ActionButtons productId={product.id} productName={product.name} quantity={quantity} />
           </div>
+          {/* <p className="text-base text-gray-600 mt-2">
+          <strong>Description Detail:</strong> {product.info.description}
+        </p> */}
         </div>
+        <RelatedProducts id={product.id} categoryId={product.category.id} />
       </div>
     </div>
   );

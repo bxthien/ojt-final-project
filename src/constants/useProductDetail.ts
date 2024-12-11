@@ -8,9 +8,9 @@ type Photo = {
   createdAt: string;
   updatedAt: string;
 };
+
 // Define the Product type based on API response
 interface Product {
-  category: string;
   id: string;
   name: string;
   price: number;
@@ -26,6 +26,13 @@ interface Product {
   createdAt: string;
   updatedAt: string;
   photos: Photo[];
+  category: {
+    id: string;
+    name: string;
+    categoryId: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 export const useProductDetail = (productId: string) => {

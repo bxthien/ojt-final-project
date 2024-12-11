@@ -13,7 +13,7 @@ type ProductCardProps = {
 const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { name, price, url } = product;
+  const { name, price } = product;
   const isAuth = useAuth();
 
   const handleNavigate = () => {
@@ -75,8 +75,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
       >
         <Image
           src={
-            url
-              ? url
+            product?.photos[0]?.url
+              ? product?.photos[0]?.url
               : 'https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'
           }
           alt={name}
