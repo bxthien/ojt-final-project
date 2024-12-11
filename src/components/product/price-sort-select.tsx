@@ -2,16 +2,16 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 interface PriceSortSelectProps {
-  priceSortOrder: 'asc' | 'desc';
-  onPriceSortChange: (order: 'asc' | 'desc') => void;
+  priceSortOrder: 'ASC' | 'DESC';
+  onPriceSortChange: (order: 'ASC' | 'DESC') => void;
 }
 
 const PriceSortSelect: React.FC<PriceSortSelectProps> = ({ priceSortOrder, onPriceSortChange }) => {
   const { t } = useTranslation();
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOrder = event.target.value as 'asc' | 'desc';
-    onPriceSortChange(selectedOrder);
+    const selectedOrder = event.target.value as 'ASC' | 'DESC';
+    onPriceSortChange(selectedOrder); // Gọi callback để cập nhật giá trị sắp xếp
   };
 
   return (
@@ -25,8 +25,8 @@ const PriceSortSelect: React.FC<PriceSortSelectProps> = ({ priceSortOrder, onPri
         onChange={handleChange}
         className="w-full p-2 border rounded"
       >
-        <option value="asc">{t('priceSort.lowToHigh')}</option>
-        <option value="desc">{t('priceSort.highToLow')}</option>
+        <option value="ASC">Low to High</option>
+        <option value="DESC">High to Low</option>
       </select>
     </div>
   );

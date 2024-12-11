@@ -68,9 +68,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
     <div
       className="relative flex w-full max-w-xs flex-col overflow-hidden rounded-lg border
        border-gray-100 bg-white shadow-md hover:border-[#56B280] hover:border-1 cursor-pointer"
-      onClick={handleNavigate}
     >
-      <div className="relative mx-3 mt-3 flex h-60 items-center justify-center overflow-hidden rounded-xl">
+      <div
+        className="relative mx-3 mt-3 flex h-60 items-center justify-center overflow-hidden rounded-xl"
+        onClick={handleNavigate}
+      >
         <Image
           src={
             url
@@ -83,17 +85,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
         />
       </div>
       <div className="mt-4 px-5 pb-5">
-        <a href="#">
-          <h5 className="text-xl tracking-tight text-slate-900">{name}</h5>
-        </a>
-        <div className="mt-2.5 mb-5 flex items-center">
+        <h5 className="text-xl tracking-tight text-slate-900" onClick={handleNavigate}>
+          {name}
+        </h5>
+        <div className="mt-2.5 mb-5 flex items-center" onClick={handleNavigate}>
           {Array(5)
             .fill('')
             .map((_, index) => (
               <svg
                 key={index}
                 aria-hidden="true"
-                className="h-5 w-5 text-yellow-300"
+                className="h-3 w-3 text-yellow-300"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,32 +108,28 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 ></path>
               </svg>
             ))}
-          <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-xs font-semibold">
+          <span className="mr-2 ml-3 rounded bg-yellow-200 px-2.5 py-0.5 text-[10px] font-semibold">
             5.0
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <p>
-            <span className="text-2xl font-bold text-slate-900"> ${price.toFixed(2)}</span>
+          <p onClick={handleNavigate}>
+            <span className="text-base font-bold text-slate-900"> ${price.toFixed(2)}</span>
           </p>
-          <a
-            onClick={handleAddToCart}
-            href="#"
+          <div
             className="flex items-center justify-center rounded-md px-5 py-2.5 
         text-center  font-medium text-whitefocus:outline-none 
         focus:ring-4 focus:ring-blue-300"
           >
-            <button
+            <Button
               onClick={handleAddToCart}
-              className=" text-[#56B280] border-gray-400 flex items-center justify-center
-     p-1.5 sm:p-2 rounded-lg transition-colors
-     hover:bg-white hover:text-black
-     border-transparen"
+              className=" text-[#56B280] border-gray-400 flex items-center justify-center transition-colors hover:bg-white hover:text-black border-transparent p-0"
               aria-label="Add to Cart"
+              type="link"
             >
               <ShoppingCartOutlined className="text-xl sm:text-2xl" />
-            </button>
-          </a>
+            </Button>
+          </div>
         </div>
       </div>
     </div>

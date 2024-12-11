@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProductDetail } from '../../constants/useProductDetail';
 import ProductMainImage from './product-main-image';
@@ -8,21 +8,14 @@ import ProductDescription from './product-description';
 import ColorSelector from './color-selector';
 import MemorySelector from './memory-selector';
 import ActionButtons from './action-buttons';
-import axiosInstance from '../../services/axios';
-import RelatedProducts from './related-products';
-import { Product } from '../../constants/fetchProducts';
+// import RelatedProducts from './related-products';
 import { useTranslation } from 'react-i18next';
 
 const ProductDetailPage = () => {
   const { id: productId } = useParams<{ id: string }>();
   const { t } = useTranslation();
 
-  const mockPhotos = [
-    'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro.png',
-    'https://cdn.tgdd.vn/Products/Images/42/329135/iphone-16-blue-600x600.png',
-    'https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121030-iphone-16-plus.png',
-  ];
-
+  // Sử dụng hook để lấy chi tiết sản phẩm từ API
   const { product, loading, error } = useProductDetail(productId || '');
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -47,36 +40,13 @@ const ProductDetailPage = () => {
   const handleColorSelect = (color: string) => setSelectedColor(color);
   const handleSizeSelect = (size: string) => setSelectedSize(size);
 
-  // Quản lý sản phẩm liên quan
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const fetchRelatedProducts = async () => {
-      try {
-        const res = await axiosInstance.get('/product'); // Fetch all products
-        if (product) {
-          // Lọc sản phẩm tương tự dựa trên danh mục
-          const filteredProducts = res.data.filter(
-            (p: { category: string; id: string }) =>
-              p.category === product.category && // Cùng danh mục
-              p.id !== product.id // Không trùng sản phẩm hiện tại
-          );
-          setRelatedProducts(filteredProducts);
-        }
-      } catch (error) {
-        console.error('Failed to fetch products:', error);
-      }
-    };
-    fetchRelatedProducts();
-  }, [product]);
-
   if (loading) return <div>{t('productDetail.loading')}</div>;
   if (error || !product) return <div>{error || t('productDetail.notFound')}</div>;
 
   return (
     <div className="bg-gray-100 px-4">
       <div className="container mx-auto px-10 py-8">
-        <Breadcrumb className="mb-6">
+        <Breadcrumb className="mx-8 mb-6">
           <Breadcrumb.Item>
             <a href="/">{t('breadcrumb.home')}</a>
           </Breadcrumb.Item>
@@ -89,10 +59,11 @@ const ProductDetailPage = () => {
         <div className="flex flex-wrap -mx-4">
           {/* Product Images */}
           <div className="w-full md:w-1/2 px-4 mb-8">
-            <ProductMainImage url={selectedImage || product.url} />
+            <ProductMainImage url={selectedImage || product?.photos[0]?.url} />
+
             <div className="flex gap-4 py-4 justify-center overflow-x-auto">
               <ProductImages
-                images={mockPhotos}
+                images={product?.photos?.map((photo) => photo.url)}
                 onImageSelect={handleImageSelect}
                 selectedImage={selectedImage}
               />
@@ -124,19 +95,23 @@ const ProductDetailPage = () => {
             <p className="text-gray-700 mb-6">{t('productDetail.description')}</p>
 
             <div className="mb-6">
-              <ColorSelector
-                colors={product.info.color}
-                selectedColor={selectedColor || product.info.color[0]}
-                onColorSelect={handleColorSelect}
-              />
-              <MemorySelector
-                sizes={product.info.size}
-                selectedSize={selectedSize || product.info.size[0]}
-                onSizeSelect={handleSizeSelect}
-              />
+              {selectedColor && product.info.color[0] && (
+                <ColorSelector
+                  colors={product.info.color}
+                  selectedColor={selectedColor || product.info.color[0]}
+                  onColorSelect={handleColorSelect}
+                />
+              )}
+              {selectedSize && product.info.size[0] && (
+                <MemorySelector
+                  sizes={product.info.size}
+                  selectedSize={selectedSize || product.info.size[0]}
+                  onSizeSelect={handleSizeSelect}
+                />
+              )}
             </div>
 
-            <div className="flex items-center mb-6">
+            <div className="flex items-center mb-6 rounded-lg">
               <label htmlFor="quantity" className="text-lg font-semibold mb-2 mr-2">
                 {t('productDetail.quantity')}:
               </label>
@@ -151,12 +126,6 @@ const ProductDetailPage = () => {
             </div>
             <ActionButtons productId={product.id} productName={product.name} quantity={quantity} />
           </div>
-        </div>
-
-        {/* Hiển thị sản phẩm liên quan */}
-        <div className="container mx-auto">
-          <h3 className="text-lg font-bold mb-6 pt-10">{t('productDetail.relatedProducts')}</h3>
-          <RelatedProducts products={relatedProducts} />
         </div>
       </div>
     </div>

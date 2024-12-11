@@ -1,31 +1,51 @@
 import { useState, useEffect } from 'react';
 import axiosInstance from '../services/axios';
 
+export type Photo = {
+  id: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export interface Product {
   id: string;
   name: string;
   price: number;
-  photos: string[];
-  url: string;
+  isDelete: boolean;
+  url: string | null;
+  info: {
+    description: string;
+    policy: string;
+  };
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+  photos: Photo[];
+  category: {
+    id: string;
+    name: string;
+    categoryId: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 interface UseProductsParams {
-  category: string;
+  categories?: string[];
   brand?: string;
   memory?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  searchKey?: string;
+  minPrice?: number | undefined;
+  maxPrice?: number | undefined;
+  search?: string;
   orderBy?: 'ASC' | 'DESC';
 }
 
 export const useProducts = ({
-  category,
-  brand = '',
-  memory = '',
-  minPrice = 0,
-  maxPrice = 10000,
-  searchKey = '',
+  categories = [],
+  minPrice = undefined,
+  maxPrice = undefined,
+  search = '',
   orderBy = 'ASC',
 }: UseProductsParams) => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -39,19 +59,18 @@ export const useProducts = ({
 
       try {
         // Build params dynamically
-        const params: Record<string, string | number> = {
-          category,
-          brand,
-          memory,
-          minPrice,
-          maxPrice,
-          searchKey,
+        const params = {
+          categoryIds: categories,
+          search,
           orderBy,
           page: 1,
           take: 12,
+          limit: 1,
+          minPrice,
+          maxPrice,
         };
 
-        const { data: response } = await axiosInstance.get(`/product`, { params });
+        const { data: response } = await axiosInstance.post(`/product/filter`, { ...params });
 
         // Validate and update products
         if (Array.isArray(response.data)) {
@@ -72,7 +91,7 @@ export const useProducts = ({
     };
 
     fetchProducts();
-  }, [category, brand, memory, minPrice, maxPrice, searchKey, orderBy]);
+  }, [categories.join(','), minPrice, maxPrice, search, orderBy]);
 
   return { products, loading, error };
 };

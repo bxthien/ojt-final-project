@@ -3,14 +3,34 @@ import ProductCard from '../product/product-card';
 import axiosInstance from '../../services/axios';
 import { useTranslation } from 'react-i18next';
 
+export type Photo = {
+  id: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export interface Product {
   id: string;
   name: string;
   price: number;
-  photos: string[];
-  createdAt?: string;
-  purchaseCount?: number; // Số lượng mua
-  url: string;
+  isDelete: boolean;
+  url: string | null;
+  info: {
+    description: string;
+    policy: string;
+  };
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+  photos: Photo[];
+  category: {
+    id: string;
+    name: string;
+    categoryId: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 const ProductList = () => {
@@ -18,9 +38,6 @@ const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]); // Dữ liệu sản phẩm
   const [loading, setLoading] = useState<boolean>(true); // Trạng thái loading
   const [error, setError] = useState<string | null>(null); // Trạng thái lỗi
-  const [activeTab, setActiveTab] = useState<'newArrival' | 'bestseller' | 'featured'>(
-    'newArrival'
-  ); // Tab đang chọn
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -29,34 +46,13 @@ const ProductList = () => {
         const params: Record<string, string> = {
           orderBy: 'ASC',
           page: '1',
-          take: '12',
+          take: '10',
         };
 
         const { data: response } = await axiosInstance.get(`/product`, { params });
 
         if (Array.isArray(response.data)) {
-          let filteredProducts: Product[] = [];
-
-          if (activeTab === 'newArrival') {
-            // Lọc sản phẩm mới
-            filteredProducts = response.data
-              .filter((product: Product) => product.createdAt) // Chỉ lấy sản phẩm có `createdAt`
-              .sort(
-                (a: Product, b: Product) =>
-                  new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
-              )
-              .slice(0, 12);
-          } else if (activeTab === 'bestseller') {
-            // Lọc sản phẩm bán chạy
-            filteredProducts = response.data
-              .filter((product: Product) => product.purchaseCount) // Chỉ lấy sản phẩm có `purchaseCount`
-              .sort((a: Product, b: Product) => (b.purchaseCount || 0) - (a.purchaseCount || 0))
-              .slice(0, 12);
-          } else if (activeTab === 'featured') {
-            filteredProducts = response.data.slice(0, 12);
-          }
-
-          setProducts(filteredProducts);
+          setProducts(response.data);
         }
         setLoading(false);
       } catch {
@@ -66,37 +62,23 @@ const ProductList = () => {
     };
 
     fetchProducts();
-  }, [activeTab]);
+  }, []);
+
+  // Chia sản phẩm theo từng danh mục
+  const newArrivalProducts = products
+    .filter((product) => product.createdAt)
+    .sort((a, b) => new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime())
+    .slice(0, 12);
+
+  const lowToHighPriceProducts = products
+    .slice() // Tạo một bản sao để không làm thay đổi danh sách gốc
+    .sort((a, b) => a.price - b.price)
+    .slice(0, 12);
+
+  const featuredProducts = products.slice(0, 12);
 
   return (
     <div className="bg-white p-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-14">
-      <div className="flex flex-wrap text-xs space-x-1 sm:space-x-0 mb-4">
-        <button
-          onClick={() => setActiveTab('newArrival')}
-          className={`py-2 px-4 border-b-2 ${
-            activeTab === 'newArrival' ? 'border-black font-bold' : 'border-transparent'
-          }`}
-        >
-          {t('productTabs.newArrival')}
-        </button>
-        <button
-          onClick={() => setActiveTab('bestseller')}
-          className={`py-2 px-4 border-b-2 ${
-            activeTab === 'bestseller' ? 'border-black font-bold' : 'border-transparent'
-          }`}
-        >
-          {t('productTabs.bestseller')}
-        </button>
-        <button
-          onClick={() => setActiveTab('featured')}
-          className={`py-2 px-4 border-b-2 ${
-            activeTab === 'featured' ? 'border-black font-bold' : 'border-transparent'
-          }`}
-        >
-          {t('productTabs.featured')}
-        </button>
-      </div>
-
       {/* Hiển thị thông báo lỗi nếu có */}
       {error && <p className="text-red-500 text-center">{t('error.loadingProducts')}</p>}
 
@@ -104,12 +86,47 @@ const ProductList = () => {
       {loading ? (
         <div className="text-center">{t('loading')}</div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-full justify-center">
-          {Array.isArray(products) && products.length > 0 ? (
-            products.map((product) => <ProductCard key={product.id} product={product} />)
-          ) : (
-            <p className="text-center">{t('noProducts')}</p>
-          )}
+        <div className="space-y-8">
+          {/* Danh mục New Arrival */}
+          <section>
+            <h2 className="text-xl font-bold mb-4">New Arrival</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-full justify-center">
+              {newArrivalProducts.length > 0 ? (
+                newArrivalProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              ) : (
+                <p className="text-center">No new arrival products available</p>
+              )}
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold mb-4">Best Seller</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-full justify-center">
+              {lowToHighPriceProducts.length > 0 ? (
+                lowToHighPriceProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              ) : (
+                <p className="text-center">No products available</p>
+              )}
+            </div>
+          </section>
+
+          {/* Danh mục Featured Products */}
+          <section>
+            <h2 className="text-xl font-bold mb-4">Featured Products</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-full justify-center">
+              {featuredProducts.length > 0 ? (
+                featuredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              ) : (
+                <p className="text-center">No featured products available</p>
+              )}
+            </div>
+          </section>
         </div>
       )}
     </div>

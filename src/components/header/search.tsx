@@ -15,7 +15,7 @@ const Search: React.FC<SearchProps> = ({ placeholder, isMobile }) => {
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null); // Reference for the search container
 
-  const { products } = useProducts({ category: '' });
+  const { products } = useProducts({});
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
