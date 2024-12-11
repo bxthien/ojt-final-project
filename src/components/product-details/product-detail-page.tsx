@@ -16,12 +16,6 @@ const ProductDetailPage = () => {
   const { id: productId } = useParams<{ id: string }>();
   const { t } = useTranslation(); // Sử dụng i18n
 
-  // const mockPhotos = [
-  //   'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro.png',
-  //   'https://cdn.tgdd.vn/Products/Images/42/329135/iphone-16-blue-600x600.png',
-  //   'https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121030-iphone-16-plus.png',
-  // ];
-
   // Sử dụng hook để lấy chi tiết sản phẩm từ API
   const { product, loading, error } = useProductDetail(productId || '');
 
