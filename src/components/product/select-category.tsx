@@ -1,5 +1,6 @@
 import React from 'react';
 import { Select } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const { Option } = Select;
 
@@ -19,6 +20,8 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({
   selectedCategories,
   onCategorySelect,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div>
       <Select
@@ -26,7 +29,7 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({
         value={selectedCategories}
         onChange={onCategorySelect}
         className="w-full"
-        placeholder="Select categories"
+        placeholder={t('selectCategory.placeholder')}
       >
         {categories.map((category) => (
           <Option key={category.id} value={category.id}>

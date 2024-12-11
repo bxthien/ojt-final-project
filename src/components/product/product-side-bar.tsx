@@ -71,6 +71,12 @@ const ProductSidebar = ({
     onCategorySelect(selected); // Gửi danh sách category về component cha
   };
 
+  // Translate selected categories
+  const translatedCategories = selectedCategories.map((categoryId) => {
+    const category = categories.find((cat) => cat.id === categoryId);
+    return category ? t(`categories.${category.name}`) : categoryId;
+  });
+
   return (
     <>
       <div className="hidden lg:block p-6 w-64 bg-white border-r">
@@ -109,6 +115,15 @@ const ProductSidebar = ({
           ))}
         </div>
       </div>
+
+      {/* Display selected categories */}
+      {selectedCategories.length > 0 && (
+        <div className="text-sm font-semibold mt-4">
+          <p>
+            {t('filters.selectedCategories')}: {translatedCategories.join(', ')}
+          </p>
+        </div>
+      )}
 
       {/* Mobile Filter Button */}
       <button

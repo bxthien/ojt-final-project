@@ -9,6 +9,7 @@ import {
   removeFromCart,
 } from '../../constants/cart';
 import { useTranslation } from 'react-i18next';
+import useCurrencyFormatter from '../../redux/useCurrencyFormatter';
 
 const { Title, Text } = Typography;
 
@@ -29,6 +30,7 @@ export interface CardProduct {
 
 function Cart() {
   const { t } = useTranslation();
+  const { formatCurrency } = useCurrencyFormatter(); // Use currency formatter
   const [items, setItems] = useState<CardProduct[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -125,7 +127,7 @@ function Cart() {
       title: t('cart.price'),
       dataIndex: 'price',
       key: 'price',
-      render: (_price: number, record: CardProduct) => `$${record.product.price}`,
+      render: (_price: number, record: CardProduct) => formatCurrency(record.product.price),
     },
     {
       title: t('cart.quantity'),
@@ -147,7 +149,8 @@ function Cart() {
       title: t('cart.subtotal'),
       dataIndex: 'subtotal',
       key: 'subtotal',
-      render: (_: unknown, record: CardProduct) => `$${record.quantity * record.product.price}`,
+      render: (_: unknown, record: CardProduct) =>
+        formatCurrency(record.quantity * record.product.price),
     },
     {
       title: t('cart.action'),
@@ -185,7 +188,7 @@ function Cart() {
             <Space direction="vertical" size="middle" className="w-full">
               <Row justify="space-between" className="w-full">
                 <Text>{t('cart.subtotal')}:</Text>
-                <Text>${total}</Text>
+                <Text>{formatCurrency(total)}</Text>
               </Row>
               <Row justify="space-between" className="w-full">
                 <Text>{t('cart.shipping')}:</Text>
@@ -194,7 +197,7 @@ function Cart() {
               <Divider />
               <Row justify="space-between" className="w-full font-bold">
                 <Text>{t('cart.total')}:</Text>
-                <Text>${total}</Text>
+                <Text>{formatCurrency(total)}</Text>
               </Row>
             </Space>
           </Card>

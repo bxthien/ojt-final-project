@@ -9,31 +9,29 @@ import ColorSelector from './color-selector';
 import MemorySelector from './memory-selector';
 import ActionButtons from './action-buttons';
 import { useTranslation } from 'react-i18next';
-import RelatedProducts from './related-products';
 
 const ProductDetailPage = () => {
   const { id: productId } = useParams<{ id: string }>();
   const { t } = useTranslation();
 
-  // Sử dụng hook để lấy chi tiết sản phẩm từ API
   const { product, loading, error } = useProductDetail(productId || '');
 
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
+
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value, 10);
     if (value && value >= 1) {
       setQuantity(value);
     } else {
-      setQuantity(1); // Nếu giá trị không hợp lệ, đặt lại về 1
+      setQuantity(1);
     }
   };
 
-  // Xử lý lựa chọn
   const handleImageSelect = (image: string) => {
-    setSelectedImage(image); // Cập nhật ảnh lớn khi chọn ảnh nhỏ
+    setSelectedImage(image);
   };
 
   const handleColorSelect = (color: string) => setSelectedColor(color);
@@ -45,7 +43,7 @@ const ProductDetailPage = () => {
   return (
     <div className="bg-gray-100 px-4">
       <div className="container mx-auto px-10 py-8">
-        <Breadcrumb className="mx-8 mb-6 text-xs sm:text-sm md:text-base">
+        <Breadcrumb className="mx-8 mb-6">
           <Breadcrumb.Item>
             <a href="/">{t('breadcrumb.home')}</a>
           </Breadcrumb.Item>
@@ -71,7 +69,10 @@ const ProductDetailPage = () => {
 
           {/* Product Details */}
           <div className="w-full md:w-1/2 px-4">
-            <ProductDescription name={product.name} price={product.price} />
+            <ProductDescription
+              name={product.name}
+              price={product.price} // Truyền giá trị price thô
+            />
             <div className="flex items-center mb-4">
               {/* Stars */}
               {[...Array(5)].map((_, index) => (
@@ -89,9 +90,11 @@ const ProductDetailPage = () => {
                   />
                 </svg>
               ))}
-              <span className="ml-2 text-gray-600">4.5 (120 reviews)</span>
+              <span className="ml-2 text-gray-600">
+                {t('productDetail.reviews', { rating: 4.5, count: 120 })}
+              </span>
             </div>
-            {product.info.description}
+            <p className="text-gray-700 mb-6">{t('productDetail.description')}</p>
 
             <div className="mb-6">
               {selectedColor && product.info.color[0] && (
@@ -125,11 +128,7 @@ const ProductDetailPage = () => {
             </div>
             <ActionButtons productId={product.id} productName={product.name} quantity={quantity} />
           </div>
-          {/* <p className="text-base text-gray-600 mt-2">
-          <strong>Description Detail:</strong> {product.info.description}
-        </p> */}
         </div>
-        <RelatedProducts id={product.id} categoryId={product.category.id} />
       </div>
     </div>
   );
