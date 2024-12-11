@@ -1,4 +1,4 @@
-import { Steps, Card, Typography, Input, Checkbox, Button, Divider, Row, Col } from 'antd';
+import { Steps, Card, Typography, Input, Button, Divider, Row, Col, notification } from 'antd';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -7,6 +7,7 @@ import { fromStoredData } from '../../services/storage';
 import { CardProduct } from '../carts/Cart';
 import { getDetailAddress } from '../../api/payment';
 import { AddressProps } from './SelectAddress';
+import axiosInstance from '../../services/axios';
 
 const { Step } = Steps;
 const { Title, Text } = Typography;
@@ -15,24 +16,28 @@ const PaymentPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [items, setItems] = useState<CardProduct[]>([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
+  // const [total, setTotal] = useState(0);
+  // const [loading, setLoading] = useState(false);
   const [address, setAddress] = useState<AddressProps>({});
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const addressId = queryParams.get('address');
   const paymentMethod = queryParams.get('paymentMethod');
 
+  const totalFinal = items.reduce((accumulator, item) => {
+    return accumulator + item.price * item.quantity;
+  }, 0);
+
   const userId = localStorage.getItem('userId');
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
+      // setLoading(true);
       try {
         // Fetch cart items
         const cartData = await getCartItems(fromStoredData(userId) || '');
         setItems(cartData || []);
-        setTotal(cartData?.price || 0);
+        // setTotal(cartData?.price || 0);
 
         // Fetch address details
         const addressData = await getDetailAddress(fromStoredData(addressId));
@@ -40,16 +45,52 @@ const PaymentPage = () => {
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  function handleCreateOrder(): void {
-    throw new Error('Function not implemented.');
-  }
+  const handleCreateOrder = async () => {
+    if (paymentMethod === 'banking') {
+      const resOrder = await axiosInstance.post('/orders', {
+        userId: fromStoredData(userId),
+        addressId,
+        methodShipping: 'banking',
+        status: 'finish_order',
+        listCartTransactionId: items.map((item) => {
+          return item.transactionId;
+        }),
+      });
+
+      const params = {
+        orderId: resOrder.data.orderId,
+        amount: (totalFinal + 1) * 25000,
+        orderInfo: 'Pay_For_Viper',
+      };
+
+      const res = await axiosInstance.get('/payment/create', { params });
+      window.location.href = res.data.url;
+    } else {
+      await axiosInstance.post('/orders', {
+        userId: fromStoredData(userId),
+        addressId,
+        methodShipping: 'cod',
+        status: 'not_payment',
+        listCartTransactionId: items.map((item) => {
+          return item.transactionId;
+        }),
+      });
+
+      notification.success({
+        message: 'Create Order Successfully',
+        description: 'Create Successfully',
+      });
+
+      navigate('/paymentsuccess');
+    }
+  };
 
   return (
     <div className="bg-gray-100 py-10">
@@ -139,7 +180,7 @@ const PaymentPage = () => {
               <Divider />
               <Row justify="space-between" className="mb-2">
                 <Col>{t('payment.subtotal')}</Col>
-                <Col>${total}</Col>
+                <Col>${totalFinal}</Col>
               </Row>
               <Row justify="space-between" className="mb-2">
                 <Col>{t('payment.estimatedShipping')}</Col>
@@ -151,7 +192,7 @@ const PaymentPage = () => {
                   <Title level={5}>{t('payment.total')}</Title>
                 </Col>
                 <Col>
-                  <Title level={5}>${total + 1}</Title>
+                  <Title level={5}>${totalFinal + 1}</Title>
                 </Col>
               </Row>
               <Row justify="end" className="mt-10" gutter={16}>
@@ -165,7 +206,7 @@ const PaymentPage = () => {
                     onClick={() => handleCreateOrder()}
                     className="bg-[#56B280] border-[#56B280] hover:bg-[#3D8F64] text-white"
                   >
-                    Pay
+                    Confirm Order
                   </Button>
                 </Col>
               </Row>
