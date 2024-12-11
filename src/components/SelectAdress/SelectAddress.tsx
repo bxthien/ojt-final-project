@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import {
   Steps,
   Card,
@@ -30,6 +30,7 @@ interface AddressProps {
   ward: string;
   detailedAddress: string;
   userId: string;
+  email: string;
 }
 
 interface Province {
@@ -196,7 +197,13 @@ const SelectAddress = () => {
 
   const handleNext = () => {
     if (selectedAddress) {
-      navigate('/shipment-method');
+      const params = {
+        address: selectedAddress,
+      };
+      navigate({
+        pathname: '/shipment-method',
+        search: `?${createSearchParams(params)}`,
+      });
     } else {
       Modal.warning({
         title: 'No Address Selected',
@@ -233,7 +240,7 @@ const SelectAddress = () => {
               direction="vertical"
               className="w-full flex flex-row items-center justify-between"
             >
-              <div>
+              <div className="flex-col flex">
                 <Title level={5} className="mb-0">
                   {address.detailedAddress}
                   <span className="bg-black text-white px-2 py-1 rounded text-xs ml-2">Home</span>
@@ -241,7 +248,9 @@ const SelectAddress = () => {
                 <Text className="text-gray-600">
                   {address.detailedAddress}, {address.ward}, {address.district}, {address.province}
                 </Text>
-                <Text className="text-gray-600">{address.phone}</Text>
+                <Text className="text-gray-600">
+                  {address.email} | {address.phone}
+                </Text>
               </div>
               <div>
                 <DeleteOutlined className="hover:text-red-500 scale-125" />
