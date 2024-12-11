@@ -11,7 +11,6 @@ import { t } from 'i18next';
 export const menuItems = [
   { href: '/', label: 'common.button.home' },
   { href: '/product', label: 'common.button.product' },
-  { href: '/about', label: 'common.button.about' },
   { href: '/contact', label: 'common.button.contactUs' },
 ];
 
