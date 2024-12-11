@@ -22,15 +22,16 @@ import { DeleteOutlined } from '@ant-design/icons';
 const { Step } = Steps;
 const { Title, Text } = Typography;
 
-interface AddressProps {
-  addressId: string;
-  phone: string;
-  province: string;
-  district: string;
-  ward: string;
-  detailedAddress: string;
-  userId: string;
-  email: string;
+export interface AddressProps {
+  addressId?: string;
+  phone?: string;
+  province?: string;
+  district?: string;
+  ward?: string;
+  detailedAddress?: string;
+  userId?: string;
+  email?: string;
+  recipientName?: string;
 }
 
 interface Province {
@@ -144,7 +145,6 @@ const SelectAddress = () => {
     form
       .validateFields()
       .then(async (values) => {
-        console.log('New Address:', values);
         const res = await createAddress({
           ...values,
           userId: fromStoredData(userId),
@@ -234,7 +234,7 @@ const SelectAddress = () => {
                 ? 'border-2 border-[#52c41a]'
                 : 'border border-gray-300'
             }`}
-            onClick={() => setSelectedAddress(address.addressId)}
+            onClick={() => setSelectedAddress(address.addressId || '')}
           >
             <Space
               direction="vertical"

@@ -1,17 +1,27 @@
+import { Button, Card, Modal, Radio, Space, Steps, Typography } from 'antd';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Steps, Card, Button, Radio, Space, Typography, Modal } from 'antd';
+import { createSearchParams, useLocation, useNavigate } from 'react-router-dom';
 
 const { Step } = Steps;
 const { Title, Text } = Typography;
 
 const ShipmentMethod = () => {
   const navigate = useNavigate();
-  const [selectedMethod, setSelectedMethod] = useState('free');
+  const [selectedMethod, setSelectedMethod] = useState('cod');
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const address = queryParams.get('address') || '';
 
   const handleNext = () => {
     if (selectedMethod) {
-      navigate('/payment');
+      const params = {
+        address,
+        paymentMethod: selectedMethod,
+      };
+      navigate({
+        pathname: '/payment',
+        search: `?${createSearchParams(params)}`,
+      });
     } else {
       Modal.warning({
         title: 'No Shipment Method Selected',
@@ -22,22 +32,14 @@ const ShipmentMethod = () => {
 
   const shipmentOptions = [
     {
-      value: 'free',
-      title: 'Free',
-      description: 'Regular shipment',
-      date: '17 Oct, 2023',
+      value: 'cod',
+      title: 'COD',
+      description: 'Payment when receive product',
     },
     {
-      value: 'fast',
-      title: '$8.50',
-      description: 'Get your delivery as soon as possible',
-      date: '1 Oct, 2023',
-    },
-    {
-      value: 'schedule',
-      title: 'Schedule',
-      description: 'Pick a date when you want to get your delivery',
-      date: 'Select Date ▼',
+      value: 'banking',
+      title: 'Vnpay Payment',
+      description: 'Payment online via VNPay',
     },
   ];
 
@@ -52,7 +54,7 @@ const ShipmentMethod = () => {
 
       {/* Title */}
       <Title level={3} className="mb-6">
-        Shipment Method
+        Payment Method
       </Title>
 
       {/* Shipment Options */}
@@ -82,7 +84,7 @@ const ShipmentMethod = () => {
                   </Title>
                   <Text type="secondary">{option.description}</Text>
                 </div>
-                <Text>{option.date}</Text>
+                {/* <Text>{option.date}</Text> */}
               </Radio>
             </Card>
           ))}

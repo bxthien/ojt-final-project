@@ -211,7 +211,7 @@ function Cart() {
               type="primary"
               className="bg-[#56B280] border-[#56B280] text-white hover:bg-[#3D8F64] hover:border-[#3D8F64] h-10"
               block
-              onClick={() => (window.location.href = '/checkout')}
+              onClick={() => (window.location.href = '/selectaddress')}
             >
               {t('cart.proceedToCheckout')}
             </Button>

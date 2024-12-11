@@ -48,7 +48,6 @@ export const useSignIn = () => {
   const signIn = async (params: SignInPayload): Promise<SignInResponse> => {
     try {
       const { data: response } = await axiosInstance.post<SignInResponse>(`/auth/login`, params);
-      console.log(response, 'acb');
       if (response.access_token) {
         setStorageData(ACCESS_TOKEN, response.access_token);
         setStorageData(REFRESH_TOKEN, response.refresh_token);
