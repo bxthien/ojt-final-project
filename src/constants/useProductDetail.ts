@@ -2,19 +2,30 @@ import { useState, useEffect } from 'react';
 import { AxiosError } from 'axios';
 import axiosInstance from '../services/axios';
 
+type Photo = {
+  id: string;
+  url: string;
+  createdAt: string;
+  updatedAt: string;
+};
 // Define the Product type based on API response
 interface Product {
   category: string;
-  url: string;
   id: string;
   name: string;
   price: number;
+  isDelete: boolean;
+  url: string | null;
   info: {
     description: string;
     color: string[];
     size: string[];
+    policy: string;
   };
-  photos: string[];
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+  photos: Photo[];
 }
 
 export const useProductDetail = (productId: string) => {

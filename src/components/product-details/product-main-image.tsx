@@ -1,10 +1,10 @@
 import { Image } from 'antd';
 
-type ProductMainImageProps = {
-  url: string;
+type Props = {
+  url: string | null;
 };
 
-const ProductMainImage = ({ url }: ProductMainImageProps) => {
+const ProductMainImage = ({ url }: Props) => {
   return (
     <div className="flex justify-center items-center">
       <Image
@@ -15,8 +15,8 @@ const ProductMainImage = ({ url }: ProductMainImageProps) => {
         }
         alt="Main Product"
         className="w-full h-auto rounded-lg shadow-md mb-4"
-        width="50%"
-        height="50%"
+        width="60%"
+        height="60%"
         preview={true}
       />
     </div>
