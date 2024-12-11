@@ -2,6 +2,7 @@ import React from 'react';
 import { message } from 'antd';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { UserOutlined } from '@ant-design/icons';
 
 interface AvatarUploadProps {
   url: string;
@@ -44,7 +45,13 @@ const AvatarUpload: React.FC<AvatarUploadProps> = ({ url, setUrl, setUploading }
 
   return (
     <div className="flex items-center space-x-4">
-      <img src={url} alt="Avatar" className="w-14 h-14 rounded-full border" />
+      {url ? (
+        <img src={url} alt="Avatar" className="w-14 h-14 rounded-full border" />
+      ) : (
+        <div className="w-14 h-14 rounded-full border flex items-center justify-center bg-gray-100 text-gray-500">
+          <UserOutlined style={{ fontSize: '24px' }} />
+        </div>
+      )}
       <input
         type="file"
         accept="image/*"

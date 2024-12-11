@@ -1,6 +1,7 @@
 import React from 'react';
 import { Collapse } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { UserOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
 
@@ -13,15 +14,22 @@ interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ url, activeTab, setActiveTab, username }) => {
   const { t } = useTranslation();
+
   return (
     <div className="w-full">
       <div className="flex items-center p-4 bg-white shadow-md rounded-lg mb-4">
-        <img
-          src={url}
-          alt="User Avatar"
-          sizes="large"
-          className="w-12 h-12 rounded-full border-2 mr-3"
-        />
+        {url ? (
+          <img
+            src={url}
+            alt="User Avatar"
+            sizes="large"
+            className="w-12 h-12 rounded-full border-2 mr-3"
+          />
+        ) : (
+          <div className="w-12 h-12 rounded-full border-2 mr-3 flex items-center justify-center bg-gray-100 text-gray-500">
+            <UserOutlined style={{ fontSize: '24px' }} />
+          </div>
+        )}
         <div>
           <p className="text-gray-600 text-sm">
             {t('sidebar.hello')}
