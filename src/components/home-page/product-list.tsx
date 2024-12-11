@@ -16,6 +16,7 @@ export interface Product {
   price: number;
   isDelete: boolean;
   url: string | null;
+  urls: string[];
   info: {
     description: string;
     policy: string;

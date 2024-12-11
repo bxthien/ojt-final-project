@@ -14,7 +14,7 @@ type ProductCardProps = {
 const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { name, price, url } = product;
+  const { name, price, urls } = product;
   const isAuth = useAuth();
 
   // Sử dụng useCurrencyFormatter để định dạng giá tiền
@@ -79,8 +79,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
       >
         <Image
           src={
-            url
-              ? url
+            urls?.[0]
+              ? urls?.[0]
               : 'https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'
           }
           alt={name}
