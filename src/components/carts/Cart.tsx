@@ -17,7 +17,7 @@ export interface Product {
   id: string;
   name: string;
   price: number;
-  url: string;
+  urls: string[];
   quantity: number;
 }
 
@@ -26,6 +26,7 @@ export interface CardProduct {
   quantity: number;
   price: number;
   product: Product;
+  urls: string[];
 }
 
 function Cart() {
@@ -118,7 +119,11 @@ function Cart() {
       key: 'name',
       render: (_: unknown, record: CardProduct) => (
         <Space size="middle" className="flex items-center">
-          <img src={record.product.url} alt={record.product.name} className="w-20 h-20 rounded" />
+          <img
+            src={record.product.urls?.[0]}
+            alt={record.product.name}
+            className="w-20 h-20 rounded"
+          />
           <Text>{record.product.name}</Text>
         </Space>
       ),
