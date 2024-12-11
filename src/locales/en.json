@@ -219,8 +219,8 @@
 
   "myOrders": {
     "category": "Category: {{category}}",
-    "quantityPrice": "Quantity: {{quantity}} | Price: {{price}} $",
-    "total": "Total: {{total}} $",
+    "quantityPrice": "Quantity: {{quantity}} | Price: {{price}}",
+    "total": "Total: {{total}}",
     "emptyOrderHistory": "Your order history is empty",
     "noOrdersMessage": "You have not placed any orders yet.",
     "orderId": "Order ID: {{orderId}}",
@@ -230,9 +230,9 @@
     "description": "Description: {{description}}",
     "color": "Color: {{color}}",
     "size": "Size: {{size}}",
-    "price": "Price: {{price}}$",
+    "price": "Price: {{price}}",
     "quantity": "Quantity: {{quantity}}",
-    "totalPrice": "Total price: {{total}}$",
+    "totalPrice": "Total price: {{total}}",
     "noTransactions": "No transactions available for this order.",
     "invalidDate": "Invalid date",
     "statusDone": "Completed",
@@ -287,7 +287,8 @@
     "quantity": "Quantity",
     "relatedProducts": "Related Products:",
     "memory": "Memory",
-    "color": "Color"
+    "color": "Color",
+    "reviews": "{{rating}} ({{count}} reviews)"
   },
 
   "actionButton": {
@@ -316,7 +317,7 @@
     "title": "Filters",
     "apply": "Apply Filters",
     "filter": "Filter",
-    "mobileFilterButton": "Open filters",
+    "selectedCategories": "Selected Categories",
     "sections": {
       "price": "Price Range",
       "brand": "Brand",
@@ -528,7 +529,13 @@
   "filter": {
     "price": "Price Range",
     "brand": "Brand",
-    "memory": "Built-in memory"
+    "memory": "Built-in memory",
+    "filters": "Filters",
+    "closeFilters": "Close filters",
+    "categories": "Categories",
+    "priceRange": "Price Range",
+    "applyFilters": "Apply Filters",
+    "searchFilters": "Search filters"
   },
 
   "productTabs": {
@@ -560,5 +567,18 @@
   "address": {
     "edit": "Edit",
     "delete": "Delete"
+  },
+
+  "selectCategory": {
+    "placeholder": "Select categories"
+  },
+
+  "productList": {
+    "newArrival": "New Arrival",
+    "bestSeller": "Best Seller",
+    "featuredProducts": "Featured Products",
+    "noNewArrival": "No new arrival products available",
+    "noProducts": "No products available",
+    "noFeaturedProducts": "No featured products available"
   }
 }

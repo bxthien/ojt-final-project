@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import useCurrencyFormatter from '../../redux/useCurrencyFormatter';
 
 interface PriceRangeSidebarProps {
   onPriceChange: (min: number, max: number) => void;
@@ -7,10 +8,15 @@ interface PriceRangeSidebarProps {
   maxPrice: number;
 }
 
-const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, minPrice }) => {
+const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({
+  onPriceChange,
+  minPrice,
+  maxPrice,
+}) => {
   const { t } = useTranslation();
+  const { formatCurrency } = useCurrencyFormatter();
   const [localMinPrice, setLocalMinPrice] = useState(minPrice);
-  const [localMaxPrice, setLocalMaxPrice] = useState(5000); // Đặt giá trị mặc định cho maxPrice là 5000
+  const [localMaxPrice, setLocalMaxPrice] = useState(maxPrice); // Sử dụng maxPrice thay vì giá trị mặc định
 
   const handleMinSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newMinPrice = parseInt(e.target.value);
@@ -25,8 +31,8 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, mi
   };
 
   // Tính toán tỷ lệ phần trăm cho thanh trượt
-  const leftPosition = (localMinPrice / 5000) * 100;
-  const rightPosition = 100 - (localMaxPrice / 5000) * 100;
+  const leftPosition = (localMinPrice / maxPrice) * 100;
+  const rightPosition = 100 - (localMaxPrice / maxPrice) * 100;
 
   return (
     <div className="space-y-4">
@@ -75,7 +81,7 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, mi
         <input
           type="range"
           min="0"
-          max="5000"
+          max={maxPrice}
           value={localMinPrice}
           onChange={handleMinSliderChange}
           className="absolute w-full h-2 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#56B280] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:bg-[#56B280]"
@@ -83,7 +89,7 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, mi
         <input
           type="range"
           min="0"
-          max="5000"
+          max={maxPrice}
           value={localMaxPrice}
           onChange={handleMaxSliderChange}
           className="absolute w-full h-2 appearance-none bg-transparent pointer-events-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#56B280] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:shadow-md hover:[&::-webkit-slider-thumb]:bg-[#56B280]"
@@ -91,8 +97,8 @@ const PriceRangeSidebar: React.FC<PriceRangeSidebarProps> = ({ onPriceChange, mi
       </div>
 
       <div className="flex justify-between text-sm text-gray-600">
-        <span>${localMinPrice.toLocaleString()}</span>
-        <span>${localMaxPrice.toLocaleString()}</span>
+        <span>{formatCurrency(localMinPrice)}</span>
+        <span>{formatCurrency(localMaxPrice)}</span>
       </div>
     </div>
   );

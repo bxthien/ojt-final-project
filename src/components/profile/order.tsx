@@ -88,35 +88,30 @@ const MyOrders: React.FC<MyOrdersProps> = ({ orders }) => {
   }
 
   return (
-    <div className="space-y-6 p-4">
+    <div className="space-y-6 p-4 sm:p-6 lg:p-8">
       <Collapse activeKey={activeKey} onChange={handleCollapseChange} className="custom-collapse">
         {orders.map((order) => (
           <Panel
             key={order.orderId}
             extra={<span className="collapse-arrow"></span>}
             header={
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-lg font-semibold">
+              <div className="flex flex-wrap justify-between items-center">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="bg-blue-500 text-white px-2 py-1 rounded text-sm">
                     {t('myOrders.orderId', { orderId: order.orderId })}
-                  </p>
-                  <div className="flex gap-4 items-center">
-                    <Tooltip
-                      title={t('myOrders.shippingMethod', {
-                        method: order.methodShipping.toUpperCase(),
-                      })}
-                    >
-                      <Tag color="gold">{order.methodShipping.toUpperCase()}</Tag>
-                    </Tooltip>
-                    {getStatusTag(order.status)}
-                    <Tooltip title={formatDate(order.createdAt)}>
-                      <Tag color="cyan">
-                        <span>{formatDate(order.createdAt)}</span>
-                      </Tag>
-                    </Tooltip>
-                  </div>
+                  </span>
+                  <Tag color="orange" className="text-xs uppercase">
+                    {order.methodShipping}
+                  </Tag>
+                  {getStatusTag(order.status)}
+                  <Tooltip title={formatDate(order.createdAt)}>
+                    <Tag color="cyan" className="text-xs">
+                      {formatDate(order.createdAt)}
+                    </Tag>
+                  </Tooltip>
                 </div>
-                <div className="text-right">
+
+                <div className="text-right mt-2 sm:mt-0">
                   <p className="text-lg font-semibold text-gray-800">
                     {t('myOrders.totalPrice', {
                       total: formatCurrency(order.price),
@@ -128,11 +123,11 @@ const MyOrders: React.FC<MyOrdersProps> = ({ orders }) => {
           >
             <div className="space-y-4">
               {order.transactions.map((transaction) => (
-                <div key={transaction.transactionId} className="flex gap-4 items-center">
+                <div key={transaction.transactionId} className="flex gap-4 items-center flex-wrap">
                   <img
                     src={transaction.product.url}
                     alt={transaction.product.name}
-                    className="w-24 h-24 object-cover rounded-md"
+                    className="w-24 h-24 object-cover rounded-md sm:w-32 sm:h-32"
                   />
                   <div className="flex-1">
                     <p className="font-semibold">{transaction.product.name}</p>

@@ -5,11 +5,13 @@ const exchangeRate = 25000;
 const useCurrencyFormatter = () => {
   const { i18n } = useTranslation();
 
-  const formatCurrency = (amount: number): string => {
+  const formatCurrency = (amount: number | string): string => {
+    const parsedAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+
     if (i18n.language === 'vi') {
-      return `${(amount * exchangeRate).toLocaleString('vi-VN')}`;
+      return `${(parsedAmount * exchangeRate).toLocaleString('vi-VN')} VND`;
     } else {
-      return `${amount.toFixed(2)}`;
+      return `$${parsedAmount.toFixed(2)}`;
     }
   };
 

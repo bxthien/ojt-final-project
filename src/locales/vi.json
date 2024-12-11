@@ -221,8 +221,8 @@
 
   "myOrders": {
     "category": "Danh mục: {{category}}",
-    "quantityPrice": "Số lượng: {{quantity}} | Giá: {{price}} ₫",
-    "total": "Tổng cộng: {{total}} ₫",
+    "quantityPrice": "Số lượng: {{quantity}} | Giá: {{price}}",
+    "total": "Tổng cộng: {{total}}",
     "emptyOrderHistory": "Lịch sử mua hàng của bạn đang trống",
     "noOrdersMessage": "Bạn chưa đặt bất kỳ đơn hàng nào.",
     "orderId": "Mã đơn hàng: {{orderId}}",
@@ -232,9 +232,9 @@
     "description": "Mô tả: {{description}}",
     "color": "Màu sắc: {{color}}",
     "size": "Kích thước: {{size}}",
-    "price": "Giá: {{price}}₫",
+    "price": "Giá: {{price}}",
     "quantity": "Số lượng: {{quantity}}",
-    "totalPrice": "Thành tiền: {{total}}₫",
+    "totalPrice": "Thành tiền: {{total}}",
     "noTransactions": "Không có giao dịch nào cho đơn hàng này.",
     "invalidDate": "Ngày không hợp lệ",
     "statusDone": "Hoàn thành",
@@ -288,7 +288,8 @@
     "quantity": "Số lượng",
     "relatedProducts": "Sản phẩm liên quan:",
     "memory": "Dung lượng",
-    "color": "Màu sắc"
+    "color": "Màu sắc",
+    "reviews": "{{rating}} ({{count}} đánh giá)"
   },
 
   "actionButton": {
@@ -318,6 +319,7 @@
     "apply": "Áp dụng bộ lọc",
     "filter": "Lọc",
     "mobileFilterButton": "Mở bộ lọc",
+    "selectedCategories": "Danh mục đã chọn",
     "sections": {
       "price": "Khoảng giá",
       "brand": "Thương hiệu",
@@ -524,7 +526,13 @@
   "filter": {
     "price": "Khoảng giá",
     "brand": "Thương hiệu",
-    "memory": "Bộ nhớ trong"
+    "memory": "Bộ nhớ trong",
+    "filters": "Bộ lọc",
+    "closeFilters": "Đóng bộ lọc",
+    "categories": "Danh mục",
+    "priceRange": "Khoảng giá",
+    "applyFilters": "Áp dụng bộ lọc",
+    "searchFilters": "Tìm kiếm bộ lọc"
   },
 
   "productTabs": {
@@ -555,5 +563,18 @@
   "address": {
     "edit": "Chỉnh sửa",
     "delete": "Xóa"
+  },
+
+  "selectCategory": {
+    "placeholder": "Chọn danh mục"
+  },
+
+  "productList": {
+    "newArrival": "Sản phẩm mới",
+    "bestSeller": "Bán chạy nhất",
+    "featuredProducts": "Sản phẩm nổi bật",
+    "noNewArrival": "Không có sản phẩm mới",
+    "noProducts": "Không có sản phẩm",
+    "noFeaturedProducts": "Không có sản phẩm nổi bật"
   }
 }

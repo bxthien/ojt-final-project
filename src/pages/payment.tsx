@@ -9,6 +9,7 @@ import BillingAddress from '../components/payment/BillingAddress';
 import OrderSummary from '../components/payment/OrderSummary';
 import { fetchProducts, Product } from '../constants/payment';
 import { useTranslation } from 'react-i18next';
+import useCurrencyFormatter from '../redux/useCurrencyFormatter';
 
 const { Text } = Typography;
 
@@ -18,6 +19,9 @@ const Payment: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Correctly destructure formatCurrency from useCurrencyFormatter
+  const { formatCurrency } = useCurrencyFormatter();
 
   useEffect(() => {
     setLoading(true);
@@ -61,13 +65,15 @@ const Payment: React.FC = () => {
               {products.map((product) => (
                 <div key={product.id} className="flex justify-between items-center">
                   <Text>{product.name}</Text>
-                  <Text>${product.price}</Text>
+                  <Text>{formatCurrency(product.price)}</Text>
                 </div>
               ))}
               <Divider />
               <div className="flex justify-between">
                 <Text>{t('payment.orderSummary.total')}:</Text>
-                <Text>${products.reduce((acc, product) => acc + product.price, 0)}</Text>
+                <Text>
+                  {formatCurrency(products.reduce((acc, product) => acc + product.price, 0))}
+                </Text>
               </div>
             </Space>
           </Card>

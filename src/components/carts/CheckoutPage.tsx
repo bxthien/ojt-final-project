@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Form, Input, Checkbox, Radio, Button, Card, Typography, Divider, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
+import useCurrencyFormatter from '../../redux/useCurrencyFormatter';
 
 const { Title, Text } = Typography;
 
 const Checkout = () => {
   const { t } = useTranslation();
+  const { formatCurrency } = useCurrencyFormatter();
   const [form] = Form.useForm();
   const [paymentMethod, setPaymentMethod] = useState('bank');
 
@@ -92,16 +94,16 @@ const Checkout = () => {
         <Space direction="vertical" size="large" className="w-full">
           <div className="flex justify-between items-center">
             <Text>LCD Monitor</Text>
-            <Text>$650</Text>
+            <Text>{formatCurrency(650)}</Text>
           </div>
           <div className="flex justify-between items-center">
             <Text>H1 Gamepad</Text>
-            <Text>$1100</Text>
+            <Text>{formatCurrency(1100)}</Text>
           </div>
           <Divider />
           <div className="flex justify-between">
             <Text>{t('checkout.subtotal')}:</Text>
-            <Text>${subtotal}</Text>
+            <Text>{formatCurrency(subtotal)}</Text>
           </div>
           <div className="flex justify-between">
             <Text>{t('checkout.shipping')}:</Text>
@@ -109,7 +111,7 @@ const Checkout = () => {
           </div>
           <div className="flex justify-between font-bold">
             <Text>{t('checkout.total')}:</Text>
-            <Text>${subtotal}</Text>
+            <Text>{formatCurrency(subtotal)}</Text>
           </div>
         </Space>
 
