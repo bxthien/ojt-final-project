@@ -56,11 +56,11 @@ const ProductDetailPage = () => {
         <div className="flex flex-wrap -mx-4">
           {/* Product Images */}
           <div className="w-full md:w-1/2 px-4 mb-8">
-            <ProductMainImage url={selectedImage || product?.photos[0]?.url} />
+            <ProductMainImage url={selectedImage || product?.urls?.[0]} />
 
             <div className="flex gap-4 py-4 justify-center overflow-x-auto">
               <ProductImages
-                images={product?.photos?.map((photo) => photo.url)}
+                images={product?.urls}
                 onImageSelect={handleImageSelect}
                 selectedImage={selectedImage}
               />
@@ -97,17 +97,17 @@ const ProductDetailPage = () => {
             <p className="text-gray-700 mb-6">{t('productDetail.description')}</p>
 
             <div className="mb-6">
-              {selectedColor && product.info.color[0] && (
+              {product?.color?.[0] && (
                 <ColorSelector
-                  colors={product.info.color}
-                  selectedColor={selectedColor || product.info.color[0]}
+                  colors={product.color}
+                  selectedColor={selectedColor || product.color[0]}
                   onColorSelect={handleColorSelect}
                 />
               )}
-              {selectedSize && product.info.size[0] && (
+              {product?.size?.[0] && (
                 <MemorySelector
-                  sizes={product.info.size}
-                  selectedSize={selectedSize || product.info.size[0]}
+                  sizes={product.size}
+                  selectedSize={selectedSize || product.size[0]}
                   onSizeSelect={handleSizeSelect}
                 />
               )}

@@ -1,7 +1,7 @@
 import { Image } from 'antd';
 
 type Props = {
-  url: string | null;
+  url?: string | null;
 };
 
 const ProductMainImage = ({ url }: Props) => {
