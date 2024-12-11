@@ -12,14 +12,12 @@ import { useTranslation } from 'react-i18next';
 import RelatedProducts from './related-products';
 
 const ProductDetailPage = () => {
-  // Lấy productId từ URL
   const { id: productId } = useParams<{ id: string }>();
-  const { t } = useTranslation(); // Sử dụng i18n
+  const { t } = useTranslation();
 
   // Sử dụng hook để lấy chi tiết sản phẩm từ API
   const { product, loading, error } = useProductDetail(productId || '');
 
-  // Quản lý trạng thái lựa chọn hình ảnh, màu sắc và dung lượng
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);

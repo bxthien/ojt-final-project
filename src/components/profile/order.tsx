@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Tag, Tooltip, Collapse } from 'antd';
+import useCurrencyFormatter from '../../redux/useCurrencyFormatter';
+
+const { Panel } = Collapse;
 
 interface Product {
   id: string;
@@ -26,15 +30,12 @@ interface Transaction {
 }
 
 interface Order {
-  cartId: string;
-  couponCode: string | null;
-  discount: number;
-  isDelete: boolean;
   price: number;
-  status: string;
-  address: string;
-  createdAt: string;
+  orderId: string;
   methodShipping: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
   transactions: Transaction[];
 }
 
@@ -44,6 +45,38 @@ interface MyOrdersProps {
 
 const MyOrders: React.FC<MyOrdersProps> = ({ orders }) => {
   const { t } = useTranslation();
+  const [activeKey, setActiveKey] = useState<string | string[]>('');
+
+  const { formatCurrency } = useCurrencyFormatter();
+
+  const formatDate = (dateString: string) => {
+    if (!dateString) return t('myOrders.invalidDate');
+    const timestamp = Date.parse(dateString);
+    if (isNaN(timestamp)) return t('myOrders.invalidDate');
+
+    const date = new Date(timestamp);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes} ${day}/${month}/${year}`;
+  };
+
+  const getStatusTag = (status: string) => {
+    switch (status) {
+      case 'done':
+        return <Tag color="green">{t('myOrders.statusDone')}</Tag>;
+      case 'finish_order':
+        return <Tag color="blue">{t('myOrders.statusFinish')}</Tag>;
+      default:
+        return <Tag color="orange">{t('myOrders.statusPending')}</Tag>;
+    }
+  };
+
+  const handleCollapseChange = (key: string | string[]) => {
+    setActiveKey(key);
+  };
 
   if (orders.length === 0) {
     return (
@@ -56,59 +89,76 @@ const MyOrders: React.FC<MyOrdersProps> = ({ orders }) => {
 
   return (
     <div className="space-y-6 p-4">
-      {orders.map((order) => (
-        <div key={order.cartId} className="border p-4 rounded-md shadow-md">
-          <div className="mb-2">
-            <p className="text-lg font-semibold">
-              {t('myOrders.orderId', { orderId: order.cartId })}
-            </p>
-            <p className="text-sm text-gray-600">
-              {t('myOrders.shippingMethod', { method: order.methodShipping })}
-            </p>
-            <p className="text-sm text-gray-600">
-              {t('myOrders.status', { status: order.status })}
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {order.transactions.map((transaction) => (
-              <div key={transaction.transactionId} className="flex gap-4 items-center">
-                <img
-                  src={transaction.product.url}
-                  alt={transaction.product.name}
-                  className="w-24 h-24 object-cover rounded-md"
-                />
-                <div className="flex-1">
-                  <p className="font-semibold">{transaction.product.name}</p>
-                  <p className="text-sm text-gray-600">
-                    {t('myOrders.category', { category: transaction.product.info.description })}
+      <Collapse activeKey={activeKey} onChange={handleCollapseChange} className="custom-collapse">
+        {orders.map((order) => (
+          <Panel
+            key={order.orderId}
+            extra={<span className="collapse-arrow"></span>}
+            header={
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="text-lg font-semibold">
+                    {t('myOrders.orderId', { orderId: order.orderId })}
                   </p>
-                  <p className="text-sm">
-                    {t('myOrders.quantityPrice', {
-                      quantity: transaction.quantity,
-                      price: (
-                        transaction.product.price *
-                        (1 - order.discount / 100)
-                      ).toLocaleString(),
-                    })}
-                  </p>
-                  <p className="text-sm">
-                    {t('myOrders.total', {
-                      total: (transaction.product.price * transaction.quantity).toLocaleString(),
+                  <div className="flex gap-4 items-center">
+                    <Tooltip
+                      title={t('myOrders.shippingMethod', {
+                        method: order.methodShipping.toUpperCase(),
+                      })}
+                    >
+                      <Tag color="gold">{order.methodShipping.toUpperCase()}</Tag>
+                    </Tooltip>
+                    {getStatusTag(order.status)}
+                    <Tooltip title={formatDate(order.createdAt)}>
+                      <Tag color="cyan">
+                        <span>{formatDate(order.createdAt)}</span>
+                      </Tag>
+                    </Tooltip>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-lg font-semibold text-gray-800">
+                    {t('myOrders.totalPrice', {
+                      total: formatCurrency(order.price),
                     })}
                   </p>
                 </div>
               </div>
-            ))}
-          </div>
-
-          <div className="mt-4 text-right">
-            <p className="text-lg font-semibold text-gray-800">
-              {t('myOrders.totalPrice', { price: order.price.toLocaleString() })}
-            </p>
-          </div>
-        </div>
-      ))}
+            }
+          >
+            <div className="space-y-4">
+              {order.transactions.map((transaction) => (
+                <div key={transaction.transactionId} className="flex gap-4 items-center">
+                  <img
+                    src={transaction.product.url}
+                    alt={transaction.product.name}
+                    className="w-24 h-24 object-cover rounded-md"
+                  />
+                  <div className="flex-1">
+                    <p className="font-semibold">{transaction.product.name}</p>
+                    <p className="text-sm text-gray-600">
+                      {t('myOrders.description', {
+                        description: transaction.product.info.description,
+                      })}
+                    </p>
+                    <p className="text-sm">
+                      {t('myOrders.quantityPrice', {
+                        quantity: transaction.quantity,
+                        price: formatCurrency(transaction.product.price),
+                      })}
+                    </p>
+                    <p className="text-sm">
+                      {t('myOrders.total', {
+                        total: formatCurrency(transaction.product.price * transaction.quantity),
+                      })}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Panel>
+        ))}
+      </Collapse>
     </div>
   );
 };

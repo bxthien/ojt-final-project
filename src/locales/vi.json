@@ -148,7 +148,29 @@
     "buttons": {
       "backToShipping": "Quay lại giao hàng",
       "payNow": "Thanh toán ngay"
-    }
+    },
+    "address": "Địa chỉ",
+    "shipping": "Vận chuyển",
+    "payment": "Thanh toán",
+    "summary": "Tóm tắt",
+    "addressLabel": "Địa chỉ",
+    "shipmentMethod": "Phương thức vận chuyển",
+    "free": "Miễn phí",
+    "subtotal": "Tổng phụ",
+    "estimatedTax": "Thuế ước tính",
+    "estimatedShipping": "Phí vận chuyển ước tính",
+    "total": "Tổng cộng",
+    "creditCard": "Thẻ tín dụng",
+    "paypal": "PayPal",
+    "paypalCredit": "PayPal Credit",
+    "cardholderName": "Tên chủ thẻ",
+    "cardNumber": "Số thẻ",
+    "expDate": "Ngày hết hạn",
+    "cvv": "CVV",
+    "sameAsBilling": "Giống như địa chỉ thanh toán",
+    "back": "Quay lại",
+    "pay": "Thanh toán",
+    "paymentSuccess": "Thanh toán thành công!"
   },
 
   "header": {
@@ -198,15 +220,26 @@
   },
 
   "myOrders": {
-    "emptyOrderHistory": "Lịch sử đơn hàng của bạn trống",
-    "noOrdersMessage": "Bạn chưa có đơn hàng nào. Vui lòng quay lại sau.",
-    "orderId": "Đơn hàng #{orderId}",
-    "shippingMethod": "Phương thức vận chuyển: {method}",
-    "status": "Trạng thái: {status}",
-    "category": "Danh mục: {category}",
-    "quantityPrice": "Số lượng: {quantity} | Giá: {price} VND",
-    "total": "Tổng: {total} VND",
-    "totalPrice": "Tổng giá: {price} VND"
+    "category": "Danh mục: {{category}}",
+    "quantityPrice": "Số lượng: {{quantity}} | Giá: {{price}} ₫",
+    "total": "Tổng cộng: {{total}} ₫",
+    "emptyOrderHistory": "Lịch sử mua hàng của bạn đang trống",
+    "noOrdersMessage": "Bạn chưa đặt bất kỳ đơn hàng nào.",
+    "orderId": "Mã đơn hàng: {{orderId}}",
+    "shippingMethod": "Phương thức giao hàng: {{method}}",
+    "status": "Trạng thái: {{status}}",
+    "createdAt": "Ngày tạo: {{date}}",
+    "description": "Mô tả: {{description}}",
+    "color": "Màu sắc: {{color}}",
+    "size": "Kích thước: {{size}}",
+    "price": "Giá: {{price}}₫",
+    "quantity": "Số lượng: {{quantity}}",
+    "totalPrice": "Thành tiền: {{total}}₫",
+    "noTransactions": "Không có giao dịch nào cho đơn hàng này.",
+    "invalidDate": "Ngày không hợp lệ",
+    "statusDone": "Hoàn thành",
+    "statusFinish": "Đã giao hàng",
+    "statusPending": "Đang xử lý"
   },
 
   "passwordChange": {
@@ -304,7 +337,7 @@
 
   "cart": {
     "title": "Giỏ hàng",
-    "subtitle": "Trang chủ / Giỏ hàng",
+    "subtitle": "Giỏ hàng",
     "applyCoupon": "Áp dụng mã giảm giá",
     "couponPlaceholder": "Mã giảm giá",
     "applyCouponButton": "Áp dụng mã",
@@ -318,7 +351,8 @@
     "price": "Giá",
     "quantity": "Số lượng",
     "couponApplied": "Mã giảm giá đã được áp dụng!",
-    "items": "sản phẩm"
+    "items": "sản phẩm",
+    "action": "Hành động"
   },
 
   "checkout": {
@@ -499,5 +533,27 @@
     "featured": "Sản phẩm nổi bật"
   },
   "loading": "Đang tải...",
-  "noProducts": "Không có sản phẩm nào"
+  "noProducts": "Không có sản phẩm nào",
+
+  "contact": {
+    "name": "Họ và tên",
+    "email": "Email",
+    "phone": "Số điện thoại",
+    "message": "Tin nhắn",
+    "title": "Liên hệ chúng tôi",
+    "faxTitle": "Số Fax",
+    "faxNumber": "+1-548-2588",
+    "chatTitle": "Chat với chúng tôi",
+    "chatEmail": "Viper@gmail.com",
+    "callus": "Gọi cho chúng tôi",
+    "phonenumber": "+123 456 789",
+    "visitoffice": "Thăm văn phòng",
+    "officeaddress": "116 Mai Thục Lân, Ngũ Hành Sơn, Đà Nẵng",
+    "sendmessage": "Gửi tin nhắn"
+  },
+
+  "address": {
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa"
+  }
 }

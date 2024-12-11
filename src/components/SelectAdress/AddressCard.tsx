@@ -1,5 +1,6 @@
 import { Card, Typography, Space, Radio, Button } from 'antd';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 const { Text } = Typography;
 
@@ -10,6 +11,8 @@ const AddressCard = ({
   onEdit = () => {},
   onDelete = () => {},
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Card
       className={`mb-4 shadow-md cursor-pointer ${
@@ -45,14 +48,14 @@ const AddressCard = ({
             icon={<EditOutlined />}
             onClick={onEdit}
             className="hover:text-blue-500"
-            aria-label="Edit"
+            aria-label={t('address.edit')}
           />
           <Button
             type="text"
             icon={<DeleteOutlined />}
             danger
             onClick={onDelete}
-            aria-label="Delete"
+            aria-label={t('address.delete')}
           />
         </Space>
       </Space>

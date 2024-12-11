@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile as updateUserProfile } from '../redux/auth/authSlice';
 import { RootState } from '../redux/store';
+import { fromStoredData } from '../services/storage';
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const username = useSelector((state: RootState) => state.auth.username);
   const url = useSelector((state: RootState) => state.auth.url);
+  const userId = localStorage.getItem('userId');
 
   useEffect(() => {
     getProfile()
@@ -46,16 +48,18 @@ const Profile = () => {
         message.error(t('profile.errorFetchProfile'));
       });
 
-    getOrders()
-      .then((data) => {
-        console.log('Orders Data:', data);
-        setOrders(data);
-      })
-      .catch((err) => {
-        console.error('Error fetching orders:', err);
-        message.error(t('profile.errorFetchOrders'));
-      });
-  }, [dispatch, form, t]);
+    if (userId) {
+      getOrders(fromStoredData(userId))
+        .then((data) => {
+          console.log('Orders Data:', data);
+          setOrders(data);
+        })
+        .catch((err) => {
+          console.error('Error fetching orders:', err);
+          message.error(t('profile.errorFetchOrders'));
+        });
+    }
+  }, [dispatch, form, t, userId]);
 
   const handleSaveChanges = (values: {
     username: string;

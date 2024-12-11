@@ -146,7 +146,29 @@
     "buttons": {
       "backToShipping": "Back to Shipping",
       "payNow": "Pay Now"
-    }
+    },
+    "address": "Address",
+    "shipping": "Shipping",
+    "payment": "Payment",
+    "summary": "Summary",
+    "addressLabel": "Address",
+    "shipmentMethod": "Shipment Method",
+    "free": "Free",
+    "subtotal": "Subtotal",
+    "estimatedTax": "Estimated Tax",
+    "estimatedShipping": "Estimated shipping & Handling",
+    "total": "Total",
+    "creditCard": "Credit Card",
+    "paypal": "PayPal",
+    "paypalCredit": "PayPal Credit",
+    "cardholderName": "Cardholder Name",
+    "cardNumber": "Card Number",
+    "expDate": "Exp.Date",
+    "cvv": "CVV",
+    "sameAsBilling": "Same as billing address",
+    "back": "Back",
+    "pay": "Pay",
+    "paymentSuccess": "Payment Successful!"
   },
 
   "header": {
@@ -196,15 +218,26 @@
   },
 
   "myOrders": {
-    "emptyOrderHistory": "Your Order History is Empty",
-    "noOrdersMessage": "You don't have any orders yet. Please come back later.",
-    "orderId": "Order #{orderId}",
-    "shippingMethod": "Shipping Method: {method}",
-    "status": "Status: {status}",
-    "category": "Category: {category}",
-    "quantityPrice": "Quantity: {quantity} | Price: {price} $",
-    "total": "Total: {total} $",
-    "totalPrice": "Total Price: {price} $"
+    "category": "Category: {{category}}",
+    "quantityPrice": "Quantity: {{quantity}} | Price: {{price}} $",
+    "total": "Total: {{total}} $",
+    "emptyOrderHistory": "Your order history is empty",
+    "noOrdersMessage": "You have not placed any orders yet.",
+    "orderId": "Order ID: {{orderId}}",
+    "shippingMethod": "Shipping method: {{method}}",
+    "status": "Status: {{status}}",
+    "createdAt": "Created at: {{date}}",
+    "description": "Description: {{description}}",
+    "color": "Color: {{color}}",
+    "size": "Size: {{size}}",
+    "price": "Price: {{price}}$",
+    "quantity": "Quantity: {{quantity}}",
+    "totalPrice": "Total price: {{total}}$",
+    "noTransactions": "No transactions available for this order.",
+    "invalidDate": "Invalid date",
+    "statusDone": "Completed",
+    "statusFinish": "Delivered",
+    "statusPending": "Processing"
   },
 
   "passwordChange": {
@@ -317,7 +350,8 @@
     "price": "Price",
     "quantity": "Quantity",
     "couponApplied": "Coupon applied successfully!",
-    "items": "items"
+    "items": "items",
+    "action": "Action"
   },
 
   "checkout": {
@@ -504,5 +538,27 @@
   },
 
   "loading": "Loading...",
-  "noProducts": "No products available"
+  "noProducts": "No products available",
+
+  "contact": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "title": "Contact Us",
+    "faxTitle": "Fax",
+    "faxNumber": "+1-548-2588",
+    "chatTitle": "Chat to us",
+    "chatEmail": "Viper@gmail.com",
+    "callus": "Call us",
+    "phonenumber": "+123 456 789",
+    "visitoffice": "Visit office",
+    "officeaddress": "116 Mai Thuc Lan, Ngu Hanh Son, Da Nang",
+    "sendmessage": "Send Message"
+  },
+
+  "address": {
+    "edit": "Edit",
+    "delete": "Delete"
+  }
 }

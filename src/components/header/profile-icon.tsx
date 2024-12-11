@@ -1,5 +1,5 @@
 import React from 'react';
-import { SettingOutlined, UserOutlined, LogoutOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, message, Space, Avatar } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
@@ -36,21 +36,10 @@ const ProfileIcon: React.FC<ProfileIconProps> = ({ isActive, username, url }) =>
       ),
     },
     {
-      key: '2',
-      label: (
-        <Link to="/settings">
-          <Space>
-            <SettingOutlined />
-            Settings
-          </Space>
-        </Link>
-      ),
-    },
-    {
       type: 'divider',
     },
     {
-      key: '3',
+      key: '2',
       label: (
         <span onClick={handleLogout}>
           <Space>

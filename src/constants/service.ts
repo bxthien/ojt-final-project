@@ -163,22 +163,20 @@ export interface Transaction {
 }
 
 export interface Order {
-  cartId: string;
-  couponCode: string | null;
-  discount: number;
-  isDelete: boolean;
   price: number;
-  status: string;
-  address: string;
-  createdAt: string;
-  updateAt: string;
+  orderId: string;
   methodShipping: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
   transactions: Transaction[];
 }
 
-export const getOrders = async (): Promise<Order[]> => {
+export const getOrders = async (userId: string): Promise<Order[]> => {
   try {
-    const { data: response }: { data: Order[] } = await axiosInstance.get(`/cart/history/`);
+    const { data: response }: { data: Order[] } = await axiosInstance.get(
+      `/orders/history/${userId}`
+    );
 
     if (!Array.isArray(response)) {
       throw new Error('Invalid data format: expected an array of orders.');

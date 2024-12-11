@@ -8,7 +8,7 @@ export interface AuthState {
   url: string;
 }
 
-const checkAuth = (): boolean => !!getStorageData(ACCESS_TOKEN);
+const checkAuth = (): boolean => Boolean(getStorageData(ACCESS_TOKEN));
 
 const initialState: AuthState = {
   isAuth: checkAuth(),
@@ -23,17 +23,20 @@ const authSlice = createSlice({
     login: (state) => {
       state.isAuth = true;
     },
-    logout: (state) => {
+    logout(state) {
       state.isAuth = false;
       state.username = '';
       state.url = '';
     },
     updateProfile: (state, action) => {
-      if (action.payload?.username || action.payload?.url) {
+      if (state.isAuth && (action.payload?.username || action.payload?.url)) {
         state.username = action.payload.username || state.username;
         state.url = action.payload.url || state.url;
       } else {
-        console.warn('Invalid payload for updateProfile:', action.payload);
+        console.warn(
+          'Invalid payload for updateProfile or user not authenticated:',
+          action.payload
+        );
       }
     },
   },

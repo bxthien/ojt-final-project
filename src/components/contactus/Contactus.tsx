@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const ContactUs = () => {
+  const { t } = useTranslation();
   // eslint-disable-next-line no-empty-pattern
   const [] = useState({
     name: '',
@@ -9,29 +11,30 @@ const ContactUs = () => {
   });
 
   return (
-    <div className="font-[sans-serif] max-w-6xl max-lg:max-w-3xl mx-auto my-6">
-      <h2 className="text-3xl text-gray-800 font-bold text-center mb-4 mt-2.5">Contact us</h2>
-
-      <div className="bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-lg p-4">
+    <div className="font-[sans-serif] max-w-6xl max-lg:max-w-3xl mx-auto  ">
+      <div className="bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded p-8">
+        <h2 className="text-3xl text-gray-800 font-bold text-center mb-12 mt-2.5">
+          {t('contact.title')}
+        </h2>
         <div className="grid lg:grid-cols-2 items-start gap-12 border border-gray-300 p-3.5 rounded-lg">
           <form className="space-y-3 text-gray-800">
             <input
               type="text"
-              placeholder="Name"
+              placeholder={t('contact.name')}
               className="w-full bg-gray-100 rounded py-3 px-6 text-sm focus:bg-transparent focus:outline-green-600"
             />
             <input
               type="email"
-              placeholder="Email"
+              placeholder={t('contact.email')}
               className="w-full bg-gray-100 rounded py-3 px-6 text-sm focus:bg-transparent focus:outline-green-600"
             />
             <input
-              type="email"
-              placeholder="Phone"
+              type="phone"
+              placeholder={t('contact.phone')}
               className="w-full bg-gray-100 rounded py-3 px-6 text-sm focus:bg-transparent focus:outline-green-600"
             />
             <textarea
-              placeholder="Message"
+              placeholder={t('contact.message')}
               className="w-full bg-gray-100 rounded px-6 text-sm pt-3 focus:bg-transparent focus:outline-green-600"
             ></textarea>
             <div className="flex items-center w-full justify-end">
@@ -39,22 +42,12 @@ const ContactUs = () => {
                 type="button"
                 className="text-white bg-green-600 hover:bg-green-700 rounded text-sm px-6 py-3"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16px"
-                  height="16px"
-                  fill="currentColor"
-                  className="mr-2 inline"
-                  viewBox="0 0 548.244 548.244"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M392.19 156.054 211.268 281.667 22.032 218.58C8.823 214.168-.076 201.775 0 187.852c.077-13.923 9.078-26.24 22.338-30.498L506.15 1.549c11.5-3.697 24.123-.663 32.666 7.88 8.542 8.543 11.577 21.165 7.879 32.666L390.89 525.906c-4.258 13.26-16.575 22.261-30.498 22.338-13.923.076-26.316-8.823-30.728-22.032l-63.393-190.153z"
-                    clip-rule="evenodd"
-                    data-original="#000000"
-                  />
-                </svg>
-                Send Message
+                <path
+                  fillRule="evenodd"
+                  d="M392.19 156.054 211.268 281.667 22.032 218.58C8.823 214.168-.076 201.775 0 187.852c.077-13.923 9.078-26.24 22.338-30.498L506.15 1.549c11.5-3.697 24.123-.663 32.666 7.88 8.542 8.543 11.577 21.165 7.879 32.666L390.89 525.906c-4.258 13.26-16.575 22.261-30.498 22.338-13.923.076-26.316-8.823-30.728-22.032l-63.393-190.153z"
+                  clipRule="evenodd"
+                />
+                {t('contact.sendmessage')}
               </button>
             </div>
           </form>
@@ -78,10 +71,8 @@ const ContactUs = () => {
                 </svg>
               </div>
               <div className="ml-6">
-                <h4 className="text-gray-800 text-base font-bold">Visit office</h4>
-                <p className="text-sm text-gray-500 mt-1">
-                  116 Mai Thuc Lan, Ngu Hanh Son, Da Nang
-                </p>
+                <h4 className="text-gray-800 text-base font-bold">{t('contact.visitoffice')}</h4>
+                <p className="text-sm text-gray-500 mt-1">{t('contact.officeaddress')}</p>
               </div>
             </div>
 
@@ -99,8 +90,8 @@ const ContactUs = () => {
                 </svg>
               </div>
               <div className="ml-6">
-                <h4 className="text-gray-800 text-base font-bold">Call us</h4>
-                <p className="text-sm text-gray-500 mt-1"> +123 456 789</p>
+                <h4 className="text-gray-800 text-base font-bold">{t('contact.callus')}</h4>
+                <p className="text-sm text-gray-500 mt-1">{t('contact.phonenumber')}</p>
               </div>
             </div>
 
@@ -122,8 +113,8 @@ const ContactUs = () => {
                 </svg>
               </div>
               <div className="ml-6">
-                <h4 className="text-gray-800 text-base font-bold">Chat to us</h4>
-                <p className="text-sm text-gray-500 mt-1">Viper@gmail.com</p>
+                <h4 className="text-gray-800 text-base font-bold">{t('contact.chatTitle')}</h4>
+                <p className="text-sm text-gray-500 mt-1">{t('contact.chatEmail')}</p>
               </div>
             </div>
 
@@ -141,8 +132,8 @@ const ContactUs = () => {
                 </svg>
               </div>
               <div className="ml-6">
-                <h4 className="text-gray-800 text-base font-bold">Fax</h4>
-                <p className="text-sm text-gray-500 mt-1">+1-548-2588</p>
+                <h4 className="text-gray-800 text-base font-bold">{t('contact.faxTitle')}</h4>
+                <p className="text-sm text-gray-500 mt-1">{t('contact.faxNumber')}</p>
               </div>
             </div>
           </div>
