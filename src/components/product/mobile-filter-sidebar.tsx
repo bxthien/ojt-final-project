@@ -27,8 +27,8 @@ interface MobileFilterSidebarProps {
   minPrice: number;
   maxPrice: number;
   categories: Category[];
+  onCategorySelect: (newCategory: string[]) => void;
   selectedCategories: string[];
-  onCategorySelect: (categories: string[]) => void;
 }
 
 const MobileFilterSidebar: React.FC<MobileFilterSidebarProps> = ({
