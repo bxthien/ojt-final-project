@@ -25,8 +25,8 @@ const PriceSortSelect: React.FC<PriceSortSelectProps> = ({ priceSortOrder, onPri
         onChange={handleChange}
         className="w-full p-2 border rounded"
       >
-        <option value="ASC">Low to High</option>
-        <option value="DESC">High to Low</option>
+        <option value="ASC">{t('priceSort.lowToHigh')}</option>
+        <option value="DESC">{t('priceSort.highToLow')}</option>
       </select>
     </div>
   );

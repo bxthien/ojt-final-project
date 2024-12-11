@@ -1,6 +1,6 @@
 import useCurrencyFormatter from '../../redux/useCurrencyFormatter';
 
-const ProductDescription = ({ name, price }: { name: string; price: number }) => {
+const ProductDescription = ({ name, price }: { name: string; price: string | number }) => {
   const { formatCurrency } = useCurrencyFormatter();
 
   const formattedPrice = formatCurrency(price);
@@ -12,7 +12,7 @@ const ProductDescription = ({ name, price }: { name: string; price: number }) =>
 
       {/* Giá sản phẩm */}
       <div className="mb-4">
-        <span className="text-2xl font-bold text-[#56B280]">{formattedPrice}</span>
+        <span className="text-2xl font-bold mr-2 text-[#56B280]">{formattedPrice}</span>
       </div>
     </div>
   );

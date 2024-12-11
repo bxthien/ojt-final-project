@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import axiosInstance from '../../services/axios';
 import { useAuth } from '../../hook/useAuth';
 import ShoppingCartOutlined from '@ant-design/icons/lib/icons/ShoppingCartOutlined';
+import useCurrencyFormatter from '../../redux/useCurrencyFormatter';
 
 type ProductCardProps = {
   product: Product;
@@ -13,8 +14,11 @@ type ProductCardProps = {
 const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { name, price } = product;
+  const { name, price, url } = product;
   const isAuth = useAuth();
+
+  // Sử dụng useCurrencyFormatter để định dạng giá tiền
+  const { formatCurrency } = useCurrencyFormatter();
 
   const handleNavigate = () => {
     navigate(`/product-detail/${product.id}`, { state: { product } });
@@ -75,8 +79,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
       >
         <Image
           src={
-            product?.photos[0]?.url
-              ? product?.photos[0]?.url
+            url
+              ? url
               : 'https://coffective.com/wp-content/uploads/2018/06/default-featured-image.png.jpg'
           }
           alt={name}
@@ -114,13 +118,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
         <div className="flex items-center justify-between">
           <p onClick={handleNavigate}>
-            <span className="text-base font-bold text-slate-900"> ${price.toFixed(2)}</span>
+            <span className="text-base font-bold text-slate-900"> {formatCurrency(price)}</span>
           </p>
-          <div
-            className="flex items-center justify-center rounded-md px-5 py-2.5 
-        text-center  font-medium text-whitefocus:outline-none 
-        focus:ring-4 focus:ring-blue-300"
-          >
+          <div className="flex items-center justify-center rounded-md px-5 py-2.5 text-center  font-medium text-whitefocus:outline-none focus:ring-4 focus:ring-blue-300">
             <Button
               onClick={handleAddToCart}
               className=" text-[#56B280] border-gray-400 flex items-center justify-center transition-colors hover:bg-white hover:text-black border-transparent p-0"

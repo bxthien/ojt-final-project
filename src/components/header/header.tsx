@@ -78,7 +78,7 @@ const Header: React.FC = () => {
               <CartIcon cartCount={cartCount} isActive={isActivePath('/cart')} />
               <LanguageSelector />
               {isAuth ? (
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-4 cursor-pointer">
                   {isAuth && (
                     <ProfileIcon username={username} url={url} isActive={pathname === '/profile'} />
                   )}

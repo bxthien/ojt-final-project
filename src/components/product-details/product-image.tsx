@@ -1,7 +1,7 @@
 import { Image } from 'antd';
 
 type ProductImagesProps = {
-  images: string[]; // Danh sách ảnh nhỏ
+  images?: string[] | null; // Danh sách ảnh nhỏ
   onImageSelect: (image: string) => void; // Hàm gọi khi chọn ảnh
   selectedImage: string | null; // Trạng thái ảnh đã chọn
 };
@@ -9,7 +9,7 @@ type ProductImagesProps = {
 const ProductImages = ({ images, onImageSelect, selectedImage }: ProductImagesProps) => {
   return (
     <div className="flex md:flex-row gap-8 overflow-x-auto md:overflow-x-visible">
-      {images.map((image, index) => (
+      {images?.map((image, index) => (
         <div
           key={index}
           className={`relative ${selectedImage === image ? 'border border-black' : ''}`}

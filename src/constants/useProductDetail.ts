@@ -16,12 +16,15 @@ interface Product {
   price: number;
   isDelete: boolean;
   url: string | null;
+  urls: string[] | null;
   info: {
     description: string;
     color: string[];
     size: string[];
     policy: string;
   };
+  color?: string[];
+  size?: string[];
   quantity: number;
   createdAt: string;
   updatedAt: string;

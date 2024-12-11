@@ -70,6 +70,11 @@ const ProductList = () => {
     .sort((a, b) => new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime())
     .slice(0, 12);
 
+  const lowToHighPriceProducts = products
+    .slice() // Tạo một bản sao để không làm thay đổi danh sách gốc
+    .sort((a, b) => a.price - b.price)
+    .slice(0, 12);
+
   const featuredProducts = products.slice(0, 12);
 
   return (
@@ -84,28 +89,41 @@ const ProductList = () => {
         <div className="space-y-8">
           {/* Danh mục New Arrival */}
           <section>
-            <h2 className="text-xl font-bold mb-4">New Arrival</h2>
+            <h2 className="text-xl font-bold mb-4">{t('productList.newArrival')}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-full justify-center">
               {newArrivalProducts.length > 0 ? (
                 newArrivalProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))
               ) : (
-                <p className="text-center">No new arrival products available</p>
+                <p className="text-center">{t('productList.noNewArrival')}</p>
+              )}
+            </div>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold mb-4">{t('productList.bestSeller')}</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-full justify-center">
+              {lowToHighPriceProducts.length > 0 ? (
+                lowToHighPriceProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))
+              ) : (
+                <p className="text-center">{t('productList.noProducts')}</p>
               )}
             </div>
           </section>
 
           {/* Danh mục Featured Products */}
           <section>
-            <h2 className="text-xl font-bold mb-4">Featured Products</h2>
+            <h2 className="text-xl font-bold mb-4">{t('productList.featuredProducts')}</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 max-w-full justify-center">
               {featuredProducts.length > 0 ? (
                 featuredProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))
               ) : (
-                <p className="text-center">No featured products available</p>
+                <p className="text-center">{t('productList.noFeaturedProducts')}</p>
               )}
             </div>
           </section>
