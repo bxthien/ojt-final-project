@@ -14,9 +14,8 @@ import { Product } from '../../constants/fetchProducts';
 import { useTranslation } from 'react-i18next';
 
 const ProductDetailPage = () => {
-  // Lấy productId từ URL
   const { id: productId } = useParams<{ id: string }>();
-  const { t } = useTranslation(); // Sử dụng i18n
+  const { t } = useTranslation();
 
   const mockPhotos = [
     'https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/i/p/iphone-16-pro.png',
@@ -24,10 +23,8 @@ const ProductDetailPage = () => {
     'https://cdsassets.apple.com/live/7WUAS350/images/tech-specs/121030-iphone-16-plus.png',
   ];
 
-  // Sử dụng hook để lấy chi tiết sản phẩm từ API
   const { product, loading, error } = useProductDetail(productId || '');
 
-  // Quản lý trạng thái lựa chọn hình ảnh, màu sắc và dung lượng
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);

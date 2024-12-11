@@ -220,15 +220,26 @@
   },
 
   "myOrders": {
-    "emptyOrderHistory": "Lịch sử đơn hàng của bạn trống",
-    "noOrdersMessage": "Bạn chưa có đơn hàng nào. Vui lòng quay lại sau.",
-    "orderId": "Đơn hàng #{orderId}",
-    "shippingMethod": "Phương thức vận chuyển: {method}",
-    "status": "Trạng thái: {status}",
-    "category": "Danh mục: {category}",
-    "quantityPrice": "Số lượng: {quantity} | Giá: {price} VND",
-    "total": "Tổng: {total} VND",
-    "totalPrice": "Tổng giá: {price} VND"
+    "category": "Danh mục: {{category}}",
+    "quantityPrice": "Số lượng: {{quantity}} | Giá: {{price}} ₫",
+    "total": "Tổng cộng: {{total}} ₫",
+    "emptyOrderHistory": "Lịch sử mua hàng của bạn đang trống",
+    "noOrdersMessage": "Bạn chưa đặt bất kỳ đơn hàng nào.",
+    "orderId": "Mã đơn hàng: {{orderId}}",
+    "shippingMethod": "Phương thức giao hàng: {{method}}",
+    "status": "Trạng thái: {{status}}",
+    "createdAt": "Ngày tạo: {{date}}",
+    "description": "Mô tả: {{description}}",
+    "color": "Màu sắc: {{color}}",
+    "size": "Kích thước: {{size}}",
+    "price": "Giá: {{price}}₫",
+    "quantity": "Số lượng: {{quantity}}",
+    "totalPrice": "Thành tiền: {{total}}₫",
+    "noTransactions": "Không có giao dịch nào cho đơn hàng này.",
+    "invalidDate": "Ngày không hợp lệ",
+    "statusDone": "Hoàn thành",
+    "statusFinish": "Đã giao hàng",
+    "statusPending": "Đang xử lý"
   },
 
   "passwordChange": {

@@ -218,15 +218,26 @@
   },
 
   "myOrders": {
-    "emptyOrderHistory": "Your Order History is Empty",
-    "noOrdersMessage": "You don't have any orders yet. Please come back later.",
-    "orderId": "Order #{orderId}",
-    "shippingMethod": "Shipping Method: {method}",
-    "status": "Status: {status}",
-    "category": "Category: {category}",
-    "quantityPrice": "Quantity: {quantity} | Price: {price} $",
-    "total": "Total: {total} $",
-    "totalPrice": "Total Price: {price} $"
+    "category": "Category: {{category}}",
+    "quantityPrice": "Quantity: {{quantity}} | Price: {{price}} $",
+    "total": "Total: {{total}} $",
+    "emptyOrderHistory": "Your order history is empty",
+    "noOrdersMessage": "You have not placed any orders yet.",
+    "orderId": "Order ID: {{orderId}}",
+    "shippingMethod": "Shipping method: {{method}}",
+    "status": "Status: {{status}}",
+    "createdAt": "Created at: {{date}}",
+    "description": "Description: {{description}}",
+    "color": "Color: {{color}}",
+    "size": "Size: {{size}}",
+    "price": "Price: {{price}}$",
+    "quantity": "Quantity: {{quantity}}",
+    "totalPrice": "Total price: {{total}}$",
+    "noTransactions": "No transactions available for this order.",
+    "invalidDate": "Invalid date",
+    "statusDone": "Completed",
+    "statusFinish": "Delivered",
+    "statusPending": "Processing"
   },
 
   "passwordChange": {
